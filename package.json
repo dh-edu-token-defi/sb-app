@@ -1,0 +1,45 @@
+{
+  "name": "daohaus-dao-app-starter",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@0xsequence/metadata": "^1.2.3",
+    "@daohaus/abis": "^0.4.1",
+    "@daohaus/connect": "^0.4.1",
+    "@daohaus/connect-context": "^0.4.1",
+    "@daohaus/contract-utils": "^0.4.1",
+    "@daohaus/data-fetch-utils": "^0.4.1",
+    "@daohaus/form-builder": "^0.4.1",
+    "@daohaus/form-builder-base": "^0.4.1",
+    "@daohaus/keychain-utils": "^0.4.1",
+    "@daohaus/moloch-v3-data": "^0.4.1",
+    "@daohaus/moloch-v3-fields": "^0.4.1",
+    "@daohaus/moloch-v3-hooks": "^0.4.1",
+    "@daohaus/moloch-v3-legos": "^0.4.1",
+    "@daohaus/moloch-v3-macro-ui": "^0.4.1",
+    "@daohaus/profile-data": "^0.4.1",
+    "@daohaus/tx-builder": "^0.4.1",
+    "@daohaus/ui": "^0.4.1",
+    "@daohaus/utils": "^0.4.1",
+    "ethers": "^5.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
+    "react-router-dom": "^6.4.3",
+    "react-select": "^5.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.22",
+    "@types/react-dom": "^18.0.7",
+    "@types/styled-components": "^5.1.26",
+    "@vitejs/plugin-react": "^2.2.0",
+    "typescript": "^5.0.4",
+    "vite": "^3.2.0"
+  }
+}
