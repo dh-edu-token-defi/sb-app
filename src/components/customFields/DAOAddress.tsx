@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useFormContext } from "react-hook-form";
 
-import { Buildable, WrappedInput, Field } from "@daohaus/ui";
-import { EthAddress, isEthAddress } from "@daohaus/utils";
+import { Buildable, Field } from "@daohaus/ui";
 
-import { fetchNftContractMetadata } from "../../utils/sequenceHelper";
+
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useDHConnect } from "@daohaus/connect";
 import { calculateDAOAddress } from "../../utils/summonTx";
-import { SafeInfo, fetchSafe } from "../../utils/safes";
-import { IFindQueryResult } from "@daohaus/data-fetch-utils";
+
 
 export const DAOAddress = (props: Buildable<Field>) => {
   const { watch, setValue } = useFormContext();

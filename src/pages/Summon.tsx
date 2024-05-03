@@ -52,13 +52,6 @@ const Summon = () => {
           }
         }}
       />
-      {txSuccess && <LinkButton
-        showExternalIcon={true}
-        target="_blank"
-        href={`${ADMIN_URL}`}
-      >
-        Go to Topic List
-      </LinkButton>}
     </SingleColumnLayout>
   );
 };

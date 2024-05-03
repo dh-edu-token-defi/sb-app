@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { Buildable, WrappedInput, Field } from "@daohaus/ui";
-import { EthAddress, isEthAddress } from "@daohaus/utils";
+import { Buildable, Field } from "@daohaus/ui";
 
-import { fetchNftContractMetadata } from "../../utils/sequenceHelper";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useDHConnect } from "@daohaus/connect";
 import { calculateCreateProxyWithNonceAddress } from "../../utils/summonTx";
-import { SafeInfo, fetchSafe } from "../../utils/safes";
+import { SafeInfo } from "../../utils/safes";
 import { IFindQueryResult } from "@daohaus/data-fetch-utils";
 
 export const ManagerAddress = (props: Buildable<Field>) => {

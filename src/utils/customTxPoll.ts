@@ -1,7 +1,6 @@
 import { Keychain, ValidNetwork } from "@daohaus/keychain-utils";
 import {
   ListTxsQueryVariables,
-  findDao,
   findTransaction,
   listDaos,
 } from "@daohaus/moloch-v3-data";

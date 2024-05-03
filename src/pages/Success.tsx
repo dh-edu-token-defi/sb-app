@@ -27,23 +27,16 @@ const Success = () => {
   return (
     <SingleColumnLayout>
       <ButtonContainer>
-        <H3 style={{ marginBottom: "3rem" }}>You summoned your DAO.</H3>
+        <H3 style={{ marginBottom: "3rem" }}>You summoned A meme.</H3>
+
+
         <Button color="secondary" fullWidth>
           <LinkButton
             showExternalIcon={true}
             target="_blank"
-            href={`${ADMIN_URL}/#/molochv3/${chainId}/${daoId}/activate`}
+            href={``}
           >
-            Activate Page
-          </LinkButton>
-        </Button>
-        <Button color="secondary" fullWidth>
-          <LinkButton
-            showExternalIcon={true}
-            target="_blank"
-            href={`${ADMIN_URL}/#/molochv3/${chainId}/${daoId}/settings`}
-          >
-            DAO Settings
+            Details
           </LinkButton>
         </Button>
       </ButtonContainer>

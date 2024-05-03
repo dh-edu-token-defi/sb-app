@@ -21,8 +21,6 @@ import { LOCAL_ABI } from "@daohaus/abis";
 import safeAbi from "../abis/safe.json";
 import safeL2Abi from "../abis/safeL2.json";
 import basicHOSSummoner from "../abis/basicHOSSummoner.json";
-import nftShamanHosSummoner from "../abis/nftShamanSummoner.json";
-import nftCuratorShaman from "../abis/nftCuratorShaman.json"
 import yeet24HosSummoner from "../abis/yeet24Summoner.json";
 
 
@@ -32,11 +30,6 @@ import { handleKeychains } from "@daohaus/contract-utils";
 
 import {
   DEFAULT_SUMMON_VALUES,
-  LOOT_NAME,
-  LOOT_SYMBOL,
-  SHARE_NAME,
-  SHARE_PER_NFT,
-  SHARE_SYMBOL,
   CURATOR_CONTRACTS,
   YEETER_SHAMAN_PERMISSIONS,
   MEME_SHAMAN_PERMISSIONS,
@@ -46,23 +39,6 @@ import { createEthersContract } from "@daohaus/tx-builder";
 import { BigNumber, ethers } from "ethers";
 import { SaltNonce } from "../components/customFields/SaltNonce";
 
-export const calcAmountPerNft = ({
-  lootTokenSupply,
-  airdropAllocation,
-  maxClaims,
-}: {
-  lootTokenSupply: string | number;
-  airdropAllocation: string | number;
-  maxClaims: string | number;
-}) => {
-  const lootToVault =
-    BigInt(lootTokenSupply) -
-    (BigInt(lootTokenSupply) * BigInt(airdropAllocation)) / 100n;
-  const lootToShaman = BigInt(lootTokenSupply) - lootToVault;
-  const loot = BigInt(lootToShaman) / BigInt(maxClaims);
-
-  return parseEther(loot.toString());
-};
 
 export type SummonParams = {
   daoName?: string;
@@ -148,83 +124,6 @@ export const assembleMemeSummonerArgs = (args: ArbitraryState) => {
   console.log("txArgs", txArgs);
 
   return txArgs;
-};
-
-const assembleFixedLootTokenParams = ({
-  formValues,
-  chainId,
-}: {
-  formValues: Record<string, unknown>;
-  chainId: ValidNetwork;
-}) => {
-  const tokenName = formValues["lootTokenName"];
-  const tokenSymbol = formValues["lootTokenSymbol"];
-  const lootSingleton = CURATOR_CONTRACTS["FIXED_LOOT_SINGLETON"][chainId];
-  const initialHolders = [] as EthAddress[];
-  const lootTokenSupply = formValues["lootTokenSupply"];
-  const airdropAllocation = formValues["airdropAllocation"];
-
-  if (
-    !isString(tokenName) ||
-    !isString(tokenSymbol) ||
-    !lootSingleton ||
-    !isNumberish(lootTokenSupply) ||
-    !isNumberish(airdropAllocation)
-  ) {
-    console.log("ERROR: Form Values", formValues);
-
-    throw new Error(
-      "assembleFixedLootTokenParams recieved arguments in the wrong shape or type"
-    );
-  }
-  const lootToVault =
-    BigInt(lootTokenSupply) -
-    (BigInt(lootTokenSupply) * BigInt(airdropAllocation)) / 100n;
-
-  const lootToShaman = BigInt(lootTokenSupply) - lootToVault;
-
-  console.log(
-    "loot token: lootTokenSupply, airdropAllocation, lootToShaman, lootToVault",
-    lootTokenSupply,
-    airdropAllocation,
-    lootToShaman,
-    lootToVault
-  );
-
-  const lootParams = encodeValues(
-    ["string", "string", "address[]", "uint256[]"],
-    [tokenName, tokenSymbol, initialHolders, [lootToShaman, lootToVault]]
-  );
-
-  return encodeValues(["address", "bytes"], [lootSingleton, lootParams]);
-};
-
-const assembleLootTokenParamsNew = ({
-  formValues,
-  chainId,
-}: {
-  formValues: Record<string, unknown>;
-  chainId: ValidNetwork;
-}) => {
-  const lootSingleton = CURATOR_CONTRACTS["GOV_LOOT_SINGLETON"][chainId];
-  const daoName = formValues["daoName"] as string;
-  const tokenName = formValues["lootTokenName"] as string;
-  const tokenSymbol = formValues["lootTokenSymbol"] as string;
-
-  if (!isString(daoName) || !lootSingleton) {
-    console.log("ERROR: Form Values", formValues);
-
-    throw new Error(
-      "assembleLootTokenParams recieved arguments in the wrong shape or type"
-    );
-  }
-
-  const lootParams = encodeValues(
-    ["string", "string", "address[]", "uint256[]"],
-    [tokenName, tokenSymbol, [], []]
-  );
-
-  return encodeValues(["address", "bytes"], [lootSingleton, lootParams]);
 };
 
 const assembleLootTokenParams = ({
@@ -583,30 +482,6 @@ const metadataConfigTX = (formValues: FormValuesWithTags, memberAddress: EthAddr
     0,
     METADATA,
   ]);
-  if (isString(encoded)) {
-    return encoded;
-  }
-  throw new Error("Encoding Error");
-};
-
-const initialContentTX = (formValues: SummonParams, memberAddress: EthAddress, chainId: ValidNetwork) => {
-
-  console.log("shaman >>>", formValues.calculatedShamanAddress);
-
-  const DATA = encodeFunction(nftCuratorShaman, "introPost", [
-    memberAddress,
-    assembleInitialContent({formValues, memberAddress, chainId}),
-  ]);
-
-  console.log("DATA >>>", DATA);
-
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, "executeAsBaal", [
-    formValues.calculatedShamanAddress,
-    0,
-    DATA,
-  ]);
-
-  console.log("encoded >>>", encoded);
   if (isString(encoded)) {
     return encoded;
   }
