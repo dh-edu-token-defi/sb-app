@@ -35,7 +35,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xaa36a7": "0x62ff4ca410e9e58f5ce8b2ad03695ef0ad990381"
   },
   YEET24_SINGLETON: {
-    "0xaa36a7": "0x5425451EfEAA5479D0Fc8C1Bb8210F43c7e8f2B6", // "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7"
+    "0xaa36a7": "0xc099d3f30d5ad51497b72d17e1b75f7d8e921410", // "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7"
   },
   FIXED_LOOT_SINGLETON: {
     // "0x1": "0x9d42696a9c3c54952b8918dcbcb82dd710347c77",
