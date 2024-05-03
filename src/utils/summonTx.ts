@@ -39,7 +39,8 @@ import {
   SHARE_SYMBOL,
   CURATOR_CONTRACTS,
   YEETER_SHAMAN_PERMISSIONS,
-  MEME_SHAMAN_PERMISSIONS
+  MEME_SHAMAN_PERMISSIONS,
+  DEFAULT_YEETER_VALUES
 } from "./constants";
 import { createEthersContract } from "@daohaus/tx-builder";
 import { BigNumber, ethers } from "ethers";
@@ -286,8 +287,8 @@ const assembleShareTokenParams = ({
   const shareParams = encodeValues(
     ["string", "string"],
     [
-      daoName + " " + SHARE_NAME,
-      "v" + tokenSymbol
+      daoName,
+      tokenSymbol
     ]
   );
 
@@ -328,6 +329,7 @@ console.log("??????????", price, memberAddress, yeeterShamanSingleton, content);
     );
   }
 
+  // (uint256 threshold, uint256 expiration, uint256 poolFee, ) 
   const memeYeeterShamanParams = encodeValues(
     ["uint256", "uint256", "uint256", "address"],
     [
@@ -343,6 +345,14 @@ console.log("??????????", price, memberAddress, yeeterShamanSingleton, content);
   var tomorrow = new Date();
   tomorrow.setDate(today.getDate()+1)
 
+  // uint256 _startTime,
+  // uint256 _endTime,
+  // bool _isShares,
+  // uint256 _minTribute,
+  // uint256 _multiplier,
+  // uint256 _goal,
+  // address[] memory _feeRecipients,
+  // uint256[] memory _feeAmounts
   const yeeterShamanParams = encodeValues(
     [
       "uint256",
@@ -357,12 +367,15 @@ console.log("??????????", price, memberAddress, yeeterShamanSingleton, content);
     [
       Math.floor(Number(today) / 1000),
       Math.floor(Number(tomorrow) / 1000),
-      false,
+      DEFAULT_YEETER_VALUES.isShares,
       price,
-      100,
-      "1000000000000000",
+      DEFAULT_YEETER_VALUES.multiplier,
+      "1000000000000000000", // goal?
       ["0xD0f8720846890a7961945261FE5012E4cA39918e"],
       ["30000"],
+      // not working
+      // DEFAULT_YEETER_VALUES.feeRecipients,
+      // DEFAULT_YEETER_VALUES.feeRecipients,
     ]
   );
 

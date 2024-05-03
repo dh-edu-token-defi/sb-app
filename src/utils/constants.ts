@@ -17,7 +17,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
 
   },
   YEET24_SUMMONER: {
-    "0xaa36a7": "0xc5ec2eabfd8d1a1e38896ad2ec1d452f66dac761", // "0x70132cd79f90306bc68c1930f4364452a17aa552" // "0x4bb5d274dea3542bb836cba64bd7eed63233cb58"
+    "0xaa36a7": "0x0186367008471e62c3f6fd26988dec92361398ea", // "0xc5ec2eabfd8d1a1e38896ad2ec1d452f66dac761", // "0x70132cd79f90306bc68c1930f4364452a17aa552" // "0x4bb5d274dea3542bb836cba64bd7eed63233cb58"
 
   },
   BASIC_HOS_SUMMONER: {
@@ -35,7 +35,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xaa36a7": "0x62ff4ca410e9e58f5ce8b2ad03695ef0ad990381"
   },
   YEET24_SINGLETON: {
-    "0xaa36a7": "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7"
+    "0xaa36a7": "0xdbd69005aff25ec2b458125697580b997c5f7c58", // "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7"
   },
   FIXED_LOOT_SINGLETON: {
     // "0x1": "0x9d42696a9c3c54952b8918dcbcb82dd710347c77",
@@ -101,13 +101,13 @@ export const CURATOR_CONTRACTS: KeychainList = {
 export const SHARE_PER_NFT = "1000000000000000000";
 export const YEETER_SHAMAN_PERMISSIONS = "2";
 export const MEME_SHAMAN_PERMISSIONS = "3";
-export const SHARE_NAME = "Ops";
-export const SHARE_SYMBOL = "sVOTE";
+export const SHARE_NAME = "";
+export const SHARE_SYMBOL = "";
 export const LOOT_NAME = "Community Power";
 export const LOOT_SYMBOL = "sLOOT";
 export const DEFAULT_SUMMON_VALUES = {
     //votingPeriodInSeconds: 259200,
-  votingPeriodInSeconds: 666,
+  votingPeriodInSeconds: 200,
     // gracePeriodInSeconds: 172800,
   gracePeriodInSeconds: 6,
   newOffering: "10000000000000000",
@@ -123,9 +123,9 @@ export const ADMIN_URL = "https://dinhaus.github.io/din-admin";
 
 
 export const DEFAULT_YEETER_VALUES = {
-  isShares: false,
-  feeRecipients: ["0xD0f8720846890a7961945261FE5012E4cA39918e"],
-  feeAmounts: ["30000"],
+  isShares: true,
+  feeRecipients: ["0xd0f8720846890a7961945261fe5012e4ca39918e", "0x4a9a27d614a74ee5524909ca27bdbcbb7ed3b315"], // yeeter team, daohaus eco fund
+  feeAmounts: ["5000", "5000"], // .5% fees
   lootPerYeet: "100",
   multiplier: "100",
 };
