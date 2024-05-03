@@ -371,11 +371,9 @@ console.log("??????????", price, memberAddress, yeeterShamanSingleton, content);
       price,
       DEFAULT_YEETER_VALUES.multiplier,
       "1000000000000000000", // goal?
-      ["0xD0f8720846890a7961945261FE5012E4cA39918e"],
-      ["30000"],
-      // not working
-      // DEFAULT_YEETER_VALUES.feeRecipients,
-      // DEFAULT_YEETER_VALUES.feeRecipients,
+      DEFAULT_YEETER_VALUES.feeRecipients,
+      DEFAULT_YEETER_VALUES.feeAmounts,
+
     ]
   );
 
