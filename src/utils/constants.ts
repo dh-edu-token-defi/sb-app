@@ -1,6 +1,6 @@
 import { KeychainList } from "@daohaus/keychain-utils";
 
-export const NFT_DAO_REFERRER = "DHNFTCuratorShamanSummonerV0.3"; 
+export const YEET24_REFERRER = "DHYeet24ShamanSummoner.3"; 
 
 export const CURATOR_CONTRACTS: KeychainList = {
 

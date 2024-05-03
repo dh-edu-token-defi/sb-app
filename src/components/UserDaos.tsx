@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { BiColumnLayout, Button, Link } from "@daohaus/ui";
 import { Link as RouterLink } from "react-router-dom";
 import { supportedNetorks } from "../main";
-import { ADMIN_URL, NFT_DAO_REFERRER } from "../utils/constants";
+import { ADMIN_URL, YEET24_REFERRER } from "../utils/constants";
 import { useDaosByUser } from "@daohaus/moloch-v3-hooks";
 import { DaoCard } from "./DaoCard";
 import { MolochV3Membership } from "@daohaus/utils";
@@ -40,7 +40,7 @@ export const UserDaos = () => {
             const query = await listDaos({
                 networkId: chainId as ValidNetwork,
                 filter: {
-                    referrer: NFT_DAO_REFERRER,
+                    referrer: YEET24_REFERRER,
                     createdBy: address,
                 },
             });

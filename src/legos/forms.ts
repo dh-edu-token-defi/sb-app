@@ -2,11 +2,6 @@ import { CustomFormLego } from "./fieldConfig";
 import { APP_FIELD } from "./fields";
 import { APP_TX } from "./tx";
 
-// todo: support a link under description - do on page
-// description font is data instead of body
-// custom nft collection field
-// move submitButtonText to lego level in package
-
 export const APP_FORM: Record<string, CustomFormLego> = {
   SUMMON_MEME: {
     id: "SUMMON_MEME",
@@ -75,62 +70,5 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       APP_FIELD.MANAGER_ACCOUNT,
       APP_FIELD.PARAM_TAG_FIELD,
       APP_FIELD.TAGS_MULTISELECT_FIELD,
-      {
-        id: "parentCheckGateRender",
-        type: "checkGateRender",
-        gateLabel:
-          "Is this a sub dao of another DAO? (optional)",
-        clearFieldIdsOnUnchecked: [
-          "parentDAOAddress"
-        ],
-        components: [
-          
-      {
-        id: "parentDAOSegment",
-        type: "formSegment",
-        title: "Sub DAO",
-        description:
-          "If you are creating a sub DAO, enter the parent DAO address here.",
-        fields: [
-          {
-            id: "parentDAOAddress",
-            type: "input",
-            label: "Parent DAO Address",
-          }
-        ],
-      },
-    ],
-  }
 ]
 }};
-
-// {
-//   id: "supplyAllocationSegment",
-//   type: "formSegment",
-//   showDivider: false,
-//   fields: [
-//     {
-//       id: "supplyAllocation",
-//       type: "splitColumn",
-//       rows: [
-//         {
-//           rowId: "row2",
-//           left: {
-//             id: "lootTokenSupply",
-//             type: "input",
-//             label: "Meme Token Supply",
-//             placeholder: "69,420,000",
-//             expectType: "number",
-//           },
-//           right: {
-//             id: "lootTokenAllocation",
-//             type: "input",
-//             label: "Holder Allocation %",
-//             placeholder: "30",
-//             expectType: "percent",
-//           },
-//         },
-//       ],
-//     },
-//   ],
-// },
