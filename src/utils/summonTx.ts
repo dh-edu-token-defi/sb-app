@@ -445,8 +445,8 @@ const assembleInitActions = ({
       governanceConfigTX(DEFAULT_SUMMON_VALUES),
       metadataConfigTX(formValues, memberAddress, POSTER.toLowerCase()),
       tokenConfigTX(),
-      tokenDistroTX(formValues, memberAddress),
-      managerAccountConfigTX(formValues, saltNonce, chainId),
+      // tokenDistroTX(formValues, memberAddress),
+      shamanModuleConfigTX(formValues, saltNonce, chainId),
       // this will not be indexed as is. move intro post to metadataConfigTX
       // introPostConfigTX(formValues, memberAddress, POSTER.toLowerCase(), chainId), 
     ];
@@ -613,7 +613,7 @@ const initialContentTX = (formValues: SummonParams, memberAddress: EthAddress, c
   throw new Error("Encoding Error");
 };
 
-const managerAccountConfigTX = (
+const shamanModuleConfigTX = (
   formValues: Record<string, unknown>,
   saltNonce: string,
   chainId: ValidNetwork
