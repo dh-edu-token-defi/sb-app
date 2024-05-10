@@ -28,7 +28,7 @@ const Landing = () => {
     <>
       {chainId && chainId in supportedNetorks ? (
         <BiColumnLayout
-          subtitle="Welcome to the DIN summoner"
+          subtitle="Welcome to the MEME summoner"
           title="MEME YEETER - Decentralized Meme Factory"
           left={(
             <div>

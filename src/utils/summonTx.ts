@@ -465,7 +465,7 @@ const metadataConfigTX = (formValues: FormValuesWithTags, memberAddress: EthAddr
                 queryType: 'list',
                 description: description || "",
                 longDescription: body || "",
-                avatarImg: headerImage || "",
+                avatarImg: headerImage || "", // TODO: is this the right field?
                 title: `${daoName} tst`,
                 tags: ["YEET24", "Incarnation", paramTag || "topic", ...tags],
                 authorAddress: memberAddress,
