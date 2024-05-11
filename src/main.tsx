@@ -7,11 +7,10 @@ import { DHConnectProvider } from "@daohaus/connect";
 import { HausThemeProvider } from "@daohaus/ui";
 import { HAUS_NETWORK_DATA } from "@daohaus/keychain-utils";
 
-import { Routes } from "./Routes";
-
 import { dinDarkTheme } from "./themes/dark";
 
 import "./App.css";
+import { App } from "./App";
 
 // import { Buffer } from "buffer";
 // // This solves an issue when using WalletConnect and intercept Txs to create dao proposals
@@ -33,7 +32,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <QueryClientProvider client={queryClient}>
         <DHConnectProvider networks={supportedNetorks}>
           <HausThemeProvider defaultDark={dinDarkTheme}>
-            <Routes />
+            <App />
           </HausThemeProvider>
         </DHConnectProvider>
       </QueryClientProvider>

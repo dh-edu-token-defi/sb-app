@@ -1,16 +1,19 @@
-import { KeychainList } from "@daohaus/keychain-utils";
+import {
+  HAUS_NETWORK_DATA,
+  Keychain,
+  KeychainList,
+  NetworkConfig,
+  ValidNetwork,
+} from "@daohaus/keychain-utils";
 
-export const YEET24_REFERRER = "DHYeet24ShamanSummoner.3"; 
+export const YEET24_REFERRER = "DHYeet24ShamanSummoner.3";
 
 export const CURATOR_CONTRACTS: KeychainList = {
-
-
   YEET24_SUMMONER: {
     "0xaa36a7": "0x0186367008471e62c3f6fd26988dec92361398ea", // "0xc5ec2eabfd8d1a1e38896ad2ec1d452f66dac761", // "0x70132cd79f90306bc68c1930f4364452a17aa552" // "0x4bb5d274dea3542bb836cba64bd7eed63233cb58"
-
   },
   YEETER_SINGLETON: {
-    "0xaa36a7": "0x62ff4ca410e9e58f5ce8b2ad03695ef0ad990381"
+    "0xaa36a7": "0x62ff4ca410e9e58f5ce8b2ad03695ef0ad990381",
   },
   YEET24_SINGLETON: {
     "0xaa36a7": "0xc099d3f30d5ad51497b72d17e1b75f7d8e921410", // "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7"
@@ -24,7 +27,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
     // "0x1": "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7",
     // "0x5": "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7",
     // "0xa": "0x1597e36560a4935e8ba40520d2f3037fd111054c",
-    "0xaa36a7": "0x8a4a9e36106ee290811b89e06e2fafe913507965"
+    "0xaa36a7": "0x8a4a9e36106ee290811b89e06e2fafe913507965",
   },
 
   GNOSIS_SAFE_PROXY_FACTORY: {
@@ -39,10 +42,45 @@ export const CURATOR_CONTRACTS: KeychainList = {
     // "0xa": "0xfb1bffc9d739b8d520daf37df666da4c687191ea", // "0xd9db270c1b5e3bd161e8c8503c55ceabee709552",
     "0xaa36a7": "0x69f4d1788e39c87893c980c06edf4b7f686e2938",
   },
-
 };
 
 /// https://docs.tokenbound.org/contracts/deployments
+
+type KEYCHAIN = {
+  [key: string]: string;
+};
+
+export const YEETER_GRAPH_URL: KEYCHAIN = {
+  // "0xaa36a7": `https://gateway-arbitrum.network.thegraph.com/api/${
+  //   import.meta.env.VITE_YEETER_GRAPH_API_KEY
+  // }/subgraphs/id/8Syem3ZN88cut1wL8AqPHNo658Px7M2CkRuHAGuxvf6j`,
+  "0xaa36a7": `https://api.studio.thegraph.com/query/73494/yeeter-sepolia/0.0.2`,
+  "0x64": `https://gateway-arbitrum.network.thegraph.com/api/${
+    import.meta.env.VITE_YEETER_GRAPH_API_KEY
+  }/subgraphs/id/EGG5xEkiKKtGa9frTfBSmL2w7ZmzPDke5ZuvxDRwQcGe`,
+  "0xa": `https://gateway-arbitrum.network.thegraph.com/api/${
+    import.meta.env.VITE_YEETER_GRAPH_API_KEY
+  }/subgraphs/id/55wEbRchfvjtWsy5NqLc4hp9C7xbX9yk8bAr3UQA8F7x`,
+  "0xa4b1": `https://gateway-arbitrum.network.thegraph.com/api/${
+    import.meta.env.VITE_YEETER_GRAPH_API_KEY
+  }/subgraphs/id/BeGugH1TsMspZ7Nov1Uq2PQ98X78sqjuEy1JFGLyNgt5`,
+  "0x2105": `https://gateway-arbitrum.network.thegraph.com/api/${
+    import.meta.env.VITE_YEETER_GRAPH_API_KEY
+  }/subgraphs/id/6vyAqRpCyrhLsfd6TfYAssvKywKhxJykkDbPxJZ4ZcEr`,
+};
+
+export const targetNetworks: Keychain<NetworkConfig> = {
+  "0xaa36a7": HAUS_NETWORK_DATA["0xaa36a7"],
+  "0x64": HAUS_NETWORK_DATA["0x64"],
+  "0xa": HAUS_NETWORK_DATA["0xa"],
+  "0xa4b1": HAUS_NETWORK_DATA["0xa4b1"],
+  "0x2105": HAUS_NETWORK_DATA["0x2105"],
+};
+export const DEFAULT_CHAIN_ID = "0xaa36a7";
+
+export const getValidChainId = (chainId?: string) => {
+  return targetNetworks[chainId as ValidNetwork]?.chainId || DEFAULT_CHAIN_ID;
+};
 
 export const SPONSOR_THRESHOLD = "1000000000000000000";
 export const YEETER_SHAMAN_PERMISSIONS = "2";
@@ -52,9 +90,9 @@ export const SHARE_SYMBOL = "";
 export const LOOT_NAME = "Community Power";
 export const LOOT_SYMBOL = "LOOT";
 export const DEFAULT_SUMMON_VALUES = {
-    //votingPeriodInSeconds: 259200,
+  //votingPeriodInSeconds: 259200,
   votingPeriodInSeconds: 200,
-    // gracePeriodInSeconds: 172800,
+  // gracePeriodInSeconds: 172800,
   gracePeriodInSeconds: 6,
   newOffering: "10000000000000000",
   //   quorum: "20",
@@ -67,11 +105,15 @@ export const DEFAULT_SUMMON_VALUES = {
 
 export const ADMIN_URL = "";
 
-
 export const DEFAULT_YEETER_VALUES = {
   isShares: true,
-  feeRecipients: ["0xd0f8720846890a7961945261fe5012e4ca39918e", "0x4a9a27d614a74ee5524909ca27bdbcbb7ed3b315"], // yeeter team, daohaus eco fund
+  feeRecipients: [
+    "0xd0f8720846890a7961945261fe5012e4ca39918e",
+    "0x4a9a27d614a74ee5524909ca27bdbcbb7ed3b315",
+  ], // yeeter team, daohaus eco fund
   feeAmounts: ["5000", "5000"], // .5% fees
   lootPerYeet: "100",
   multiplier: "100",
 };
+
+export const MEME_YEETER_SUMMONER_REFERRER = "DHYeet24ShamanSummoner";
