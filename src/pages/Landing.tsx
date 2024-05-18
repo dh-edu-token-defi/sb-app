@@ -8,6 +8,7 @@ import { useYeeters } from "../hooks/useYeeters";
 import { YeeterList } from "../components/YeeterList";
 import { Spacer } from "../components/Layout";
 import { useLatestYeets } from "../hooks/useLatestYeets";
+import { useMyYeeters } from "../hooks/useMyYeeters";
 
 const LinkButton = styled(RouterLink)`
   text-decoration: none;
@@ -28,6 +29,11 @@ const Landing = () => {
     useYeeters({ chainId: DEFAULT_CHAIN_ID });
 
   const { yeets } = useLatestYeets({ chainId: DEFAULT_CHAIN_ID });
+
+  const { myYeeters } = useMyYeeters({
+    chainId: DEFAULT_CHAIN_ID,
+    account: address,
+  });
 
   return (
     <>
@@ -69,6 +75,10 @@ const Landing = () => {
               <H6>Finished</H6>
 
               {finishedYeeters && <YeeterList yeeters={finishedYeeters} />}
+
+              <H6>My Yeeters</H6>
+
+              {myYeeters && <YeeterList yeeters={myYeeters} />}
             </Spacer>
           </div>
         </SingleColumnLayout>
