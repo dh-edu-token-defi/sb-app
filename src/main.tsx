@@ -7,10 +7,9 @@ import { DHConnectProvider } from "@daohaus/connect";
 import { HausThemeProvider } from "@daohaus/ui";
 import { HAUS_NETWORK_DATA } from "@daohaus/keychain-utils";
 
-import { dinDarkTheme } from "./themes/dark";
-
-import "./App.css";
 import { App } from "./App";
+import { dinDarkTheme } from "./themes/dark";
+import "./App.css";
 
 // import { Buffer } from "buffer";
 // // This solves an issue when using WalletConnect and intercept Txs to create dao proposals

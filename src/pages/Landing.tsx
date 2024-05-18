@@ -1,12 +1,6 @@
 import { useDHConnect } from "@daohaus/connect";
 import styled from "styled-components";
-import {
-  BiColumnLayout,
-  Button,
-  Link,
-  ParSm,
-  SingleColumnLayout,
-} from "@daohaus/ui";
+import { Button, H4, H6, Link, ParSm, SingleColumnLayout } from "@daohaus/ui";
 import { Link as RouterLink } from "react-router-dom";
 import { supportedNetorks } from "../main";
 import { ADMIN_URL, DEFAULT_CHAIN_ID } from "../utils/constants";
@@ -25,33 +19,70 @@ const ExternalLinkButton = styled(Link)`
   }
 `;
 
+const Spacer = styled.div`
+  margin: 3rem 0 3rem 0;
+`;
+
 const Landing = () => {
   const { chainId, isConnected, address } = useDHConnect();
 
-  const { yeeters } = useYeeters({ chainId: DEFAULT_CHAIN_ID });
-
-  console.log("yeeters", yeeters);
+  const { allYeeters, activeYeetrs, upcomingYeeters, finishedYeeters } =
+    useYeeters({ chainId: DEFAULT_CHAIN_ID });
 
   return (
     <>
       {chainId && chainId in supportedNetorks ? (
         <SingleColumnLayout
-          subtitle="Welcome to the MEME summoner"
+          subtitle={"Welcome to the MEME summoner".toUpperCase()}
           title="MEME YEETER - Decentralized Meme Factory"
         >
           <div>
-            <h1>Create a meme yeeter</h1>
-            <p>
-              Start with a 24 hr open presale, if the threshold is met the meme
-              will be minted and the presale will close. If the threshold is not
-              met the presale will close and contributors can ragequit. If the
-              meme is minted, a univ3 LP is started and the meme will be
+            <H4>Create a meme yeeter</H4>
+            <ParSm>
+              Start with a 24 hr oParSmen presale, if the threshold is met the
+              meme will be minted and the presale will close. If the threshold
+              is not met the presale will close and contributors can ragequit.
+              If the meme is minted, a univ3 LP is started and the meme will be
               available for purchase on the marketplace. Welcome to fully
               dilluted, unruggable, fair launch yeeter memes.
-            </p>
-            <LinkButton to="/summon/topic">
-              <Button variant="outline">Summon a Meme</Button>
-            </LinkButton>
+            </ParSm>
+            <Spacer>
+              <LinkButton to="/summon/topic">
+                <Button variant="outline">Summon a Meme</Button>
+              </LinkButton>
+            </Spacer>
+
+            <H4>Meme Yeets</H4>
+            <Spacer>
+              <H6>Latest</H6>
+              {allYeeters && (
+                <div>
+                  <pre>{JSON.stringify(allYeeters.slice(0, 3), null, 2)}</pre>
+                </div>
+              )}
+
+              <H6>Active</H6>
+
+              {activeYeetrs && (
+                <div>
+                  <pre>{JSON.stringify(activeYeetrs, null, 2)}</pre>
+                </div>
+              )}
+
+              <H6>Upcoming</H6>
+              {upcomingYeeters && (
+                <div>
+                  <pre>{JSON.stringify(upcomingYeeters, null, 2)}</pre>
+                </div>
+              )}
+              <H6>Finished</H6>
+
+              {finishedYeeters && (
+                <div>
+                  <pre>{JSON.stringify(finishedYeeters, null, 2)}</pre>
+                </div>
+              )}
+            </Spacer>
           </div>
         </SingleColumnLayout>
       ) : (
