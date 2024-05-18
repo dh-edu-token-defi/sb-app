@@ -1,7 +1,7 @@
 const pgDarkFontFamily = {
-  body: `'Calibre,Helvetica,Arial,sans-serif;', monospace`,
-  header: `'Calibre,Helvetica,Arial,sans-serif;', monospace`,
-  data: `'Ubuntu Mono', monospace`,
+  body: `"Jersey 25", sans-serif;`,
+  header: `"Jersey 15", sans-serif;`,
+  data: `"Syne Mono", monospace;`,
 };
 
 export const font = {
