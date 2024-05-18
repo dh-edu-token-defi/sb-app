@@ -70,9 +70,9 @@ export const LATEST_YEETS = gql`
       orderDirection: desc, 
       first: 20,
       where: {
-      dao_: {
-        referrer: "${MEME_YEETER_SUMMONER_REFERRER}"
-      }
+        dao_: {
+          referrer: "${MEME_YEETER_SUMMONER_REFERRER}"
+        }
     }) {
       id
       createdAt
@@ -80,6 +80,31 @@ export const LATEST_YEETS = gql`
       amount
       shares
       message
+    }
+  }
+`;
+
+export const LIST_MY_YEETS = gql`
+  query yeets($account: String!) {
+    yeets(
+      where: { contributor: $account,
+        dao_: {
+          referrer: "${MEME_YEETER_SUMMONER_REFERRER}"
+        }
+       }
+      orderBy: createdAt
+      orderDirection: desc
+      first: 1000
+    ) {
+      id
+      createdAt
+      contributor
+      amount
+      shares
+      message
+      yeeter {
+        ${yeeterFields}
+      }
     }
   }
 `;
