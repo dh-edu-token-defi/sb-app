@@ -1,5 +1,6 @@
 import { formatValueTo, fromWei } from "@daohaus/utils";
 import { YeeterItem } from "./types";
+import { format, formatDistanceToNow } from "date-fns";
 
 export const calcProgressPerc = (a: string, b: string) => {
   let div = Number(a) / Number(b);
@@ -37,6 +38,12 @@ export const calcYeetIsComingSoon = (yeeter: YeeterItem) => {
 
 export const calcYeetIsFull = (yeeter: YeeterItem) => {
   return Number(yeeter.balance) >= Number(yeeter.goal);
+};
+
+export const formatTimeRemaining = (yeeter: YeeterItem) => {
+  return formatDistanceToNow(new Date(Number(yeeter.endTime) * 1000), {
+    addSuffix: true,
+  });
 };
 
 export const formatMinContribution = (yeeter: YeeterItem) => {

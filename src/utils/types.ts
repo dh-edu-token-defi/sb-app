@@ -16,6 +16,8 @@ export type YeeterItem = {
   isEnded: boolean;
   isComingSoon: boolean;
   isFull: boolean;
+  vault: string;
+  timeRemaining: string;
 };
 
 export type YeeterMetadata = {

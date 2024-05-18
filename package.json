@@ -27,6 +27,7 @@
     "@daohaus/tx-builder": "^0.5.1",
     "@daohaus/ui": "^0.5.1",
     "@daohaus/utils": "^0.5.1",
+    "date-fns": "^3.6.0",
     "ethers": "^5.7",
     "graphql": "16.6.0",
     "graphql-request": "6.0.0",
