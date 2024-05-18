@@ -6,17 +6,23 @@ import { ValidNetwork } from "@daohaus/keychain-utils";
 import { CurrentDaoProvider, useDaoData } from "@daohaus/moloch-v3-hooks";
 import { useYeeter } from "../hooks/useYeeter";
 import { useEffect } from "react";
-import { CurrentYeeterProvider } from "../contexts/CurrentYeeterContext";
+import {
+  CurrentYeeterProvider,
+  useCurrentYeeter,
+} from "../contexts/CurrentYeeterContext";
 
 export const DaoContainer = () => {
-  const { proposalId, memberAddress, daoChain, daoId } = useParams<{
+  const { proposalId, memberAddress, daoChain, daoId, yeeterId } = useParams<{
     daoChain: ValidNetwork;
     daoId: string;
     proposalId: string;
     memberAddress: string;
+    yeeterId: string;
   }>();
 
-  if (!daoId || !daoChain) return null;
+  console.log("");
+
+  if (!daoId || !daoChain || !yeeterId) return null;
 
   return (
     <Dao
@@ -24,6 +30,7 @@ export const DaoContainer = () => {
       daoChain={daoChain}
       proposalId={proposalId}
       memberAddress={memberAddress}
+      yeeterId={yeeterId}
     />
   );
 };
@@ -33,11 +40,13 @@ const Dao = ({
   daoChain,
   proposalId,
   memberAddress,
+  yeeterId,
 }: {
   daoId: string;
   daoChain: ValidNetwork;
   proposalId?: string;
   memberAddress?: string;
+  yeeterId: string;
 }) => {
   const location = useLocation();
   const { publicClient, address } = useDHConnect();
@@ -53,19 +62,6 @@ const Dao = ({
       document.body.classList.remove("explosion");
     }
   }, [location]);
-
-  // TODO: get better shaman address
-  const shamanAddress =
-    dao && dao.shamen && dao.shamen.length > 0
-      ? dao.shamen[0].shamanAddress
-      : undefined;
-  const { metadata } = useYeeter({
-    chainId: daoChain,
-    daoId,
-    shamanAddress,
-  });
-
-  console.log("metadata", metadata);
 
   const routePath = `molochv3/${daoChain}/${daoId}`;
 
@@ -95,10 +91,10 @@ const Dao = ({
           appState={{
             dao,
             memberAddress: address,
-            shamanAddress,
+            shamanAddress: yeeterId,
           }}
         >
-          <CurrentYeeterProvider shamanAddress={shamanAddress}>
+          <CurrentYeeterProvider shamanAddress={yeeterId}>
             <Outlet />
           </CurrentYeeterProvider>
         </TXBuilder>

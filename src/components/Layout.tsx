@@ -5,3 +5,7 @@ import styled from "styled-components";
 export const StyledRouterLink = styled(RouterLink)`
   ${LinkStyles}
 `;
+
+export const Spacer = styled.div`
+  margin: 3rem 0 3rem 0;
+`;

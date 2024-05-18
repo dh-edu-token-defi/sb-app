@@ -4,8 +4,10 @@ import { Button, H4, H6, Link, ParSm, SingleColumnLayout } from "@daohaus/ui";
 import { Link as RouterLink } from "react-router-dom";
 import { supportedNetorks } from "../main";
 import { ADMIN_URL, DEFAULT_CHAIN_ID } from "../utils/constants";
-import { UserDaos } from "../components/UserDaos";
 import { useYeeters } from "../hooks/useYeeters";
+import { YeeterList } from "../components/YeeterList";
+import { Spacer } from "../components/Layout";
+import { useLatestYeets } from "../hooks/useLatestYeets";
 
 const LinkButton = styled(RouterLink)`
   text-decoration: none;
@@ -19,15 +21,13 @@ const ExternalLinkButton = styled(Link)`
   }
 `;
 
-const Spacer = styled.div`
-  margin: 3rem 0 3rem 0;
-`;
-
 const Landing = () => {
   const { chainId, isConnected, address } = useDHConnect();
 
   const { allYeeters, activeYeetrs, upcomingYeeters, finishedYeeters } =
     useYeeters({ chainId: DEFAULT_CHAIN_ID });
+
+  const { yeets } = useLatestYeets({ chainId: DEFAULT_CHAIN_ID });
 
   return (
     <>
@@ -54,34 +54,21 @@ const Landing = () => {
 
             <H4>Meme Yeets</H4>
             <Spacer>
-              <H6>Latest</H6>
-              {allYeeters && (
-                <div>
-                  <pre>{JSON.stringify(allYeeters.slice(0, 3), null, 2)}</pre>
-                </div>
-              )}
+              <H6>Latest Tokens</H6>
+              {allYeeters && <YeeterList yeeters={allYeeters.slice(0, 3)} />}
+              <H6>Latest Yeets</H6>
+
+              {yeets && <pre>{JSON.stringify(yeets, null, 2)}</pre>}
 
               <H6>Active</H6>
 
-              {activeYeetrs && (
-                <div>
-                  <pre>{JSON.stringify(activeYeetrs, null, 2)}</pre>
-                </div>
-              )}
+              {activeYeetrs && <YeeterList yeeters={activeYeetrs} />}
 
               <H6>Upcoming</H6>
-              {upcomingYeeters && (
-                <div>
-                  <pre>{JSON.stringify(upcomingYeeters, null, 2)}</pre>
-                </div>
-              )}
+              {upcomingYeeters && <YeeterList yeeters={upcomingYeeters} />}
               <H6>Finished</H6>
 
-              {finishedYeeters && (
-                <div>
-                  <pre>{JSON.stringify(finishedYeeters, null, 2)}</pre>
-                </div>
-              )}
+              {finishedYeeters && <YeeterList yeeters={finishedYeeters} />}
             </Spacer>
           </div>
         </SingleColumnLayout>

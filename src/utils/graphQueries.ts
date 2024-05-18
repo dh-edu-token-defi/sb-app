@@ -16,6 +16,7 @@ minTribute
 goal
 balance
 yeetCount
+vault
 `;
 
 export const GET_YEETER = gql`
@@ -52,6 +53,27 @@ export const LIST_YEETS = gql`
       orderDirection: desc
       first: 1000
     ) {
+      id
+      createdAt
+      contributor
+      amount
+      shares
+      message
+    }
+  }
+`;
+
+export const LATEST_YEETS = gql`
+  {
+    yeets(
+      orderBy: createdAt, 
+      orderDirection: desc, 
+      first: 20,
+      where: {
+      dao_: {
+        referrer: "${MEME_YEETER_SUMMONER_REFERRER}"
+      }
+    }) {
       id
       createdAt
       contributor

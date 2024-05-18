@@ -44,7 +44,7 @@ export const Routes = ({
         <Route path={`success/:daoId`} element={<Success />} />
       </Route>
       <Route path={MULTI_DAO_ROUTER} element={<DaoContainer />}>
-        <Route index element={<Yeet />} />
+        <Route path={`:yeeterId`} element={<Yeet />} />
       </Route>
     </Router>
   );
