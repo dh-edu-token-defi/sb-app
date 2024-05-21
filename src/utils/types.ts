@@ -4,18 +4,19 @@ export type YeeterItem = {
   dao: {
     id: string;
   };
+  balance: string;
+  safeBalance: string;
   endTime: string;
   startTime: string;
   isShares: boolean;
   multiplier: string;
   minTribute: string;
   goal: string;
-  balance: string;
   yeetCount: string;
   isActive: boolean;
   isEnded: boolean;
   isComingSoon: boolean;
-  isFull: boolean;
+  reachedGoal: boolean;
   vault: string;
   timeRemaining: string;
 };

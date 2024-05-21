@@ -36,8 +36,11 @@ export const calcYeetIsComingSoon = (yeeter: YeeterItem) => {
   return Number(yeeter.startTime) > now;
 };
 
-export const calcYeetIsFull = (yeeter: YeeterItem) => {
-  return Number(yeeter.balance) >= Number(yeeter.goal);
+export const calcYeetReachedGoal = (
+  safeBalance: string,
+  yeeter: YeeterItem
+) => {
+  return Number(safeBalance) >= Number(yeeter.goal);
 };
 
 export const formatTimeRemaining = (yeeter: YeeterItem) => {

@@ -1,5 +1,8 @@
+import { Chain, sepolia } from "viem/chains";
+
 import {
   HAUS_NETWORK_DATA,
+  HAUS_RPC,
   Keychain,
   KeychainList,
   NetworkConfig,
@@ -7,6 +10,7 @@ import {
 } from "@daohaus/keychain-utils";
 
 export const YEET24_REFERRER = "DHYeet24ShamanSummoner.3";
+export const YEET24_NAME = "Yeet24ShamanModule";
 
 export const CURATOR_CONTRACTS: KeychainList = {
   YEET24_SUMMONER: {
@@ -77,6 +81,16 @@ export const targetNetworks: Keychain<NetworkConfig> = {
   "0x2105": HAUS_NETWORK_DATA["0x2105"],
 };
 export const DEFAULT_CHAIN_ID = "0xaa36a7";
+
+export const CHAIN_OBJ: {
+  [key: string]: Chain;
+} = {
+  "0xaa36a7": sepolia,
+};
+
+export const RPC_URLS: KEYCHAIN = {
+  "0xaa36a7": HAUS_RPC["0xaa36a7"],
+};
 
 export const getValidChainId = (chainId?: string) => {
   return targetNetworks[chainId as ValidNetwork]?.chainId || DEFAULT_CHAIN_ID;
