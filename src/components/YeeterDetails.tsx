@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useYeeter } from "../hooks/useYeeter";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { ValidNetwork } from "@daohaus/keychain-utils";
+import { useMarketMaker } from "../hooks/useMarketMaker";
+import { useDaoData } from "@daohaus/moloch-v3-hooks";
 
 const Container = styled.div`
   display: flex;
@@ -18,10 +20,18 @@ export const YeeterDetails = ({
   daoId: string;
   daoChain: ValidNetwork;
 }) => {
+  const { dao } = useDaoData({ daoId, daoChain });
   const { metadata, yeeter } = useYeeter({
     daoId,
     shamanAddress: yeeterId,
     chainId: daoChain,
+  });
+
+  const { marketMakerShaman } = useMarketMaker({
+    daoId,
+    yeeterShamanAddress: yeeterId,
+    chainId: daoChain,
+    daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
   });
 
   return (
@@ -30,6 +40,7 @@ export const YeeterDetails = ({
         <div>
           <p>yeeter data</p>
           <pre>{JSON.stringify(yeeter, null, 2)}</pre>
+          <p>marketMakerShaman: {marketMakerShaman}</p>
         </div>
         <div>
           <p>metadata</p>

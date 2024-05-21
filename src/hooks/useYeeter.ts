@@ -14,11 +14,10 @@ import {
   calcYeetIsActive,
   calcYeetIsComingSoon,
   calcYeetIsEnded,
-  calcYeetIsFull,
   calcYeetReachedGoal,
   formatTimeRemaining,
 } from "../utils/yeetDataHelpers";
-import { YeeterItem, YeeterMetadata } from "../utils/types";
+import { YeeterItem } from "../utils/types";
 import { createPublicClient, http } from "viem";
 
 export const useYeeter = ({
@@ -61,9 +60,6 @@ export const useYeeter = ({
         });
 
         safeBalance = bal.toString();
-
-        console.log("res.yeeter.vault", res.yeeter.vault);
-        console.log("safeBalance", bal);
       }
 
       const isComingSoon = res.yeeter && calcYeetIsComingSoon(res.yeeter);

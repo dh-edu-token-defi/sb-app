@@ -21,10 +21,11 @@ export const useMarketMaker = ({
 }: {
   chainId?: string;
   daoId?: string;
-  daoShamans: string[];
+  daoShamans?: Array<string | undefined>;
   yeeterShamanAddress?: string;
 }) => {
   const chain = getValidChainId(chainId);
+  const shamanAddresses = daoShamans || [];
 
   const { data, ...rest } = useQuery(
     ["market-maker", { chainId, daoId }],
@@ -35,18 +36,18 @@ export const useMarketMaker = ({
       });
 
       let marketMakerShaman;
-      for (let i = 1; i <= daoShamans.length; i++) {
-        if (yeeterShamanAddress && daoShamans[i] === yeeterShamanAddress) {
+      for (let i = 0; i < shamanAddresses.length; i++) {
+        if (yeeterShamanAddress && shamanAddresses[i] === yeeterShamanAddress) {
           continue;
         }
         const shamanName = await publicClient.readContract({
-          address: daoShamans[0] as `0x${string}`,
+          address: shamanAddresses[i] as `0x${string}`,
           abi: marketMakerShamanAbi,
           functionName: "name",
         });
 
         if (shamanName === YEET24_NAME) {
-          marketMakerShaman = daoShamans[0];
+          marketMakerShaman = shamanAddresses[0];
           break;
         }
       }
@@ -62,11 +63,9 @@ export const useMarketMaker = ({
 
       // console.log("shamanName", shamanName);
 
-      // // @ts-expect-error
-      // return res?.yeets;
       return { marketMakerShaman };
     },
-    { enabled: !!chainId }
+    { enabled: !!chainId && !!daoId && !!daoShamans }
   );
 
   return {
