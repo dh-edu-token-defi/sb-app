@@ -35,7 +35,8 @@
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.4.3",
-    "react-select": "^5.8.0"
+    "react-select": "^5.8.0",
+    "viem": "^2.10.9"
   },
   "devDependencies": {
     "@types/react": "^18.0.22",

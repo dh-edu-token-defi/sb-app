@@ -2,17 +2,23 @@ import { useQuery } from "react-query";
 import { GraphQLClient } from "graphql-request";
 
 import { GET_YEETER } from "../utils/graphQueries";
-import { YEETER_GRAPH_URL, getValidChainId } from "../utils/constants";
+import {
+  CHAIN_OBJ,
+  RPC_URLS,
+  YEETER_GRAPH_URL,
+  getValidChainId,
+} from "../utils/constants";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { DaoProfile, listRecords } from "@daohaus/moloch-v3-data";
 import {
   calcYeetIsActive,
   calcYeetIsComingSoon,
   calcYeetIsEnded,
-  calcYeetIsFull,
+  calcYeetReachedGoal,
   formatTimeRemaining,
 } from "../utils/yeetDataHelpers";
-import { YeeterItem, YeeterMetadata } from "../utils/types";
+import { YeeterItem } from "../utils/types";
+import { createPublicClient, http } from "viem";
 
 export const useYeeter = ({
   chainId,
@@ -37,22 +43,33 @@ export const useYeeter = ({
             shamanAddress: shamanAddress?.toLowerCase(),
           })) as { yeeter: YeeterItem });
       let record;
+      let safeBalance = "0";
       if (chainId) {
         record = await listRecords({
           networkId: chainId,
           filter: { dao: daoId, table: "daoProfile" },
         });
+
+        const publicClient = createPublicClient({
+          chain: CHAIN_OBJ[chain],
+          transport: http(RPC_URLS[chain]),
+        });
+
+        const bal = await publicClient.getBalance({
+          address: res.yeeter.vault as `0x${string}`,
+        });
+
+        safeBalance = bal.toString();
       }
 
-      // TODO: add safe balance + percent complete from goal
-      // // need safe address (not in yeeter subgraph)
       const isComingSoon = res.yeeter && calcYeetIsComingSoon(res.yeeter);
       const yeeter = {
         ...res.yeeter,
+        safeBalance,
         isActive: res.yeeter && calcYeetIsActive(res.yeeter),
         isEnded: res.yeeter && calcYeetIsEnded(res.yeeter),
         isComingSoon: isComingSoon,
-        isFull: res.yeeter && calcYeetIsFull(res.yeeter),
+        reachedGoal: res.yeeter && calcYeetReachedGoal(safeBalance, res.yeeter),
         timeRemaining:
           res.yeeter && isComingSoon
             ? formatTimeRemaining(res.yeeter)
