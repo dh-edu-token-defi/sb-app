@@ -46,6 +46,12 @@ export const CURATOR_CONTRACTS: KeychainList = {
     // "0xa": "0xfb1bffc9d739b8d520daf37df666da4c687191ea", // "0xd9db270c1b5e3bd161e8c8503c55ceabee709552",
     "0xaa36a7": "0x69f4d1788e39c87893c980c06edf4b7f686e2938",
   },
+  UNISWAP_V3_NF_POSITION_MANAGER: {
+    "0xaa36a7": "0x1238536071E1c677A632429e3655c799b22cDA52",
+  },
+  WETH: {
+    "0xaa36a7": "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14",
+  },
 };
 
 /// https://docs.tokenbound.org/contracts/deployments

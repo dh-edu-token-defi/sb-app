@@ -204,13 +204,23 @@ export const assembleMemeYeeterShamanParams = ({
   chainId: ValidNetwork;
 }) => {
   const memeYeeterShamanSingleton = CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId];
-  console.log("memeYeeterShamanSingleton", memeYeeterShamanSingleton);
+  const nonFungiblePositionManager = CURATOR_CONTRACTS["UNISWAP_V3_NF_POSITION_MANAGER"][chainId];
+  const weth9 = CURATOR_CONTRACTS["WETH"][chainId];
 
-  if (!memeYeeterShamanSingleton) {
-    console.log("assembleMemeYeeterShamanParams ERROR:", formValues);
+  if (
+    !memeYeeterShamanSingleton ||
+    !nonFungiblePositionManager ||
+    !weth9
+  ) {
+    console.log(
+      "assembleMemeYeeterShamanParams ERROR:",
+      memeYeeterShamanSingleton,
+      nonFungiblePositionManager,
+      weth9
+    );
 
     throw new Error(
-      "assembleMemeYeeterShamanParams: singleton not found"
+      "assembleMemeYeeterShamanParams: config contracts not found"
     );
   }
 
@@ -222,8 +232,8 @@ export const assembleMemeYeeterShamanParams = ({
   const memeYeeterShamanParams = encodeValues(
     ["address", "address", "uint256", "uint256", "uint24"],
     [
-      "0x1238536071E1c677A632429e3655c799b22cDA52", // TODO: nonFungiblePositionManager
-      "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14", // TODO: weth9
+      nonFungiblePositionManager,
+      weth9,
       ethers.utils.parseEther("0.1").toString(), // TODO: threshold
       Math.floor( // TODO: expiration
         (
