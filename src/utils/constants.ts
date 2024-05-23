@@ -14,13 +14,13 @@ export const YEET24_NAME = "Yeet24ShamanModule";
 
 export const CURATOR_CONTRACTS: KeychainList = {
   YEET24_SUMMONER: {
-    "0xaa36a7": "0x0186367008471e62c3f6fd26988dec92361398ea", // "0xc5ec2eabfd8d1a1e38896ad2ec1d452f66dac761", // "0x70132cd79f90306bc68c1930f4364452a17aa552" // "0x4bb5d274dea3542bb836cba64bd7eed63233cb58"
+    "0xaa36a7": "0xce14094520008c00EF4CD794Fea98653eAAaDAca", // "0xc5ec2eabfd8d1a1e38896ad2ec1d452f66dac761", // "0x70132cd79f90306bc68c1930f4364452a17aa552" // "0x4bb5d274dea3542bb836cba64bd7eed63233cb58"
   },
   YEETER_SINGLETON: {
     "0xaa36a7": "0x62ff4ca410e9e58f5ce8b2ad03695ef0ad990381",
   },
   YEET24_SINGLETON: {
-    "0xaa36a7": "0xc099d3f30d5ad51497b72d17e1b75f7d8e921410", // "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7"
+    "0xaa36a7": "0x4d313dfec90f96fF1aabcb2c2dd48406e7Acf9ce", // "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7"
   },
   FIXED_LOOT_SINGLETON: {
     // "0x1": "0x9d42696a9c3c54952b8918dcbcb82dd710347c77",

@@ -5,30 +5,52 @@ import { Buildable,  Field } from "@daohaus/ui";
 
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useDHConnect } from "@daohaus/connect";
-import { calculateShamanAddress } from "../../utils/summonTx";
+import {
+  assembleMemeYeeterShamanParams,
+  calculateMemeShamanAddress,
+  generateShamanSaltNonce
+} from "../../utils/summonTx";
 
 export const ShamanAddress = (props: Buildable<Field>) => {
   const { watch, setValue } = useFormContext();
   const { chainId } = useDHConnect();
 
+  const formValues = watch();
   const saltNonce = watch("saltNonce");
+  const baalAddress = watch("calculatedDAOAddress");
 
   useEffect(() => {
     const getShamanAddress = async () => {
-      
-      const shamanAddress = await calculateShamanAddress(saltNonce, chainId as ValidNetwork);
+      const {
+        shamanInitParams: initializeParams,
+        shamanPermission: shamanPermissions,
+        shamanSingleton: shamanTemplate
+      } = assembleMemeYeeterShamanParams({
+        chainId: chainId as ValidNetwork,
+        formValues,
+        memberAddress: '0x'
+      });
+
+      const index = "0";
+      const generatedSalt = generateShamanSaltNonce({
+        baalAddress,
+        index,
+        initializeParams,
+        saltNonce,
+        shamanPermissions,
+        shamanTemplate
+      });
+
+      const shamanAddress = await calculateMemeShamanAddress(generatedSalt, chainId as ValidNetwork);
       console.log("****setting shaman address", shamanAddress);
       setValue(props.id, shamanAddress);
-
     };
 
-    if (saltNonce && chainId) {
-      console.log("****getting saltNonce to get shaman", saltNonce);
+    if (baalAddress && saltNonce && chainId) {
+      console.log("****getting saltNonce to get shaman", baalAddress, saltNonce);
       getShamanAddress();
     }
-  }, [saltNonce, chainId]);
-
-  
+  }, [baalAddress, saltNonce, chainId]);
 
   return null;
 };

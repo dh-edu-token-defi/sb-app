@@ -103,6 +103,25 @@
     "type": "event"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "allowlistTemplates",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "baalSummoner",
     "outputs": [
@@ -158,6 +177,11 @@
         "internalType": "address",
         "name": "_moduleProxyFactory",
         "type": "address"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_allowlistTemplates",
+        "type": "address[]"
       }
     ],
     "name": "initialize",
@@ -231,6 +255,24 @@
   {
     "inputs": [],
     "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_template",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "allowed",
+        "type": "bool"
+      }
+    ],
+    "name": "setAllowlistTemplate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
