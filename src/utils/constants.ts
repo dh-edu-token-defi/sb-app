@@ -20,7 +20,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xaa36a7": "0x62ff4ca410e9e58f5ce8b2ad03695ef0ad990381",
   },
   YEET24_SINGLETON: {
-    "0xaa36a7": "0x4d313dfec90f96fF1aabcb2c2dd48406e7Acf9ce", // "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7"
+    "0xaa36a7": "0x7Ac82133E0c5cCA103f5db920bb63A6aF239A415", // "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7"
   },
   FIXED_LOOT_SINGLETON: {
     // "0x1": "0x9d42696a9c3c54952b8918dcbcb82dd710347c77",
@@ -134,6 +134,10 @@ export const DEFAULT_YEETER_VALUES = {
   feeAmounts: ["5000", "5000"], // .5% fees
   lootPerYeet: "100",
   multiplier: "100",
+};
+
+export const DEFAULT_MEME_YEETER_VALUES = {
+  poolFee: "10000", // 1%
 };
 
 export const MEME_YEETER_SUMMONER_REFERRER = "DHYeet24ShamanSummoner";

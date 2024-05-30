@@ -33,7 +33,8 @@ import {
   CURATOR_CONTRACTS,
   YEETER_SHAMAN_PERMISSIONS,
   MEME_SHAMAN_PERMISSIONS,
-  DEFAULT_YEETER_VALUES
+  DEFAULT_YEETER_VALUES,
+  DEFAULT_MEME_YEETER_VALUES
 } from "./constants";
 import { createEthersContract } from "@daohaus/tx-builder";
 import { BigNumber, ethers } from "ethers";
@@ -242,7 +243,7 @@ export const assembleMemeYeeterShamanParams = ({
           )
         ).getTime() / 1000
       ),
-      "10000", // TODO: 1% fee
+      DEFAULT_MEME_YEETER_VALUES.poolFee,
     ]
   );
   //
