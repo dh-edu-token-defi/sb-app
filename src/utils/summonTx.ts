@@ -194,6 +194,66 @@ const assembleShareTokenParams = ({
   return encodeValues(["address", "bytes"], [shareSingleton, shareParams]);
 };
 
+export const assembleMemeYeeterShamanParams = ({
+  formValues,
+  memberAddress,
+  chainId,
+}: {
+  formValues: Record<string, unknown>;
+  memberAddress: EthAddress;
+  chainId: ValidNetwork;
+}) => {
+  const memeYeeterShamanSingleton = CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId];
+  const nonFungiblePositionManager = CURATOR_CONTRACTS["UNISWAP_V3_NF_POSITION_MANAGER"][chainId];
+  const weth9 = CURATOR_CONTRACTS["WETH"][chainId];
+
+  if (
+    !memeYeeterShamanSingleton ||
+    !nonFungiblePositionManager ||
+    !weth9
+  ) {
+    console.log(
+      "assembleMemeYeeterShamanParams ERROR:",
+      memeYeeterShamanSingleton,
+      nonFungiblePositionManager,
+      weth9
+    );
+
+    throw new Error(
+      "assembleMemeYeeterShamanParams: config contracts not found"
+    );
+  }
+
+  // address _nftPositionManager,
+  // address _weth9Address,
+  // uint256 _threshold,
+  // uint256 _expiration,
+  // uint24 _poolFee
+  const memeYeeterShamanParams = encodeValues(
+    ["address", "address", "uint256", "uint256", "uint24"],
+    [
+      nonFungiblePositionManager,
+      weth9,
+      ethers.utils.parseEther("0.1").toString(), // TODO: threshold
+      Math.floor( // TODO: expiration
+        (
+          new Date(
+            new Date().getTime() + (1800000) // now allows ~30 minutes before expiring
+          )
+        ).getTime() / 1000
+      ),
+      "10000", // TODO: 1% fee
+    ]
+  );
+  //
+  return {
+    shamanSingleton: memeYeeterShamanSingleton,
+    shamanPermission: MEME_SHAMAN_PERMISSIONS,
+    shamanInitParams: memeYeeterShamanParams,
+  };
+
+}
+
 const assembleShamanParams = ({
   formValues,
   memberAddress,
@@ -205,16 +265,17 @@ const assembleShamanParams = ({
 }) => {
 
   const yeeterShamanSingleton = CURATOR_CONTRACTS["YEETER_SINGLETON"][chainId];
-  const memeYeeterShamanSingleton = CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId];
   
-  console.log("9999999999999999>>>>", yeeterShamanSingleton, memeYeeterShamanSingleton);
-  
-
   const price = formValues["collectorPrice"] as string;
   const content = formValues["article"] as string;
 
-console.log("??????????", price, memberAddress, yeeterShamanSingleton, content);
+  console.log("??????????", price, memberAddress, yeeterShamanSingleton, content);
 
+  const {
+    shamanSingleton: memeYeeterShamanSingleton,
+    shamanPermission: memeYeeterShamanPermission,
+    shamanInitParams: memeYeeterShamanParams,
+  } = assembleMemeYeeterShamanParams({ chainId, formValues, memberAddress });
 
   if (
     !isEthAddress(memberAddress) ||
@@ -227,18 +288,6 @@ console.log("??????????", price, memberAddress, yeeterShamanSingleton, content);
       "assembleShamanParams recieved arguments in the wrong shape or type"
     );
   }
-
-  // (uint256 threshold, uint256 expiration, uint256 poolFee, ) 
-  const memeYeeterShamanParams = encodeValues(
-    ["uint256", "uint256", "uint256", "address"],
-    [
-      "1000",
-      "1000",
-      "1000", // 
-      ZERO_ADDRESS,
-    ]
-  );
-  // 
 
   var today = new Date();
   var tomorrow = new Date();
@@ -276,11 +325,15 @@ console.log("??????????", price, memberAddress, yeeterShamanSingleton, content);
     ]
   );
 
-  console.log("shaman vals",[[memeYeeterShamanSingleton, yeeterShamanSingleton], [MEME_SHAMAN_PERMISSIONS, YEETER_SHAMAN_PERMISSIONS], [memeYeeterShamanParams, yeeterShamanParams]])
+  const shamanSingletons = [memeYeeterShamanSingleton, yeeterShamanSingleton];
+  const shamanPermissions = [memeYeeterShamanPermission, YEETER_SHAMAN_PERMISSIONS]
+  const shamanInitParams = [memeYeeterShamanParams, yeeterShamanParams];
+
+  console.log("shaman vals", [shamanSingletons, shamanPermissions, shamanInitParams])
 
   return encodeValues(
     ["address[]", "uint256[]", "bytes[]"],
-    [[memeYeeterShamanSingleton, yeeterShamanSingleton], [MEME_SHAMAN_PERMISSIONS, YEETER_SHAMAN_PERMISSIONS], [memeYeeterShamanParams, yeeterShamanParams]]
+    [shamanSingletons, shamanPermissions, shamanInitParams]
   );
 };
 
@@ -561,7 +614,34 @@ export const calculateDAOAddress = async (
   return ethers.utils.getAddress(expectedDAOAddress);
 }
 
-export const calculateShamanAddress= async (
+export const generateShamanSaltNonce = ({
+  baalAddress,
+  index,
+  initializeParams,
+  saltNonce,
+  shamanPermissions,
+  shamanTemplate,
+} : {
+  baalAddress: string;
+  index: string;
+  shamanPermissions: string;
+  shamanTemplate: string;
+  initializeParams: string;
+  saltNonce: string;
+}) => {
+  return ethers.utils.keccak256(
+    encodeValues(
+      ["address", "uint256", "address", "uint256", "bytes32", "uint256"],
+      [
+        baalAddress, index, shamanTemplate, shamanPermissions,
+        ethers.utils.keccak256(initializeParams),
+        saltNonce,
+      ]
+    ),
+  );
+}
+
+export const calculateMemeShamanAddress = async (
   saltNonce: string,
   chainId: ValidNetwork
 ) => {
