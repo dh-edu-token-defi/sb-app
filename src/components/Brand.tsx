@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
-import { H5 } from "@daohaus/ui";
+import { H3, H5 } from "@daohaus/ui";
 import { Link } from "react-router-dom";
+
+import YellowRoboIcon from "../assets/robot-hand-yellow.png";
 
 const Container = styled.div`
   display: flex;
@@ -27,7 +29,8 @@ export const Brand = () => {
   return (
     <Container>
       <BrandLink to="/">
-        <H5>MEME SUMMONER</H5>
+        <img src={YellowRoboIcon} height="30px" />
+        <H3>MEME SHOP</H3>
       </BrandLink>
     </Container>
   );

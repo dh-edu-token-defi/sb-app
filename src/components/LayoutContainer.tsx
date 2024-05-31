@@ -43,7 +43,7 @@ export const LayoutContainer = () => {
         <MainLayout>
           <Outlet />
         </MainLayout>
-        <Footer />
+        {/* <Footer /> */}
       </OuterLayout>
     </TXBuilder>
   );
