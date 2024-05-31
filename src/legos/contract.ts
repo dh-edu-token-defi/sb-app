@@ -4,10 +4,10 @@ import yeet24SummonerAbi from "../abis/yeet24Summoner.json";
 import { CURATOR_CONTRACTS } from "../utils/constants";
 
 export const APP_CONTRACT: Record<string, ContractLego> = {
-  YEET24_SUMMONER: {
+  YEETNFTESCROW_SUMMONER: {
     type: "static",
-    contractName: "Yeet24Summoner",
+    contractName: "YeetNftEscrowSummoner",
     abi: yeet24SummonerAbi,
-    targetAddress: CURATOR_CONTRACTS["YEET24_SUMMONER"],
+    targetAddress: CURATOR_CONTRACTS["YEETNFTESCROW_SUMMONER"],
   },
 };

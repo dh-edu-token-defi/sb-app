@@ -19,7 +19,7 @@ export enum ProposalTypeIds {
 export const APP_TX = {
   SUMMON_MEME: {
     id: "SUMMON_MEME",
-    contract: APP_CONTRACT.YEET24_SUMMONER,
+    contract: APP_CONTRACT.YEETNFTESCROW_SUMMONER,
     method: "summonBaalFromReferrer",
     argCallback: "assembleMemeSummonerArgs",
     // customPoll: {

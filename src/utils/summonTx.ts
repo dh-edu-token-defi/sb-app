@@ -34,7 +34,8 @@ import {
   YEETER_SHAMAN_PERMISSIONS,
   MEME_SHAMAN_PERMISSIONS,
   DEFAULT_YEETER_VALUES,
-  DEFAULT_MEME_YEETER_VALUES
+  DEFAULT_MEME_YEETER_VALUES,
+  DEFAULT_NFTESCROW_YEETER_VALUES
 } from "./constants";
 import { createEthersContract } from "@daohaus/tx-builder";
 import { BigNumber, ethers } from "ethers";
@@ -204,20 +205,14 @@ export const assembleMemeYeeterShamanParams = ({
   memberAddress: EthAddress;
   chainId: ValidNetwork;
 }) => {
-  const memeYeeterShamanSingleton = CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId];
-  const nonFungiblePositionManager = CURATOR_CONTRACTS["UNISWAP_V3_NF_POSITION_MANAGER"][chainId];
-  const weth9 = CURATOR_CONTRACTS["WETH"][chainId];
+  const memeYeeterShamanSingleton = CURATOR_CONTRACTS["YEETNFTESCROW_SINGLETON"][chainId];
 
   if (
-    !memeYeeterShamanSingleton ||
-    !nonFungiblePositionManager ||
-    !weth9
+    !memeYeeterShamanSingleton 
   ) {
     console.log(
       "assembleMemeYeeterShamanParams ERROR:",
-      memeYeeterShamanSingleton,
-      nonFungiblePositionManager,
-      weth9
+      memeYeeterShamanSingleton
     );
 
     throw new Error(
@@ -225,16 +220,15 @@ export const assembleMemeYeeterShamanParams = ({
     );
   }
 
-  // address _nftPositionManager,
-  // address _weth9Address,
   // uint256 _threshold,
   // uint256 _expiration,
-  // uint24 _poolFee
+  // address _seller,
+  // address _nftAddress,
+  // uint256 _tokenId
+
   const memeYeeterShamanParams = encodeValues(
-    ["address", "address", "uint256", "uint256", "uint24"],
+    ["uint256", "uint256", "address", "address", "uint256"],
     [
-      nonFungiblePositionManager,
-      weth9,
       ethers.utils.parseEther("0.1").toString(), // TODO: threshold
       Math.floor( // TODO: expiration
         (
@@ -243,7 +237,9 @@ export const assembleMemeYeeterShamanParams = ({
           )
         ).getTime() / 1000
       ),
-      DEFAULT_MEME_YEETER_VALUES.poolFee,
+      DEFAULT_NFTESCROW_YEETER_VALUES.seller,
+      DEFAULT_NFTESCROW_YEETER_VALUES.nftAddress,
+      DEFAULT_NFTESCROW_YEETER_VALUES.nftTokenId
     ]
   );
   //
@@ -265,7 +261,7 @@ const assembleShamanParams = ({
   chainId: ValidNetwork;
 }) => {
 
-  const yeeterShamanSingleton = CURATOR_CONTRACTS["YEETER_SINGLETON"][chainId];
+  const yeeterShamanSingleton = CURATOR_CONTRACTS["YEETER2_SINGLETON"][chainId];
   
   const price = formValues["collectorPrice"] as string;
   const content = formValues["article"] as string;
@@ -315,7 +311,7 @@ const assembleShamanParams = ({
     ],
     [
       Math.floor(Number(today) / 1000),
-      Math.floor(Number(tomorrow) / 1000),
+      Math.floor(Number(today) / 1000) + 300,
       DEFAULT_YEETER_VALUES.isShares,
       price,
       DEFAULT_YEETER_VALUES.multiplier,
@@ -595,13 +591,13 @@ export const calculateDAOAddress = async (
   saltNonce: string,
   chainId: ValidNetwork
 ) => {
-  const yeet24Summoner = CURATOR_CONTRACTS["YEET24_SUMMONER"][chainId] || ZERO_ADDRESS;
+  const yeetNftEscrowSummoner = CURATOR_CONTRACTS["YEETNFTESCROW_SUMMONER"][chainId] || ZERO_ADDRESS;
   // calculateBaalAddress
 
-  console.log("yeet24Summoner", yeet24Summoner, chainId);
+  console.log("yeet24Summoner", yeetNftEscrowSummoner, chainId);
 
   const hos = createEthersContract({
-    address: yeet24Summoner,
+    address: yeetNftEscrowSummoner,
     abi: basicHOSSummoner,
     chainId: chainId,
     rpcs: HAUS_RPC,
@@ -646,22 +642,22 @@ export const calculateMemeShamanAddress = async (
   saltNonce: string,
   chainId: ValidNetwork
 ) => {
-  const yeet24Singleton = CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId] || ZERO_ADDRESS;
-  const yeet24ShamanSummoner = CURATOR_CONTRACTS["YEET24_SUMMONER"][chainId] || ZERO_ADDRESS;
-  console.log("yeet24 Shaman", yeet24Singleton, yeet24ShamanSummoner, chainId);
+  const yeetNftEscrowSingleton = CURATOR_CONTRACTS["YEETNFTESCROW_SINGLETON"][chainId] || ZERO_ADDRESS;
+  const yeetNftEscrowShamanSummoner = CURATOR_CONTRACTS["YEETNFTESCROW_SUMMONER"][chainId] || ZERO_ADDRESS;
+  console.log("yeet nft escrow Shaman", yeetNftEscrowSingleton, yeetNftEscrowShamanSummoner, chainId);
   const hos = createEthersContract({
-    address: yeet24ShamanSummoner,
+    address: yeetNftEscrowShamanSummoner,
     abi: yeet24HosSummoner,
     chainId: chainId,
     rpcs: HAUS_RPC,
   });
   let expectedShamanAddress = ZERO_ADDRESS;
 
-  console.log("yeet24 Shaman", yeet24Singleton, yeet24ShamanSummoner, chainId);
+  console.log("yeet nft escrow Shaman", yeetNftEscrowSingleton, yeetNftEscrowShamanSummoner, chainId);
 
   try {
     expectedShamanAddress = await hos.callStatic.predictDeterministicShamanAddress(
-      yeet24Singleton,
+      yeetNftEscrowSingleton,
       saltNonce
     );
     console.log("***>>>>>>>>>>>>>> expectedShamanAddress", expectedShamanAddress);

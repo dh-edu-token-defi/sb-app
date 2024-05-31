@@ -16,8 +16,17 @@ export const CURATOR_CONTRACTS: KeychainList = {
   YEET24_SUMMONER: {
     "0xaa36a7": "0xce14094520008c00EF4CD794Fea98653eAAaDAca", // "0xc5ec2eabfd8d1a1e38896ad2ec1d452f66dac761", // "0x70132cd79f90306bc68c1930f4364452a17aa552" // "0x4bb5d274dea3542bb836cba64bd7eed63233cb58"
   },
+  YEETNFTESCROW_SUMMONER: {
+    "0xaa36a7": "0x3f5e1541cf9e7ef748cf86763a96b2f4c3a7bb4b", 
+  },
   YEETER_SINGLETON: {
     "0xaa36a7": "0x62ff4ca410e9e58f5ce8b2ad03695ef0ad990381",
+  },
+  YEETER2_SINGLETON: {
+    "0xaa36a7": "0x29da3216e205fbda1726c21a3059251e8aab4078",
+  },
+  YEETNFTESCROW_SINGLETON: {
+    "0xaa36a7": "0x3c6557514c84a08ae01cf85b768590dd5ba9ff11",
   },
   YEET24_SINGLETON: {
     "0xaa36a7": "0x7Ac82133E0c5cCA103f5db920bb63A6aF239A415", // "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7"
@@ -138,6 +147,12 @@ export const DEFAULT_YEETER_VALUES = {
 
 export const DEFAULT_MEME_YEETER_VALUES = {
   poolFee: "10000", // 1%
+};
+
+export const DEFAULT_NFTESCROW_YEETER_VALUES = {
+  seller: "0xCED608Aa29bB92185D9b6340Adcbfa263DAe075b",
+  nftAddress: "0x9f4d7aac478bda478ff17c4344934e0f87cde9ec",
+  nftTokenId: "1",
 };
 
 export const MEME_YEETER_SUMMONER_REFERRER = "DHYeet24ShamanSummoner";
