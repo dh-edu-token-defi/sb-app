@@ -6,8 +6,8 @@ import { Buildable,  Field } from "@daohaus/ui";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useDHConnect } from "@daohaus/connect";
 import {
-  assembleMemeYeeterShamanParams,
-  calculateMemeShamanAddress,
+  assembleNftEscrowYeeterShamanParams,
+  calculateNftEscrowShamanAddress,
   generateShamanSaltNonce
 } from "../../utils/summonTx";
 
@@ -25,13 +25,14 @@ export const ShamanAddress = (props: Buildable<Field>) => {
         shamanInitParams: initializeParams,
         shamanPermission: shamanPermissions,
         shamanSingleton: shamanTemplate
-      } = assembleMemeYeeterShamanParams({
+      } = assembleNftEscrowYeeterShamanParams({
         chainId: chainId as ValidNetwork,
         formValues,
         memberAddress: '0x'
       });
 
       const index = "0";
+      console.log("*****getting shaman address", {baalAddress, index, initializeParams, saltNonce, shamanPermissions, shamanTemplate});
       const generatedSalt = generateShamanSaltNonce({
         baalAddress,
         index,
@@ -41,7 +42,9 @@ export const ShamanAddress = (props: Buildable<Field>) => {
         shamanTemplate
       });
 
-      const shamanAddress = await calculateMemeShamanAddress(generatedSalt, chainId as ValidNetwork);
+      console.log("******generated salt", generatedSalt);
+
+      const shamanAddress = await calculateNftEscrowShamanAddress(generatedSalt, chainId as ValidNetwork);
       console.log("****setting shaman address", shamanAddress);
       setValue(props.id, shamanAddress);
     };

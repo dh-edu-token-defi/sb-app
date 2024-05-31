@@ -35,7 +35,8 @@ import {
   MEME_SHAMAN_PERMISSIONS,
   DEFAULT_YEETER_VALUES,
   DEFAULT_MEME_YEETER_VALUES,
-  DEFAULT_NFTESCROW_YEETER_VALUES
+  DEFAULT_NFTESCROW_YEETER_VALUES,
+  NFTESCROW_SHAMAN_PERMISSIONS
 } from "./constants";
 import { createEthersContract } from "@daohaus/tx-builder";
 import { BigNumber, ethers } from "ethers";
@@ -196,7 +197,7 @@ const assembleShareTokenParams = ({
   return encodeValues(["address", "bytes"], [shareSingleton, shareParams]);
 };
 
-export const assembleMemeYeeterShamanParams = ({
+export const assembleNftEscrowYeeterShamanParams = ({
   formValues,
   memberAddress,
   chainId,
@@ -205,18 +206,20 @@ export const assembleMemeYeeterShamanParams = ({
   memberAddress: EthAddress;
   chainId: ValidNetwork;
 }) => {
-  const memeYeeterShamanSingleton = CURATOR_CONTRACTS["YEETNFTESCROW_SINGLETON"][chainId];
+  const nftEscrowYeeterShamanSingleton = CURATOR_CONTRACTS["YEETNFTESCROW_SINGLETON"][chainId];
+  const endDate = (formValues["endDate"] || 0) as BigInt;
+  // console.log(endDate)
 
   if (
-    !memeYeeterShamanSingleton 
+    !nftEscrowYeeterShamanSingleton 
   ) {
     console.log(
-      "assembleMemeYeeterShamanParams ERROR:",
-      memeYeeterShamanSingleton
+      "assembleNftEscrowYeeterShamanParams ERROR:",
+      nftEscrowYeeterShamanSingleton
     );
 
     throw new Error(
-      "assembleMemeYeeterShamanParams: config contracts not found"
+      "assembleNftEscrowYeeterShamanParams: config contracts not found"
     );
   }
 
@@ -226,17 +229,13 @@ export const assembleMemeYeeterShamanParams = ({
   // address _nftAddress,
   // uint256 _tokenId
 
-  const memeYeeterShamanParams = encodeValues(
+  // console.log("date", endDate);
+
+  const nftEscrowYeeterShamanParams = encodeValues(
     ["uint256", "uint256", "address", "address", "uint256"],
     [
       ethers.utils.parseEther("0.1").toString(), // TODO: threshold
-      Math.floor( // TODO: expiration
-        (
-          new Date(
-            new Date().getTime() + (1800000) // now allows ~30 minutes before expiring
-          )
-        ).getTime() / 1000
-      ),
+      Number(endDate),
       DEFAULT_NFTESCROW_YEETER_VALUES.seller,
       DEFAULT_NFTESCROW_YEETER_VALUES.nftAddress,
       DEFAULT_NFTESCROW_YEETER_VALUES.nftTokenId
@@ -244,9 +243,9 @@ export const assembleMemeYeeterShamanParams = ({
   );
   //
   return {
-    shamanSingleton: memeYeeterShamanSingleton,
-    shamanPermission: MEME_SHAMAN_PERMISSIONS,
-    shamanInitParams: memeYeeterShamanParams,
+    shamanSingleton: nftEscrowYeeterShamanSingleton,
+    shamanPermission: NFTESCROW_SHAMAN_PERMISSIONS,
+    shamanInitParams: nftEscrowYeeterShamanParams,
   };
 
 }
@@ -269,15 +268,15 @@ const assembleShamanParams = ({
   console.log("??????????", price, memberAddress, yeeterShamanSingleton, content);
 
   const {
-    shamanSingleton: memeYeeterShamanSingleton,
-    shamanPermission: memeYeeterShamanPermission,
-    shamanInitParams: memeYeeterShamanParams,
-  } = assembleMemeYeeterShamanParams({ chainId, formValues, memberAddress });
+    shamanSingleton: nftEscrowYeeterShamanSingleton,
+    shamanPermission: nftEscrowYeeterShamanPermission,
+    shamanInitParams: nftEscrowYeeterShamanParams,
+  } = assembleNftEscrowYeeterShamanParams({ chainId, formValues, memberAddress });
 
   if (
     !isEthAddress(memberAddress) ||
     !yeeterShamanSingleton||
-    !memeYeeterShamanSingleton
+    !nftEscrowYeeterShamanSingleton
   ) {
     console.log("ERROR: Form Values", formValues);
 
@@ -311,7 +310,7 @@ const assembleShamanParams = ({
     ],
     [
       Math.floor(Number(today) / 1000),
-      Math.floor(Number(today) / 1000) + 300,
+      Math.floor(Number(today) / 1000) + 500,
       DEFAULT_YEETER_VALUES.isShares,
       price,
       DEFAULT_YEETER_VALUES.multiplier,
@@ -322,9 +321,9 @@ const assembleShamanParams = ({
     ]
   );
 
-  const shamanSingletons = [memeYeeterShamanSingleton, yeeterShamanSingleton];
-  const shamanPermissions = [memeYeeterShamanPermission, YEETER_SHAMAN_PERMISSIONS]
-  const shamanInitParams = [memeYeeterShamanParams, yeeterShamanParams];
+  const shamanSingletons = [nftEscrowYeeterShamanSingleton, yeeterShamanSingleton];
+  const shamanPermissions = [nftEscrowYeeterShamanPermission, YEETER_SHAMAN_PERMISSIONS]
+  const shamanInitParams = [nftEscrowYeeterShamanParams, yeeterShamanParams];
 
   console.log("shaman vals", [shamanSingletons, shamanPermissions, shamanInitParams])
 
@@ -626,6 +625,15 @@ export const generateShamanSaltNonce = ({
   initializeParams: string;
   saltNonce: string;
 }) => {
+  // baalAddress,
+  // i,
+  // shamanTemplates[i],
+  // shamanPermissions[i],
+  // keccak256(initShamanDeployParams[i]),
+  // saltNonce
+  console.log("~~~~~generateShamanSaltNonce", {baalAddress, index, shamanTemplate, shamanPermissions, initializeParams, saltNonce});
+
+  console.log("~~~~~~generated salt????????????????????**", ethers.utils.keccak256(initializeParams));  
   return ethers.utils.keccak256(
     encodeValues(
       ["address", "uint256", "address", "uint256", "bytes32", "uint256"],
@@ -637,8 +645,8 @@ export const generateShamanSaltNonce = ({
     ),
   );
 }
-
-export const calculateMemeShamanAddress = async (
+ 
+export const calculateNftEscrowShamanAddress = async (
   saltNonce: string,
   chainId: ValidNetwork
 ) => {
@@ -654,7 +662,7 @@ export const calculateMemeShamanAddress = async (
   let expectedShamanAddress = ZERO_ADDRESS;
 
   console.log("yeet nft escrow Shaman", yeetNftEscrowSingleton, yeetNftEscrowShamanSummoner, chainId);
-
+  console.log("?????????????saltNonce", saltNonce);
   try {
     expectedShamanAddress = await hos.callStatic.predictDeterministicShamanAddress(
       yeetNftEscrowSingleton,

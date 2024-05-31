@@ -50,6 +50,11 @@ export const APP_FORM: Record<string, CustomFormLego> = {
         info: "The initial price (in chain native token ex. ETH) per 1000 meme token.",
       },
       {
+        id: "endDate",
+        type: "epochDatePicker",
+        label: "End Date"
+      },
+      {
         id: "image",
         type: "input",
         label: "MEME Image Avatar",
