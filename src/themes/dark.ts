@@ -127,7 +127,7 @@ export const dinDarkTheme: DefaultTheme = {
       lg: "52rem",
       full: "100%",
     },
-    radius: "1px",
+    radius: "0px",
     transition: "0.2s all ease-in-out",
   },
   // *** ATOMS *** //
@@ -140,17 +140,17 @@ export const dinDarkTheme: DefaultTheme = {
     success: successDarkBtn,
     warning: warningDarkBtn,
     danger: dangerDarkBtn,
-    radius: "4px",
+    radius: "0px",
   },
   card: {
     bg: secondaryDark.step2,
     border: secondaryDark.step5,
-    radius: "0.8rem",
+    radius: "0px",
   },
   checkbox: {
     bg: secondaryDark.step3,
     border: secondaryDark.step6,
-    radius: "1px",
+    radius: "0px",
     hover: {
       bg: secondaryDark.step4,
       border: secondaryDark.step6,
@@ -284,7 +284,7 @@ export const dinDarkTheme: DefaultTheme = {
   select: {
     bg: secondaryDark.step2,
     border: "transparent",
-    radius: "4px",
+    radius: "0px",
     color: secondaryDark.step11,
     hover: {
       bg: secondaryDark.step4,
@@ -369,7 +369,7 @@ export const dinDarkTheme: DefaultTheme = {
     },
   },
   tag: {
-    radius: "4px",
+    radius: "0px",
   },
   textarea: {
     bg: secondaryDark.step3,
@@ -400,7 +400,7 @@ export const dinDarkTheme: DefaultTheme = {
     },
   },
   tooltip: {
-    radius: "4px",
+    radius: "0px",
     icon: {
       color: primaryDark.step9,
     },
@@ -441,12 +441,12 @@ export const dinDarkTheme: DefaultTheme = {
     },
   },
   dialog: {
-    radius: "8px",
+    radius: "0px",
     overlay: {
       bg: secondaryDarkA.step4,
     },
     content: {
-      bg: secondaryDark.step2,
+      bg: secondaryDark.step1,
       color: secondaryDark.step12,
     },
   },
@@ -503,7 +503,7 @@ export const dinDarkTheme: DefaultTheme = {
   fieldAlert: {
     bg: primaryDark.step3,
     border: primaryDark.step6,
-    radius: "4px",
+    radius: "0px",
     warning: {
       bg: warningDark.step2,
       border: warningDark.step5,
@@ -586,7 +586,7 @@ export const dinDarkTheme: DefaultTheme = {
   toast: {
     bg: secondaryDark.step3,
     border: secondaryDark.step5,
-    radius: "4px",
+    radius: "0px",
     success: {
       bg: successDark.step3,
       border: successDark.step7,
