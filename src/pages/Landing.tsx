@@ -6,8 +6,6 @@ import {
   DialogContent,
   DialogTrigger,
   H1,
-  H4,
-  H6,
   ParMd,
   SingleColumnLayout,
 } from "@daohaus/ui";
@@ -18,7 +16,6 @@ import { useYeeters } from "../hooks/useYeeters";
 import { YeeterList } from "../components/YeeterList";
 import { SimpleCol, SimpleRow, Spacer } from "../components/Layout";
 import { useLatestYeets } from "../hooks/useLatestYeets";
-import { useMyYeeters } from "../hooks/useMyYeeters";
 import { YeetMarquee } from "../components/YeetMarquee";
 
 const LinkButton = styled(RouterLink)`
@@ -36,11 +33,6 @@ const Landing = () => {
     useYeeters({ chainId: DEFAULT_CHAIN_ID });
 
   const { yeets } = useLatestYeets({ chainId: DEFAULT_CHAIN_ID });
-
-  const { myYeeters } = useMyYeeters({
-    chainId: DEFAULT_CHAIN_ID,
-    account: address,
-  });
 
   return (
     <>
@@ -99,25 +91,23 @@ const Landing = () => {
             <Spacer />
 
             <Spacer>
-              <H6>Latest Tokens</H6>
-              {allYeeters && <YeeterList yeeters={allYeeters.slice(0, 3)} />}
-              <H6>Latest Yeets</H6>
+              {activeYeetrs && (
+                <YeeterList title="Active Presale" yeeters={activeYeetrs} />
+              )}
 
-              {yeets && <pre>{JSON.stringify(yeets, null, 2)}</pre>}
+              {upcomingYeeters && (
+                <YeeterList title="Coming Soon" yeeters={upcomingYeeters} />
+              )}
+              {finishedYeeters && (
+                <YeeterList
+                  title="Completed Presale"
+                  yeeters={finishedYeeters}
+                />
+              )}
 
-              <H6>Active</H6>
+              {/* <H6>My Yeeters</H6>
 
-              {activeYeetrs && <YeeterList yeeters={activeYeetrs} />}
-
-              <H6>Upcoming</H6>
-              {upcomingYeeters && <YeeterList yeeters={upcomingYeeters} />}
-              <H6>Finished</H6>
-
-              {finishedYeeters && <YeeterList yeeters={finishedYeeters} />}
-
-              <H6>My Yeeters</H6>
-
-              {myYeeters && <YeeterList yeeters={myYeeters} />}
+              {myYeeters && <YeeterList yeeters={myYeeters} />} */}
             </Spacer>
           </div>
         </SingleColumnLayout>
