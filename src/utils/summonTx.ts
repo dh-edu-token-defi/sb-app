@@ -208,6 +208,10 @@ export const assembleNftEscrowYeeterShamanParams = ({
 }) => {
   const nftEscrowYeeterShamanSingleton = CURATOR_CONTRACTS["YEETNFTESCROW_SINGLETON"][chainId];
   const endDate = (formValues["endDate"] || 0) as BigInt;
+  const sellerAddress = formValues["sellerAddress"] as string;
+  const nftAddress = formValues["nftAddress"] as string;
+  const nftTokenId = (formValues["nftTokenId"] || 0) as BigInt;
+  console.log("nftAddress, seller", nftAddress, sellerAddress);
   // console.log(endDate)
 
   if (
@@ -236,9 +240,9 @@ export const assembleNftEscrowYeeterShamanParams = ({
     [
       ethers.utils.parseEther("0.1").toString(), // TODO: threshold
       Number(endDate),
-      DEFAULT_NFTESCROW_YEETER_VALUES.seller,
-      DEFAULT_NFTESCROW_YEETER_VALUES.nftAddress,
-      DEFAULT_NFTESCROW_YEETER_VALUES.nftTokenId
+      sellerAddress,
+      nftAddress,
+      Number(nftTokenId)
     ]
   );
   //
@@ -264,6 +268,9 @@ const assembleShamanParams = ({
   
   const price = formValues["collectorPrice"] as string;
   const content = formValues["article"] as string;
+  const startDate = formValues["startDate"] as string;
+  const endDate = formValues["endDate"] as string;
+  const minSalePrice = formValues["minSalePrice"] as string;
 
   console.log("??????????", price, memberAddress, yeeterShamanSingleton, content);
 
@@ -309,12 +316,12 @@ const assembleShamanParams = ({
       "uint256[]",
     ],
     [
-      Math.floor(Number(today) / 1000),
-      Math.floor(Number(today) / 1000) + 500,
+      startDate,
+      endDate,
       DEFAULT_YEETER_VALUES.isShares,
       price,
       DEFAULT_YEETER_VALUES.multiplier,
-      "1000000000000000000", // goal?
+      minSalePrice, // goal?
       DEFAULT_YEETER_VALUES.feeRecipients,
       DEFAULT_YEETER_VALUES.feeAmounts,
 

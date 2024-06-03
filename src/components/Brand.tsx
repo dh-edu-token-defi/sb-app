@@ -27,7 +27,7 @@ export const Brand = () => {
   return (
     <Container>
       <BrandLink to="/">
-        <H5>MEME SUMMONER</H5>
+        <H5>NFT Escrow Raids</H5>
       </BrandLink>
     </Container>
   );

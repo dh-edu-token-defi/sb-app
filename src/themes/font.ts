@@ -1,6 +1,6 @@
 const pgDarkFontFamily = {
-  body: `"Jersey 25", sans-serif;`,
-  header: `"Jersey 15", sans-serif;`,
+  body: `"Inter", sans-serif;`,
+  header: `"Inter", sans-serif;`,
   data: `"Syne Mono", monospace;`,
 };
 

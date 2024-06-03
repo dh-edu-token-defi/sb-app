@@ -26,7 +26,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xaa36a7": "0x29da3216e205fbda1726c21a3059251e8aab4078",
   },
   YEETNFTESCROW_SINGLETON: {
-    "0xaa36a7": "0x1BaA43De535396FF741412232516D0E4eC568d0e",
+    "0xaa36a7": "0x334573accf8b97e41fd6301dd9e61b237a5c2f31",
   },
   YEET24_SINGLETON: {
     "0xaa36a7": "0x7Ac82133E0c5cCA103f5db920bb63A6aF239A415", // "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7"
@@ -112,9 +112,9 @@ export const getValidChainId = (chainId?: string) => {
 };
 
 export const SPONSOR_THRESHOLD = "1000000000000000000";
-export const YEETER_SHAMAN_PERMISSIONS = "2";
-export const MEME_SHAMAN_PERMISSIONS = "3";
-export const NFTESCROW_SHAMAN_PERMISSIONS = "3";
+export const YEETER_SHAMAN_PERMISSIONS = "2"; // manager only
+export const MEME_SHAMAN_PERMISSIONS = "3"; // admin + manager
+export const NFTESCROW_SHAMAN_PERMISSIONS = "1"; // admin only
 
 export const SHARE_NAME = "";
 export const SHARE_SYMBOL = "";

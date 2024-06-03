@@ -39,22 +39,19 @@ const Landing = () => {
     <>
       {chainId && chainId in supportedNetorks ? (
         <SingleColumnLayout
-          subtitle={"Welcome to the MEME summoner".toUpperCase()}
-          title="MEME YEETER - Decentralized Meme Factory"
+          subtitle={"Welcome to the NFT Escrow summoner".toUpperCase()}
+          title="NFT ESCROW YEETER - Decentralized NFT Raids"
         >
           <div>
-            <H4>Create a meme yeeter</H4>
+            <H4>Create a nft escrow yeeter</H4>
             <ParSm>
-              Start with a 24 hr oParSmen presale, if the threshold is met the
-              meme will be minted and the presale will close. If the threshold
-              is not met the presale will close and contributors can ragequit.
-              If the meme is minted, a univ3 LP is started and the meme will be
-              available for purchase on the marketplace. Welcome to fully
-              dilluted, unruggable, fair launch yeeter memes.
+              Create a nft escrow yeeter and invite your friends to join the
+              raid. Once the raid is finished, the nft will be released to the
+              DAO as a tokenized asset.
             </ParSm>
             <Spacer>
               <LinkButton to="/summon/topic">
-                <Button variant="outline">Summon a Meme</Button>
+                <Button variant="outline">Summon a NFT Escrow</Button>
               </LinkButton>
             </Spacer>
 
