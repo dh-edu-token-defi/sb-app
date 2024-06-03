@@ -1,11 +1,9 @@
 import { styled, useTheme } from "styled-components";
-import { DataXs, H3, H5, ParXs } from "@daohaus/ui";
-import { Link } from "react-router-dom";
+import { ParXs } from "@daohaus/ui";
 import Marquee from "react-fast-marquee";
 import { YeeterItem, YeetsItem } from "../utils/types";
-import { charLimit, formatValueTo, fromWei } from "@daohaus/utils";
-import { HAUS_NETWORK_DATA, ValidNetwork } from "@daohaus/keychain-utils";
 import { useEffect, useState } from "react";
+import { formatMarqueeData } from "../utils/yeetDataHelpers";
 
 const Container = styled.div`
   display: flex;
@@ -14,9 +12,12 @@ const Container = styled.div`
   margin-right: 20px;
 `;
 
-type MarqueeItem = {
-  amount: string;
-  description: string;
+// todo: add token symbol here
+export type MarqueeItem = {
+  amount?: string;
+  description?: string;
+  symbol: string;
+  verb: string;
   createdAt: string;
 };
 
@@ -37,39 +38,45 @@ export const YeetMarquee = ({
       return {
         amount: yeet.amount,
         description: yeet.message,
+        symbol: "SPAM",
+        verb: "yeeted into",
         createdAt: yeet.createdAt,
       };
     });
 
     const normalizedYeeters = yeeters.map((yeeter) => {
       return {
-        amount: yeeter.balance,
-        description: yeeter.id,
+        symbol: "SPAM",
+        verb: "token launched: ",
         createdAt: yeeter.createdAt,
       };
     });
 
+    const normalizedExits = [
+      {
+        amount: "1000000000000000000",
+        verb: "exited from",
+        symbol: "SPAM",
+        createdAt: "1717182516",
+      },
+    ];
+
     setData(
-      [...normalizedYeets, ...normalizedYeeters].sort((a, b) => {
-        return Number(a.createdAt) - Number(b.createdAt);
-      })
+      [...normalizedYeets, ...normalizedYeeters, ...normalizedExits].sort(
+        (a, b) => {
+          return Number(a.createdAt) - Number(b.createdAt);
+        }
+      )
     );
   }, [yeets, yeeters]);
 
   return (
     <Marquee speed={75} autoFill={true} style={{ maxWidth: "110rem" }}>
-      {data.map((dataItem) => {
+      {data.map((dataItem, i) => {
         return (
-          <Container>
-            <ParXs>
-              {`${formatValueTo({
-                value: fromWei(dataItem.amount),
-                decimals: 3,
-                format: "numberShort",
-              })} ${HAUS_NETWORK_DATA[chainId as ValidNetwork]?.symbol}`}
-            </ParXs>
+          <Container key={i}>
             <ParXs color={theme.primary.step9}>
-              {charLimit(dataItem.description, 30)}
+              {formatMarqueeData(dataItem)}
             </ParXs>
           </Container>
         );
