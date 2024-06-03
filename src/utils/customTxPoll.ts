@@ -3,8 +3,18 @@ import {
   ListTxsQueryVariables,
   findTransaction,
   listDaos,
+  findDao
 } from "@daohaus/moloch-v3-data";
 import { IListQueryResults } from "@daohaus/data-fetch-utils";
+
+// const daoRes = await findDao({
+//   networkId: '0x1',
+//   dao: '0x0DaoContractAddress',
+//   includeTokens: true,
+//   graphApiKeys: {
+//     '0x1': 'graphApiKey',
+//   },
+// });
 
 type PollFetch = (...args: any) => Promise<any>;
 
@@ -18,7 +28,7 @@ export const pollLastTX: PollFetch = async ({
   graphApiKeys: Keychain;
 }) => {
   
-  console.log("polling txHash", txHash, chainId);
+  console.log("polling txHash", txHash, chainId, graphApiKeys);
   
   try {
     const result = await findTransaction({

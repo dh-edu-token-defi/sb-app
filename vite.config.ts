@@ -36,7 +36,7 @@ export default ({ mode }) => {
         },
       },
     },
-    base: "/yeet-nftescrow-summoner/",
+    base: "/sb-app/",
     build: {
       target: ["es2020"],
     },
