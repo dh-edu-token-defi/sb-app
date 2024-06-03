@@ -61,7 +61,7 @@ export const APP_FORM: Record<string, CustomFormLego> = {
         placeholder: "0x1234...5678",
       },
       {
-        id: "tokenId",
+        id: "nftTokenId",
         type: "input",
         label: "Token ID",
         placeholder: "0",

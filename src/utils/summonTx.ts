@@ -215,7 +215,7 @@ export const assembleNftEscrowYeeterShamanParams = ({
   // console.log(endDate)
 
   if (
-    !nftEscrowYeeterShamanSingleton 
+    !nftEscrowYeeterShamanSingleton  || !isEthAddress(sellerAddress) || !isEthAddress(nftAddress)
   ) {
     console.log(
       "assembleNftEscrowYeeterShamanParams ERROR:",
@@ -551,6 +551,7 @@ const shamanModuleConfigTX = (
 ) => {
   const { calculatedShamanAddress, calculatedTreasuryAddress } = formValues;
   console.log("calculatedShamanAddress", calculatedShamanAddress, calculatedTreasuryAddress);
+  console.log("foem values ******", formValues);
 
   if (
     !isEthAddress(calculatedShamanAddress) ||
