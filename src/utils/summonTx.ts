@@ -208,10 +208,14 @@ export const assembleMemeYeeterShamanParams = ({
   const nonFungiblePositionManager = CURATOR_CONTRACTS["UNISWAP_V3_NF_POSITION_MANAGER"][chainId];
   const weth9 = CURATOR_CONTRACTS["WETH"][chainId];
 
+  const endDateTime = formValues["endDate"] as string;
+
+
   if (
     !memeYeeterShamanSingleton ||
     !nonFungiblePositionManager ||
-    !weth9
+    !weth9 ||
+    !endDateTime
   ) {
     console.log(
       "assembleMemeYeeterShamanParams ERROR:",
@@ -236,13 +240,7 @@ export const assembleMemeYeeterShamanParams = ({
       nonFungiblePositionManager,
       weth9,
       ethers.utils.parseEther("0.1").toString(), // TODO: threshold
-      Math.floor( // TODO: expiration
-        (
-          new Date(
-            new Date().getTime() + (1800000) // now allows ~30 minutes before expiring
-          )
-        ).getTime() / 1000
-      ),
+      Number(endDateTime),
       DEFAULT_MEME_YEETER_VALUES.poolFee,
     ]
   );
@@ -269,6 +267,8 @@ const assembleShamanParams = ({
   
   const price = formValues["collectorPrice"] as string;
   const content = formValues["article"] as string;
+  const startDateTime = formValues["startDate"] as string;
+  const endDateTime = formValues["endDate"] as string;
 
   console.log("??????????", price, memberAddress, yeeterShamanSingleton, content);
 
@@ -314,12 +314,12 @@ const assembleShamanParams = ({
       "uint256[]",
     ],
     [
-      Math.floor(Number(today) / 1000),
-      Math.floor(Number(tomorrow) / 1000),
+      Number(startDateTime) || Math.floor(Number(today) / 1000),
+      Number(endDateTime) || Math.floor(Number(tomorrow) / 1000),
       DEFAULT_YEETER_VALUES.isShares,
       price,
       DEFAULT_YEETER_VALUES.multiplier,
-      "1000000000000000000", // goal?
+      DEFAULT_YEETER_VALUES.minThresholdGoal,
       DEFAULT_YEETER_VALUES.feeRecipients,
       DEFAULT_YEETER_VALUES.feeAmounts,
 
@@ -549,6 +549,7 @@ const shamanModuleConfigTX = (
 ) => {
   const { calculatedShamanAddress, calculatedTreasuryAddress } = formValues;
   console.log("calculatedShamanAddress", calculatedShamanAddress, calculatedTreasuryAddress);
+  console.log("formValues>>>>>>>>>>>>>>>>>>>.", formValues);
 
   if (
     !isEthAddress(calculatedShamanAddress) ||
@@ -556,7 +557,7 @@ const shamanModuleConfigTX = (
   ) {
     console.log("ERROR: Form Values", formValues);
     throw new Error(
-      "Manager addresses recieved arguments in the wrong shape or type"
+      "shamanModuleConfigTX recieved arguments in the wrong shape or type"
     );
   }
 
