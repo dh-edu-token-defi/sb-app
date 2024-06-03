@@ -211,6 +211,7 @@ export const assembleNftEscrowYeeterShamanParams = ({
   const sellerAddress = formValues["sellerAddress"] as string;
   const nftAddress = formValues["nftAddress"] as string;
   const nftTokenId = (formValues["nftTokenId"] || 0) as BigInt;
+  const minSalePrice = formValues["minSalePrice"] as BigInt;
   console.log("nftAddress, seller", nftAddress, sellerAddress);
   // console.log(endDate)
 
@@ -238,7 +239,7 @@ export const assembleNftEscrowYeeterShamanParams = ({
   const nftEscrowYeeterShamanParams = encodeValues(
     ["uint256", "uint256", "address", "address", "uint256"],
     [
-      ethers.utils.parseEther("0.1").toString(), // TODO: threshold
+      Number(minSalePrice), // TODO: threshold
       Number(endDate),
       sellerAddress,
       nftAddress,
