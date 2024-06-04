@@ -18,14 +18,8 @@ export const ShamanAddress = (props: Buildable<Field>) => {
   const formValues = watch();
   const saltNonce = watch("saltNonce");
   const baalAddress = watch("calculatedDAOAddress");
-  const startDate = watch("startDate");
-  const endDate = watch("endDate");
 
   useEffect(() => {
-    // if we don't have all the values we need, return early
-    // start and end date will be undefined until the form is filled out
-    if (!baalAddress || !saltNonce || !startDate || !endDate) return;
-
     const getShamanAddress = async () => {
       const {
         shamanInitParams: initializeParams,
@@ -56,7 +50,7 @@ export const ShamanAddress = (props: Buildable<Field>) => {
       console.log("****getting saltNonce to get shaman", baalAddress, saltNonce);
       getShamanAddress();
     }
-  }, [baalAddress, saltNonce, chainId, startDate, endDate]);
+  }, [baalAddress, saltNonce, chainId]);
 
   return null;
 };

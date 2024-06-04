@@ -36,7 +36,7 @@ export default ({ mode }) => {
         },
       },
     },
-    base: "/sb-app/",
+    base: "/yeet-summoner/",
     build: {
       target: ["es2020"],
     },
