@@ -1,6 +1,6 @@
-# SiloHAUS RDF Summoner
+# Educational Meme Tokens Summoner
 
-Summon RDF DAOs.
+Summon Educational Meme Token.
 
 ## Development
 

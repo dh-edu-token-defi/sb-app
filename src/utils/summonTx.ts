@@ -560,7 +560,7 @@ const shamanModuleConfigTX = (
   ) {
     console.log("ERROR: Form Values", formValues);
     throw new Error(
-      "recieved arguments in the wrong shape or type"
+      "shamanModuleConfigTX recieved arguments in the wrong shape or type"
     );
   }
 

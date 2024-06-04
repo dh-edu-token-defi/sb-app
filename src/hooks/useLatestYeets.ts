@@ -14,7 +14,7 @@ export const useLatestYeets = ({ chainId }: { chainId?: string }) => {
       const res = await graphQLClient.request(LATEST_YEETS);
 
       // @ts-expect-error
-      return res?.yeets;
+      return res?.yeets as YeetsItem[];
     },
     { enabled: !!chainId }
   );

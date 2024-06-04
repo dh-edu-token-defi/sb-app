@@ -1,6 +1,7 @@
-import { formatValueTo, fromWei } from "@daohaus/utils";
+import { formatValueTo, fromWei, charLimit } from "@daohaus/utils";
 import { YeeterItem } from "./types";
 import { format, formatDistanceToNow } from "date-fns";
+import { MarqueeItem } from "../components/YeetMarquee";
 
 export const calcProgressPerc = (a: string, b: string) => {
   let div = Number(a) / Number(b);
@@ -85,4 +86,25 @@ export const formatLootForAmount = (yeeter: YeeterItem, amount: string) => {
     decimals: 5,
     format: "number",
   });
+};
+
+export const formatMarqueeData = (item: MarqueeItem) => {
+  if (item.amount) {
+    return `${formatValueTo({
+      value: fromWei(item.amount),
+      decimals: 3,
+      format: "numberShort",
+    })} ETH ${item.verb} ${item.symbol} ${
+      item.description ? ` - ${charLimit(item.description, 20)}` : ""
+    }`;
+  } else {
+    return `${item.verb} ${item.symbol} ${
+      item.description ? ` - ${charLimit(item.description, 20)}` : ""
+    }`;
+  }
+};
+
+export const calcPercToGoal = (yeeter: YeeterItem) => {
+  if (Number(yeeter.goal) === 0) return `0%`;
+  return `${Number(yeeter.safeBalance) / Number(yeeter.goal)}%`;
 };

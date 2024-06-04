@@ -1,25 +1,31 @@
 import { useDHConnect } from "@daohaus/connect";
 import styled from "styled-components";
-import { Button, H4, H6, Link, ParSm, SingleColumnLayout } from "@daohaus/ui";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  H1,
+  H4,
+  ParMd,
+  ParSm,
+  SingleColumnLayout,
+} from "@daohaus/ui";
 import { Link as RouterLink } from "react-router-dom";
 import { supportedNetorks } from "../main";
-import { ADMIN_URL, DEFAULT_CHAIN_ID } from "../utils/constants";
+import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { useYeeters } from "../hooks/useYeeters";
 import { YeeterList } from "../components/YeeterList";
 import { Spacer } from "../components/Layout";
 import { useLatestYeets } from "../hooks/useLatestYeets";
-import { useMyYeeters } from "../hooks/useMyYeeters";
+import { YeetMarquee } from "../components/YeetMarquee";
 
 const LinkButton = styled(RouterLink)`
   text-decoration: none;
 `;
-
-const ExternalLinkButton = styled(Link)`
-  text-decoration: none;
-  color: unset;
-  &:hover {
-    text-decoration: none;
-  }
+const BigH1 = styled(H1)`
+  font-size: 20rem;
+  line-height: 12rem;
 `;
 
 const Landing = () => {
@@ -29,11 +35,6 @@ const Landing = () => {
     useYeeters({ chainId: DEFAULT_CHAIN_ID });
 
   const { yeets } = useLatestYeets({ chainId: DEFAULT_CHAIN_ID });
-
-  const { myYeeters } = useMyYeeters({
-    chainId: DEFAULT_CHAIN_ID,
-    account: address,
-  });
 
   return (
     <>
@@ -49,33 +50,42 @@ const Landing = () => {
               raid. Once the raid is finished, the nft will be released to the
               DAO as a tokenized asset.
             </ParSm>
-            <Spacer>
+            <Spacer />
               <LinkButton to="/summon/topic">
                 <Button variant="outline">Summon a NFT Escrow</Button>
               </LinkButton>
-            </Spacer>
 
-            <H4>Meme Yeets</H4>
+
+            {yeets && allYeeters && (
+              <YeetMarquee
+                yeets={yeets}
+                yeeters={allYeeters.slice(0, 5)}
+                chainId={DEFAULT_CHAIN_ID}
+              />
+            )}
+
+            <Spacer />
+            <Spacer />
+            <Spacer />
+
             <Spacer>
-              <H6>Latest Tokens</H6>
-              {allYeeters && <YeeterList yeeters={allYeeters.slice(0, 3)} />}
-              <H6>Latest Yeets</H6>
+              {activeYeetrs && (
+                <YeeterList title="Active Presale" yeeters={activeYeetrs} />
+              )}
 
-              {yeets && <pre>{JSON.stringify(yeets, null, 2)}</pre>}
+              {upcomingYeeters && (
+                <YeeterList title="Coming Soon" yeeters={upcomingYeeters} />
+              )}
+              {finishedYeeters && (
+                <YeeterList
+                  title="Completed Presale"
+                  yeeters={finishedYeeters}
+                />
+              )}
 
-              <H6>Active</H6>
+              {/* <H6>My Yeeters</H6>
 
-              {activeYeetrs && <YeeterList yeeters={activeYeetrs} />}
-
-              <H6>Upcoming</H6>
-              {upcomingYeeters && <YeeterList yeeters={upcomingYeeters} />}
-              <H6>Finished</H6>
-
-              {finishedYeeters && <YeeterList yeeters={finishedYeeters} />}
-
-              <H6>My Yeeters</H6>
-
-              {myYeeters && <YeeterList yeeters={myYeeters} />}
+              {myYeeters && <YeeterList yeeters={myYeeters} />} */}
             </Spacer>
           </div>
         </SingleColumnLayout>
@@ -88,13 +98,6 @@ const Landing = () => {
             </>
           )}
           {isConnected && <h1>Unsupported Network. Switch to sepolia</h1>}
-          <ExternalLinkButton
-            showExternalIcon={true}
-            target="_blank"
-            href={`${ADMIN_URL}`}
-          >
-            Continue To Topic List
-          </ExternalLinkButton>
         </div>
       )}
     </>

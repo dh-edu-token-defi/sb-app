@@ -20,6 +20,11 @@ import {
 import { YeeterItem } from "../utils/types";
 import { createPublicClient, http } from "viem";
 
+//todo chaneg this wehn we get token name
+type DaoProfileYeeter = DaoProfile & {
+  name: string;
+};
+
 export const useYeeter = ({
   chainId,
   daoId,
@@ -79,10 +84,10 @@ export const useYeeter = ({
       return {
         yeeter,
         metadata: record?.items[0]
-          ? (record.items[0].parsedContent as DaoProfile)
+          ? (record.items[0].parsedContent as DaoProfileYeeter)
           : ({
               daoId: daoId,
-            } as DaoProfile),
+            } as unknown as DaoProfileYeeter),
       };
     },
     { enabled: !!shamanAddress && !!chainId && !!daoId }

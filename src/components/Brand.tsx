@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { H5 } from "@daohaus/ui";
+import { H3, H5 } from "@daohaus/ui";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
@@ -27,7 +27,9 @@ export const Brand = () => {
   return (
     <Container>
       <BrandLink to="/">
+
         <H5>NFT Escrow Raids</H5>
+
       </BrandLink>
     </Container>
   );

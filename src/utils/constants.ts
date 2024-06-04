@@ -14,7 +14,7 @@ export const YEET24_NAME = "Yeet24ShamanModule";
 
 export const CURATOR_CONTRACTS: KeychainList = {
   YEET24_SUMMONER: {
-    "0xaa36a7": "0xce14094520008c00EF4CD794Fea98653eAAaDAca", // "0xc5ec2eabfd8d1a1e38896ad2ec1d452f66dac761", // "0x70132cd79f90306bc68c1930f4364452a17aa552" // "0x4bb5d274dea3542bb836cba64bd7eed63233cb58"
+    "0xaa36a7": "0x3ee5fbc5560a52c7298366cb5c7cfdb77cb522ea",
   },
   YEETNFTESCROW_SUMMONER: {
     "0xaa36a7": "0x3f5e1541cf9e7ef748cf86763a96b2f4c3a7bb4b", 
@@ -29,7 +29,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xaa36a7": "0x2f8340e73f0a5ee3000a70aaa222de09ce28023b",
   },
   YEET24_SINGLETON: {
-    "0xaa36a7": "0x7Ac82133E0c5cCA103f5db920bb63A6aF239A415", // "0xbdf2bd70d5dc78dce008b337d889b50c217c6eb7"
+    "0xaa36a7": "0xb3dc8207075e9c7e78efb7148fb59b6f5da1dc28"
   },
   FIXED_LOOT_SINGLETON: {
     // "0x1": "0x9d42696a9c3c54952b8918dcbcb82dd710347c77",
@@ -145,6 +145,7 @@ export const DEFAULT_YEETER_VALUES = {
   feeAmounts: ["5000", "5000"], // .5% fees
   lootPerYeet: "100",
   multiplier: "100",
+  minThresholdGoal: "100000000000000000",
 };
 
 export const DEFAULT_MEME_YEETER_VALUES = {

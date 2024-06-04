@@ -68,7 +68,7 @@ export const LATEST_YEETS = gql`
     yeets(
       orderBy: createdAt, 
       orderDirection: desc, 
-      first: 20,
+      first: 5,
       where: {
         dao_: {
           referrer: "${MEME_YEETER_SUMMONER_REFERRER}"
@@ -80,6 +80,9 @@ export const LATEST_YEETS = gql`
       amount
       shares
       message
+      yeeter {
+        id
+      }
     }
   }
 `;
