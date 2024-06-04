@@ -11,8 +11,11 @@ export const APP_FORM: Record<string, CustomFormLego> = {
     submitButtonText: "Summon MEME",
     requiredFields: {
       daoName: true,
+      tokenSymbol: true,
       description: true,
-      collectorPrice: true
+      collectorPrice: true,
+      startDate: true,
+      endDate: true,
     },
     log: true,
     tx: APP_TX.SUMMON_MEME,
@@ -50,18 +53,29 @@ export const APP_FORM: Record<string, CustomFormLego> = {
         info: "The initial price (in chain native token ex. ETH) per 1000 meme token.",
       },
       {
+        id: "startDate",
+        type: "epochDatePicker",
+        label: "Start Date"
+      },
+      {
+        id: "endDate",
+        type: "epochDatePicker",
+        label: "End Date"
+      },
+      {
         id: "image",
         type: "input",
-        label: "MEME Image Avatar",
+        label: "NFT Image Avatar",
         placeholder: "make sure image url is availible. IPFS gatways supported",
         expectType: "url",
         info: "icon, gif, pfp or avatar.",
       },
       {
         id: "article",
-        type: "markdownField",
+        type: "mdxEditor",
         label: "Introduction",
-        placeholder: "# We Meme....\n## We are the future.\nThis is a markdown editor.",
+        placeholder:
+          "# We Currate and Collect....\n## We are the future of media.\nThis is a markdown editor.",
         info: "Type something to kick it off.",
       },
       APP_FIELD.SALT_NONCE_FIELD,

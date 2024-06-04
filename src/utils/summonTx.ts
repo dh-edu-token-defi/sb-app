@@ -207,11 +207,13 @@ export const assembleMemeYeeterShamanParams = ({
   const memeYeeterShamanSingleton = CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId];
   const nonFungiblePositionManager = CURATOR_CONTRACTS["UNISWAP_V3_NF_POSITION_MANAGER"][chainId];
   const weth9 = CURATOR_CONTRACTS["WETH"][chainId];
+  const endDateTime = formValues["endDate"] as string;
 
   if (
     !memeYeeterShamanSingleton ||
     !nonFungiblePositionManager ||
-    !weth9
+    !weth9 ||
+    !endDateTime
   ) {
     console.log(
       "assembleMemeYeeterShamanParams ERROR:",
@@ -235,14 +237,8 @@ export const assembleMemeYeeterShamanParams = ({
     [
       nonFungiblePositionManager,
       weth9,
-      ethers.utils.parseEther("0.1").toString(), // TODO: threshold
-      Math.floor( // TODO: expiration
-        (
-          new Date(
-            new Date().getTime() + (1800000) // now allows ~30 minutes before expiring
-          )
-        ).getTime() / 1000
-      ),
+      DEFAULT_YEETER_VALUES.minThresholdGoal, // align with yeeter
+      Number(endDateTime), // align with yeeter
       DEFAULT_MEME_YEETER_VALUES.poolFee,
     ]
   );
@@ -556,7 +552,7 @@ const shamanModuleConfigTX = (
   ) {
     console.log("ERROR: Form Values", formValues);
     throw new Error(
-      "Manager addresses recieved arguments in the wrong shape or type"
+      "shamanModuleConfigTX recieved arguments in the wrong shape or type"
     );
   }
 
