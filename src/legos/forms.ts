@@ -5,17 +5,14 @@ import { APP_TX } from "./tx";
 export const APP_FORM: Record<string, CustomFormLego> = {
   SUMMON_MEME: {
     id: "SUMMON_MEME",
-    title: "NFT Escrow Summoner",
+    title: "MEME Summoner",
     description:
-      "Give your raid a name, description, and initial bid price. You can also add an image and a longer introduction.",
+      "Give your meme a name, description, and initial price. You can also add an image and a longer introduction.",
     submitButtonText: "Summon MEME",
     requiredFields: {
       daoName: true,
-      tokenSymbol: true,
       description: true,
-      collectorPrice: true,
-      startDate: true,
-      endDate: true,
+      collectorPrice: true
     },
     log: true,
     tx: APP_TX.SUMMON_MEME,
@@ -27,7 +24,7 @@ export const APP_FORM: Record<string, CustomFormLego> = {
           {
             id: "daoName",
             type: "input",
-            label: "Raid Name",
+            label: "MEME Name",
             placeholder: "A short name for the topic.",
           },
           {
@@ -40,42 +37,31 @@ export const APP_FORM: Record<string, CustomFormLego> = {
             id: "tokenSymbol",
             type: "input",
             label: "Token Symbol",
-            placeholder: "The token symbol for the tokenized NFT token.",
+            placeholder: "The token symbol for the meme token.",
           },
         ],
       },
       {
         id: "collectorPrice",
         type: "toWeiInput",
-        label: "Initial bid Price",
+        label: "Initial Price",
         placeholder: ".0069,420",
         expectType: "number",
-        info: "The initial price (in chain native token ex. ETH) per 1000 nft token recieved ",
-      },
-      {
-        id: "startDate",
-        type: "epochDatePicker",
-        label: "Start Date"
-      },
-      {
-        id: "endDate",
-        type: "epochDatePicker",
-        label: "End Date"
+        info: "The initial price (in chain native token ex. ETH) per 1000 meme token.",
       },
       {
         id: "image",
         type: "input",
-        label: "NFT Image Avatar",
+        label: "MEME Image Avatar",
         placeholder: "make sure image url is availible. IPFS gatways supported",
         expectType: "url",
         info: "icon, gif, pfp or avatar.",
       },
       {
         id: "article",
-        type: "mdxEditor",
+        type: "markdownField",
         label: "Introduction",
-        placeholder:
-          "# We Currate and Collect....\n## We are the future of media.\nThis is a markdown editor.",
+        placeholder: "# We Meme....\n## We are the future.\nThis is a markdown editor.",
         info: "Type something to kick it off.",
       },
       APP_FIELD.SALT_NONCE_FIELD,
