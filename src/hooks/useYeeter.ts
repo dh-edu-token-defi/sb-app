@@ -20,7 +20,7 @@ import {
 import { YeeterItem } from "../utils/types";
 import { createPublicClient, http } from "viem";
 
-//todo chaneg this wehn we get token name
+//todo change this wehn we get token name
 type DaoProfileYeeter = DaoProfile & {
   name: string;
 };

@@ -1,67 +1,176 @@
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
+import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+
 import { useYeeter } from "../hooks/useYeeter";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { YeeterItem } from "../utils/types";
-import { Card, DataLg, ParMd, ParSm, ParXl } from "@daohaus/ui";
+import {
+  Button,
+  Card,
+  DataLg,
+  DataXs,
+  ParLg,
+  ParMd,
+  ParSm,
+  ParXl,
+} from "@daohaus/ui";
 
 import RobotArm from "../assets/robot-hand-yellow.png";
-import { SimpleCol } from "./Layout";
+import { SimpleCol, Spacer } from "./Layout";
 import { formatValueTo, fromWei } from "@daohaus/utils";
-import { calcPercToGoal } from "../utils/yeetDataHelpers";
+import {
+  calcPercToGoal,
+  formatTimeRemaining,
+  formatTimeRemainingShort,
+  formatTimeUntilPresale,
+} from "../utils/yeetDataHelpers";
+import { useDaoData } from "@daohaus/moloch-v3-hooks";
+import { Link } from "react-router-dom";
+import { ButtonRouterLink } from "./ButtonRouterLink";
+
+const SpacedCard = styled(Card)`
+  margin-right: 1rem;
+  width: 35rem;
+`;
 
 const TopSectionContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 3rem;
+  justify-content: center;
+  width: 100%;
 `;
 
 const DataCol = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
+
+  .detailsLink {
+    margin-top: 2rem;
+  }
 `;
 
 const TokenNameParXl = styled(ParXl)`
   font-size: 4.5rem;
   line-height: normal;
+  margin-bottom: -0.5rem;
+`;
+
+const TimeDataLg = styled(DataLg)`
+  font-weight: 700;
+  line-height: 1;
+  margin: 2rem 0;
+  text-align: center;
+  background-color: ${(props) => props.theme.warning.step10};
+  color: black;
+  padding: 1rem;
 `;
 
 export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
+  const chainId = DEFAULT_CHAIN_ID;
   const { metadata, yeeter } = useYeeter({
     daoId: yeeterData.dao.id,
     shamanAddress: yeeterData.id,
-    chainId: DEFAULT_CHAIN_ID,
+    chainId: chainId,
     yeeterData,
   });
+  const theme = useTheme();
 
   if (!metadata || !yeeter) return null;
 
   console.log("yeeter", yeeter);
 
   return (
-    <Card>
+    <SpacedCard>
       <TopSectionContainer>
-        <div>
-          {metadata.avatarImg && metadata.avatarImg !== "" ? (
-            <img src={metadata.avatarImg} height="100px" />
-          ) : (
-            <img src={RobotArm} height="100px" />
-          )}
-        </div>
-        <DataCol>
-          <TokenNameParXl>{metadata.name}</TokenNameParXl>
-          <ParMd>
-            {`${formatValueTo({
-              value: fromWei(yeeter.safeBalance.toString()),
-              decimals: 5,
-              format: "number",
-            })} ETH Raised`}
-          </ParMd>
-          <ParMd>{calcPercToGoal(yeeter)} To Goal</ParMd>
-        </DataCol>
+        {metadata.avatarImg && metadata.avatarImg !== "" ? (
+          <img src={metadata.avatarImg} height="100px" />
+        ) : (
+          <img src={RobotArm} height="100px" />
+        )}
       </TopSectionContainer>
-    </Card>
+      <DataCol>
+        <TokenNameParXl>{metadata.name}</TokenNameParXl>
+        <DataXs>{metadata.description}</DataXs>
+        {yeeter.isActive && (
+          <TimeDataLg color={theme.warning.step10}>
+            Presale Ends {formatTimeRemainingShort(yeeter)}
+          </TimeDataLg>
+        )}
+
+        {yeeter.isComingSoon && (
+          <TimeDataLg color={theme.success.step10}>
+            Presale Starts {formatTimeUntilPresale(yeeter)}
+          </TimeDataLg>
+        )}
+        {yeeter.isActive && (
+          <>
+            <ParMd>
+              {`${formatValueTo({
+                value: fromWei(yeeter.safeBalance.toString()),
+                decimals: 5,
+                format: "number",
+              })} ETH Raised`}
+            </ParMd>
+            <ParMd>{calcPercToGoal(yeeter)} To Goal</ParMd>
+          </>
+        )}
+
+        {yeeter.isEnded && (
+          <>
+            <ParMd>
+              {`${formatValueTo({
+                value: fromWei(yeeter.safeBalance.toString()),
+                decimals: 5,
+                format: "number",
+              })} ETH Raised`}
+            </ParMd>
+            <ParLg>{`Status: ${
+              yeeter.reachedGoal ? "Big Success" : `Major Fail`
+            }`}</ParLg>
+          </>
+        )}
+        {yeeter.isActive && (
+          <Button
+            size="lg"
+            fullWidth={true}
+            style={{ marginTop: "2rem" }}
+            variant="outline"
+          >
+            BUY
+          </Button>
+        )}
+
+        {yeeter.isEnded && yeeter.reachedGoal && (
+          <Button
+            size="lg"
+            fullWidth={true}
+            style={{ marginTop: "2rem" }}
+            variant="outline"
+          >
+            SWAP
+          </Button>
+        )}
+        {yeeter.isEnded && !yeeter.reachedGoal && (
+          <Button
+            size="lg"
+            fullWidth={true}
+            style={{ marginTop: "2rem" }}
+            variant="outline"
+          >
+            EXIT
+          </Button>
+        )}
+
+        <div className="detailsLink">
+          <ButtonRouterLink
+            to={`molochv3/${chainId}/${yeeter.dao.id}/${yeeter.id}`}
+          >
+            DYOR <HiOutlineArrowNarrowRight />
+          </ButtonRouterLink>
+        </div>
+      </DataCol>
+    </SpacedCard>
   );
 };
 

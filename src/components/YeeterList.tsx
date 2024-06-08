@@ -15,10 +15,11 @@ const TitleContainer = styled.div`
 
 const CarouselContainer = styled.div`
   max-width: 110rem;
+  padding: 1rem 0;
 `;
 
 const ImageContainer = styled.div`
-  padding: 20px;
+  padding: 1rem 0;
 `;
 
 const responsive = {
@@ -54,7 +55,7 @@ export const YeeterList = ({
       <CarouselContainer>
         {yeeters.length < 1 && (
           <ImageContainer>
-            <img src={NothingImg} height="200px" />
+            <img src={NothingImg} height="300px" />
           </ImageContainer>
         )}
         {yeeters.length > 0 && (
