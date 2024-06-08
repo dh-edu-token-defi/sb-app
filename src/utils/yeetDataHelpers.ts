@@ -50,6 +50,20 @@ export const formatTimeRemaining = (yeeter: YeeterItem) => {
   });
 };
 
+export const formatTimeRemainingShort = (yeeter: YeeterItem) => {
+  return formatDistanceToNow(new Date(Number(yeeter.endTime) * 1000), {
+    addSuffix: true,
+    includeSeconds: true,
+  });
+};
+
+export const formatTimeUntilPresale = (yeeter: YeeterItem) => {
+  return formatDistanceToNow(new Date(Number(yeeter.startTime) * 1000), {
+    addSuffix: true,
+    includeSeconds: true,
+  });
+};
+
 export const formatMinContribution = (yeeter: YeeterItem) => {
   return formatValueTo({
     value: fromWei(yeeter.minTribute),
