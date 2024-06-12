@@ -14,13 +14,13 @@ export const YEET24_NAME = "Yeet24ShamanModule";
 
 export const CURATOR_CONTRACTS: KeychainList = {
   YEET24_SUMMONER: {
-    "0xaa36a7": "0x3ee5fbc5560a52c7298366cb5c7cfdb77cb522ea",
+    "0xaa36a7": "0xF36Ae50530e13E957831B1883bB846aaa31864D6",
   },
   YEETER_SINGLETON: {
     "0xaa36a7": "0x62ff4ca410e9e58f5ce8b2ad03695ef0ad990381",
   },
   YEET24_SINGLETON: {
-    "0xaa36a7": "0xb3dc8207075e9c7e78efb7148fb59b6f5da1dc28"
+    "0xaa36a7": "0xC7d3bb83E91De885E2B714553496D169E279E5dc"
   },
   FIXED_LOOT_SINGLETON: {
     // "0x1": "0x9d42696a9c3c54952b8918dcbcb82dd710347c77",
