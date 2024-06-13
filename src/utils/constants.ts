@@ -9,6 +9,7 @@ import {
   ValidNetwork,
 } from "@daohaus/keychain-utils";
 
+export const MEME_YEETER_SUMMONER_REFERRER = "DHYeet24ShamanSummoner.3";
 export const YEET24_REFERRER = "DHYeet24ShamanSummoner.3";
 export const YEET24_NAME = "Yeet24ShamanModule";
 
@@ -20,7 +21,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xaa36a7": "0x62ff4ca410e9e58f5ce8b2ad03695ef0ad990381",
   },
   YEET24_SINGLETON: {
-    "0xaa36a7": "0xC7d3bb83E91De885E2B714553496D169E279E5dc"
+    "0xaa36a7": "0xC7d3bb83E91De885E2B714553496D169E279E5dc",
   },
   FIXED_LOOT_SINGLETON: {
     // "0x1": "0x9d42696a9c3c54952b8918dcbcb82dd710347c77",
@@ -140,5 +141,3 @@ export const DEFAULT_YEETER_VALUES = {
 export const DEFAULT_MEME_YEETER_VALUES = {
   poolFee: "10000", // 1%
 };
-
-export const MEME_YEETER_SUMMONER_REFERRER = "DHYeet24ShamanSummoner";
