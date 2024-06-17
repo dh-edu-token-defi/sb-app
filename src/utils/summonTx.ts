@@ -334,42 +334,6 @@ const assembleShamanParams = ({
   );
 };
 
-function assembleInitialContent(
-  {
-    formValues,
-    memberAddress,
-    chainId,
-  }: {
-    formValues: Record<string, unknown>;
-    memberAddress: EthAddress;
-    chainId: ValidNetwork;
-  }
-) {
-  const daoName = formValues["daoName"] as string;
-  const calculatedDAOAddress = formValues["calculatedDAOAddress"] as string;
-  const body = formValues["article"] as string;
-  const headerImage = formValues["headerImage"] as string;
-  const name = formValues["daoName"] as string;
-
-  const content = { 
-                name: name,
-                daoId: calculatedDAOAddress || "0x00000000",
-                table: 'daoProfile', 
-                queryType: 'list',
-                title: `${daoName} Incarnation`,
-                description: body,
-                contentURI: "",
-                contentURIType: "url",
-                imageURI: headerImage,
-                imageURIType: "url",
-                contentHash: "", // TODO: uuid, maybe use signature
-                authorAddress: memberAddress,
-                parentId: 0
-              };
-  return JSON.stringify(content);
-
-}
-
 interface FormValuesWithTags extends Record<string, unknown> {
   tags: string[];
 }
@@ -476,32 +440,8 @@ const tokenDistroTX = (formValues: SummonParams , memberAddress: EthAddress) => 
   throw new Error("Encoding Error");
 };
 
-const introPostConfigTX = (formValues: SummonParams, memberAddress: EthAddress, posterAddress: string, chainId: ValidNetwork) => {
-  const { daoName } = formValues;
-  if (!isString(daoName)) {
-    console.log("ERROR: Form Values", formValues);
-    throw new Error("metadataTX recieved arguments in the wrong shape or type");
-  }
-  console.log("POSTER", posterAddress);
-
-  const METADATA = encodeFunction(LOCAL_ABI.POSTER, "post", [
-    assembleInitialContent({formValues, memberAddress, chainId}),
-    POSTER_TAGS.summoner,
-  ]);
-
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, "executeAsBaal", [
-    posterAddress,
-    0,
-    METADATA,
-  ]);
-  if (isString(encoded)) {
-    return encoded;
-  }
-  throw new Error("Encoding Error");
-};
-
 const metadataConfigTX = (formValues: FormValuesWithTags, memberAddress: EthAddress, posterAddress: string) => {
-  const { daoName, calculatedDAOAddress, article: body, headerImage, description, paramTag, tags } = formValues;
+  const { daoName, calculatedDAOAddress, article: body, image, description, paramTag, tags } = formValues;
   if (!isString(daoName)) {
     console.log("ERROR: Form Values", formValues);
     throw new Error("metadataTX recieved arguments in the wrong shape or type");
@@ -515,7 +455,7 @@ const metadataConfigTX = (formValues: FormValuesWithTags, memberAddress: EthAddr
                 queryType: 'list',
                 description: description || "",
                 longDescription: body || "",
-                avatarImg: headerImage || "", // TODO: is this the right field?
+                avatarImg: image || "", 
                 title: `${daoName} tst`,
                 tags: ["YEET24", "Incarnation", paramTag || "topic", ...tags],
                 authorAddress: memberAddress,
