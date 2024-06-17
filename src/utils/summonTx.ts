@@ -441,7 +441,7 @@ const tokenDistroTX = (formValues: SummonParams , memberAddress: EthAddress) => 
 };
 
 const metadataConfigTX = (formValues: FormValuesWithTags, memberAddress: EthAddress, posterAddress: string) => {
-  const { daoName, calculatedDAOAddress, article: body, image, description, paramTag, tags } = formValues;
+  const { daoName, calculatedDAOAddress, body, image, description, paramTag, tags } = formValues;
   if (!isString(daoName)) {
     console.log("ERROR: Form Values", formValues);
     throw new Error("metadataTX recieved arguments in the wrong shape or type");
