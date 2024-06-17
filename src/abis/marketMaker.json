@@ -32,12 +32,43 @@
   },
   {
     "inputs": [],
-    "name": "YeetShamanModule_BaalVaultOnly",
+    "name": "Yeet24ShamanModule__AlreadyExecuted",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "YeetShamanModule__AlreadyExecuted",
+    "name": "Yeet24ShamanModule__BaalVaultOnly",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "returnData",
+        "type": "bytes"
+      }
+    ],
+    "name": "Yeet24ShamanModule__ExecutionFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Yeet24ShamanModule__InvalidEndTime",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Yeet24ShamanModule__InvalidPoolFee",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Yeet24ShamanModule__ThresholdNotMet",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Yeet24ShamanModule__YeetNotFinished",
     "type": "error"
   },
   {
@@ -152,13 +183,13 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "threshold",
+        "name": "goal",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "expiration",
+        "name": "endTime",
         "type": "uint256"
       },
       {
@@ -202,7 +233,7 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "tokenId",
+        "name": "positionId",
         "type": "uint256"
       },
       {
@@ -324,6 +355,53 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "enum Enum.Operation",
+        "name": "_operation",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address",
+        "name": "_to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_callData",
+        "type": "bytes"
+      }
+    ],
+    "name": "encodeMultiSendAction",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "endTime",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "execute",
     "outputs": [],
@@ -345,7 +423,20 @@
   },
   {
     "inputs": [],
-    "name": "expiration",
+    "name": "getGuard",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "_guard",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "goal",
     "outputs": [
       {
         "internalType": "uint256",
@@ -358,12 +449,12 @@
   },
   {
     "inputs": [],
-    "name": "getGuard",
+    "name": "goalAchieved",
     "outputs": [
       {
-        "internalType": "address",
-        "name": "_guard",
-        "type": "address"
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -668,19 +759,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "threshold",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -718,9 +796,5 @@
     ],
     "stateMutability": "view",
     "type": "function"
-  },
-  {
-    "stateMutability": "payable",
-    "type": "receive"
   }
 ]
