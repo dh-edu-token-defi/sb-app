@@ -23,7 +23,6 @@ import safeL2Abi from "../abis/safeL2.json";
 import basicHOSSummoner from "../abis/basicHOSSummoner.json";
 import yeet24HosSummoner from "../abis/yeet24Summoner.json";
 
-
 import safeFactoryAbi from "../abis/safeFactory.json";
 
 import { handleKeychains } from "@daohaus/contract-utils";
@@ -34,12 +33,11 @@ import {
   YEETER_SHAMAN_PERMISSIONS,
   MEME_SHAMAN_PERMISSIONS,
   DEFAULT_YEETER_VALUES,
-  DEFAULT_MEME_YEETER_VALUES
+  DEFAULT_MEME_YEETER_VALUES,
 } from "./constants";
 import { createEthersContract } from "@daohaus/tx-builder";
 import { BigNumber, ethers } from "ethers";
 import { SaltNonce } from "../components/customFields/SaltNonce";
-
 
 export type SummonParams = {
   daoName?: string;
@@ -57,15 +55,19 @@ export type SummonParams = {
   votingPeriodInSeconds?: number;
   gracePeriod?: string;
   gracePeriodInSeconds?: number;
-  shamans?: '' | {
-      shamanAddresses: string[];
-      shamanPermissions: string[];
-  };
-  members?: '' | {
-      memberAddresses: string[];
-      memberShares: string[];
-      memberLoot: string[];
-  };
+  shamans?:
+    | ""
+    | {
+        shamanAddresses: string[];
+        shamanPermissions: string[];
+      };
+  members?:
+    | ""
+    | {
+        memberAddresses: string[];
+        memberShares: string[];
+        memberLoot: string[];
+      };
   calculatedShamanAddress?: string;
   tags?: string[];
 };
@@ -85,42 +87,46 @@ export const assembleMemeSummonerArgs = (args: ArbitraryState) => {
 
   const saltNonce = formValues["saltNonce"].toString() || "8441";
 
-    
-    console.log(">>>>> yo");
-    const initializationLootTokenParams = assembleLootTokenParams({
-      formValues,
-      chainId,
-    });
+  console.log(">>>>> yo");
+  const initializationLootTokenParams = assembleLootTokenParams({
+    formValues,
+    chainId,
+  });
 
-    const initializationShareTokenParams = assembleShareTokenParams({
-      formValues,
-      chainId,
-      memberAddress
-    });
+  const initializationShareTokenParams = assembleShareTokenParams({
+    formValues,
+    chainId,
+    memberAddress,
+  });
 
-    const initializationShamanParams = assembleShamanParams({
-      formValues,
-      chainId,
-      memberAddress
-    });
+  const initializationShamanParams = assembleShamanParams({
+    formValues,
+    chainId,
+    memberAddress,
+  });
 
-    const postInitializationActions = assembleInitActions({
-      formValues,
-      memberAddress,
-      chainId,
-      saltNonce,
-    });
+  const postInitializationActions = assembleInitActions({
+    formValues,
+    memberAddress,
+    chainId,
+    saltNonce,
+  });
 
-    console.log(">>>>> summon args", initializationLootTokenParams, initializationShareTokenParams, initializationShamanParams, postInitializationActions);
+  console.log(
+    ">>>>> summon args",
+    initializationLootTokenParams,
+    initializationShareTokenParams,
+    initializationShamanParams,
+    postInitializationActions
+  );
 
-    txArgs = [
-      initializationLootTokenParams,
-      initializationShareTokenParams,
-      initializationShamanParams,
-      postInitializationActions,
-      saltNonce,
-    ];
-  
+  txArgs = [
+    initializationLootTokenParams,
+    initializationShareTokenParams,
+    initializationShamanParams,
+    postInitializationActions,
+    saltNonce,
+  ];
 
   console.log("txArgs", txArgs);
 
@@ -145,19 +151,9 @@ const assembleLootTokenParams = ({
       "assembleLootTokenParams recieved arguments in the wrong shape or type"
     );
   }
-  console.log(
-    ">>>>> assembleLootTokenParams",
-    daoName,
-    tokenSymbol
-  );
+  console.log(">>>>> assembleLootTokenParams", daoName, tokenSymbol);
 
-  const lootParams = encodeValues(
-    ["string", "string"],
-    [
-      daoName,
-      tokenSymbol
-    ]
-  );
+  const lootParams = encodeValues(["string", "string"], [daoName, tokenSymbol]);
 
   return encodeValues(["address", "bytes"], [lootSingleton, lootParams]);
 };
@@ -166,7 +162,7 @@ const assembleLootTokenParams = ({
 const assembleShareTokenParams = ({
   chainId,
   formValues,
-  memberAddress
+  memberAddress,
 }: {
   chainId: ValidNetwork;
   formValues: Record<string, unknown>;
@@ -186,10 +182,7 @@ const assembleShareTokenParams = ({
 
   const shareParams = encodeValues(
     ["string", "string"],
-    [
-      daoName,
-      tokenSymbol
-    ]
+    [daoName, tokenSymbol]
   );
 
   return encodeValues(["address", "bytes"], [shareSingleton, shareParams]);
@@ -204,10 +197,13 @@ export const assembleMemeYeeterShamanParams = ({
   memberAddress: EthAddress;
   chainId: ValidNetwork;
 }) => {
-  const memeYeeterShamanSingleton = CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId];
-  const nonFungiblePositionManager = CURATOR_CONTRACTS["UNISWAP_V3_NF_POSITION_MANAGER"][chainId];
+  const memeYeeterShamanSingleton =
+    CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId];
+  const nonFungiblePositionManager =
+    CURATOR_CONTRACTS["UNISWAP_V3_NF_POSITION_MANAGER"][chainId];
   const weth9 = CURATOR_CONTRACTS["WETH"][chainId];
-  const endDateTime = formValues["endDate"] as string;
+  const startDateTime = formValues["startDate"] as string;
+  const endDateTime = (startDateTime + 24 * 60 * 60) as string;
 
   if (
     !memeYeeterShamanSingleton ||
@@ -248,8 +244,7 @@ export const assembleMemeYeeterShamanParams = ({
     shamanPermission: MEME_SHAMAN_PERMISSIONS,
     shamanInitParams: memeYeeterShamanParams,
   };
-
-}
+};
 
 const assembleShamanParams = ({
   formValues,
@@ -260,13 +255,18 @@ const assembleShamanParams = ({
   memberAddress: EthAddress;
   chainId: ValidNetwork;
 }) => {
-
   const yeeterShamanSingleton = CURATOR_CONTRACTS["YEETER_SINGLETON"][chainId];
-  
+
   const price = formValues["collectorPrice"] as string;
   const content = formValues["article"] as string;
 
-  console.log("??????????", price, memberAddress, yeeterShamanSingleton, content);
+  console.log(
+    "??????????",
+    price,
+    memberAddress,
+    yeeterShamanSingleton,
+    content
+  );
 
   const {
     shamanSingleton: memeYeeterShamanSingleton,
@@ -276,7 +276,7 @@ const assembleShamanParams = ({
 
   if (
     !isEthAddress(memberAddress) ||
-    !yeeterShamanSingleton||
+    !yeeterShamanSingleton ||
     !memeYeeterShamanSingleton
   ) {
     console.log("ERROR: Form Values", formValues);
@@ -288,7 +288,7 @@ const assembleShamanParams = ({
 
   var today = new Date();
   var tomorrow = new Date();
-  tomorrow.setDate(today.getDate()+1)
+  tomorrow.setDate(today.getDate() + 1);
 
   // uint256 _startTime,
   // uint256 _endTime,
@@ -318,15 +318,21 @@ const assembleShamanParams = ({
       "1000000000000000000", // goal?
       DEFAULT_YEETER_VALUES.feeRecipients,
       DEFAULT_YEETER_VALUES.feeAmounts,
-
     ]
   );
 
   const shamanSingletons = [memeYeeterShamanSingleton, yeeterShamanSingleton];
-  const shamanPermissions = [memeYeeterShamanPermission, YEETER_SHAMAN_PERMISSIONS]
+  const shamanPermissions = [
+    memeYeeterShamanPermission,
+    YEETER_SHAMAN_PERMISSIONS,
+  ];
   const shamanInitParams = [memeYeeterShamanParams, yeeterShamanParams];
 
-  console.log("shaman vals", [shamanSingletons, shamanPermissions, shamanInitParams])
+  console.log("shaman vals", [
+    shamanSingletons,
+    shamanPermissions,
+    shamanInitParams,
+  ]);
 
   return encodeValues(
     ["address[]", "uint256[]", "bytes[]"],
@@ -334,40 +340,37 @@ const assembleShamanParams = ({
   );
 };
 
-function assembleInitialContent(
-  {
-    formValues,
-    memberAddress,
-    chainId,
-  }: {
-    formValues: Record<string, unknown>;
-    memberAddress: EthAddress;
-    chainId: ValidNetwork;
-  }
-) {
+function assembleInitialContent({
+  formValues,
+  memberAddress,
+  chainId,
+}: {
+  formValues: Record<string, unknown>;
+  memberAddress: EthAddress;
+  chainId: ValidNetwork;
+}) {
   const daoName = formValues["daoName"] as string;
   const calculatedDAOAddress = formValues["calculatedDAOAddress"] as string;
   const body = formValues["article"] as string;
   const headerImage = formValues["headerImage"] as string;
   const name = formValues["daoName"] as string;
 
-  const content = { 
-                name: name,
-                daoId: calculatedDAOAddress || "0x00000000",
-                table: 'daoProfile', 
-                queryType: 'list',
-                title: `${daoName} Incarnation`,
-                description: body,
-                contentURI: "",
-                contentURIType: "url",
-                imageURI: headerImage,
-                imageURIType: "url",
-                contentHash: "", // TODO: uuid, maybe use signature
-                authorAddress: memberAddress,
-                parentId: 0
-              };
+  const content = {
+    name: name,
+    daoId: calculatedDAOAddress || "0x00000000",
+    table: "daoProfile",
+    queryType: "list",
+    title: `${daoName} Incarnation`,
+    description: body,
+    contentURI: "",
+    contentURIType: "url",
+    imageURI: headerImage,
+    imageURIType: "url",
+    contentHash: "", // TODO: uuid, maybe use signature
+    authorAddress: memberAddress,
+    parentId: 0,
+  };
   return JSON.stringify(content);
-
 }
 
 interface FormValuesWithTags extends Record<string, unknown> {
@@ -390,16 +393,16 @@ const assembleInitActions = ({
   let initActions = [];
   console.log("formValues ????????????/", formValues);
 
-    initActions = [
-      governanceConfigTX(DEFAULT_SUMMON_VALUES),
-      metadataConfigTX(formValues, memberAddress, POSTER.toLowerCase()),
-      tokenConfigTX(),
-      // tokenDistroTX(formValues, memberAddress),
-      shamanModuleConfigTX(formValues, saltNonce, chainId),
-      // this will not be indexed as is. move intro post to metadataConfigTX
-      // introPostConfigTX(formValues, memberAddress, POSTER.toLowerCase(), chainId), 
-    ];
-  
+  initActions = [
+    governanceConfigTX(DEFAULT_SUMMON_VALUES),
+    metadataConfigTX(formValues, memberAddress, POSTER.toLowerCase()),
+    tokenConfigTX(),
+    // tokenDistroTX(formValues, memberAddress),
+    shamanModuleConfigTX(formValues, saltNonce, chainId),
+    // this will not be indexed as is. move intro post to metadataConfigTX
+    // introPostConfigTX(formValues, memberAddress, POSTER.toLowerCase(), chainId),
+  ];
+
   return initActions;
 };
 
@@ -461,13 +464,12 @@ const tokenConfigTX = () => {
   throw new Error("Encoding Error");
 };
 
-const tokenDistroTX = (formValues: SummonParams , memberAddress: EthAddress) => {
-
+const tokenDistroTX = (formValues: SummonParams, memberAddress: EthAddress) => {
   const shamanAddress = formValues.calculatedShamanAddress;
 
   const encoded = encodeFunction(LOCAL_ABI.BAAL, "mintShares", [
     [memberAddress],
-    ["10000000000000000000"]
+    ["10000000000000000000"],
   ]);
 
   if (isString(encoded)) {
@@ -476,7 +478,12 @@ const tokenDistroTX = (formValues: SummonParams , memberAddress: EthAddress) => 
   throw new Error("Encoding Error");
 };
 
-const introPostConfigTX = (formValues: SummonParams, memberAddress: EthAddress, posterAddress: string, chainId: ValidNetwork) => {
+const introPostConfigTX = (
+  formValues: SummonParams,
+  memberAddress: EthAddress,
+  posterAddress: string,
+  chainId: ValidNetwork
+) => {
   const { daoName } = formValues;
   if (!isString(daoName)) {
     console.log("ERROR: Form Values", formValues);
@@ -485,7 +492,7 @@ const introPostConfigTX = (formValues: SummonParams, memberAddress: EthAddress, 
   console.log("POSTER", posterAddress);
 
   const METADATA = encodeFunction(LOCAL_ABI.POSTER, "post", [
-    assembleInitialContent({formValues, memberAddress, chainId}),
+    assembleInitialContent({ formValues, memberAddress, chainId }),
     POSTER_TAGS.summoner,
   ]);
 
@@ -500,27 +507,39 @@ const introPostConfigTX = (formValues: SummonParams, memberAddress: EthAddress, 
   throw new Error("Encoding Error");
 };
 
-const metadataConfigTX = (formValues: FormValuesWithTags, memberAddress: EthAddress, posterAddress: string) => {
-  const { daoName, calculatedDAOAddress, article: body, headerImage, description, paramTag, tags } = formValues;
+const metadataConfigTX = (
+  formValues: FormValuesWithTags,
+  memberAddress: EthAddress,
+  posterAddress: string
+) => {
+  const {
+    daoName,
+    calculatedDAOAddress,
+    article: body,
+    headerImage,
+    description,
+    paramTag,
+    tags,
+  } = formValues;
   if (!isString(daoName)) {
     console.log("ERROR: Form Values", formValues);
     throw new Error("metadataTX recieved arguments in the wrong shape or type");
   }
   console.log("POSTER", posterAddress);
 
-  const content = { 
-                name: daoName,
-                daoId: calculatedDAOAddress,
-                table: 'daoProfile', 
-                queryType: 'list',
-                description: description || "",
-                longDescription: body || "",
-                avatarImg: headerImage || "", // TODO: is this the right field?
-                title: `${daoName} tst`,
-                tags: ["YEET24", "Incarnation", paramTag || "topic", ...tags],
-                authorAddress: memberAddress,
-                // parentId: 0
-              };
+  const content = {
+    name: daoName,
+    daoId: calculatedDAOAddress,
+    table: "daoProfile",
+    queryType: "list",
+    description: description || "",
+    longDescription: body || "",
+    avatarImg: headerImage || "", // TODO: is this the right field?
+    title: `${daoName} tst`,
+    tags: ["YEET24", "Incarnation", paramTag || "topic", ...tags],
+    authorAddress: memberAddress,
+    // parentId: 0
+  };
 
   const METADATA = encodeFunction(LOCAL_ABI.POSTER, "post", [
     JSON.stringify(content),
@@ -544,7 +563,11 @@ const shamanModuleConfigTX = (
   chainId: ValidNetwork
 ) => {
   const { calculatedShamanAddress, calculatedTreasuryAddress } = formValues;
-  console.log("calculatedShamanAddress", calculatedShamanAddress, calculatedTreasuryAddress);
+  console.log(
+    "calculatedShamanAddress",
+    calculatedShamanAddress,
+    calculatedTreasuryAddress
+  );
 
   if (
     !isEthAddress(calculatedShamanAddress) ||
@@ -591,7 +614,8 @@ export const calculateDAOAddress = async (
   saltNonce: string,
   chainId: ValidNetwork
 ) => {
-  const yeet24Summoner = CURATOR_CONTRACTS["YEET24_SUMMONER"][chainId] || ZERO_ADDRESS;
+  const yeet24Summoner =
+    CURATOR_CONTRACTS["YEET24_SUMMONER"][chainId] || ZERO_ADDRESS;
   // calculateBaalAddress
 
   console.log("yeet24Summoner", yeet24Summoner, chainId);
@@ -602,14 +626,16 @@ export const calculateDAOAddress = async (
     chainId: chainId,
     rpcs: HAUS_RPC,
   });
-  let expectedDAOAddress = await hos.callStatic.calculateBaalAddress(
-      saltNonce
-    );
+  let expectedDAOAddress = await hos.callStatic.calculateBaalAddress(saltNonce);
 
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>expectedDAOAddress", expectedDAOAddress, ethers.utils.getAddress(expectedDAOAddress));
+  console.log(
+    ">>>>>>>>>>>>>>>>>>>>>>>>>>>expectedDAOAddress",
+    expectedDAOAddress,
+    ethers.utils.getAddress(expectedDAOAddress)
+  );
 
   return ethers.utils.getAddress(expectedDAOAddress);
-}
+};
 
 export const generateShamanSaltNonce = ({
   baalAddress,
@@ -618,7 +644,7 @@ export const generateShamanSaltNonce = ({
   saltNonce,
   shamanPermissions,
   shamanTemplate,
-} : {
+}: {
   baalAddress: string;
   index: string;
   shamanPermissions: string;
@@ -630,20 +656,25 @@ export const generateShamanSaltNonce = ({
     encodeValues(
       ["address", "uint256", "address", "uint256", "bytes32", "uint256"],
       [
-        baalAddress, index, shamanTemplate, shamanPermissions,
+        baalAddress,
+        index,
+        shamanTemplate,
+        shamanPermissions,
         ethers.utils.keccak256(initializeParams),
         saltNonce,
       ]
-    ),
+    )
   );
-}
+};
 
 export const calculateMemeShamanAddress = async (
   saltNonce: string,
   chainId: ValidNetwork
 ) => {
-  const yeet24Singleton = CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId] || ZERO_ADDRESS;
-  const yeet24ShamanSummoner = CURATOR_CONTRACTS["YEET24_SUMMONER"][chainId] || ZERO_ADDRESS;
+  const yeet24Singleton =
+    CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId] || ZERO_ADDRESS;
+  const yeet24ShamanSummoner =
+    CURATOR_CONTRACTS["YEET24_SUMMONER"][chainId] || ZERO_ADDRESS;
   console.log("yeet24 Shaman", yeet24Singleton, yeet24ShamanSummoner, chainId);
   const hos = createEthersContract({
     address: yeet24ShamanSummoner,
@@ -656,20 +687,21 @@ export const calculateMemeShamanAddress = async (
   console.log("yeet24 Shaman", yeet24Singleton, yeet24ShamanSummoner, chainId);
 
   try {
-    expectedShamanAddress = await hos.callStatic.predictDeterministicShamanAddress(
-      yeet24Singleton,
-      saltNonce
+    expectedShamanAddress =
+      await hos.callStatic.predictDeterministicShamanAddress(
+        yeet24Singleton,
+        saltNonce
+      );
+    console.log(
+      "***>>>>>>>>>>>>>> expectedShamanAddress",
+      expectedShamanAddress
     );
-    console.log("***>>>>>>>>>>>>>> expectedShamanAddress", expectedShamanAddress);
-  
   } catch (e: any) {
-
     console.log("expectedShamanAddress error", e);
   }
 
   return expectedShamanAddress;
-
-}
+};
 
 // util to get the address of a safe before it is deployed
 export const calculateCreateProxyWithNonceAddress = async (
@@ -678,9 +710,15 @@ export const calculateCreateProxyWithNonceAddress = async (
 ) => {
   const gnosisSafeProxyFactoryAddress =
     CURATOR_CONTRACTS["GNOSIS_SAFE_PROXY_FACTORY"][chainId] || ZERO_ADDRESS;
-  const masterCopyAddress = CURATOR_CONTRACTS["GNOSIS_SAFE_MASTER_COPY"][chainId];
+  const masterCopyAddress =
+    CURATOR_CONTRACTS["GNOSIS_SAFE_MASTER_COPY"][chainId];
   const initializer = "0x";
-  console.log("gnosisSafeProxyFactoryAddress", gnosisSafeProxyFactoryAddress, masterCopyAddress, chainId);
+  console.log(
+    "gnosisSafeProxyFactoryAddress",
+    gnosisSafeProxyFactoryAddress,
+    masterCopyAddress,
+    chainId
+  );
   console.log("saltNonce calculateCreateProxyWithNonceAddress", saltNonce);
   if (
     !isEthAddress(gnosisSafeProxyFactoryAddress) ||
