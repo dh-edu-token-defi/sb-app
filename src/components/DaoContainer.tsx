@@ -68,10 +68,7 @@ const Dao = ({
   return (
     <DHLayout
       pathname={location.pathname}
-      navLinks={[
-        { label: "EXPLORE", href: `/` },
-        { label: "PROJECT", href: `/${routePath}` },
-      ]}
+      navLinks={[{ label: "ALL TOKENS", href: `/` }]}
       leftNav={dao?.name && dao?.id && <p>{dao.name}</p>}
     >
       <CurrentDaoProvider

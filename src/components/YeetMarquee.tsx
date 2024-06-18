@@ -38,7 +38,7 @@ export const YeetMarquee = ({
       return {
         amount: yeet.amount,
         description: yeet.message,
-        symbol: "SPAM",
+        symbol: yeet.dao.lootTokenSymbol,
         verb: "yeeted into",
         createdAt: yeet.createdAt,
       };
@@ -46,23 +46,24 @@ export const YeetMarquee = ({
 
     const normalizedYeeters = yeeters.map((yeeter) => {
       return {
-        symbol: "SPAM",
+        symbol: yeeter.dao.lootTokenSymbol,
         verb: "token launched: ",
         createdAt: yeeter.createdAt,
       };
     });
 
-    const normalizedExits = [
-      {
-        amount: "1000000000000000000",
-        verb: "exited from",
-        symbol: "SPAM",
-        createdAt: "1717182516",
-      },
-    ];
+    // const normalizedExits = [
+    //   {
+    //     amount: "1000000000000000000",
+    //     verb: "exited from",
+    //     symbol: "SPAM",
+    //     createdAt: "1717182516",
+    //   },
+    // ];
 
     setData(
-      [...normalizedYeets, ...normalizedYeeters, ...normalizedExits].sort(
+      [...normalizedYeets, ...normalizedYeeters].sort(
+        // [...normalizedYeets, ...normalizedYeeters, ...normalizedExits].sort(
         (a, b) => {
           return Number(a.createdAt) - Number(b.createdAt);
         }
