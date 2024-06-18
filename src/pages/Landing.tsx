@@ -36,6 +36,8 @@ const Landing = () => {
 
   const { yeets } = useLatestYeets({ chainId: DEFAULT_CHAIN_ID });
 
+  console.log("activeYeetrs", activeYeetrs);
+
   return (
     <>
       {chainId && chainId in supportedNetorks ? (

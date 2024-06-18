@@ -1,5 +1,5 @@
 import { gql } from "graphql-request";
-import { MEME_YEETER_SUMMONER_REFERRER } from "./constants";
+import { YEET24_REFERRER } from "./constants";
 
 const yeeterFields = `
 id
@@ -35,7 +35,7 @@ export const GET_YEETERS = gql`
       orderDirection: desc
       where: {
         dao_: {
-          referrer: "${MEME_YEETER_SUMMONER_REFERRER}"
+          referrer: "${YEET24_REFERRER}"
         }
       }
     ) {
@@ -71,7 +71,7 @@ export const LATEST_YEETS = gql`
       first: 5,
       where: {
         dao_: {
-          referrer: "${MEME_YEETER_SUMMONER_REFERRER}"
+          referrer: "${YEET24_REFERRER}"
         }
     }) {
       id
@@ -92,7 +92,7 @@ export const LIST_MY_YEETS = gql`
     yeets(
       where: { contributor: $account,
         dao_: {
-          referrer: "${MEME_YEETER_SUMMONER_REFERRER}"
+          referrer: "${YEET24_REFERRER}"
         }
        }
       orderBy: createdAt

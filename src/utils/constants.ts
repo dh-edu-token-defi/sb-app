@@ -9,12 +9,15 @@ import {
   ValidNetwork,
 } from "@daohaus/keychain-utils";
 
+export const MEME_YEETER_SUMMONER_REFERRER = "DHYeet24ShamanSummoner.3";
+export const NFT_ESCROW_SUMMONER_REFERRER = "NFTEscrowShamanSummoner.3";
+
 export const YEET24_REFERRER = "DHYeet24ShamanSummoner.3";
 export const YEET24_NAME = "Yeet24ShamanModule";
 
 export const CURATOR_CONTRACTS: KeychainList = {
   YEET24_SUMMONER: {
-    "0xaa36a7": "0x3ee5fbc5560a52c7298366cb5c7cfdb77cb522ea",
+    "0xaa36a7": "0x78cf150b2E684562C0510C0b699edE1DCD69b983",
   },
   YEETNFTESCROW_SUMMONER: {
     "0xaa36a7": "0x3f5e1541cf9e7ef748cf86763a96b2f4c3a7bb4b", 
@@ -29,7 +32,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xaa36a7": "0x2f8340e73f0a5ee3000a70aaa222de09ce28023b",
   },
   YEET24_SINGLETON: {
-    "0xaa36a7": "0xb3dc8207075e9c7e78efb7148fb59b6f5da1dc28"
+    "0xaa36a7": "0x10a74cbe134295BC7148d3F0c8C7BFBc644D6C33",
   },
   FIXED_LOOT_SINGLETON: {
     // "0x1": "0x9d42696a9c3c54952b8918dcbcb82dd710347c77",
@@ -158,4 +161,3 @@ export const DEFAULT_NFTESCROW_YEETER_VALUES = {
   nftTokenId: "1",
 };
 
-export const MEME_YEETER_SUMMONER_REFERRER = "DHYeet24ShamanSummoner";

@@ -1,5 +1,10 @@
 [
   {
+    "inputs": [],
+    "name": "Yeet24HOS__ParamSizeMismatch",
+    "type": "error"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -42,6 +47,19 @@
       }
     ],
     "name": "DeployBaalToken",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "_referrerId",
+        "type": "bytes32"
+      }
+    ],
+    "name": "HOSReferrerId",
     "type": "event"
   },
   {
@@ -182,6 +200,11 @@
         "internalType": "address[]",
         "name": "_allowlistTemplates",
         "type": "address[]"
+      },
+      {
+        "internalType": "string",
+        "name": "_referrerId",
+        "type": "string"
       }
     ],
     "name": "initialize",
@@ -254,6 +277,19 @@
   },
   {
     "inputs": [],
+    "name": "referrerId",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "renounceOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -273,6 +309,19 @@
       }
     ],
     "name": "setAllowlistTemplate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_referrerId",
+        "type": "string"
+      }
+    ],
+    "name": "setReferrerId",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

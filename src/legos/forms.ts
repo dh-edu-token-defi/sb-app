@@ -15,11 +15,14 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       description: true,
       collectorPrice: true,
       startDate: true,
+<<<<<<< HEAD
       endDate: true,
       nftAddress: true,
       tokenId: true,
       minSalePrice: true,
       sellerAddress: true,
+=======
+>>>>>>> develop
     },
     log: true,
     tx: APP_TX.SUMMON_MEME,
@@ -85,12 +88,7 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       {
         id: "startDate",
         type: "epochDatePicker",
-        label: "Start Date"
-      },
-      {
-        id: "endDate",
-        type: "epochDatePicker",
-        label: "End Date"
+        label: "Start Date",
       },
       {
         id: "image",
@@ -101,11 +99,11 @@ export const APP_FORM: Record<string, CustomFormLego> = {
         info: "icon, gif, pfp or avatar.",
       },
       {
-        id: "article",
+        id: "body",
         type: "mdxEditor",
         label: "Introduction",
         placeholder:
-          "# We Currate and Collect....\n## We are the future of media.\nThis is a markdown editor.",
+          "# We Meme....\n## We are the future.\nThis is a markdown editor.",
         info: "Type something to kick it off.",
       },
       APP_FIELD.SALT_NONCE_FIELD,
@@ -114,5 +112,6 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       APP_FIELD.MANAGER_ACCOUNT,
       APP_FIELD.PARAM_TAG_FIELD,
       APP_FIELD.TAGS_MULTISELECT_FIELD,
-]
-}};
+    ],
+  },
+};
