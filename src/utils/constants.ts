@@ -80,6 +80,12 @@ export const YEETER_GRAPH_URL: KEYCHAIN = {
   }/subgraphs/id/6vyAqRpCyrhLsfd6TfYAssvKywKhxJykkDbPxJZ4ZcEr`,
 };
 
+export const UNISWAP_URL: Keychain<string> = {
+  "0xaa36a7": "https://app.uniswap.org/explore/pools/base/",
+  "0x2105": "https://app.uniswap.org/explore/pools/base/",
+  "0xa": "https://app.uniswap.org/explore/pools/optimism",
+};
+
 export const targetNetworks: Keychain<NetworkConfig> = {
   "0xaa36a7": HAUS_NETWORK_DATA["0xaa36a7"],
   "0x64": HAUS_NETWORK_DATA["0x64"],

@@ -27,15 +27,12 @@ export const YeeterDetails = ({
     chainId: daoChain,
   });
 
-  const { marketMakerShaman } = useMarketMaker({
+  const { marketMakerShaman, canExecute, uniswapUrl } = useMarketMaker({
     daoId,
     yeeterShamanAddress: yeeterId,
     chainId: daoChain,
     daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
   });
-
-  console.log("yeeter", yeeter);
-  console.log("marketMakerShaman", marketMakerShaman);
 
   return (
     <>
@@ -44,6 +41,8 @@ export const YeeterDetails = ({
           <p>yeeter data</p>
           <pre>{JSON.stringify(yeeter, null, 2)}</pre>
           <p>marketMakerShaman: {marketMakerShaman}</p>
+          <p>canExecute: {canExecute ? "yes" : "no"}</p>
+          <p>uniswapUrl: {uniswapUrl}</p>
         </div>
         <div>
           <p>metadata</p>
