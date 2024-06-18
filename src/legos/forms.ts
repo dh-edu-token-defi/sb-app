@@ -65,11 +65,11 @@ export const APP_FORM: Record<string, CustomFormLego> = {
         info: "icon, gif, pfp or avatar.",
       },
       {
-        id: "article",
+        id: "body",
         type: "mdxEditor",
         label: "Introduction",
         placeholder:
-          "# We Currate and Collect....\n## We are the future of media.\nThis is a markdown editor.",
+          "# We Meme....\n## We are the future.\nThis is a markdown editor.",
         info: "Type something to kick it off.",
       },
       APP_FIELD.SALT_NONCE_FIELD,
