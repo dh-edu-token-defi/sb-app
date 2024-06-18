@@ -34,6 +34,9 @@ export const YeeterDetails = ({
     daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
   });
 
+  console.log("yeeter", yeeter);
+  console.log("marketMakerShaman", marketMakerShaman);
+
   return (
     <>
       <Container>

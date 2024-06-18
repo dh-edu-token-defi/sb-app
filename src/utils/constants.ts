@@ -65,7 +65,7 @@ export const YEETER_GRAPH_URL: KEYCHAIN = {
   // "0xaa36a7": `https://gateway-arbitrum.network.thegraph.com/api/${
   //   import.meta.env.VITE_YEETER_GRAPH_API_KEY
   // }/subgraphs/id/8Syem3ZN88cut1wL8AqPHNo658Px7M2CkRuHAGuxvf6j`,
-  "0xaa36a7": `https://api.studio.thegraph.com/query/73494/yeeter-sepolia/v0.0.3`,
+  "0xaa36a7": `https://api.studio.thegraph.com/query/73494/yeeter-sepolia/0.0.4`,
   "0x64": `https://gateway-arbitrum.network.thegraph.com/api/${
     import.meta.env.VITE_YEETER_GRAPH_API_KEY
   }/subgraphs/id/EGG5xEkiKKtGa9frTfBSmL2w7ZmzPDke5ZuvxDRwQcGe`,
