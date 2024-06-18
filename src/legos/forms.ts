@@ -15,14 +15,11 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       description: true,
       collectorPrice: true,
       startDate: true,
-<<<<<<< HEAD
       endDate: true,
       nftAddress: true,
       tokenId: true,
       minSalePrice: true,
       sellerAddress: true,
-=======
->>>>>>> develop
     },
     log: true,
     tx: APP_TX.SUMMON_MEME,
