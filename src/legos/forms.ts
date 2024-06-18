@@ -15,7 +15,6 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       description: true,
       collectorPrice: true,
       startDate: true,
-      endDate: true,
     },
     log: true,
     tx: APP_TX.SUMMON_MEME,
@@ -55,12 +54,7 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       {
         id: "startDate",
         type: "epochDatePicker",
-        label: "Start Date"
-      },
-      {
-        id: "endDate",
-        type: "epochDatePicker",
-        label: "End Date"
+        label: "Start Date",
       },
       {
         id: "image",
@@ -84,5 +78,6 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       APP_FIELD.MANAGER_ACCOUNT,
       APP_FIELD.PARAM_TAG_FIELD,
       APP_FIELD.TAGS_MULTISELECT_FIELD,
-]
-}};
+    ],
+  },
+};
