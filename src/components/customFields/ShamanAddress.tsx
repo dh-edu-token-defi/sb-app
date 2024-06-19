@@ -6,9 +6,10 @@ import { Buildable, Field } from "@daohaus/ui";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useDHConnect } from "@daohaus/connect";
 import {
+
   assembleNftEscrowYeeterShamanParams,
   calculateNftEscrowShamanAddress,
-  generateShamanSaltNonce
+  generateShamanSaltNonce,
 } from "../../utils/summonTx";
 
 export const ShamanAddress = (props: Buildable<Field>) => {
@@ -19,6 +20,12 @@ export const ShamanAddress = (props: Buildable<Field>) => {
   const saltNonce = watch("saltNonce");
   const baalAddress = watch("calculatedDAOAddress");
   const startDate = watch("startDate");
+  const endDate = watch("endDate");
+  const nftAddress = watch("nftAddress");
+  const tokenId = watch("tokenId");
+  const minSalePrice = watch("minSalePrice");
+  const sellerAddress = watch("sellerAddress");
+
 
   useEffect(() => {
     // if we don't have all the values we need, return early
@@ -29,7 +36,7 @@ export const ShamanAddress = (props: Buildable<Field>) => {
       const {
         shamanInitParams: initializeParams,
         shamanPermission: shamanPermissions,
-        shamanSingleton: shamanTemplate
+        shamanSingleton: shamanTemplate,
       } = assembleNftEscrowYeeterShamanParams({
         chainId: chainId as ValidNetwork,
         formValues,
@@ -37,7 +44,6 @@ export const ShamanAddress = (props: Buildable<Field>) => {
       });
 
       const index = "0";
-      console.log("*****getting shaman address", {baalAddress, index, initializeParams, saltNonce, shamanPermissions, shamanTemplate});
       const generatedSalt = generateShamanSaltNonce({
         baalAddress,
         index,
@@ -46,10 +52,14 @@ export const ShamanAddress = (props: Buildable<Field>) => {
         shamanPermissions,
         shamanTemplate,
       });
+      console.log("*********************************************************************************************generated salt saltNonce", saltNonce);
+      console.log("****generated salt initializeParams", initializeParams);
+      console.log("****generated salt", generatedSalt);
 
-      console.log("******generated salt", generatedSalt);
-
-      const shamanAddress = await calculateNftEscrowShamanAddress(generatedSalt, chainId as ValidNetwork);
+      const shamanAddress = await calculateNftEscrowShamanAddress(
+        generatedSalt,
+        chainId as ValidNetwork
+      );
       console.log("****setting shaman address", shamanAddress);
       setValue(props.id, shamanAddress);
     };
@@ -62,7 +72,7 @@ export const ShamanAddress = (props: Buildable<Field>) => {
       );
       getShamanAddress();
     }
-  }, [baalAddress, saltNonce, chainId, startDate]);
+  }, [baalAddress, saltNonce, chainId, startDate, endDate, nftAddress, tokenId, minSalePrice, sellerAddress]);
 
   return null;
 };

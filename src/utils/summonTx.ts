@@ -291,10 +291,6 @@ const assembleShamanParams = ({
     );
   }
 
-  var today = new Date();
-  var tomorrow = new Date();
-  tomorrow.setDate(today.getDate() + 1);
-
   // uint256 _startTime,
   // uint256 _endTime,
   // bool _isShares,
@@ -468,7 +464,7 @@ const metadataConfigTX = (formValues: FormValuesWithTags, memberAddress: EthAddr
                 longDescription: body || "",
                 avatarImg: image || "", 
                 title: `${daoName} tst`,
-                tags: ["YEET24", "Incarnation", paramTag || "topic", ...tags],
+                tags: ["NFT Raid", "Incarnation", paramTag || "topic", ...tags],
                 authorAddress: memberAddress,
                 // parentId: 0
               };
@@ -496,7 +492,7 @@ const shamanModuleConfigTX = (
   chainId: ValidNetwork
 ) => {
   const { calculatedShamanAddress, calculatedTreasuryAddress } = formValues;
-  console.log("calculatedShamanAddress", calculatedShamanAddress, calculatedTreasuryAddress);
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>calculatedShamanAddress", calculatedShamanAddress, calculatedTreasuryAddress);
   console.log("foem values ******", formValues);
 
   if (
@@ -547,7 +543,7 @@ export const calculateDAOAddress = async (
   const yeetNftEscrowSummoner = CURATOR_CONTRACTS["YEETNFTESCROW_SUMMONER"][chainId] || ZERO_ADDRESS;
   // calculateBaalAddress
 
-  console.log("yeet24Summoner", yeetNftEscrowSummoner, chainId);
+  console.log("nft escrow Summoner", yeetNftEscrowSummoner, chainId);
 
   const hos = createEthersContract({
     address: yeetNftEscrowSummoner,

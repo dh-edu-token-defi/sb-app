@@ -20,7 +20,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xaa36a7": "0x78cf150b2E684562C0510C0b699edE1DCD69b983",
   },
   YEETNFTESCROW_SUMMONER: {
-    "0xaa36a7": "0x3f5e1541cf9e7ef748cf86763a96b2f4c3a7bb4b", 
+    "0xaa36a7": "0x78cf150b2E684562C0510C0b699edE1DCD69b983", // "0x3f5e1541cf9e7ef748cf86763a96b2f4c3a7bb4b", 
   },
   YEETER_SINGLETON: {
     "0xaa36a7": "0x62ff4ca410e9e58f5ce8b2ad03695ef0ad990381",
@@ -29,7 +29,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xaa36a7": "0x29da3216e205fbda1726c21a3059251e8aab4078",
   },
   YEETNFTESCROW_SINGLETON: {
-    "0xaa36a7": "0x2f8340e73f0a5ee3000a70aaa222de09ce28023b",
+    "0xaa36a7": "0xf3a928c1ed005c137aa39edbbaa9215d52fc94f4",
   },
   YEET24_SINGLETON: {
     "0xaa36a7": "0x10a74cbe134295BC7148d3F0c8C7BFBc644D6C33",
@@ -147,7 +147,7 @@ export const DEFAULT_YEETER_VALUES = {
   ], // yeeter team, daohaus eco fund
   feeAmounts: ["5000", "5000"], // .5% fees
   lootPerYeet: "100",
-  multiplier: "100",
+  multiplier: "10000",
   minThresholdGoal: "100000000000000000",
 };
 

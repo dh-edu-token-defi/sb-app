@@ -88,6 +88,11 @@ export const APP_FORM: Record<string, CustomFormLego> = {
         label: "Start Date",
       },
       {
+        id: "endDate",
+        type: "epochDatePicker",
+        label: "end Date",
+      },
+      {
         id: "image",
         type: "input",
         label: "NFT Image Avatar",
