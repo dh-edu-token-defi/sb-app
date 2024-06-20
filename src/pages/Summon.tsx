@@ -49,7 +49,7 @@ const Summon = () => {
           form={APP_FORM.SUMMON_MEME}
           customFields={AppFieldLookup}
           targetNetwork={chainId}
-          submitButtonText="Summon NFT Raid Token"
+          submitButtonText="Summon Meme Token"
           lifeCycleFns={{
             onPollSuccess: (result) => {
               console.log("poll success", result);
