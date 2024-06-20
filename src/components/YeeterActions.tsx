@@ -28,6 +28,7 @@ export const YeeterActions = ({
             daoChain={daoChain}
             daoId={daoId}
             yeeterId={yeeterId}
+            
           />
         <Button>Exit</Button>
       <ExecuteLPButton 

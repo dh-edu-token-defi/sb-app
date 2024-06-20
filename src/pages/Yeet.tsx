@@ -12,8 +12,6 @@ export function Yeet() {
 
   return (
     <SingleColumnLayout>
-      <Spacer />
-      <H4>Details</H4>
       {shamanAddress && daoId && daoChain && (
         <>
           <YeeterDetails
