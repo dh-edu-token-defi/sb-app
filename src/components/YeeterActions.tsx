@@ -5,6 +5,7 @@ import BuyButton from "./BuyButton";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { DaoProfileYeeter } from "../hooks/useYeeter";
 import ExecuteLPButton from "./ExecuteLPButton";
+import ExitButton from "./ExitButton";
 
 const Container = styled.div`
   display: flex;
@@ -30,7 +31,11 @@ export const YeeterActions = ({
             yeeterId={yeeterId}
             
           />
-        <Button>Exit</Button>
+      <ExitButton 
+            daoChain={daoChain}
+            yeeterId={yeeterId}
+            daoId={daoId}
+          />
       <ExecuteLPButton 
             daoChain={daoChain}
             yeeterId={yeeterId}

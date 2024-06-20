@@ -72,6 +72,14 @@ export const formatMinContribution = (yeeter: YeeterItem) => {
   });
 };
 
+export const formatMemberBalance = (balance: string) => {
+  return formatValueTo({
+    value: fromWei(balance),
+    decimals: 5,
+    format: "number",
+  });
+};
+
 export const formatLootForMin = (yeeter: YeeterItem) => {
   const loot = BigInt(yeeter.minTribute) * BigInt(yeeter.multiplier);
   return formatValueTo({
