@@ -324,7 +324,7 @@ const assembleShamanParams = ({
       DEFAULT_YEETER_VALUES.isShares,
       price,
       DEFAULT_YEETER_VALUES.multiplier,
-      "1000000000000000000", // goal?
+      DEFAULT_YEETER_VALUES.minThresholdGoal, // goal?
       DEFAULT_YEETER_VALUES.feeRecipients,
       DEFAULT_YEETER_VALUES.feeAmounts,
     ]
