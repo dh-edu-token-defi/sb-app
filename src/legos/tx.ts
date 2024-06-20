@@ -50,4 +50,19 @@ export const APP_TX = {
     //   test: testYeet,
     // },
   },
+  EXIT_PRESALE: {
+    id: "EXIT_PRESALE",
+    contract: APP_CONTRACT.EXIT_DAO,
+    method: "ragequit",
+    args: [
+      '.formValues.to',
+      '.formValues.sharesToBurn',
+      '.formValues.lootToBurn',
+      '.formValues.tokens',
+    ],
+    // customPoll: {
+    //   fetch: pollYeet,
+    //   test: testYeet,
+    // },
+  },
 };

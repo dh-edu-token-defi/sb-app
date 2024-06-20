@@ -4,6 +4,18 @@ import { APP_FIELD } from "./fields";
 import { APP_TX } from "./tx";
 
 export const APP_FORM: Record<string, CustomFormLego> = {
+  EXIT_PRESALE_FORM: {
+    id: "EXIT_PRESALE",
+    title: "Exit Presale",
+    description: "Exit presale and lose your deposit",
+    submitButtonText: "JEET",
+    requiredFields: {
+      amount: true,
+    },
+    log: true,
+    tx: APP_TX.EXIT_PRESALE as TXLego,
+    fields: [],
+  },
   EXECUTE_LP_FORM: {
     id: "EXECUTE_LP",
     title: "Execute LP",

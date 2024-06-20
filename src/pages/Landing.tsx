@@ -48,7 +48,7 @@ const Landing = () => {
             <SimpleRow>
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="lg">
                     What is this?
                   </Button>
                 </DialogTrigger>
@@ -72,7 +72,7 @@ const Landing = () => {
               </Dialog>
 
               <LinkButton to="/summon/token">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="lg">
                   Build a Meme
                 </Button>
               </LinkButton>

@@ -5,6 +5,7 @@ import yeeterShamanAbi from "../abis/yeeterShaman.json";
 import marketMakerShamanAbi from "../abis/marketMaker.json"
 
 import { CURATOR_CONTRACTS } from "../utils/constants";
+import { LOCAL_ABI } from "@daohaus/abis";
 
 export const APP_CONTRACT: Record<string, ContractLego> = {
   YEET24_SUMMONER: {
@@ -24,5 +25,11 @@ export const APP_CONTRACT: Record<string, ContractLego> = {
     contractName: "MarketMakerShaman",
     abi: marketMakerShamanAbi,
     targetAddress: ".marketMakerShaman",
+  },
+  EXIT_DAO: {
+    type: "static",
+    contractName: "Baal",
+    abi: LOCAL_ABI.BAAL,
+    targetAddress: ".dao.id",
   },
 };
