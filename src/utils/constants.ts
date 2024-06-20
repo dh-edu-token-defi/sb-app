@@ -108,8 +108,8 @@ export const RPC_URLS: KEYCHAIN = {
 export const getValidChainId = (chainId?: string) => {
   return targetNetworks[chainId as ValidNetwork]?.chainId || DEFAULT_CHAIN_ID;
 };
-
-export const SPONSOR_THRESHOLD = "1000000000000000000";
+const POINT_O_ONE_ETH = "10000000000000000";
+export const SPONSOR_THRESHOLD = POINT_O_ONE_ETH;
 export const YEETER_SHAMAN_PERMISSIONS = "2";
 export const MEME_SHAMAN_PERMISSIONS = "3";
 export const SHARE_NAME = "";
@@ -121,7 +121,7 @@ export const DEFAULT_SUMMON_VALUES = {
   votingPeriodInSeconds: 200,
   // gracePeriodInSeconds: 172800,
   gracePeriodInSeconds: 6,
-  newOffering: "10000000000000000",
+  newOffering: POINT_O_ONE_ETH,
   //   quorum: "20",
   quorum: "20",
   sponsorThreshold: SPONSOR_THRESHOLD,
@@ -141,7 +141,7 @@ export const DEFAULT_YEETER_VALUES = {
   feeAmounts: ["5000", "5000"], // .5% fees
   lootPerYeet: "100",
   multiplier: "10000",
-  minThresholdGoal: "100000000000000000",
+  minThresholdGoal: POINT_O_ONE_ETH,
 };
 
 export const DEFAULT_DURATION_PROD = 24 * 60 * 60; // 24 hours
