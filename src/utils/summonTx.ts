@@ -34,6 +34,8 @@ import {
   MEME_SHAMAN_PERMISSIONS,
   DEFAULT_YEETER_VALUES,
   DEFAULT_MEME_YEETER_VALUES,
+  DEFAULT_DURATION_DEV,
+  DEFAULT_DURATION_PROD,
 } from "./constants";
 import { createEthersContract } from "@daohaus/tx-builder";
 import { BigNumber, ethers } from "ethers";
@@ -203,7 +205,9 @@ export const assembleMemeYeeterShamanParams = ({
     CURATOR_CONTRACTS["UNISWAP_V3_NF_POSITION_MANAGER"][chainId];
   const weth9 = CURATOR_CONTRACTS["WETH"][chainId];
   const startDateTime = formValues["startDate"] as string;
-  const endDateTime = (startDateTime + 24 * 60 * 60) as string;
+  const endDateTime = import.meta.env.DEV
+    ? ((startDateTime + DEFAULT_DURATION_DEV) as string)
+    : ((startDateTime + DEFAULT_DURATION_PROD) as string);
 
   if (
     !memeYeeterShamanSingleton ||
@@ -286,9 +290,14 @@ const assembleShamanParams = ({
     );
   }
 
-  var today = new Date();
-  var tomorrow = new Date();
-  tomorrow.setDate(today.getDate() + 1);
+  const startDateTime = formValues["startDate"] as string;
+  const endDateTime = import.meta.env.DEV
+    ? ((startDateTime + DEFAULT_DURATION_DEV) as string)
+    : ((startDateTime + DEFAULT_DURATION_PROD) as string);
+
+  // var today = new Date();
+  // var tomorrow = new Date();
+  // tomorrow.setDate(today.getDate() + 1);
 
   // uint256 _startTime,
   // uint256 _endTime,
@@ -310,8 +319,8 @@ const assembleShamanParams = ({
       "uint256[]",
     ],
     [
-      Math.floor(Number(today) / 1000),
-      Math.floor(Number(tomorrow) / 1000),
+      Number(startDateTime),
+      Number(endDateTime),
       DEFAULT_YEETER_VALUES.isShares,
       price,
       DEFAULT_YEETER_VALUES.multiplier,
@@ -339,7 +348,6 @@ const assembleShamanParams = ({
     [shamanSingletons, shamanPermissions, shamanInitParams]
   );
 };
-
 
 interface FormValuesWithTags extends Record<string, unknown> {
   tags: string[];
@@ -446,9 +454,20 @@ const tokenDistroTX = (formValues: SummonParams, memberAddress: EthAddress) => {
   throw new Error("Encoding Error");
 };
 
-
-const metadataConfigTX = (formValues: FormValuesWithTags, memberAddress: EthAddress, posterAddress: string) => {
-  const { daoName, calculatedDAOAddress, body, image, description, paramTag, tags } = formValues;
+const metadataConfigTX = (
+  formValues: FormValuesWithTags,
+  memberAddress: EthAddress,
+  posterAddress: string
+) => {
+  const {
+    daoName,
+    calculatedDAOAddress,
+    body,
+    image,
+    description,
+    paramTag,
+    tags,
+  } = formValues;
 
   if (!isString(daoName)) {
     console.log("ERROR: Form Values", formValues);
@@ -456,21 +475,19 @@ const metadataConfigTX = (formValues: FormValuesWithTags, memberAddress: EthAddr
   }
   console.log("POSTER", posterAddress);
 
-
-  const content = { 
-                name: daoName,
-                daoId: calculatedDAOAddress,
-                table: 'daoProfile', 
-                queryType: 'list',
-                description: description || "",
-                longDescription: body || "",
-                avatarImg: image || "", 
-                title: `${daoName} tst`,
-                tags: ["YEET24", "Incarnation", paramTag || "topic", ...tags],
-                authorAddress: memberAddress,
-                // parentId: 0
-              };
-
+  const content = {
+    name: daoName,
+    daoId: calculatedDAOAddress,
+    table: "daoProfile",
+    queryType: "list",
+    description: description || "",
+    longDescription: body || "",
+    avatarImg: image || "",
+    title: `${daoName} tst`,
+    tags: ["YEET24", "Incarnation", paramTag || "topic", ...tags],
+    authorAddress: memberAddress,
+    // parentId: 0
+  };
 
   const METADATA = encodeFunction(LOCAL_ABI.POSTER, "post", [
     JSON.stringify(content),
