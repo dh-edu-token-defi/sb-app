@@ -4,6 +4,18 @@ import { APP_FIELD } from "./fields";
 import { APP_TX } from "./tx";
 
 export const APP_FORM: Record<string, CustomFormLego> = {
+  EXECUTE_LP_FORM: {
+    id: "EXECUTE_LP",
+    title: "Execute LP",
+    description: "Execute LP to get your YEET on!",
+    submitButtonText: "YEET",
+    requiredFields: {
+      amount: true,
+    },
+    log: true,
+    tx: APP_TX.EXECUTE_LP as TXLego,
+    fields: [],
+  },
   YEET_FORM: {
     id: "YEET",
     title: "YEET",

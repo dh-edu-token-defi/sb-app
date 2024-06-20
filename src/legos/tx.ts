@@ -40,4 +40,14 @@ export const APP_TX = {
       test: testYeet,
     },
   },
+  EXECUTE_LP: {
+    id: "EXECUTE_LP",
+    contract: APP_CONTRACT.MARKET_MAKER_SHAMAN,
+    method: "execute",
+    args: [],
+    // customPoll: {
+    //   fetch: pollYeet,
+    //   test: testYeet,
+    // },
+  },
 };

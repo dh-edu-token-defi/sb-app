@@ -10,6 +10,7 @@ import {
   CurrentYeeterProvider,
   useCurrentYeeter,
 } from "../contexts/CurrentYeeterContext";
+import { useMarketMaker } from "../hooks/useMarketMaker";
 
 export const ModalContainer = ({
   children,
@@ -52,6 +53,12 @@ const Yeetz = ({
     daoId: daoId as string,
     daoChain: daoChain as string,
   });
+  const { marketMakerShaman } = useMarketMaker({
+    daoId,
+    yeeterShamanAddress: yeeterId,
+    chainId: daoChain,
+    daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
+  });
 
 
   return (
@@ -72,6 +79,7 @@ const Yeetz = ({
             dao,
             memberAddress: address,
             shamanAddress: yeeterId,
+            marketMakerShaman,
           }}
         >
           <CurrentYeeterProvider shamanAddress={yeeterId}>
