@@ -2,6 +2,7 @@ import { ContractLego } from "@daohaus/utils";
 
 import yeet24SummonerAbi from "../abis/yeet24Summoner.json";
 import yeeterShamanAbi from "../abis/yeeterShaman.json";
+import marketMakerShamanAbi from "../abis/marketMaker.json"
 
 import { CURATOR_CONTRACTS } from "../utils/constants";
 
@@ -17,5 +18,11 @@ export const APP_CONTRACT: Record<string, ContractLego> = {
     contractName: "Yeet24Summoner",
     abi: yeeterShamanAbi,
     targetAddress: ".shamanAddress",
+  },
+  MARKET_MAKER_SHAMAN: {
+    type: "static",
+    contractName: "MarketMakerShaman",
+    abi: marketMakerShamanAbi,
+    targetAddress: ".marketMakerShaman",
   },
 };
