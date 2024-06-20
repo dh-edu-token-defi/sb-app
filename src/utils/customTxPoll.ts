@@ -5,6 +5,9 @@ import {
   listDaos,
 } from "@daohaus/moloch-v3-data";
 import { IListQueryResults } from "@daohaus/data-fetch-utils";
+import { YEETER_GRAPH_URL, getValidChainId } from "./constants";
+import { GraphQLClient } from "graphql-request";
+import { GET_YEETS_BY_TX } from "./graphQueries";
 
 type PollFetch = (...args: any) => Promise<any>;
 
@@ -54,4 +57,29 @@ export const testLastTX = (
     return true;
   }
   return false;
+};
+
+export const testYeet = (result: any | undefined) => {
+  if (result?.yeets[0]) {
+    console.log("yeet found", result.yeets[0]);
+    return true;
+  }
+  return false;
+};
+
+export const pollYeet = async ({
+  chainId,
+  txHash,
+}: {
+  chainId: ValidNetwork;
+  txHash: string;
+}) => {
+  const chain = getValidChainId(chainId);
+  const graphQLClient = new GraphQLClient(YEETER_GRAPH_URL[chain]);
+  const res = await graphQLClient.request(GET_YEETS_BY_TX, {
+    txHash: txHash?.toLowerCase(),
+  });
+  console.log("pollYeet res", res);
+
+  return res;
 };

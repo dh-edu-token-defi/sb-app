@@ -9,6 +9,8 @@ import { ShamanAddress } from "../components/customFields/ShamanAddress";
 import { ParamTag } from "../components/customFields/ParamTag";
 import { MultiSelect } from "../components/customFields/MultiSelect";
 import { MDXEditorField } from "../components/customFields/MDXEditorField";
+import { YeetAmount } from "../components/customFields/YeetAmount";
+import { YeetReturn } from "../components/customFields/YeetReturn";
 
 export const AppFieldLookup = {
   ...MolochFields,
@@ -21,6 +23,8 @@ export const AppFieldLookup = {
   paramTag: ParamTag,
   multiSelect: MultiSelect,
   mdxEditor: MDXEditorField,
+  yeetAmount: YeetAmount,
+  yeetReturn: YeetReturn,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof AppFieldLookup>;
