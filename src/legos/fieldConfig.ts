@@ -11,6 +11,7 @@ import { MultiSelect } from "../components/customFields/MultiSelect";
 import { MDXEditorField } from "../components/customFields/MDXEditorField";
 import { YeetAmount } from "../components/customFields/YeetAmount";
 import { YeetReturn } from "../components/customFields/YeetReturn";
+import { YeetHelper } from "../components/customFields/YeetHelper";
 
 export const AppFieldLookup = {
   ...MolochFields,
@@ -25,6 +26,7 @@ export const AppFieldLookup = {
   mdxEditor: MDXEditorField,
   yeetAmount: YeetAmount,
   yeetReturn: YeetReturn,
+  yeetHelper: YeetHelper,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof AppFieldLookup>;

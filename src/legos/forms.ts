@@ -15,11 +15,11 @@ export const APP_FORM: Record<string, CustomFormLego> = {
     log: true,
     tx: APP_TX.YEET as TXLego,
     fields: [
-      // {
-      //   id: "yeetHelper",
-      //   type: "yeetHelper",
-      //   label: "GET",
-      // },
+      {
+        id: "yeetHelper",
+        type: "yeetHelper",
+        label: "GET",
+      },
       {
         id: "yeetSplit",
         type: "splitColumn",
