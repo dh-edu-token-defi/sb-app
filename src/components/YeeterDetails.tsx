@@ -6,6 +6,7 @@ import { useMarketMaker } from "../hooks/useMarketMaker";
 import { useDaoData } from "@daohaus/moloch-v3-hooks";
 import { Avatar, Card, Label, ParLg, ParMd } from "@daohaus/ui";
 import { formatMinContribution, formatTimeRemainingShort } from "../utils/yeetDataHelpers";
+import { YeetGoalProgress } from "./YeetGoalProgress";
 
 const Container = styled.div`
   display: flex;
@@ -68,6 +69,8 @@ export const YeeterDetails = ({
     chainId: daoChain,
   });
 
+  console.log("DAO", dao);
+
   const { marketMakerShaman, canExecute, uniswapUrl } = useMarketMaker({
     daoId,
     yeeterShamanAddress: yeeterId,
@@ -75,7 +78,7 @@ export const YeeterDetails = ({
     daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
   });
 
-  if (!metadata || !yeeter) {
+  if (!metadata || !yeeter || !dao || !marketMakerShaman) {
     return
   }
 
@@ -116,6 +119,11 @@ export const YeeterDetails = ({
             <Label>Presale Ends</Label>
             <ParLg>{formatTimeRemainingShort(yeeter)}</ParLg>
           </DetailItemWarning>
+          <YeetGoalProgress
+            yeeter={yeeter}
+            dao={dao}
+            chainId={daoChain}
+            />
         </DetailsContainer>
       </Container>
     </Card>
