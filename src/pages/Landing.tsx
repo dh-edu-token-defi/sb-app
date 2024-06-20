@@ -71,7 +71,7 @@ const Landing = () => {
                 </DialogContent>
               </Dialog>
 
-              <LinkButton to="/summon/topic">
+              <LinkButton to="/summon/token">
                 <Button variant="outline" size="sm">
                   Build a Meme
                 </Button>
