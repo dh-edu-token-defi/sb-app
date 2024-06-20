@@ -1,13 +1,16 @@
 import { Keychain, ValidNetwork } from "@daohaus/keychain-utils";
 import {
-  ListTxsQueryVariables,
+
   findTransaction,
-  listDaos,
+  findDao
 } from "@daohaus/moloch-v3-data";
+
 import { IListQueryResults } from "@daohaus/data-fetch-utils";
 import { YEETER_GRAPH_URL, getValidChainId } from "./constants";
 import { GraphQLClient } from "graphql-request";
 import { GET_YEETS_BY_TX } from "./graphQueries";
+import { IFindQueryResult } from "@daohaus/data-fetch-utils";
+
 
 type PollFetch = (...args: any) => Promise<any>;
 
@@ -21,8 +24,6 @@ export const pollLastTX: PollFetch = async ({
   graphApiKeys: Keychain;
 }) => {
   
-  console.log("polling txHash", txHash, chainId);
-  
   try {
     const result = await findTransaction({
       networkId: chainId,
@@ -30,16 +31,17 @@ export const pollLastTX: PollFetch = async ({
       graphApiKeys,
     });
 
-    console.log("poll result", result);
-    if (result?.data?.transaction) {
-      const daoRes = await listDaos({
-        networkId: chainId,
-        filter: {
-          sharesAddress: result.data.transaction.daoAddress,
-        },
-      });
+    if (result?.data?.transaction?.daoAddress) {
+      const daoRes = await findDao(
+        {
+          networkId: chainId,
+          dao: result.data.transaction.daoAddress,
+          includeTokens: true,
+          graphApiKeys,
+        }
+      );
 
-      if (daoRes?.items[0]) {
+      if (daoRes.data?.dao?.id) {
         console.log("daoRes", daoRes);
         return daoRes;
       }
@@ -51,9 +53,9 @@ export const pollLastTX: PollFetch = async ({
 };
 
 export const testLastTX = (
-  daoRes: IListQueryResults<any, ListTxsQueryVariables> | undefined
+  daoRes: IFindQueryResult<any> | undefined
 ) => {
-  if (daoRes?.items[0]) {
+  if (daoRes) {
     return true;
   }
   return false;

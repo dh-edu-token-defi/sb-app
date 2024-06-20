@@ -65,7 +65,7 @@ export const YEETER_GRAPH_URL: KEYCHAIN = {
   // "0xaa36a7": `https://gateway-arbitrum.network.thegraph.com/api/${
   //   import.meta.env.VITE_YEETER_GRAPH_API_KEY
   // }/subgraphs/id/8Syem3ZN88cut1wL8AqPHNo658Px7M2CkRuHAGuxvf6j`,
-  "0xaa36a7": `https://api.studio.thegraph.com/query/73494/yeeter-sepolia/v0.0.3`,
+  "0xaa36a7": `https://api.studio.thegraph.com/query/73494/yeeter-sepolia/0.0.4`,
   "0x64": `https://gateway-arbitrum.network.thegraph.com/api/${
     import.meta.env.VITE_YEETER_GRAPH_API_KEY
   }/subgraphs/id/EGG5xEkiKKtGa9frTfBSmL2w7ZmzPDke5ZuvxDRwQcGe`,
@@ -78,6 +78,12 @@ export const YEETER_GRAPH_URL: KEYCHAIN = {
   "0x2105": `https://gateway-arbitrum.network.thegraph.com/api/${
     import.meta.env.VITE_YEETER_GRAPH_API_KEY
   }/subgraphs/id/6vyAqRpCyrhLsfd6TfYAssvKywKhxJykkDbPxJZ4ZcEr`,
+};
+
+export const UNISWAP_URL: Keychain<string> = {
+  "0xaa36a7": "https://app.uniswap.org/explore/pools/base/",
+  "0x2105": "https://app.uniswap.org/explore/pools/base/",
+  "0xa": "https://app.uniswap.org/explore/pools/optimism",
 };
 
 export const targetNetworks: Keychain<NetworkConfig> = {
@@ -137,6 +143,9 @@ export const DEFAULT_YEETER_VALUES = {
   multiplier: "10000",
   minThresholdGoal: "100000000000000000",
 };
+
+export const DEFAULT_DURATION_PROD = 24 * 60 * 60; // 24 hours
+export const DEFAULT_DURATION_DEV = 10 * 60; // 10 minutes
 
 export const DEFAULT_MEME_YEETER_VALUES = {
   poolFee: "10000", // 1%

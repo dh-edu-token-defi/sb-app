@@ -85,8 +85,8 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
         )}
       </TopSectionContainer>
       <DataCol>
-        <TokenNameParXl>{metadata.name}</TokenNameParXl>
-        <DataXs>{metadata.description}</DataXs>
+        <TokenNameParXl>{yeeter.dao.lootTokenSymbol}</TokenNameParXl>
+        <DataXs>{metadata.name}</DataXs>
         {yeeter.isActive && (
           <TimeDataLg color={theme.warning.step10}>
             Presale Ends {formatTimeRemainingShort(yeeter)}

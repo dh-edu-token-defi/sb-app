@@ -22,10 +22,10 @@ export const APP_TX = {
     contract: APP_CONTRACT.YEET24_SUMMONER,
     method: "summonBaalFromReferrer",
     argCallback: "assembleMemeSummonerArgs",
-    // customPoll: {
-    //   fetch: pollLastTX,
-    //   test: testLastTX,
-    // },
+    customPoll: {
+      fetch: pollLastTX,
+      test: testLastTX,
+    },
   },
   YEET: {
     id: "YEET",

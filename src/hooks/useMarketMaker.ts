@@ -1,13 +1,10 @@
 import { useQuery } from "react-query";
-import { GraphQLClient } from "graphql-request";
-
-import { LATEST_YEETS } from "../utils/graphQueries";
 import {
   CHAIN_OBJ,
   DEFAULT_CHAIN_ID,
   RPC_URLS,
+  UNISWAP_URL,
   YEET24_NAME,
-  YEETER_GRAPH_URL,
   getValidChainId,
 } from "../utils/constants";
 import { createPublicClient, http } from "viem";
@@ -35,7 +32,8 @@ export const useMarketMaker = ({
         transport: http(RPC_URLS[chain]),
       });
 
-      let marketMakerShaman;
+      let marketMakerShaman, goalAchieved, executed, pool, uniswapUrl;
+      let canExecute = false;
       for (let i = 0; i < shamanAddresses.length; i++) {
         if (yeeterShamanAddress && shamanAddresses[i] === yeeterShamanAddress) {
           continue;
@@ -48,22 +46,43 @@ export const useMarketMaker = ({
 
         if (shamanName === YEET24_NAME) {
           marketMakerShaman = shamanAddresses[0];
+
+          executed = (await publicClient.readContract({
+            address: shamanAddresses[i] as `0x${string}`,
+            abi: marketMakerShamanAbi,
+            functionName: "executed",
+          })) as boolean;
+
+          goalAchieved = (await publicClient.readContract({
+            address: shamanAddresses[i] as `0x${string}`,
+            abi: marketMakerShamanAbi,
+            functionName: "goalAchieved",
+          })) as boolean;
+
+          pool = (await publicClient.readContract({
+            address: shamanAddresses[i] as `0x${string}`,
+            abi: marketMakerShamanAbi,
+            functionName: "pool",
+          })) as string;
+
+          canExecute = goalAchieved && !executed;
+
+          if (executed && pool) {
+            uniswapUrl = `${UNISWAP_URL[DEFAULT_CHAIN_ID]}/${pool}`;
+          }
+
           break;
         }
       }
 
-      //what else?
-      // weth, nonfunginblepositionmanager
-
-      // const shamanName = await publicClient.readContract({
-      //   address: daoShamans[0] as `0x${string}`,
-      //   abi: marketMakerShamanAbi,
-      //   functionName: "name",
-      // });
-
-      // console.log("shamanName", shamanName);
-
-      return { marketMakerShaman };
+      return {
+        marketMakerShaman,
+        goalAchieved,
+        executed,
+        pool,
+        canExecute,
+        uniswapUrl,
+      };
     },
     { enabled: !!chainId && !!daoId && !!daoShamans }
   );

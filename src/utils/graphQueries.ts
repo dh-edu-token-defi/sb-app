@@ -7,6 +7,7 @@ createdAt
 dao {
   id
   referrer
+  lootTokenSymbol
 }
 endTime
 startTime
@@ -59,6 +60,10 @@ export const LIST_YEETS = gql`
       amount
       shares
       message
+      dao {
+        id
+        lootTokenSymbol
+      }
     }
   }
 `;
