@@ -53,6 +53,10 @@ export const MDXEditorField = (props: Buildable<Field>) => {
         setValue(props.id, value);
     };
 
+    useEffect(() => {
+        setValue(props.id, '');
+    }, []);
+
     return (
         <>
             <Label children={label} id={props.id} />
@@ -86,6 +90,7 @@ export const MDXEditorField = (props: Buildable<Field>) => {
                         }),
                     ]}
                     onChange={handleOnChange}
+
                 />
             </MarkDownContainer>
         </>

@@ -12,20 +12,28 @@ export function Yeet() {
 
   return (
     <SingleColumnLayout>
-      <Spacer>
-        <H4>Details</H4>
-        {shamanAddress && daoId && daoChain && (
+      <Spacer />
+      <H4>Details</H4>
+      {shamanAddress && daoId && daoChain && (
+        <>
           <YeeterDetails
             yeeterId={shamanAddress}
             daoId={daoId}
             daoChain={daoChain}
           />
-        )}
-      </Spacer>
-      <Spacer>
-        <H4>Actions</H4>
-        <YeeterActions />
-      </Spacer>
+
+          <Spacer>
+            <H4>Actions</H4>
+            <YeeterActions
+              yeeterId={shamanAddress}
+              daoId={daoId}
+              daoChain={daoChain}
+            />
+          </Spacer>
+        </>
+      )}
+
+
       <Spacer>
         <H4>Yeets</H4>
         {shamanAddress && daoChain && (

@@ -11,22 +11,19 @@ import {
   DataXs,
   ParLg,
   ParMd,
-  ParSm,
   ParXl,
 } from "@daohaus/ui";
 
 import RobotArm from "../assets/robot-hand-yellow.png";
-import { SimpleCol, Spacer } from "./Layout";
 import { formatValueTo, fromWei } from "@daohaus/utils";
 import {
   calcPercToGoal,
-  formatTimeRemaining,
   formatTimeRemainingShort,
   formatTimeUntilPresale,
 } from "../utils/yeetDataHelpers";
-import { useDaoData } from "@daohaus/moloch-v3-hooks";
-import { Link } from "react-router-dom";
+
 import { ButtonRouterLink } from "./ButtonRouterLink";
+import BuyButton from "./BuyButton";
 
 const SpacedCard = styled(Card)`
   margin-right: 1rem;
@@ -123,20 +120,17 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
                 format: "number",
               })} ETH Raised`}
             </ParMd>
-            <ParLg>{`Status: ${
-              yeeter.reachedGoal ? "Big Success" : `Major Fail`
-            }`}</ParLg>
+            <ParLg>{`Status: ${yeeter.reachedGoal ? "Big Success" : `Major Fail`
+              }`}</ParLg>
           </>
         )}
         {yeeter.isActive && (
-          <Button
-            size="lg"
-            fullWidth={true}
-            style={{ marginTop: "2rem" }}
-            variant="outline"
-          >
-            BUY
-          </Button>
+          <BuyButton 
+            daoChain={chainId}
+            daoId={yeeter.dao.id}
+            yeeterId={yeeter.id}
+            metadata={metadata}
+          />
         )}
 
         {yeeter.isEnded && yeeter.reachedGoal && (

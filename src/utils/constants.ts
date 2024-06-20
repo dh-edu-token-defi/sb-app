@@ -140,7 +140,7 @@ export const DEFAULT_YEETER_VALUES = {
   ], // yeeter team, daohaus eco fund
   feeAmounts: ["5000", "5000"], // .5% fees
   lootPerYeet: "100",
-  multiplier: "100",
+  multiplier: "10000",
   minThresholdGoal: "100000000000000000",
 };
 

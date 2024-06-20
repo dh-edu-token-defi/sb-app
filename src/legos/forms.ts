@@ -1,8 +1,52 @@
+import { TXLego } from "@daohaus/utils";
 import { CustomFormLego } from "./fieldConfig";
 import { APP_FIELD } from "./fields";
 import { APP_TX } from "./tx";
 
 export const APP_FORM: Record<string, CustomFormLego> = {
+  YEET_FORM: {
+    id: "YEET",
+    title: "YEET",
+    description: "Contribute to the DAO.",
+    submitButtonText: "Summon MEME",
+    requiredFields: {
+      amount: true,
+    },
+    log: true,
+    tx: APP_TX.YEET as TXLego,
+    fields: [
+      {
+        id: "yeetHelper",
+        type: "yeetHelper",
+        label: "GET",
+      },
+      {
+        id: "yeetSplit",
+        type: "splitColumn",
+        rows: [
+          {
+            rowId: "row1",
+            left: {
+              id: "amount",
+              type: "yeetAmount",
+              label: "YEET",
+              expectType: "number",
+            },
+            right: {
+              id: "yeetReturn",
+              type: "yeetReturn",
+            },
+          },
+        ],
+      },
+      {
+        id: "message",
+        type: "mdxEditor",
+        label: "MESSAGE",
+        placeholder: "yeet yeet yeet",
+      },
+    ],
+  },
   SUMMON_MEME: {
     id: "SUMMON_MEME",
     title: "MEME Summoner",

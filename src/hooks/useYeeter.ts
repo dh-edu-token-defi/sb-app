@@ -21,7 +21,7 @@ import { YeeterItem } from "../utils/types";
 import { createPublicClient, http } from "viem";
 
 //todo change this wehn we get token name
-type DaoProfileYeeter = DaoProfile & {
+export type DaoProfileYeeter = DaoProfile & {
   name: string;
 };
 
