@@ -71,7 +71,6 @@ const ExecuteLPButton = ({
             <DialogTrigger asChild>
                 <Button
                     size="lg"
-                    fullWidth={true}
                     style={{ marginTop: "2rem" }}
                     variant="outline"
                 >

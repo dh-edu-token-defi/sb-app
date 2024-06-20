@@ -4,13 +4,16 @@ import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useMarketMaker } from "../hooks/useMarketMaker";
 import { useDaoData } from "@daohaus/moloch-v3-hooks";
-import { Card, Label, ParLg, ParMd } from "@daohaus/ui";
+import { Avatar, Card, Label, ParLg, ParMd } from "@daohaus/ui";
 import { formatMinContribution, formatTimeRemainingShort } from "../utils/yeetDataHelpers";
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   padding: 10px;
+  @media (max-width: 768px) { 
+    flex-direction: column;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -20,6 +23,10 @@ const ImageContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
+
+  @media (max-width: 768px) { 
+    flex: 1 0 100%; 
+  }
 `;
 
 const DetailsContainer = styled.div`
@@ -28,6 +35,10 @@ const DetailsContainer = styled.div`
   flex-direction: column;
   justify-content: space-around;
   padding: 10px;
+
+  @media (max-width: 768px) { 
+    flex: 1 0 100%; 
+  }
 `;
 
 const DetailItem = styled.div`
@@ -69,11 +80,16 @@ export const YeeterDetails = ({
   }
 
   return (
-    <Card>
+    <Card width={"800px"}>
       <Container>
 
         <ImageContainer>
-          <img src={metadata.avatarImg} alt={metadata.name} style={{ maxWidth: "100%", maxHeight: "100%" }} />
+          <Avatar
+            alt={metadata.name}
+            fallback="FB"
+            size="20rem"
+            src={metadata.avatarImg}
+          />
         </ImageContainer>
         <DetailsContainer>
           <DetailItem>
@@ -97,8 +113,8 @@ export const YeeterDetails = ({
             <ParLg>{yeeter.isEnded ? (yeeter.reachedGoal ? "SUCCESS" : "FAIL") : "ACTIVE"}</ParLg>
           </DetailItem>
           <DetailItemWarning>
-          <Label>Presale Ends</Label>
-          <ParLg>{formatTimeRemainingShort(yeeter)}</ParLg>
+            <Label>Presale Ends</Label>
+            <ParLg>{formatTimeRemainingShort(yeeter)}</ParLg>
           </DetailItemWarning>
         </DetailsContainer>
       </Container>

@@ -18,12 +18,17 @@ export const YeetListContainer = styled.div`
   gap: 4rem;
   margin-top: 2rem;
   min-height: 50rem;
-  min-width: 400px;
+  min-width: 30rem;
+  width: 70rem;
 
   .nada {
     margin-top: 3rem;
     width: 100%;
     text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%; 
   }
 `;
 

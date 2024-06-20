@@ -15,14 +15,6 @@ import { ButtonRouterLink } from "./ButtonRouterLink";
 import { DaoProfileYeeter } from "../hooks/useYeeter";
 
 
-const LinkButton = styled(Link)`
-  text-decoration: none;
-  color: unset;
-  &:hover {
-    text-decoration: none;
-  }
-`;
-
 const BuyButton = ({
     daoChain,
     daoId,
@@ -62,7 +54,6 @@ const BuyButton = ({
             <DialogTrigger asChild>
                 <Button
                     size="lg"
-                    fullWidth={true}
                     style={{ marginTop: "2rem" }}
                     variant="outline"
                 >
