@@ -144,6 +144,8 @@ export const DEFAULT_YEETER_VALUES = {
   minThresholdGoal: "100000000000000000",
 };
 
+export const DEFAULT_DURATION = 24 * 60 * 60; // 24 hours
+
 export const DEFAULT_MEME_YEETER_VALUES = {
   poolFee: "10000", // 1%
 };

@@ -34,6 +34,7 @@ import {
   MEME_SHAMAN_PERMISSIONS,
   DEFAULT_YEETER_VALUES,
   DEFAULT_MEME_YEETER_VALUES,
+  DEFAULT_DURATION,
 } from "./constants";
 import { createEthersContract } from "@daohaus/tx-builder";
 import { BigNumber, ethers } from "ethers";
@@ -203,7 +204,9 @@ export const assembleMemeYeeterShamanParams = ({
     CURATOR_CONTRACTS["UNISWAP_V3_NF_POSITION_MANAGER"][chainId];
   const weth9 = CURATOR_CONTRACTS["WETH"][chainId];
   const startDateTime = formValues["startDate"] as string;
-  const endDateTime = (startDateTime + 24 * 60 * 60) as string;
+  const endDateTime = import.meta.env.DEV
+    ? ((startDateTime + 10 * 60) as string)
+    : ((startDateTime + DEFAULT_DURATION) as string);
 
   if (
     !memeYeeterShamanSingleton ||
@@ -287,7 +290,9 @@ const assembleShamanParams = ({
   }
 
   const startDateTime = formValues["startDate"] as string;
-  const endDateTime = (startDateTime + 24 * 60 * 60) as string;
+  const endDateTime = import.meta.env.DEV
+    ? ((startDateTime + 10 * 60) as string)
+    : ((startDateTime + DEFAULT_DURATION) as string);
 
   // var today = new Date();
   // var tomorrow = new Date();
