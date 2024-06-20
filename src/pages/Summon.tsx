@@ -8,6 +8,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Dialog, DialogContent, DialogTrigger, Link, ParMd, SingleColumnLayout, Spinner } from "@daohaus/ui";
 import { ADMIN_URL } from "../utils/constants";
+import { set } from "date-fns";
+import { ButtonRouterLink } from "../components/ButtonRouterLink";
 
 const LinkButton = styled(Link)`
   text-decoration: none;
@@ -17,16 +19,28 @@ const LinkButton = styled(Link)`
   }
 `;
 
+
 const Summon = () => {
   const navigate = useNavigate();
   const { chainId } = useDHConnect();
   const [txSuccess, setTxSuccess] = useState(false);
+  const [modalOpen, setModalOpen] = useState(true);
   const [pollSuccess, setPollSuccess] = useState(false);
   const [pollResult, setPollResult] = useState<null | any>(null);
 
 
-  // todo: check chainId here is a valid one and pass to formbuilder
-  console.log("chainId", chainId);
+  const handleModalChange = () => {
+    setModalOpen(!modalOpen);
+    if (pollSuccess && pollResult?.data?.dao?.name) {
+      // console.log("navigating to details");
+      const yeeter = pollResult?.data?.dao?.shamen.find((shaman: any) => shaman.permissions === "2");
+      navigate(`/molochv3/${chainId}/${pollResult?.data?.dao?.id}/${yeeter.shamanAddress}`);
+      // navigate(ADMIN_URL);
+    } else {
+      //  console.log("navigating to dashboard");
+      navigate("/");
+    }
+  };
 
   return (
     <SingleColumnLayout>
@@ -35,44 +49,47 @@ const Summon = () => {
           form={APP_FORM.SUMMON_MEME}
           customFields={AppFieldLookup}
           targetNetwork={chainId}
-          submitButtonText="Summon NFT Raid Token"
+          submitButtonText="Summon NFT Escrow"
           lifeCycleFns={{
             onPollSuccess: (result) => {
               console.log("poll success", result);
               setPollSuccess(true);
               setPollResult(result);
-
             },
             onTxSuccess: (result) => {
               setTxSuccess(true);
+              setModalOpen(true);
             }
           }}
         />
       )}
       {txSuccess && (
-        <Dialog open={true} >
+        <Dialog open={modalOpen} onOpenChange={handleModalChange} >
 
           <DialogContent title="Summon Details">
             {!pollSuccess ? (
               <>
-                <ParMd>Your DAO has been summoned please wait for the indexors to update</ParMd>
+                <ParMd>Your escrow has been summoned please wait for the indexors to update </ParMd>
                 <Spinner />
               </>
             ) : (
               <>
                 <ParMd>
-                  It has been summoned! You can view it now here</ParMd>
+                  It has been summoned! You can view it now here </ParMd>
                 {pollResult?.data?.dao?.name ? (
                   <>
-                    <ParMd>DAO NAME: {pollResult?.data?.dao?.name}{" "} </ParMd>
+                    <ParMd>NAME: {pollResult?.data?.dao?.name}{" "} </ParMd>
                     {pollResult?.data?.dao?.shamen?.length ? (
 
                       <>
-                        <ParMd>Shamens:</ParMd>
-                        {pollResult?.data?.dao?.shamen.map((shaman: any) => (
-                          <ParMd>
-                            {shaman.permissions === "2" ? `Yeeter: https://app.yeet.haus/#/molochv3/${chainId}/${shaman.shamanAddress}` : `Escrow: ${shaman.shamanAddress}`}
+                        <ParMd>Shamen info:</ParMd>
+                        {pollResult?.data?.dao?.shamen.map((shaman: any, idx: number) => (
+                          <div key={idx}>
+                          <ParMd >
+                            {shaman.permissions === "2" ? (`Yeeter: ${shaman.shamanAddress} `) : `Market Maker: ${shaman.shamanAddress}`}    
                           </ParMd>
+                          {shaman.permissions === "2" && <ButtonRouterLink to={`/molochv3/${chainId}/${pollResult?.data?.dao?.id}/${shaman.shamanAddress}`}>Yeet</ButtonRouterLink>}
+                          </div>
                         ))}
                       </>
 
@@ -81,7 +98,7 @@ const Summon = () => {
                     )}
                   </>
                 ) : (
-                  <ParMd>Continue to the dashboard</ParMd>
+                  <ParMd>Continue to the dashboard <ButtonRouterLink to="/">Dashboard</ButtonRouterLink></ParMd>
                 )}
               </>
 
