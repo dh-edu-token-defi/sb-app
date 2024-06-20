@@ -83,11 +83,13 @@ const Summon = () => {
 
                       <>
                         <ParMd>Shamen info:</ParMd>
-                        {pollResult?.data?.dao?.shamen.map((shaman: any) => (
-                          <ParMd>
-                            {shaman.permissions === "2" ? (`Yeeter: /${chainId}/${shaman.shamanAddress} `) : `Market Maker: ${shaman.shamanAddress}`}
-                            {shaman.permissions === "2" && <ButtonRouterLink to={`/molochv3/${chainId}/${pollResult?.data?.dao?.id}/${shaman.shamanAddress}}`}>Yeet</ButtonRouterLink>}
+                        {pollResult?.data?.dao?.shamen.map((shaman: any, idx: number) => (
+                          <div key={idx}>
+                          <ParMd >
+                            {shaman.permissions === "2" ? (`Yeeter: ${shaman.shamanAddress} `) : `Market Maker: ${shaman.shamanAddress}`}    
                           </ParMd>
+                          {shaman.permissions === "2" && <ButtonRouterLink to={`/molochv3/${chainId}/${pollResult?.data?.dao?.id}/${shaman.shamanAddress}`}>Yeet</ButtonRouterLink>}
+                          </div>
                         ))}
                       </>
 
