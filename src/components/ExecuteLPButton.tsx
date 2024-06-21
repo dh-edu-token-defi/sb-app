@@ -100,7 +100,7 @@ const ExecuteLPButton = ({
                             }}
                         />) : (
                             <ParMd>
-                                {`There is still time!`}
+                                {``}
                             </ParMd>
                         )}
                         {pollSuccess && (
