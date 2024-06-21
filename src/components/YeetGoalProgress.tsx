@@ -1,4 +1,4 @@
-import { DataIndicator, widthQuery } from "@daohaus/ui";
+import { DataIndicator, ParLg, widthQuery } from "@daohaus/ui";
 import styled from "styled-components";
 import { ProgressBar } from "./ProgressBar";
 import { formatValueTo, fromWei } from "@daohaus/utils";
@@ -39,8 +39,25 @@ export const YeetGoalProgress = ({
     return null;
   }
 
-  // Find the first vault with the name "Treasury"
+
 const treasuryVault = dao.vaults.find(vault => vault.name === "Treasury");
+
+if (!treasuryVault?.tokenBalances) {
+  return (
+    <>
+    <ParLg>Error in fetching balance</ParLg>
+    <DataIndicator
+    label="Raised"
+    data={`??? of ${formatValueTo({
+      value: fromWei(yeeter.goal),
+      decimals: 3,
+      format: "numberShort",
+    })} ${HAUS_NETWORK_DATA[chainId as ValidNetwork]?.symbol}`}
+  />
+  </>
+  
+  );
+}
 
 // Find the first balance where tokenAddress is null
 const tokenBalance = treasuryVault?.tokenBalances.find(balance => balance.tokenAddress === null);
