@@ -1,7 +1,7 @@
 import { POSTER_TAGS } from "@daohaus/utils";
 import { buildMultiCallTX } from "@daohaus/tx-builder";
 import { APP_CONTRACT } from "./contract";
-import { pollLastTX, testLastTX } from "../utils/customTxPoll";
+import { pollLastTX, pollYeet, testLastTX, testYeet } from "../utils/customTxPoll";
 
 export enum ProposalTypeIds {
   Signal = "SIGNAL",
@@ -26,5 +26,43 @@ export const APP_TX = {
       fetch: pollLastTX,
       test: testLastTX,
     },
+  },
+  YEET: {
+    id: "YEET",
+    contract: APP_CONTRACT.YEETER_SHAMAN,
+    method: "contributeEth",
+    args: [".formValues.message"],
+    overrides: {
+      value: ".formValues.amount",
+    },
+    customPoll: {
+      fetch: pollYeet,
+      test: testYeet,
+    },
+  },
+  EXECUTE_LP: {
+    id: "EXECUTE_LP",
+    contract: APP_CONTRACT.MARKET_MAKER_SHAMAN,
+    method: "execute",
+    args: [],
+    // customPoll: {
+    //   fetch: pollYeet,
+    //   test: testYeet,
+    // },
+  },
+  EXIT_PRESALE: {
+    id: "EXIT_PRESALE",
+    contract: APP_CONTRACT.EXIT_DAO,
+    method: "ragequit",
+    args: [
+      '.formValues.to',
+      '.formValues.sharesToBurn',
+      '.formValues.lootToBurn',
+      '.formValues.tokens',
+    ],
+    // customPoll: {
+    //   fetch: pollYeet,
+    //   test: testYeet,
+    // },
   },
 };

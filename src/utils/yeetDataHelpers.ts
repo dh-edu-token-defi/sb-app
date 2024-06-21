@@ -30,11 +30,20 @@ export const calcYeetIsEnded = (yeeter: YeeterItem) => {
 
   return Number(yeeter.endTime) < now;
 };
-
+const STATUS_WINDOW_LENGTH = 2 * 60 * 60; // 2 hrs
 export const calcYeetIsComingSoon = (yeeter: YeeterItem) => {
   const now = new Date().getTime() / 1000;
+  return Number(yeeter.startTime) > now && Number(yeeter.startTime) -now  <= STATUS_WINDOW_LENGTH;
+};
 
-  return Number(yeeter.startTime) > now;
+export const calcYeetIsNew = (yeeter: YeeterItem) => {
+  const now = new Date().getTime() / 1000;
+  return  now - Number(yeeter.createdAt) < STATUS_WINDOW_LENGTH;
+};
+
+export const calcYeetIsEndingSoon = (yeeter: YeeterItem) => {
+  const now = new Date().getTime() / 1000;
+  return Number(yeeter.endTime) - now > 0 && Number(yeeter.endTime) - now <= STATUS_WINDOW_LENGTH;
 };
 
 export const calcYeetReachedGoal = (
@@ -67,6 +76,14 @@ export const formatTimeUntilPresale = (yeeter: YeeterItem) => {
 export const formatMinContribution = (yeeter: YeeterItem) => {
   return formatValueTo({
     value: fromWei(yeeter.minTribute),
+    decimals: 5,
+    format: "number",
+  });
+};
+
+export const formatMemberBalance = (balance: string) => {
+  return formatValueTo({
+    value: fromWei(balance),
     decimals: 5,
     format: "number",
   });

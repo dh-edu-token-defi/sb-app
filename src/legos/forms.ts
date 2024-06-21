@@ -1,8 +1,73 @@
+import { TXLego } from "@daohaus/utils";
 import { CustomFormLego } from "./fieldConfig";
 import { APP_FIELD } from "./fields";
 import { APP_TX } from "./tx";
 
 export const APP_FORM: Record<string, CustomFormLego> = {
+  EXIT_PRESALE_FORM: {
+    id: "EXIT_PRESALE",
+    title: "Exit Presale",
+    description: "Exit presale and lose your deposit",
+    submitButtonText: "JEET",
+    requiredFields: {
+      amount: true,
+    },
+    log: true,
+    tx: APP_TX.EXIT_PRESALE as TXLego,
+    fields: [],
+  },
+  EXECUTE_ESCROW_FORM: {
+    id: "EXECUTE_ESCROW",
+    title: "Execute Escrow",
+    description: "Execute Escrow to get your YEET on!",
+    submitButtonText: "YEET",
+    log: true,
+    tx: APP_TX.EXECUTE_LP as TXLego,
+    fields: [],
+  },
+  YEET_FORM: {
+    id: "YEET",
+    title: "YEET",
+    description: "Contribute to the DAO.",
+    submitButtonText: "Summon MEME",
+    requiredFields: {
+      amount: true,
+    },
+    log: true,
+    tx: APP_TX.YEET as TXLego,
+    fields: [
+      {
+        id: "yeetHelper",
+        type: "yeetHelper",
+        label: "GET",
+      },
+      {
+        id: "yeetSplit",
+        type: "splitColumn",
+        rows: [
+          {
+            rowId: "row1",
+            left: {
+              id: "amount",
+              type: "yeetAmount",
+              label: "YEET",
+              expectType: "number",
+            },
+            right: {
+              id: "yeetReturn",
+              type: "yeetReturn",
+            },
+          },
+        ],
+      },
+      {
+        id: "message",
+        type: "mdxEditor",
+        label: "MESSAGE",
+        placeholder: "yeet yeet yeet",
+      },
+    ],
+  },
   SUMMON_MEME: {
     id: "SUMMON_MEME",
     title: "NFT Escrow Summoner",
@@ -94,9 +159,9 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       },
       {
         id: "image",
-        type: "input",
+        type: "imagePreview",
         label: "NFT Image Avatar",
-        placeholder: "make sure image url is availible. IPFS gatways supported",
+        placeholder: "jpg, jpeg, gif or png imag",
         expectType: "url",
         info: "icon, gif, pfp or avatar.",
       },
@@ -116,4 +181,5 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       APP_FIELD.TAGS_MULTISELECT_FIELD,
     ],
   },
+  
 };

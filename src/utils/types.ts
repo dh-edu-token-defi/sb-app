@@ -3,6 +3,7 @@ export type YeeterItem = {
   createdAt: string;
   dao: {
     id: string;
+    lootTokenSymbol: string;
   };
   balance: string;
   safeBalance: string;
@@ -16,6 +17,8 @@ export type YeeterItem = {
   isActive: boolean;
   isEnded: boolean;
   isComingSoon: boolean;
+  isEndingSoon: boolean;
+  isNew: boolean;
   reachedGoal: boolean;
   vault: string;
   timeRemaining: string;
@@ -36,4 +39,8 @@ export type YeetsItem = {
   id: string;
   message: string;
   shares: string;
+  dao: {
+    id: string;
+    lootTokenSymbol: string;
+  };
 };

@@ -5,28 +5,27 @@ import { useYeeter } from "../hooks/useYeeter";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { YeeterItem } from "../utils/types";
 import {
+  Badge,
   Button,
   Card,
   DataLg,
   DataXs,
   ParLg,
   ParMd,
-  ParSm,
   ParXl,
 } from "@daohaus/ui";
 
 import RobotArm from "../assets/robot-hand-yellow.png";
-import { SimpleCol, Spacer } from "./Layout";
 import { formatValueTo, fromWei } from "@daohaus/utils";
 import {
   calcPercToGoal,
-  formatTimeRemaining,
   formatTimeRemainingShort,
   formatTimeUntilPresale,
 } from "../utils/yeetDataHelpers";
-import { useDaoData } from "@daohaus/moloch-v3-hooks";
-import { Link } from "react-router-dom";
+
 import { ButtonRouterLink } from "./ButtonRouterLink";
+import BuyButton from "./BuyButton";
+import { StatusFlag } from "./StatusFlag";
 
 const SpacedCard = styled(Card)`
   margin-right: 1rem;
@@ -66,6 +65,8 @@ const TimeDataLg = styled(DataLg)`
   padding: 1rem;
 `;
 
+
+
 export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
   const chainId = DEFAULT_CHAIN_ID;
   const { metadata, yeeter } = useYeeter({
@@ -78,10 +79,9 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
 
   if (!metadata || !yeeter) return null;
 
-  console.log("yeeter", yeeter);
-
   return (
     <SpacedCard>
+      <StatusFlag yeeter={yeeter} />
       <TopSectionContainer>
         {metadata.avatarImg && metadata.avatarImg !== "" ? (
           <img src={metadata.avatarImg} height="100px" />
@@ -90,8 +90,8 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
         )}
       </TopSectionContainer>
       <DataCol>
-        <TokenNameParXl>{metadata.name}</TokenNameParXl>
-        <DataXs>{metadata.description}</DataXs>
+        <TokenNameParXl>{yeeter.dao.lootTokenSymbol}</TokenNameParXl>
+        <DataXs>{metadata.name}</DataXs>
         {yeeter.isActive && (
           <TimeDataLg color={theme.warning.step10}>
             Presale Ends {formatTimeRemainingShort(yeeter)}
@@ -125,20 +125,17 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
                 format: "number",
               })} ETH Raised`}
             </ParMd>
-            <ParLg>{`Status: ${
-              yeeter.reachedGoal ? "Big Success" : `Major Fail`
-            }`}</ParLg>
+            <ParLg>{`Status: ${yeeter.reachedGoal ? "Big Success" : `Major Fail`
+              }`}</ParLg>
           </>
         )}
         {yeeter.isActive && (
-          <Button
-            size="lg"
-            fullWidth={true}
-            style={{ marginTop: "2rem" }}
-            variant="outline"
-          >
-            BUY
-          </Button>
+          <BuyButton
+            daoChain={chainId}
+            daoId={yeeter.dao.id}
+            yeeterId={yeeter.id}
+            metadata={metadata}
+          />
         )}
 
         {yeeter.isEnded && yeeter.reachedGoal && (

@@ -11,9 +11,12 @@ import {
 
 export const MEME_YEETER_SUMMONER_REFERRER = "DHYeet24ShamanSummoner.3";
 export const NFT_ESCROW_SUMMONER_REFERRER = "NFTEscrowShamanSummoner.3";
+export const NFT_ESCROW_NAME = "YeetNftEscrowShamanModule";
 
 export const YEET24_REFERRER = "DHYeet24ShamanSummoner.3";
 export const YEET24_NAME = "Yeet24ShamanModule";
+
+
 
 export const CURATOR_CONTRACTS: KeychainList = {
   YEET24_SUMMONER: {

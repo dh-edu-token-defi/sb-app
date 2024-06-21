@@ -1,5 +1,11 @@
 import styled from "styled-components";
 import { Button } from "@daohaus/ui";
+import { YeeterItem } from "../utils/types";
+import BuyButton from "./BuyButton";
+import { ValidNetwork } from "@daohaus/keychain-utils";
+import { DaoProfileYeeter } from "../hooks/useYeeter";
+import ExitButton from "./ExitButton";
+import ExecuteEscrowButton from "./ExecuteEscrowButton";
 
 const Container = styled.div`
   display: flex;
@@ -7,14 +13,36 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-export const YeeterActions = ({}: {}) => {
+export const YeeterActions = ({
+  yeeterId,
+  daoChain,
+  daoId,
+}: {
+  yeeterId: string;
+  daoChain: ValidNetwork;
+  daoId: string;
+}) => {
   return (
     <>
       <Container>
-        <Button>Yeet</Button>
-        <Button>Exit</Button>
-        <Button>Execute LP</Button>
-        <Button>Swap</Button>
+      <BuyButton 
+            daoChain={daoChain}
+            daoId={daoId}
+            yeeterId={yeeterId}
+            
+          />
+      <ExitButton 
+            daoChain={daoChain}
+            yeeterId={yeeterId}
+            daoId={daoId}
+          />
+      <ExecuteEscrowButton
+            daoChain={daoChain}
+            yeeterId={yeeterId}
+            daoId={daoId}
+          />
+        <Button>Seller Approval</Button>
+
         <Button>Share</Button>
       </Container>
     </>
