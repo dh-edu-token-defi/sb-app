@@ -26,6 +26,10 @@ const BigH1 = styled(H1)`
   line-height: 12rem;
 `;
 
+const StyledDialogContent = styled(DialogContent)`
+  z-index: 10;
+`;
+
 const Landing = () => {
   const { chainId, isConnected, address } = useDHConnect();
 
@@ -52,23 +56,25 @@ const Landing = () => {
                     What is this?
                   </Button>
                 </DialogTrigger>
-                <DialogContent
+                <StyledDialogContent
                   title=" Welcome to fully dilluted, unruggable, fair launch meme
                     tokens"
                 >
                   <SimpleCol>
-                    <ParMd>* 24 hr presale</ParMd>
+                    <ParMd>* 24-hour presale</ParMd>
                     <ParMd>
-                      * If the threshold is met the meme will be minted, the
-                      presale will close and a Uniswap v3 LP is started. The
-                      meme will be available for purchase on the marketplace.
+                      * If the threshold is met, the meme will be minted, the
+                      presale will close, and a Uniswap v3 liquidity pool will
+                      be initiated. Subsequently, the meme will become available
+                      for purchase on the marketplace.
                     </ParMd>
                     <ParMd>
-                      * If the threshold is not met the presale will close and
-                      contributors can exit.
+                      * If the threshold is not met, the presale will close, and
+                      contributors will have the option to withdraw their
+                      contributions.
                     </ParMd>
                   </SimpleCol>
-                </DialogContent>
+                </StyledDialogContent>
               </Dialog>
 
               <LinkButton to="/summon/token">
