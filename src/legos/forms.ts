@@ -126,9 +126,9 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       },
       {
         id: "image",
-        type: "input",
+        type: "imagePreview",
         label: "NFT Image Avatar",
-        placeholder: "make sure image url is availible. IPFS gatways supported",
+        placeholder: "jpg, jpeg, gif or png imag",
         expectType: "url",
         info: "icon, gif, pfp or avatar.",
       },
