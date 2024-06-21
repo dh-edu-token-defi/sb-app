@@ -21,9 +21,6 @@ export const APP_FORM: Record<string, CustomFormLego> = {
     title: "Execute LP",
     description: "Execute LP to get your YEET on!",
     submitButtonText: "YEET",
-    requiredFields: {
-      amount: true,
-    },
     log: true,
     tx: APP_TX.EXECUTE_LP as TXLego,
     fields: [],

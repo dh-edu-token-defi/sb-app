@@ -69,14 +69,13 @@ export const YeeterDetails = ({
     chainId: daoChain,
   });
 
-  console.log("DAO", dao);
-
   const { marketMakerShaman, canExecute, uniswapUrl } = useMarketMaker({
     daoId,
     yeeterShamanAddress: yeeterId,
     chainId: daoChain,
     daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
   });
+  console.log("marketMakerShaman", marketMakerShaman);
 
   if (!metadata || !yeeter || !dao || !marketMakerShaman) {
     return

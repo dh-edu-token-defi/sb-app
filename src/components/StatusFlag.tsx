@@ -28,7 +28,6 @@ const StyledBadge = styled(Badge)`
 
 export const StatusFlag = ({ yeeter }: { yeeter?: YeeterItem }) => {
 
-    console.log("yeeter from badge", yeeter);
     return (
         <BadgeContainer>
             {yeeter?.isComingSoon && <StyledBadge className="comingSoon" badgeLabel="⏰ coming soon" badgeSize="lg" />}
