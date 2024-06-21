@@ -46,7 +46,6 @@ const ExitButton = ({
 
     const { dao } = useDaoData({ daoId, daoChain });
     const { member } = useDaoMember({ daoId, daoChain, memberAddress: address});
-    console.log("member", member);
 
     const defaultFields = useMemo(() => {
         if (address && dao) {
@@ -62,8 +61,6 @@ const ExitButton = ({
           };
         }
       }, [address, dao]);
-
-    console.log("defaultFields", defaultFields);
 
     const onFormComplete = (
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -66,14 +66,9 @@ if (!tokenBalance) {
   return null;
 }
 
-console.log("balance!!!!!!!!", tokenBalance.balance);
-  
-
   const percentageComplete = yeeter
     ? `${calcProgressPerc(tokenBalance.balance , yeeter.goal)}%`
     : "0%";
-
-  console.log("percentageComplete", percentageComplete);
 
   return (
     <> 

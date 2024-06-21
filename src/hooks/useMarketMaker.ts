@@ -44,8 +44,10 @@ export const useMarketMaker = ({
           functionName: "name",
         });
 
+        console.log("shamanName", i, shamanName);
+
         if (shamanName === YEET24_NAME) {
-          marketMakerShaman = shamanAddresses[0];
+          marketMakerShaman = shamanAddresses[i];
 
           executed = (await publicClient.readContract({
             address: shamanAddresses[i] as `0x${string}`,
