@@ -17,6 +17,8 @@ export type YeeterItem = {
   isActive: boolean;
   isEnded: boolean;
   isComingSoon: boolean;
+  isEndingSoon: boolean;
+  isNew: boolean;
   reachedGoal: boolean;
   vault: string;
   timeRemaining: string;

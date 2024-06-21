@@ -5,6 +5,7 @@ import { useYeeter } from "../hooks/useYeeter";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { YeeterItem } from "../utils/types";
 import {
+  Badge,
   Button,
   Card,
   DataLg,
@@ -24,6 +25,7 @@ import {
 
 import { ButtonRouterLink } from "./ButtonRouterLink";
 import BuyButton from "./BuyButton";
+import { StatusFlag } from "./StatusFlag";
 
 const SpacedCard = styled(Card)`
   margin-right: 1rem;
@@ -63,6 +65,8 @@ const TimeDataLg = styled(DataLg)`
   padding: 1rem;
 `;
 
+
+
 export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
   const chainId = DEFAULT_CHAIN_ID;
   const { metadata, yeeter } = useYeeter({
@@ -77,6 +81,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
 
   return (
     <SpacedCard>
+      <StatusFlag yeeter={yeeter} />
       <TopSectionContainer>
         {metadata.avatarImg && metadata.avatarImg !== "" ? (
           <img src={metadata.avatarImg} height="100px" />
@@ -125,7 +130,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
           </>
         )}
         {yeeter.isActive && (
-          <BuyButton 
+          <BuyButton
             daoChain={chainId}
             daoId={yeeter.dao.id}
             yeeterId={yeeter.id}

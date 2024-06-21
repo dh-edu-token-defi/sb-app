@@ -14,6 +14,8 @@ import {
   calcYeetIsActive,
   calcYeetIsComingSoon,
   calcYeetIsEnded,
+  calcYeetIsEndingSoon,
+  calcYeetIsNew,
   calcYeetReachedGoal,
   formatTimeRemaining,
 } from "../utils/yeetDataHelpers";
@@ -68,12 +70,16 @@ export const useYeeter = ({
       }
 
       const isComingSoon = res.yeeter && calcYeetIsComingSoon(res.yeeter);
+      const isEndingSoon = res.yeeter && calcYeetIsEndingSoon(res.yeeter);
+      const isNew = res.yeeter && calcYeetIsNew(res.yeeter);
       const yeeter = {
         ...res.yeeter,
         safeBalance,
         isActive: res.yeeter && calcYeetIsActive(res.yeeter),
         isEnded: res.yeeter && calcYeetIsEnded(res.yeeter),
         isComingSoon: isComingSoon,
+        isEndingSoon: isEndingSoon,
+        isNew: isNew,
         reachedGoal: res.yeeter && calcYeetReachedGoal(safeBalance, res.yeeter),
         timeRemaining:
           res.yeeter && isComingSoon
