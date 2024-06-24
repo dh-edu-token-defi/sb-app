@@ -16,7 +16,7 @@ import {
 } from "@daohaus/ui";
 
 import RobotArm from "../assets/robot-hand-yellow.png";
-import { formatValueTo, fromWei } from "@daohaus/utils";
+import { EthAddress, formatValueTo, fromWei } from "@daohaus/utils";
 import {
   calcPercToGoal,
   formatTimeRemainingShort,
@@ -26,6 +26,10 @@ import {
 import { ButtonRouterLink } from "./ButtonRouterLink";
 import BuyButton from "./BuyButton";
 import { StatusFlag } from "./StatusFlag";
+import { useDaoMember } from "@daohaus/moloch-v3-hooks";
+import { useDHConnect } from "@daohaus/connect";
+import { ValidNetwork } from "@daohaus/keychain-utils";
+import ExitButton from "./ExitButton";
 
 const SpacedCard = styled(Card)`
   margin-right: 1rem;
@@ -68,13 +72,15 @@ const TimeDataLg = styled(DataLg)`
 
 
 export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
-  const chainId = DEFAULT_CHAIN_ID;
+  const {address, chainId} = useDHConnect();
+
   const { metadata, yeeter } = useYeeter({
     daoId: yeeterData.dao.id,
     shamanAddress: yeeterData.id,
     chainId: chainId,
     yeeterData,
   });
+  const { member } = useDaoMember({ daoChain: chainId as ValidNetwork, daoId: yeeterData.dao.id, memberAddress: address });
   const theme = useTheme();
 
   if (!metadata || !yeeter) return null;
@@ -112,7 +118,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
                 format: "number",
               })} ETH Raised`}
             </ParMd>
-            <ParMd>{calcPercToGoal(yeeter)} To Goal</ParMd>
+            <ParMd>{calcPercToGoal(yeeter)}</ParMd>
           </>
         )}
 
@@ -131,7 +137,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
         )}
         {yeeter.isActive && (
           <BuyButton
-            daoChain={chainId}
+            daoChain={chainId as ValidNetwork}
             daoId={yeeter.dao.id}
             yeeterId={yeeter.id}
             metadata={metadata}
@@ -148,15 +154,12 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
             SWAP
           </Button>
         )}
-        {yeeter.isEnded && !yeeter.reachedGoal && (
-          <Button
-            size="lg"
-            fullWidth={true}
-            style={{ marginTop: "2rem" }}
-            variant="outline"
-          >
-            EXIT
-          </Button>
+        {yeeter.isEnded && !yeeter.reachedGoal && member && Number(member?.shares) > 0 && (
+          <ExitButton
+            daoChain={chainId as ValidNetwork}
+            yeeterId={yeeter.id}
+            daoId={yeeter.dao.id}
+          />
         )}
 
         <div className="detailsLink">

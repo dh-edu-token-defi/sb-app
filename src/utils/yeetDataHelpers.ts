@@ -136,6 +136,7 @@ export const formatMarqueeData = (item: MarqueeItem) => {
 };
 
 export const calcPercToGoal = (yeeter: YeeterItem) => {
-  if (Number(yeeter.goal) === 0) return `0%`;
-  return `${Number(yeeter.safeBalance) / Number(yeeter.goal)}%`;
+  if (Number(yeeter.goal) === 0) return null;
+  if (Number(yeeter.safeBalance) >  Number(yeeter.goal)) return `goal met`;
+  return `${Number(yeeter.safeBalance) / Number(yeeter.goal)}% to goal`;
 };

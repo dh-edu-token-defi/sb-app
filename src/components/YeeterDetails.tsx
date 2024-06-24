@@ -5,8 +5,9 @@ import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useEscrow } from "../hooks/useEscrow";
 import { useDaoData } from "@daohaus/moloch-v3-hooks";
 import { Avatar, Card, Label, ParLg, ParMd } from "@daohaus/ui";
-import { formatMinContribution, formatTimeRemainingShort } from "../utils/yeetDataHelpers";
+import { formatMinContribution, formatTimeRemainingShort, formatTimeUntilPresale } from "../utils/yeetDataHelpers";
 import { YeetGoalProgress } from "./YeetGoalProgress";
+import { formatValueTo, fromWei } from "@daohaus/utils";
 
 const Container = styled.div`
   display: flex;
@@ -75,7 +76,6 @@ export const YeeterDetails = ({
     chainId: daoChain,
     daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
   });
-  console.log("nftEscrowShaman", nftEscrowShaman);
 
   if (!metadata || !yeeter || !dao || !nftEscrowShaman) {
     return
@@ -96,7 +96,7 @@ export const YeeterDetails = ({
         <DetailsContainer>
           <DetailItem>
             <Label>Token Name / Symbol:</Label>
-            <ParLg>{metadata.name} / {yeeter.dao.lootTokenSymbol}</ParLg>
+            <ParLg>{metadata.name} / {dao.shareTokenSymbol}</ParLg>
           </DetailItem>
           <DetailItem>
             <Label>Start Date:</Label>
@@ -107,22 +107,39 @@ export const YeeterDetails = ({
             <ParLg>{new Date(parseInt(yeeter.endTime) * 1000).toLocaleString()}</ParLg>
           </DetailItem>
           <DetailItem>
-            <Label>Presale Minimum Contrbution:</Label>
+            <Label>Raid Minimum Contrbution:</Label>
             <ParLg>{formatMinContribution(yeeter)} (ETH)</ParLg>
           </DetailItem>
           <DetailItem>
             <Label>Total Raise Status:</Label>
-            <ParLg>{yeeter.isEnded ? (yeeter.reachedGoal ? "SUCCESS" : "FAIL") : "ACTIVE"}</ParLg>
+            <ParLg>{yeeter.isEnded ? (yeeter.reachedGoal ? "SUCCESS" : "FAIL") : yeeter.isActive ? "ACTIVE" : "COMING SOON"}</ParLg>
           </DetailItem>
-          <DetailItemWarning>
-            <Label>Presale Ends</Label>
+          {yeeter.isActive && (<DetailItemWarning>
+            <Label>Raid Ends</Label>
             <ParLg>{formatTimeRemainingShort(yeeter)}</ParLg>
-          </DetailItemWarning>
+          </DetailItemWarning>)}
+          {yeeter.isComingSoon && (<DetailItemWarning>
+            <Label>Raid Starts</Label>
+            <ParLg>{formatTimeUntilPresale(yeeter)}</ParLg>
+          </DetailItemWarning>)}
+          {yeeter.isEnded && (
+            <>
+              <ParMd>
+                {`${formatValueTo({
+                  value: fromWei(yeeter.safeBalance.toString()),
+                  decimals: 5,
+                  format: "number",
+                })} ETH Raised`}
+              </ParMd>
+              <ParLg>{`Status: ${yeeter.reachedGoal ? "Big Success" : `Major Fail`
+                }`}</ParLg>
+            </>
+          )}
           <YeetGoalProgress
             yeeter={yeeter}
             dao={dao}
             chainId={daoChain}
-            />
+          />
         </DetailsContainer>
       </Container>
     </Card>
