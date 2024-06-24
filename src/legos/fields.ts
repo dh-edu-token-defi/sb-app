@@ -1,7 +1,6 @@
 import { CustomFieldLego } from "./fieldConfig";
 
 export const APP_FIELD: Record<string, CustomFieldLego> = {
-
   MANAGER_ACCOUNT: {
     id: "managerAccountAddress",
     type: "managerAddress",
@@ -31,7 +30,12 @@ export const APP_FIELD: Record<string, CustomFieldLego> = {
     type: "paramTag",
   },
   TAGS_MULTISELECT_FIELD: {
-    id: 'tags',
-    type: 'multiSelect',
+    id: "tags",
+    type: "multiSelect",
+  },
+  DISCLAIMER_CHECKBOX_FIELD: {
+    id: "disclaimerCheckbox",
+    type: "disclaimerCheckbox",
+    label: "Disclaimer",
   },
 };

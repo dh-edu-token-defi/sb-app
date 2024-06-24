@@ -83,6 +83,10 @@ export const assembleMemeSummonerArgs = (args: ArbitraryState) => {
   let txArgs: [string, string, string, string[], string];
   console.log(">>>>> start", formValues, memberAddress, chainId);
 
+  if (!formValues["disclaimerCheckbox"]) {
+    throw new Error("This is for educational purposes only");
+  }
+
   if (!isString(formValues["saltNonce"])) {
     throw new Error("Invalid nonce");
   }
