@@ -87,7 +87,7 @@ const SellerApprovalButton = ({
                     Approve Escrow
                 </Button>
             </DialogTrigger>
-            <DialogContent title="JEET">
+            <DialogContent title="APPROVE">
                 <SingleColumnLayout>
                     {address == seller ? (<ModalContainer
                         daoChain={daoChain}

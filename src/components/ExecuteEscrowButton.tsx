@@ -100,7 +100,7 @@ const ExecuteEscrowButton = ({
                             }}
                         />) : (
                             <ParMd>
-                                {``}
+                                {`Can not be executed at this time`}
                             </ParMd>
                         )}
                         {pollSuccess && (
