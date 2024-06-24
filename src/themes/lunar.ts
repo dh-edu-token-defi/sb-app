@@ -32,7 +32,7 @@ import {
 
 export const lunarPrimaryDarkBtn: ButtonTheme = {
   solid: {
-    text: primaryDark.step1,
+    text: secondaryDark.step11,
     bg: primaryDark.step9,
     border: primaryDark.step9,
     bgHover: primaryDark.step10,
@@ -43,20 +43,20 @@ export const lunarPrimaryDarkBtn: ButtonTheme = {
     borderDisabled: primaryDark.step6,
   },
   outline: {
-    text: primaryDark.step9,
+    text: secondaryDark.step11,
     border: primaryDark.step9,
     hover: primaryDark.step10,
     focus: primaryDark.step11,
     disabled: primaryDark.step6,
   },
   ghost: {
-    text: primaryDark.step10,
+    text: secondaryDark.step11,
     bgHover: primaryDark.step3,
     borderFocus: primaryDark.step4,
     disabled: primaryDark.step8,
   },
   link: {
-    text: primaryDark.step9,
+    text: secondaryDark.step11,
     hover: primaryDark.step10,
     focus: primaryDark.step11,
     disabled: primaryDark.step6,
