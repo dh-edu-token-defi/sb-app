@@ -14,7 +14,6 @@ import { ValidNetwork } from "@daohaus/keychain-utils";
 import { ButtonRouterLink } from "./ButtonRouterLink";
 import { DaoProfileYeeter } from "../hooks/useYeeter";
 
-
 const BuyButton = ({
     daoChain,
     daoId,

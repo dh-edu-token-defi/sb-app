@@ -446,7 +446,7 @@ export const lunarDarkTheme: DefaultTheme = {
       bg: secondaryDarkA.step4,
     },
     content: {
-      bg: secondaryDark.step2,
+      bg: secondaryDark.step1,
       color: secondaryDark.step12,
     },
   },

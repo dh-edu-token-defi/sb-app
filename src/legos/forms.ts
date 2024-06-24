@@ -2,8 +2,35 @@ import { TXLego } from "@daohaus/utils";
 import { CustomFormLego } from "./fieldConfig";
 import { APP_FIELD } from "./fields";
 import { APP_TX } from "./tx";
+import { LOCAL_ABI } from "@daohaus/abis";
 
 export const APP_FORM: Record<string, CustomFormLego> = {
+  SELLER_APPROVAL_FORM: {
+    id: "SELLER_APPROVAL",
+    title: "Seller Approval",
+    description: "Approve the sale of your NFT after conditions are met.",
+    submitButtonText: "Approve",
+    requiredFields: {
+      nftAddress: true,
+      tokenId: true,
+    },
+    log: true,
+    tx: {
+      id: "SELLER_APPROVAL",
+      contract: {
+        type: "static",
+        contractName: "NFT",
+        abi: LOCAL_ABI.ERC721,
+        targetAddress: ".formValues.nftAddress",
+      },
+      method: "approve",
+      args: [
+        ".formValues.escrow",
+        ".formValues.tokenId",
+      ],
+    } as TXLego,
+    fields: [],
+  },
   EXIT_PRESALE_FORM: {
     id: "EXIT_PRESALE",
     title: "Exit Presale",
