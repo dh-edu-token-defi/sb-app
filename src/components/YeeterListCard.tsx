@@ -124,7 +124,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
               })} ETH Raised`}
             </ParMd>
             <ParLg>{`Status: ${
-              yeeter.reachedGoal ? "Big Success" : `Major Fail`
+              yeeter.reachedGoal ? "Big Success" : `Fail`
             }`}</ParLg>
           </>
         )}
