@@ -20,6 +20,7 @@ import { useLatestYeets } from "../hooks/useLatestYeets";
 import { YeetMarquee } from "../components/YeetMarquee";
 import { useMyYeeters } from "../hooks/useMyYeeters";
 import { useRagequits } from "../hooks/useRagequits";
+import { WideColumnLayout } from "../components/Layout/WideColumnLayout";
 
 const LinkButton = styled(RouterLink)`
   text-decoration: none;
@@ -57,7 +58,7 @@ const Landing = () => {
   return (
     <>
       {chainId && chainId in supportedNetorks ? (
-        <SingleColumnLayout
+        <WideColumnLayout
           subtitle={"Decentralized Fair Token Launcher".toUpperCase()}
         >
           <div>
@@ -136,7 +137,7 @@ const Landing = () => {
               {myYeeters && <YeeterList yeeters={myYeeters} />} */}
             </Spacer>
           </div>
-        </SingleColumnLayout>
+        </WideColumnLayout>
       ) : (
         <div>
           {!isConnected && (

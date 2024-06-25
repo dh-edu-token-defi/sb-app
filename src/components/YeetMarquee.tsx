@@ -80,7 +80,7 @@ export const YeetMarquee = ({
   }, [yeets, yeeters]);
 
   return (
-    <Marquee speed={75} autoFill={true} style={{ maxWidth: "110rem" }}>
+    <Marquee speed={75} autoFill={true} style={{ maxWidth: "90vw" }}>
       {data.map((dataItem, i) => {
         return (
           <Container key={i}>
