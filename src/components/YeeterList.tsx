@@ -40,7 +40,8 @@ const TitleContainer = styled.div`
 `;
 
 const CarouselContainer = styled.div`
-  max-width: 110rem;
+  max-width: 90vw;
+
   padding: 1rem 0;
 `;
 
@@ -50,50 +51,26 @@ const ImageContainer = styled.div`
 
 const responsive = {
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-    slidesToSlide: 3, // optional, default to 1.
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
+    breakpoint: { max: 3000, min: 1600 },
+    items: 4,
     slidesToSlide: 2, // optional, default to 1.
   },
+  tablet: {
+    breakpoint: { max: 1600, min: 1200 },
+    items: 3,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+  smallTablet: {
+    breakpoint: { max: 1200, min: 760 },
+    items: 2,
+    slidesToSlide: 1, // optional, default to 1.
+  },
   mobile: {
-    breakpoint: { max: 464, min: 0 },
+    breakpoint: { max: 760, min: 0 },
     items: 1,
     slidesToSlide: 1, // optional, default to 1.
   },
 };
-
-// const responsive = {
-//   superLargeDesktop: {
-//     // the naming can be any, depends on you.
-//     breakpoint: { max: 4000, min: 3000 },
-//     items: 5,
-//     slidesToSlide: 5,
-//   },
-//   desktop: {
-//     breakpoint: { max: 3000, min: 1024 },
-//     items: 4,
-//     slidesToSlide: 4,
-//   },
-//   tablet: {
-//     breakpoint: { max: 1024, min: 768 },
-//     items: 3,
-//     slidesToSlide: 3,
-//   },
-//   smallTablet: {
-//     breakpoint: { max: 768, min: 464 },
-//     items: 2,
-//     slidesToSlide: 2,
-//   },
-//   mobile: {
-//     breakpoint: { max: 464, min: 0 },
-//     items: 1,
-//     slidesToSlide: 1,
-//   },
-// };
 
 export const YeeterList = ({
   yeeters,

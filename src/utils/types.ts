@@ -44,3 +44,16 @@ export type YeetsItem = {
     lootTokenSymbol: string;
   };
 };
+
+export type RagequitItem = {
+  id: string;
+  createdAt: string;
+  loot: string;
+  dao: {
+    id: string;
+    lootTokenSymbol: string;
+  };
+  member: {
+    memberAddress: string;
+  };
+};

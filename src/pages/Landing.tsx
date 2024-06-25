@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDHConnect } from "@daohaus/connect";
 import styled from "styled-components";
 import {
@@ -18,7 +19,8 @@ import { SimpleCol, SimpleRow, Spacer } from "../components/Layout";
 import { useLatestYeets } from "../hooks/useLatestYeets";
 import { YeetMarquee } from "../components/YeetMarquee";
 import { useMyYeeters } from "../hooks/useMyYeeters";
-import { useEffect, useState } from "react";
+import { useRagequits } from "../hooks/useRagequits";
+import { WideColumnLayout } from "../components/Layout/WideColumnLayout";
 
 const LinkButton = styled(RouterLink)`
   text-decoration: none;
@@ -45,20 +47,18 @@ const Landing = () => {
 
   const { yeets } = useLatestYeets({ chainId: DEFAULT_CHAIN_ID });
 
-  const [mine, setMine] = useState(false);
+  const { ragequits } = useRagequits({
+    chainId: DEFAULT_CHAIN_ID,
+  });
 
-  useEffect(() => {
-    if (mine) {
-      console.log("setMine");
-    }
-  }, [mine]);
+  const [mine, setMine] = useState(false);
 
   const hasMyYeeters = myYeeters.length > 0;
 
   return (
     <>
       {chainId && chainId in supportedNetorks ? (
-        <SingleColumnLayout
+        <WideColumnLayout
           subtitle={"Decentralized Fair Token Launcher".toUpperCase()}
         >
           <div>
@@ -105,6 +105,7 @@ const Landing = () => {
               <YeetMarquee
                 yeets={yeets}
                 yeeters={allYeeters.slice(0, 5)}
+                ragequits={ragequits}
                 chainId={DEFAULT_CHAIN_ID}
               />
             )}
@@ -136,7 +137,7 @@ const Landing = () => {
               {myYeeters && <YeeterList yeeters={myYeeters} />} */}
             </Spacer>
           </div>
-        </SingleColumnLayout>
+        </WideColumnLayout>
       ) : (
         <div>
           {!isConnected && (

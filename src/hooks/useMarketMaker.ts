@@ -44,8 +44,6 @@ export const useMarketMaker = ({
           functionName: "name",
         });
 
-        console.log("shamanName", i, shamanName);
-
         if (shamanName === YEET24_NAME) {
           marketMakerShaman = shamanAddresses[i];
 
