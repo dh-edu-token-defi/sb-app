@@ -32,6 +32,7 @@ import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useDHConnect } from "@daohaus/connect";
 import { useMarketMaker } from "../hooks/useMarketMaker";
 import ExitButton from "./ExitButton";
+import SwapButton from "./SwapButton";
 
 const SpacedCard = styled(Card)`
   margin-right: 1rem;
@@ -71,8 +72,6 @@ const TimeDataLg = styled(DataLg)`
   padding: 1rem;
 `;
 
-
-
 export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
   const { address, chainId } = useDHConnect();
 
@@ -84,8 +83,15 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
   });
   const theme = useTheme();
 
-  const { dao } = useDaoData({ daoId: yeeterData.dao.id, daoChain: chainId as ValidNetwork });
-  const { member } = useDaoMember({ daoChain: chainId as ValidNetwork, daoId: yeeterData.dao.id, memberAddress: address });
+  const { dao } = useDaoData({
+    daoId: yeeterData.dao.id,
+    daoChain: chainId as ValidNetwork,
+  });
+  const { member } = useDaoMember({
+    daoChain: chainId as ValidNetwork,
+    daoId: yeeterData.dao.id,
+    memberAddress: address,
+  });
 
   const { marketMakerShaman, canExecute, executed } = useMarketMaker({
     daoId: yeeterData.dao.id,
@@ -96,7 +102,11 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
 
   if (!metadata || !yeeter) return null;
 
-  const campaignStatus = getCampaignStatus(yeeter, executed || false, canExecute || false);
+  const campaignStatus = getCampaignStatus(
+    yeeter,
+    executed || false,
+    canExecute || false
+  );
 
   return (
     <SpacedCard>
@@ -137,13 +147,17 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
 
         {yeeter.isEnded && (
           <>
-            {executed ? (<ParMd>Reached Goal</ParMd>) : (<ParMd>
-              {`${formatValueTo({
-                value: fromWei(yeeter.safeBalance.toString()),
-                decimals: 5,
-                format: "number",
-              })} ETH Raised`}
-            </ParMd>)}
+            {executed ? (
+              <ParMd>Reached Goal</ParMd>
+            ) : (
+              <ParMd>
+                {`${formatValueTo({
+                  value: fromWei(yeeter.safeBalance.toString()),
+                  decimals: 5,
+                  format: "number",
+                })} ETH Raised`}
+              </ParMd>
+            )}
             <ParLg>{campaignStatus}</ParLg>
           </>
         )}
@@ -157,14 +171,11 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
         )}
 
         {campaignStatus == "EXECUTED" && (
-          <Button
-            size="lg"
-            fullWidth={true}
-            style={{ marginTop: "2rem" }}
-            variant="outline"
-          >
-            SWAP
-          </Button>
+          <SwapButton
+            daoChain={chainId as ValidNetwork}
+            daoId={yeeter.dao.id}
+            yeeterId={yeeter.id}
+          />
         )}
         {campaignStatus == "EXECUTED" && Number(member?.shares) > 0 && (
           <ExitButton
