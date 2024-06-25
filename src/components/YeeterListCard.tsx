@@ -15,7 +15,7 @@ import {
   ParXl,
 } from "@daohaus/ui";
 
-import RobotArm from "../assets/robot-hand-yellow.png";
+import CoinPile from "../assets/coin-pile-trans.png";
 import { formatValueTo, fromWei } from "@daohaus/utils";
 import {
   calcPercToGoal,
@@ -84,7 +84,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
         {metadata.avatarImg && metadata.avatarImg !== "" ? (
           <img src={metadata.avatarImg} height="100px" />
         ) : (
-          <img src={RobotArm} height="100px" />
+          <img src={CoinPile} height="100px" />
         )}
       </TopSectionContainer>
       <DataCol>

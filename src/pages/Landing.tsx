@@ -11,12 +11,14 @@ import {
 } from "@daohaus/ui";
 import { Link as RouterLink } from "react-router-dom";
 import { supportedNetorks } from "../main";
-import { DEFAULT_CHAIN_ID } from "../utils/constants";
+import { APP_NAME, DEFAULT_CHAIN_ID } from "../utils/constants";
 import { useYeeters } from "../hooks/useYeeters";
 import { YeeterList } from "../components/YeeterList";
 import { SimpleCol, SimpleRow, Spacer } from "../components/Layout";
 import { useLatestYeets } from "../hooks/useLatestYeets";
 import { YeetMarquee } from "../components/YeetMarquee";
+import { useMyYeeters } from "../hooks/useMyYeeters";
+import { useEffect, useState } from "react";
 
 const LinkButton = styled(RouterLink)`
   text-decoration: none;
@@ -36,18 +38,31 @@ const Landing = () => {
   const { allYeeters, activeYeetrs, upcomingYeeters, finishedYeeters } =
     useYeeters({ chainId: DEFAULT_CHAIN_ID });
 
+  const { myYeeters } = useMyYeeters({
+    chainId: DEFAULT_CHAIN_ID,
+    account: address,
+  });
+
   const { yeets } = useLatestYeets({ chainId: DEFAULT_CHAIN_ID });
 
-  console.log("activeYeetrs", activeYeetrs);
+  const [mine, setMine] = useState(false);
+
+  useEffect(() => {
+    if (mine) {
+      console.log("setMine");
+    }
+  }, [mine]);
+
+  const hasMyYeeters = myYeeters.length > 0;
 
   return (
     <>
       {chainId && chainId in supportedNetorks ? (
         <SingleColumnLayout
-          subtitle={"Decentralized Token Factory".toUpperCase()}
+          subtitle={"Decentralized Fair Token Launcher".toUpperCase()}
         >
           <div>
-            <BigH1>MEME SHOP</BigH1>
+            <BigH1>{APP_NAME}</BigH1>
             <Spacer />
             <SimpleRow>
               <Dialog>
@@ -79,7 +94,7 @@ const Landing = () => {
 
               <LinkButton to="/summon/token">
                 <Button variant="outline" size="lg">
-                  Build a Meme
+                  Create a Token Presale
                 </Button>
               </LinkButton>
             </SimpleRow>
@@ -109,7 +124,10 @@ const Landing = () => {
               {finishedYeeters && (
                 <YeeterList
                   title="Completed Presale"
-                  yeeters={finishedYeeters}
+                  yeeters={hasMyYeeters && mine ? myYeeters : finishedYeeters}
+                  canToggle={hasMyYeeters}
+                  toggle={mine}
+                  setToggle={setMine}
                 />
               )}
 

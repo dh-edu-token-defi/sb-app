@@ -1,16 +1,42 @@
 import styled from "styled-components";
+import { Link as RouterLink } from "react-router-dom";
+
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { YeeterItem } from "../utils/types";
 import { YeeterListCard } from "./YeeterListCard";
-import { H4 } from "@daohaus/ui";
+import { Button, Checkbox, H4 } from "@daohaus/ui";
 
-import NothingImg from "../assets/nothing.jpg";
+import { Dispatch, SetStateAction } from "react";
+
+const LinkButton = styled(RouterLink)`
+  text-decoration: none;
+`;
 
 const TitleContainer = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.secondary.step12};
   padding: 5px 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  .toggle-check {
+    background-color: ${(props) => props.theme.secondary.step9};
+    padding: 0.5rem 1rem;
+  }
+
+  div {
+    margin-bottom: 0px;
+  }
+
+  label {
+    color: black;
+    font-size: 2rem;
+    font-weight: 700;
+  }
 `;
 
 const CarouselContainer = styled.div`
@@ -72,19 +98,38 @@ const responsive = {
 export const YeeterList = ({
   yeeters,
   title,
+  canToggle,
+  toggle,
+  setToggle,
 }: {
   yeeters: YeeterItem[];
   title: string;
+  canToggle?: boolean;
+  toggle?: boolean;
+  setToggle?: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const handleToggle = (checked: boolean) => {
+    if (!setToggle) return;
+    setToggle(checked);
+  };
   return (
     <>
       <TitleContainer>
         <H4 color="#000000">{title}</H4>
+        {canToggle && setToggle && (
+          <div className="toggle-check">
+            <Checkbox title="Mine Only" onCheckedChange={handleToggle} />
+          </div>
+        )}
       </TitleContainer>
       <CarouselContainer>
         {yeeters.length < 1 && (
           <ImageContainer>
-            <img src={NothingImg} height="300px" />
+            <LinkButton to="/summon/token">
+              <Button variant="outline" size="lg">
+                Create a Token Presale
+              </Button>
+            </LinkButton>
           </ImageContainer>
         )}
         {yeeters.length > 0 && (
