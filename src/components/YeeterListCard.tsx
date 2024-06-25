@@ -65,8 +65,6 @@ const TimeDataLg = styled(DataLg)`
   padding: 1rem;
 `;
 
-
-
 export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
   const chainId = DEFAULT_CHAIN_ID;
   const { metadata, yeeter } = useYeeter({
@@ -125,8 +123,9 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
                 format: "number",
               })} ETH Raised`}
             </ParMd>
-            <ParLg>{`Status: ${yeeter.reachedGoal ? "Big Success" : `Major Fail`
-              }`}</ParLg>
+            <ParLg>{`Status: ${
+              yeeter.reachedGoal ? "Big Success" : `Major Fail`
+            }`}</ParLg>
           </>
         )}
         {yeeter.isActive && (
@@ -150,7 +149,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
         )}
         {yeeter.isEnded && !yeeter.reachedGoal && (
           <Button
-            size="lg"
+            size="md"
             fullWidth={true}
             style={{ marginTop: "2rem" }}
             variant="outline"

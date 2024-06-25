@@ -137,6 +137,8 @@ export const APP_FORM: Record<string, CustomFormLego> = {
           "# We Meme....\n## We are the future.\nThis is a markdown editor.",
         info: "Type something to kick it off.",
       },
+
+      APP_FIELD.DISCLAIMER_CHECKBOX_FIELD,
       APP_FIELD.SALT_NONCE_FIELD,
       APP_FIELD.DAO_ADDRESS_FIELD,
       APP_FIELD.SHAMAN_ADDRESS_FIELD,

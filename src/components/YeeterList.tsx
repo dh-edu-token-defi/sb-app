@@ -40,6 +40,35 @@ const responsive = {
   },
 };
 
+// const responsive = {
+//   superLargeDesktop: {
+//     // the naming can be any, depends on you.
+//     breakpoint: { max: 4000, min: 3000 },
+//     items: 5,
+//     slidesToSlide: 5,
+//   },
+//   desktop: {
+//     breakpoint: { max: 3000, min: 1024 },
+//     items: 4,
+//     slidesToSlide: 4,
+//   },
+//   tablet: {
+//     breakpoint: { max: 1024, min: 768 },
+//     items: 3,
+//     slidesToSlide: 3,
+//   },
+//   smallTablet: {
+//     breakpoint: { max: 768, min: 464 },
+//     items: 2,
+//     slidesToSlide: 2,
+//   },
+//   mobile: {
+//     breakpoint: { max: 464, min: 0 },
+//     items: 1,
+//     slidesToSlide: 1,
+//   },
+// };
+
 export const YeeterList = ({
   yeeters,
   title,
@@ -61,17 +90,18 @@ export const YeeterList = ({
         {yeeters.length > 0 && (
           <Carousel
             responsive={responsive}
-            // infinite={true}
-            // autoPlay={true}
-            // autoPlaySpeed={1000}
-            // showDots={true}
-            swipeable={false}
-            draggable={false}
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={2000}
+            showDots={false}
+            swipeable={true}
+            draggable={true}
             arrows={true}
+            pauseOnHover={true}
           >
-            {yeeters.map((yeeter) => {
-              return <YeeterListCard yeeterData={yeeter} key={yeeter.id} />;
-            })}
+            {yeeters.map((yeeter) => (
+              <YeeterListCard yeeterData={yeeter} key={yeeter.id} />
+            ))}
           </Carousel>
         )}
       </CarouselContainer>
