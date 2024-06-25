@@ -5,7 +5,7 @@ import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useEscrow } from "../hooks/useEscrow";
 import { useDaoData } from "@daohaus/moloch-v3-hooks";
 import { Avatar, Card, Label, ParLg, ParMd } from "@daohaus/ui";
-import { formatMinContribution, formatTimeRemainingShort, formatTimeUntilPresale } from "../utils/yeetDataHelpers";
+import { formatMinContribution, formatTimeRemainingShort, formatTimeUntilPresale, getCampaignStatus } from "../utils/yeetDataHelpers";
 import { YeetGoalProgress } from "./YeetGoalProgress";
 import { formatValueTo, fromWei } from "@daohaus/utils";
 
@@ -70,7 +70,7 @@ export const YeeterDetails = ({
     chainId: daoChain,
   });
 
-  const { nftEscrowShaman, canExecute } = useEscrow({
+  const { nftEscrowShaman, canExecute, executed } = useEscrow({
     daoId,
     yeeterShamanAddress: yeeterId,
     chainId: daoChain,
@@ -80,6 +80,8 @@ export const YeeterDetails = ({
   if (!metadata || !yeeter || !dao || !nftEscrowShaman) {
     return
   }
+
+  const campaignStatus = getCampaignStatus(yeeter, executed || false, canExecute || false);
 
   return (
     <Card width={"800px"}>
@@ -112,7 +114,7 @@ export const YeeterDetails = ({
           </DetailItem>
           <DetailItem>
             <Label>Total Raise Status:</Label>
-            <ParLg>{yeeter.isEnded ? (yeeter.reachedGoal ? "SUCCESS" : "FAIL") : yeeter.isActive ? "ACTIVE" : "COMING SOON"}</ParLg>
+            <ParLg>{campaignStatus}</ParLg>
           </DetailItem>
           {yeeter.isActive && (<DetailItemWarning>
             <Label>Raid Ends</Label>
@@ -124,22 +126,21 @@ export const YeeterDetails = ({
           </DetailItemWarning>)}
           {yeeter.isEnded && (
             <>
-              <ParMd>
+              {executed ? (<ParMd>Reached Goal</ParMd>) : (<ParMd>
                 {`${formatValueTo({
                   value: fromWei(yeeter.safeBalance.toString()),
                   decimals: 5,
                   format: "number",
                 })} ETH Raised`}
-              </ParMd>
-              <ParLg>{`Status: ${yeeter.reachedGoal ? "Big Success" : `Major Fail`
-                }`}</ParLg>
+              </ParMd>)}
+              <ParLg>Status: {campaignStatus}</ParLg>
             </>
           )}
-          <YeetGoalProgress
+          {!executed && (<YeetGoalProgress
             yeeter={yeeter}
             dao={dao}
             chainId={daoChain}
-          />
+          />)}
         </DetailsContainer>
       </Container>
     </Card>
