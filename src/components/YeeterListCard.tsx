@@ -21,11 +21,17 @@ import {
   calcPercToGoal,
   formatTimeRemainingShort,
   formatTimeUntilPresale,
+  getCampaignStatus,
 } from "../utils/yeetDataHelpers";
 
 import { ButtonRouterLink } from "./ButtonRouterLink";
 import BuyButton from "./BuyButton";
 import { StatusFlag } from "./StatusFlag";
+import { useDaoData, useDaoMember } from "@daohaus/moloch-v3-hooks";
+import { ValidNetwork } from "@daohaus/keychain-utils";
+import { useDHConnect } from "@daohaus/connect";
+import { useMarketMaker } from "../hooks/useMarketMaker";
+import ExitButton from "./ExitButton";
 
 const SpacedCard = styled(Card)`
   margin-right: 1rem;
@@ -65,8 +71,11 @@ const TimeDataLg = styled(DataLg)`
   padding: 1rem;
 `;
 
+
+
 export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
-  const chainId = DEFAULT_CHAIN_ID;
+  const { address, chainId } = useDHConnect();
+
   const { metadata, yeeter } = useYeeter({
     daoId: yeeterData.dao.id,
     shamanAddress: yeeterData.id,
@@ -75,7 +84,19 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
   });
   const theme = useTheme();
 
+  const { dao } = useDaoData({ daoId: yeeterData.dao.id, daoChain: chainId as ValidNetwork });
+  const { member } = useDaoMember({ daoChain: chainId as ValidNetwork, daoId: yeeterData.dao.id, memberAddress: address });
+
+  const { marketMakerShaman, canExecute, executed } = useMarketMaker({
+    daoId: yeeterData.dao.id,
+    yeeterShamanAddress: yeeterData.id,
+    chainId: chainId,
+    daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
+  });
+
   if (!metadata || !yeeter) return null;
+
+  const campaignStatus = getCampaignStatus(yeeter, executed || false, canExecute || false);
 
   return (
     <SpacedCard>
@@ -110,34 +131,32 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
                 format: "number",
               })} ETH Raised`}
             </ParMd>
-            <ParMd>{calcPercToGoal(yeeter)} To Goal</ParMd>
+            <ParMd>{calcPercToGoal(yeeter)}</ParMd>
           </>
         )}
 
         {yeeter.isEnded && (
           <>
-            <ParMd>
+            {executed ? (<ParMd>Reached Goal</ParMd>) : (<ParMd>
               {`${formatValueTo({
                 value: fromWei(yeeter.safeBalance.toString()),
                 decimals: 5,
                 format: "number",
               })} ETH Raised`}
-            </ParMd>
-            <ParLg>{`Status: ${
-              yeeter.reachedGoal ? "Big Success" : `Major Fail`
-            }`}</ParLg>
+            </ParMd>)}
+            <ParLg>{campaignStatus}</ParLg>
           </>
         )}
         {yeeter.isActive && (
           <BuyButton
-            daoChain={chainId}
+            daoChain={chainId as ValidNetwork}
             daoId={yeeter.dao.id}
             yeeterId={yeeter.id}
             metadata={metadata}
           />
         )}
 
-        {yeeter.isEnded && yeeter.reachedGoal && (
+        {campaignStatus == "EXECUTED" && (
           <Button
             size="lg"
             fullWidth={true}
@@ -147,15 +166,12 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
             SWAP
           </Button>
         )}
-        {yeeter.isEnded && !yeeter.reachedGoal && (
-          <Button
-            size="md"
-            fullWidth={true}
-            style={{ marginTop: "2rem" }}
-            variant="outline"
-          >
-            EXIT
-          </Button>
+        {campaignStatus == "EXECUTED" && Number(member?.shares) > 0 && (
+          <ExitButton
+            daoChain={chainId as ValidNetwork}
+            yeeterId={yeeter.id}
+            daoId={yeeter.dao.id}
+          />
         )}
 
         <div className="detailsLink">
@@ -169,20 +185,3 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
     </SpacedCard>
   );
 };
-
-// <Container>
-// <div>
-//   <p>yeeter data</p>
-//   <pre>{JSON.stringify(yeeter, null, 2)}</pre>
-// </div>
-// <div>
-//   <p>metadata</p>
-
-//   <pre>{JSON.stringify(metadata, null, 2)}</pre>
-// </div>
-// </Container>
-// <ButtonRouterLink
-// to={`/molochv3/${DEFAULT_CHAIN_ID}/${yeeterData.dao.id}/${yeeterData.id}`}
-// >
-// YEET
-// </ButtonRouterLink>
