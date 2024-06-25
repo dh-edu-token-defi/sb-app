@@ -82,6 +82,28 @@ export const YEETER_GRAPH_URL: KEYCHAIN = {
   }/subgraphs/id/6vyAqRpCyrhLsfd6TfYAssvKywKhxJykkDbPxJZ4ZcEr`,
 };
 
+export const DH_GRAPH_URL: KEYCHAIN = {
+  "0xaa36a7": `https://gateway-arbitrum.network.thegraph.com/api/${
+    import.meta.env.VITE_YEETER_GRAPH_API_KEY
+  }/subgraphs/id/3k93SNY5Y1r4YYWEuPY9mpCm2wnGoYDKRtk82QZJ3Kvw`,
+};
+
+// '0x1':
+// 'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/HouDe2pTdyKM9CTG1aodnPPPhm7U148BCH7eJ4HHwpdQ',
+// '0x5': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli',
+// '0x64':
+// 'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/6x9FK3iuhVFaH9sZ39m8bKB5eckax8sjxooBPNKWWK8r',
+// '0x89':
+// 'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/A4su27JYXR5TkPZmiFHzzqMJnmYttfU3FyrdNBDnnu8T',
+// '0xa':
+// 'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/CgH5vtz9CJPdcSmD3XEh8fCVDjQjnRwrSawg71T1ySXW',
+// '0xa4b1':
+// 'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/GPACxuMWrrPSEJpFqupnePJNMfuArpFabrXLnWvXU2bp',
+// '0xaa36a7':
+// 'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/3k93SNY5Y1r4YYWEuPY9mpCm2wnGoYDKRtk82QZJ3Kvw',
+// '0x2105':
+// 'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/7yh4eHJ4qpHEiLPAk9BXhL5YgYrTrRE6gWy8x4oHyAqW',
+
 export const UNISWAP_URL: Keychain<string> = {
   "0xaa36a7": "https://app.uniswap.org/explore/pools/base/",
   "0x2105": "https://app.uniswap.org/explore/pools/base/",

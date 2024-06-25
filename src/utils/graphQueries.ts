@@ -88,6 +88,10 @@ export const LATEST_YEETS = gql`
       yeeter {
         id
       }
+      dao {
+        id
+        lootTokenSymbol
+      }
     }
   }
 `;
@@ -123,6 +127,33 @@ export const GET_YEETS_BY_TX = gql`
       id
       txHash
       shares
+    }
+  }
+`;
+
+export const GET_RAGEQUITS = gql`
+  {
+    rageQuits(
+      where: {
+        dao_: {
+          referrer: "${YEET24_REFERRER}"
+        }
+       }
+      orderBy: createdAt
+      orderDirection: desc
+      first: 1000
+    ) {
+      id
+      createdAt
+      loot
+      member {
+        memberAddress
+      }
+      dao {
+        id
+        referrer
+        lootTokenSymbol
+      }
     }
   }
 `;

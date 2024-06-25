@@ -1,7 +1,7 @@
 import { styled, useTheme } from "styled-components";
-import { ParXs } from "@daohaus/ui";
+import { ParSm, ParXs } from "@daohaus/ui";
 import Marquee from "react-fast-marquee";
-import { YeeterItem, YeetsItem } from "../utils/types";
+import { RagequitItem, YeeterItem, YeetsItem } from "../utils/types";
 import { useEffect, useState } from "react";
 import { formatMarqueeData } from "../utils/yeetDataHelpers";
 
@@ -24,10 +24,12 @@ export type MarqueeItem = {
 export const YeetMarquee = ({
   yeets,
   yeeters,
+  ragequits,
   chainId,
 }: {
   yeets: YeetsItem[];
   yeeters: YeeterItem[];
+  ragequits?: RagequitItem[];
   chainId: string;
 }) => {
   const theme = useTheme();
@@ -52,22 +54,28 @@ export const YeetMarquee = ({
       };
     });
 
-    // const normalizedExits = [
-    //   {
-    //     amount: "1000000000000000000",
-    //     verb: "exited from",
-    //     symbol: "SPAM",
-    //     createdAt: "1717182516",
-    //   },
-    // ];
+    let normalizedExits;
+    if (ragequits) {
+      normalizedExits = ragequits.map((rq) => {
+        return {
+          amount: rq.loot,
+          symbol: rq.dao.lootTokenSymbol,
+          verb: "exited from",
+          createdAt: rq.createdAt,
+        };
+      });
+    }
+
+    let allData = [...normalizedYeets, ...normalizedYeeters];
+    if (normalizedExits) {
+      allData = [...allData, ...normalizedExits];
+    }
 
     setData(
-      [...normalizedYeets, ...normalizedYeeters].sort(
-        // [...normalizedYeets, ...normalizedYeeters, ...normalizedExits].sort(
-        (a, b) => {
-          return Number(a.createdAt) - Number(b.createdAt);
-        }
-      )
+      // [...normalizedYeets, ...normalizedYeeters].sort(
+      allData.sort((a, b) => {
+        return Number(a.createdAt) - Number(b.createdAt);
+      })
     );
   }, [yeets, yeeters]);
 
@@ -76,9 +84,9 @@ export const YeetMarquee = ({
       {data.map((dataItem, i) => {
         return (
           <Container key={i}>
-            <ParXs color={theme.primary.step9}>
+            <ParSm color={theme.primary.step9}>
               {formatMarqueeData(dataItem)}
-            </ParXs>
+            </ParSm>
           </Container>
         );
       })}
