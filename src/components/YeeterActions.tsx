@@ -73,6 +73,7 @@ export const YeeterActions = ({
         />)}
         {/* always */}
         {Number(member?.shares) > 0 && executed && (<Button>DAO</Button>)}
+        <Button>Swap</Button>
         <Button>Share</Button>
       </Container>
     </>
