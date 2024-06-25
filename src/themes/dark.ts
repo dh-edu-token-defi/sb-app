@@ -149,7 +149,7 @@ export const dinDarkTheme: DefaultTheme = {
   },
   checkbox: {
     bg: secondaryDark.step3,
-    border: secondaryDark.step6,
+    border: secondaryDark.step12,
     radius: "0px",
     hover: {
       bg: secondaryDark.step4,
