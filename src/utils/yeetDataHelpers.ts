@@ -136,6 +136,46 @@ export const formatMarqueeData = (item: MarqueeItem) => {
 };
 
 export const calcPercToGoal = (yeeter: YeeterItem) => {
-  if (Number(yeeter.goal) === 0) return `0%`;
-  return `${Number(yeeter.safeBalance) / Number(yeeter.goal)}%`;
+  if (Number(yeeter.goal) === 0) return null;
+  if (Number(yeeter.safeBalance) >  Number(yeeter.goal)) return `goal met`;
+  return `${Number(yeeter.safeBalance) / Number(yeeter.goal)}% to goal`;
 };
+
+
+
+export const getCampaignStatus = (yeeter: YeeterItem, executed: boolean, canExecute: boolean) => {
+  // campaign over and executed success
+  // campaign over and can be executed
+  // campaign over and fail to meet goal
+  // campaign active
+  // campaign coming soon
+
+
+  const statusEnum = {
+    SUCCESS: "SUCCESS",
+    CAN_EXECUTE: "CAN EXECUTE",
+    FAIL: "FAIL",
+    ACTIVE: "ACTIVE",
+    COMING_SOON: "COMING SOON",
+  };
+
+  if (yeeter.isEnded) {
+    if (executed) {
+      return statusEnum.SUCCESS;
+    } else if (canExecute) {
+      return statusEnum.CAN_EXECUTE;
+    } else {
+      return statusEnum.FAIL;
+    }
+  }
+
+  if (yeeter.isActive) {
+    return statusEnum.ACTIVE;
+  }
+
+  if (yeeter.isComingSoon) {
+    return statusEnum.COMING_SOON;
+  }
+
+  return statusEnum.ACTIVE;
+}
