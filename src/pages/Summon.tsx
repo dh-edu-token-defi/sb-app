@@ -109,62 +109,63 @@ const Summon = () => {
           }}
         />
       )}
-       <Dialog open={modalOpen} onOpenChange={handleModalChange} >
+      {txSuccess && (
+        <Dialog open={modalOpen} onOpenChange={handleModalChange} >
 
-<DialogContent title="Summon Details">
-  {!pollSuccess ? (
-    <>
-      <ParMd>Your meme has been summoned please wait for the indexors to update </ParMd>
-      <Spinner />
-    </>
-  ) : (
-    <>
-      <ParLg>
-        It has been summoned!</ParLg>
-      {pollResult?.data?.dao?.name ? (
-        <>
-          <ParMd>New Meme: {pollResult?.data?.dao?.name}{" "} </ParMd>
-          {pollResult?.data?.dao?.shamen?.length ? (
+          <DialogContent title="Summon Details">
+            {!pollSuccess ? (
+              <>
+                <ParMd>Your meme has been summoned please wait for the indexors to update </ParMd>
+                <Spinner />
+              </>
+            ) : (
+              <>
+                <ParLg>
+                  It has been summoned!</ParLg>
+                {pollResult?.data?.dao?.name ? (
+                  <>
+                    <ParMd>New Meme: {pollResult?.data?.dao?.name}{" "} </ParMd>
+                    {pollResult?.data?.dao?.shamen?.length ? (
 
-            <ContractInfoWrapper>
-              {pollResult?.data?.dao?.shamen.map((shaman: any, idx: number) => (
-                <ContractInfoItem key={idx}>
+                      <ContractInfoWrapper>
+                        {pollResult?.data?.dao?.shamen.map((shaman: any, idx: number) => (
+                          <ContractInfoItem key={idx}>
 
-                  {shaman.permissions === "2" ?
-                    (<YeeterItem>
-                      <ParLg>Meme Presale</ParLg>
-                      <ParMd>Participate in raid here. Share this link to others interested </ParMd>
-                      <ParMd>{truncateAddress(shaman.shamanAddress)}</ParMd>
-                      <StyledRouterLink to={`/molochv3/${chainId}/${pollResult?.data?.dao?.id}/${shaman.shamanAddress}`}>
-                        <Button variant="solid">Yeet</Button></StyledRouterLink>
-                    </YeeterItem>)
-                    : (<ShamanItem>
-                      <ParLg>Market Maker </ParLg>
-                      <ParMd>THis contract extention creates the LP.</ParMd>
-                      <ParMd>{truncateAddress(shaman.shamanAddress)}</ParMd>
-                      <StyledExternalLink href={`https://etherscan.io/address/${shaman.shamanAddress}`} target="_blank">
-                        <Button variant="solid">View on Etherscan</Button></StyledExternalLink>
-                    </ShamanItem>)}
+                            {shaman.permissions === "2" ?
+                              (<YeeterItem>
+                                <ParLg>Meme Presale</ParLg>
+                                <ParMd>Participate in raid here. Share this link to others interested </ParMd>
+                                <ParMd>{truncateAddress(shaman.shamanAddress)}</ParMd>
+                                <StyledRouterLink to={`/molochv3/${chainId}/${pollResult?.data?.dao?.id}/${shaman.shamanAddress}`}>
+                                  <Button variant="solid">Yeet</Button></StyledRouterLink>
+                              </YeeterItem>)
+                              : (<ShamanItem>
+                                <ParLg>Market Maker </ParLg>
+                                <ParMd>THis contract extention creates the LP.</ParMd>
+                                <ParMd>{truncateAddress(shaman.shamanAddress)}</ParMd>
+                                <StyledExternalLink href={`https://etherscan.io/address/${shaman.shamanAddress}`} target="_blank">
+                                  <Button variant="solid">View on Etherscan</Button></StyledExternalLink>
+                              </ShamanItem>)}
 
 
-                </ContractInfoItem>
-              ))}
-            </ContractInfoWrapper>
+                          </ContractInfoItem>
+                        ))}
+                      </ContractInfoWrapper>
 
-          ) : (
-            <ParMd>No Shamens found</ParMd>
-          )}
-        </>
-      ) : (
-        <ParMd>Continue to the dashboard <StyledRouterLink to="/"><Button variant="solid">Dashboard</Button></StyledRouterLink></ParMd>
-      )}
-    </>
+                    ) : (
+                      <ParMd>No Shamens found</ParMd>
+                    )}
+                  </>
+                ) : (
+                  <ParMd>Continue to the dashboard <StyledRouterLink to="/"><Button variant="solid">Dashboard</Button></StyledRouterLink></ParMd>
+                )}
+              </>
 
-  )
-  }
-</DialogContent>
+            )
+            }
+          </DialogContent>
         </Dialog>
-
+      )}
     </SingleColumnLayout>
   );
 };
