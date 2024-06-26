@@ -77,7 +77,18 @@ export const YeeterActions = ({
         <SwapButton daoChain={daoChain} daoId={daoId} yeeterId={yeeterId} />
         {/* always */}
         {Number(member?.shares) > 0 && executed && <Button>DAO</Button>}
-        <Button>Share</Button>
+        <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">
+          <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+              `Check out the ${metadata.name} / ${yeeter.dao.lootTokenSymbol} meme at here: ${window.location.href}`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            share
+          </a>
+        </Button>{" "}
       </Container>
     </>
   );
