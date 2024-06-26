@@ -18,18 +18,15 @@ export const APP_FORM: Record<string, CustomFormLego> = {
   },
   EXECUTE_LP_FORM: {
     id: "EXECUTE_LP",
-    title: "Execute LP",
-    description: "Execute LP to get your YEET on!",
-    submitButtonText: "YEET",
+    title: "Create the Uniswap Pool",
     log: true,
     tx: APP_TX.EXECUTE_LP as TXLego,
     fields: [],
   },
   YEET_FORM: {
     id: "YEET",
-    title: "YEET",
-    description: "Contribute to the DAO.",
-    submitButtonText: "Summon MEME",
+    title: "Buy",
+    description: "Buy into presale",
     requiredFields: {
       amount: true,
     },
@@ -70,10 +67,10 @@ export const APP_FORM: Record<string, CustomFormLego> = {
   },
   SUMMON_MEME: {
     id: "SUMMON_MEME",
-    title: "MEME Summoner",
+    title: "Token Summoner",
     description:
-      "Give your meme a name, description, and initial price. You can also add an image and a longer introduction.",
-    submitButtonText: "Summon MEME",
+      "Give your token a name, description, and initial price. You can also add an image and a longer introduction.",
+    submitButtonText: "Summon Token",
     requiredFields: {
       daoName: true,
       tokenSymbol: true,
@@ -91,7 +88,7 @@ export const APP_FORM: Record<string, CustomFormLego> = {
           {
             id: "daoName",
             type: "input",
-            label: "MEME Name",
+            label: "Token Name",
             placeholder: "A short name for the topic.",
           },
           {
@@ -104,7 +101,7 @@ export const APP_FORM: Record<string, CustomFormLego> = {
             id: "tokenSymbol",
             type: "input",
             label: "Token Symbol",
-            placeholder: "The token symbol for the meme token.",
+            placeholder: "The token symbol for the token.",
           },
         ],
       },
@@ -114,7 +111,7 @@ export const APP_FORM: Record<string, CustomFormLego> = {
         label: "Initial Price",
         placeholder: ".0069,420",
         expectType: "number",
-        info: "The initial price (in chain native token ex. ETH) per 1000 meme token.",
+        info: "The initial price (in chain native token ex. ETH) per 1000 tokens.",
       },
       {
         id: "startDate",

@@ -3,13 +3,11 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 import { DHLayout, useDHConnect } from "@daohaus/connect";
 import { TXBuilder } from "@daohaus/tx-builder";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { CurrentDaoProvider, useDaoData } from "@daohaus/moloch-v3-hooks";
+import { CurrentDaoProvider } from "@daohaus/moloch-v3-hooks";
 import { useYeeter } from "../hooks/useYeeter";
 import { useEffect } from "react";
-import {
-  CurrentYeeterProvider,
-  useCurrentYeeter,
-} from "../contexts/CurrentYeeterContext";
+import { CurrentYeeterProvider } from "../contexts/CurrentYeeterContext";
+import { useDaoData } from "../hooks/useDaoData";
 
 export const DaoContainer = () => {
   const { proposalId, memberAddress, daoChain, daoId, yeeterId } = useParams<{

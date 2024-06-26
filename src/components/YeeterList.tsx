@@ -5,7 +5,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { YeeterItem } from "../utils/types";
 import { YeeterListCard } from "./YeeterListCard";
-import { Button, Checkbox, H4 } from "@daohaus/ui";
+import { Button, Checkbox, DataSm, H4 } from "@daohaus/ui";
 
 import { Dispatch, SetStateAction } from "react";
 
@@ -102,11 +102,7 @@ export const YeeterList = ({
       <CarouselContainer>
         {yeeters.length < 1 && (
           <ImageContainer>
-            <LinkButton to="/summon/token">
-              <Button variant="outline" size="lg">
-                Create a Token Presale
-              </Button>
-            </LinkButton>
+            <DataSm>Check back soon</DataSm>
           </ImageContainer>
         )}
         {yeeters.length > 0 && (

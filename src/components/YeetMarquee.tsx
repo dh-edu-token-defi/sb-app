@@ -3,13 +3,23 @@ import { ParSm, ParXs } from "@daohaus/ui";
 import Marquee from "react-fast-marquee";
 import { RagequitItem, YeeterItem, YeetsItem } from "../utils/types";
 import { useEffect, useState } from "react";
+import { HiLightningBolt } from "react-icons/hi";
 import { formatMarqueeData } from "../utils/yeetDataHelpers";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+
   width: 100%;
   margin-right: 20px;
+`;
+
+const StyledParSm = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 `;
 
 // todo: add token symbol here
@@ -58,7 +68,7 @@ export const YeetMarquee = ({
     if (ragequits) {
       normalizedExits = ragequits.map((rq) => {
         return {
-          amount: rq.loot,
+          amount: rq.shares,
           symbol: rq.dao.lootTokenSymbol,
           verb: "exited from",
           createdAt: rq.createdAt,
@@ -84,9 +94,15 @@ export const YeetMarquee = ({
       {data.map((dataItem, i) => {
         return (
           <Container key={i}>
-            <ParSm color={theme.primary.step9}>
-              {formatMarqueeData(dataItem)}
-            </ParSm>
+            <StyledParSm>
+              <HiLightningBolt
+                fontSize="1.5rem"
+                style={{ color: `${theme.secondaryA.step11}` }}
+              />
+              <ParSm color={theme.primary.step9}>
+                {formatMarqueeData(dataItem)}
+              </ParSm>
+            </StyledParSm>
           </Container>
         );
       })}

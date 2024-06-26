@@ -23,10 +23,11 @@ import { ValidNetwork } from "@daohaus/keychain-utils";
 import { ButtonRouterLink } from "./ButtonRouterLink";
 import { DaoProfileYeeter } from "../hooks/useYeeter";
 import { useMarketMaker } from "../hooks/useMarketMaker";
-import { useDaoData, useDaoMember } from "@daohaus/moloch-v3-hooks";
+import { useDaoMember } from "@daohaus/moloch-v3-hooks";
 import { sortTokensForRageQuit } from "@daohaus/moloch-v3-fields";
 import { NETWORK_TOKEN_ETH_ADDRESS, TokenBalance } from "@daohaus/utils";
 import { formatMemberBalance } from "../utils/yeetDataHelpers";
+import { useDaoData } from "../hooks/useDaoData";
 
 const LinkButton = styled(Link)`
   text-decoration: none;

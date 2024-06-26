@@ -25,6 +25,12 @@ export const calcYeetIsActive = (yeeter: YeeterItem) => {
   return Number(yeeter.startTime) < now && Number(yeeter.endTime) > now;
 };
 
+export const calcMMIsOver = (endTime: string) => {
+  const now = new Date().getTime() / 1000;
+
+  return Number(endTime) < now;
+};
+
 export const calcYeetIsEnded = (yeeter: YeeterItem) => {
   const now = new Date().getTime() / 1000;
 

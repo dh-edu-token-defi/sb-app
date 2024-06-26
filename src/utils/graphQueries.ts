@@ -145,7 +145,7 @@ export const GET_RAGEQUITS = gql`
     ) {
       id
       createdAt
-      loot
+      shares
       member {
         memberAddress
       }

@@ -23,7 +23,13 @@ export const supportedNetorks = {
   "0xaa36a7": HAUS_NETWORK_DATA["0xaa36a7"],
 };
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 12000,
+    },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

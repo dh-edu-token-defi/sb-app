@@ -22,7 +22,7 @@ import { ValidNetwork } from "@daohaus/keychain-utils";
 import { ButtonRouterLink } from "./ButtonRouterLink";
 import { DaoProfileYeeter } from "../hooks/useYeeter";
 import { useMarketMaker } from "../hooks/useMarketMaker";
-import { useDaoData } from "@daohaus/moloch-v3-hooks";
+import { useDaoData } from "../hooks/useDaoData";
 
 const LinkButton = styled(Link)`
   text-decoration: none;
@@ -86,7 +86,7 @@ const ExecuteLPButton = ({
                 form={APP_FORM.EXECUTE_LP_FORM}
                 customFields={AppFieldLookup}
                 targetNetwork={chainId}
-                submitButtonText="YEET"
+                submitButtonText="EXECUTE"
                 lifeCycleFns={{
                   onPollSuccess: (result) => {
                     console.log("poll success", result);

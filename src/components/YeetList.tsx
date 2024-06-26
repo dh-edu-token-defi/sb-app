@@ -28,7 +28,7 @@ export const YeetListContainer = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 100%; 
+    width: 100%;
   }
 `;
 
@@ -66,7 +66,6 @@ export const YeetList = ({
     shamanAddress: yeeterId,
     chainId: daoChain,
   });
-  console.log("yeets", yeets);
   return (
     <YeetListContainer>
       {yeets &&

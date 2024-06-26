@@ -3,7 +3,7 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 import { DHLayout, useDHConnect } from "@daohaus/connect";
 import { TXBuilder } from "@daohaus/tx-builder";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { CurrentDaoProvider, useDaoData } from "@daohaus/moloch-v3-hooks";
+import { CurrentDaoProvider } from "@daohaus/moloch-v3-hooks";
 import { useYeeter } from "../hooks/useYeeter";
 import { Children, ReactNode, useEffect } from "react";
 import {
@@ -11,6 +11,7 @@ import {
   useCurrentYeeter,
 } from "../contexts/CurrentYeeterContext";
 import { useMarketMaker } from "../hooks/useMarketMaker";
+import { useDaoData } from "../hooks/useDaoData";
 
 export const ModalContainer = ({
   children,
@@ -18,22 +19,19 @@ export const ModalContainer = ({
   daoId,
   yeeterId,
 }: {
-  children: ReactNode
+  children: ReactNode;
   daoChain: ValidNetwork;
   daoId: string;
   yeeterId: string;
-} ) => {
-
+}) => {
   console.log("");
 
   if (!daoId || !daoChain || !yeeterId) return null;
 
   return (
-    <Yeetz
-      daoId={daoId}
-      daoChain={daoChain}
-      yeeterId={yeeterId}
-    >{children}</Yeetz>
+    <Yeetz daoId={daoId} daoChain={daoChain} yeeterId={yeeterId}>
+      {children}
+    </Yeetz>
   );
 };
 
@@ -60,33 +58,30 @@ const Yeetz = ({
     daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
   });
 
-
   return (
-
-      <CurrentDaoProvider
-        userAddress={address}
-        targetDao={{
-          daoChain: daoChain,
-          daoId: daoId,
+    <CurrentDaoProvider
+      userAddress={address}
+      targetDao={{
+        daoChain: daoChain,
+        daoId: daoId,
+      }}
+    >
+      <TXBuilder
+        publicClient={publicClient}
+        chainId={daoChain}
+        daoId={daoId}
+        safeId={dao?.safeAddress}
+        appState={{
+          dao,
+          memberAddress: address,
+          shamanAddress: yeeterId,
+          marketMakerShaman,
         }}
       >
-        <TXBuilder
-          publicClient={publicClient}
-          chainId={daoChain}
-          daoId={daoId}
-          safeId={dao?.safeAddress}
-          appState={{
-            dao,
-            memberAddress: address,
-            shamanAddress: yeeterId,
-            marketMakerShaman,
-          }}
-        >
-          <CurrentYeeterProvider shamanAddress={yeeterId}>
-            {children}
-          </CurrentYeeterProvider>
-        </TXBuilder>
-      </CurrentDaoProvider>
-
+        <CurrentYeeterProvider shamanAddress={yeeterId}>
+          {children}
+        </CurrentYeeterProvider>
+      </TXBuilder>
+    </CurrentDaoProvider>
   );
 };

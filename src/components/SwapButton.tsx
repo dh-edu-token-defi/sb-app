@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { Button, Link, ParMd } from "@daohaus/ui";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useMarketMaker } from "../hooks/useMarketMaker";
-import { useDaoData } from "@daohaus/moloch-v3-hooks";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import { useDaoData } from "../hooks/useDaoData";
 
 const LinkButton = styled(Link)`
   text-decoration: none;

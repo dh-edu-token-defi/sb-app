@@ -48,7 +48,7 @@ export type YeetsItem = {
 export type RagequitItem = {
   id: string;
   createdAt: string;
-  loot: string;
+  shares: string;
   dao: {
     id: string;
     lootTokenSymbol: string;

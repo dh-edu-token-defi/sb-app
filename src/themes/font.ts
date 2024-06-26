@@ -7,14 +7,14 @@ const pgDarkFontFamily = {
 export const font = {
   family: pgDarkFontFamily,
   size: {
-    xs: "1.2rem",
-    sm: "1.4rem",
-    md: "1.6rem",
-    lg: "2rem",
-    xl: "2.4rem",
-    xxl: "3.2rem",
-    xxxl: "4rem",
-    xxxxl: "4.8rem",
+    xs: "1.6rem",
+    sm: "2rem",
+    md: "2.4rem",
+    lg: "3.2rem",
+    xl: "4rem",
+    xxl: "4.8em",
+    xxxl: "5.5rem",
+    xxxxl: "6rem",
   },
   weight: {
     extraLight: 200,

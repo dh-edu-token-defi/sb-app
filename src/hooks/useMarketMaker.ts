@@ -9,6 +9,7 @@ import {
 } from "../utils/constants";
 import { createPublicClient, http } from "viem";
 import marketMakerShamanAbi from "../abis/marketMaker.json";
+import { calcMMIsOver } from "../utils/yeetDataHelpers";
 
 export const useMarketMaker = ({
   chainId,
@@ -32,7 +33,7 @@ export const useMarketMaker = ({
         transport: http(RPC_URLS[chain]),
       });
 
-      let marketMakerShaman, goalAchieved, executed, pool, uniswapUrl;
+      let marketMakerShaman, goalAchieved, executed, pool, uniswapUrl, endTime;
       let canExecute = false;
       for (let i = 0; i < shamanAddresses.length; i++) {
         if (yeeterShamanAddress && shamanAddresses[i] === yeeterShamanAddress) {
@@ -65,7 +66,13 @@ export const useMarketMaker = ({
             functionName: "pool",
           })) as string;
 
-          canExecute = goalAchieved && !executed;
+          endTime = (await publicClient.readContract({
+            address: shamanAddresses[i] as `0x${string}`,
+            abi: marketMakerShamanAbi,
+            functionName: "endTime",
+          })) as string;
+
+          canExecute = goalAchieved && !executed && calcMMIsOver(endTime);
 
           if (executed && pool) {
             uniswapUrl = `${UNISWAP_URL[DEFAULT_CHAIN_ID]}/${pool}`;
@@ -82,6 +89,7 @@ export const useMarketMaker = ({
         pool,
         canExecute,
         uniswapUrl,
+        endTime,
       };
     },
     { enabled: !!chainId && !!daoId && !!daoShamans }

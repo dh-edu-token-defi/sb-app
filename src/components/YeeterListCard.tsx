@@ -1,4 +1,4 @@
-import styled, { useTheme } from "styled-components";
+import styled, { useTheme, keyframes } from "styled-components";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 
 import { useYeeter } from "../hooks/useYeeter";
@@ -27,16 +27,29 @@ import {
 import { ButtonRouterLink } from "./ButtonRouterLink";
 import BuyButton from "./BuyButton";
 import { StatusFlag } from "./StatusFlag";
-import { useDaoData, useDaoMember } from "@daohaus/moloch-v3-hooks";
+import { useDaoMember } from "@daohaus/moloch-v3-hooks";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useDHConnect } from "@daohaus/connect";
 import { useMarketMaker } from "../hooks/useMarketMaker";
 import ExitButton from "./ExitButton";
 import SwapButton from "./SwapButton";
+import { useDaoData } from "../hooks/useDaoData";
+
+const tiltShaking = keyframes`
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+`;
 
 const SpacedCard = styled(Card)`
   margin-right: 1rem;
   width: 35rem;
+
+  .tilt-shake {
+    animation: ${tiltShaking} 0.3s infinite;
+  }
 `;
 
 const TopSectionContainer = styled.div`
@@ -93,7 +106,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
     memberAddress: address,
   });
 
-  const { marketMakerShaman, canExecute, executed } = useMarketMaker({
+  const { canExecute, executed } = useMarketMaker({
     daoId: yeeterData.dao.id,
     yeeterShamanAddress: yeeterData.id,
     chainId: chainId,
@@ -108,10 +121,12 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
     canExecute || false
   );
 
+  const hasRumble = yeeter.isComingSoon || yeeter.isEndingSoon || yeeter.isNew;
+
   return (
     <SpacedCard>
       <StatusFlag yeeter={yeeter} />
-      <TopSectionContainer>
+      <TopSectionContainer className={hasRumble ? "tilt-shake" : ""}>
         {metadata.avatarImg && metadata.avatarImg !== "" ? (
           <img src={metadata.avatarImg} height="100px" />
         ) : (

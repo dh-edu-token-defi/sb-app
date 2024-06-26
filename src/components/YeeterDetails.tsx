@@ -3,17 +3,22 @@ import { useYeeter } from "../hooks/useYeeter";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useMarketMaker } from "../hooks/useMarketMaker";
-import { useDaoData } from "@daohaus/moloch-v3-hooks";
 import { Avatar, Card, Label, ParLg, ParMd } from "@daohaus/ui";
-import { formatMinContribution, formatTimeRemainingShort, formatTimeUntilPresale, getCampaignStatus } from "../utils/yeetDataHelpers";
+import {
+  formatMinContribution,
+  formatTimeRemainingShort,
+  formatTimeUntilPresale,
+  getCampaignStatus,
+} from "../utils/yeetDataHelpers";
 import { YeetGoalProgress } from "./YeetGoalProgress";
 import { formatValueTo, fromWei } from "@daohaus/utils";
+import { useDaoData } from "../hooks/useDaoData";
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   padding: 10px;
-  @media (max-width: 768px) { 
+  @media (max-width: 768px) {
     flex-direction: column;
   }
 `;
@@ -26,8 +31,8 @@ const ImageContainer = styled.div`
   align-items: center;
   padding: 20px;
 
-  @media (max-width: 768px) { 
-    flex: 1 0 100%; 
+  @media (max-width: 768px) {
+    flex: 1 0 100%;
   }
 `;
 
@@ -38,8 +43,8 @@ const DetailsContainer = styled.div`
   justify-content: space-around;
   padding: 10px;
 
-  @media (max-width: 768px) { 
-    flex: 1 0 100%; 
+  @media (max-width: 768px) {
+    flex: 1 0 100%;
   }
 `;
 
@@ -70,24 +75,27 @@ export const YeeterDetails = ({
     chainId: daoChain,
   });
 
-  const { marketMakerShaman, canExecute, executed, uniswapUrl } = useMarketMaker({
-    daoId,
-    yeeterShamanAddress: yeeterId,
-    chainId: daoChain,
-    daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
-  });
-  console.log("marketMakerShaman", marketMakerShaman);
+  const { marketMakerShaman, canExecute, executed, uniswapUrl } =
+    useMarketMaker({
+      daoId,
+      yeeterShamanAddress: yeeterId,
+      chainId: daoChain,
+      daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
+    });
 
   if (!metadata || !yeeter || !dao || !marketMakerShaman) {
-    return
+    return;
   }
 
-  const campaignStatus = getCampaignStatus(yeeter, executed || false, canExecute || false);
+  const campaignStatus = getCampaignStatus(
+    yeeter,
+    executed || false,
+    canExecute || false
+  );
 
   return (
     <Card width={"800px"}>
       <Container>
-
         <ImageContainer>
           <Avatar
             alt={metadata.name}
@@ -99,15 +107,21 @@ export const YeeterDetails = ({
         <DetailsContainer>
           <DetailItem>
             <Label>Token Name / Symbol:</Label>
-            <ParLg>{metadata.name} / {yeeter.dao.lootTokenSymbol}</ParLg>
+            <ParLg>
+              {metadata.name} / {yeeter.dao.lootTokenSymbol}
+            </ParLg>
           </DetailItem>
           <DetailItem>
             <Label>Start Date:</Label>
-            <ParLg>{new Date(parseInt(yeeter.startTime) * 1000).toLocaleString()}</ParLg>
+            <ParLg>
+              {new Date(parseInt(yeeter.startTime) * 1000).toLocaleString()}
+            </ParLg>
           </DetailItem>
           <DetailItem>
             <Label>End Date:</Label>
-            <ParLg>{new Date(parseInt(yeeter.endTime) * 1000).toLocaleString()}</ParLg>
+            <ParLg>
+              {new Date(parseInt(yeeter.endTime) * 1000).toLocaleString()}
+            </ParLg>
           </DetailItem>
           <DetailItem>
             <Label>Presale Minimum Contrbution:</Label>
@@ -117,35 +131,40 @@ export const YeeterDetails = ({
             <Label>Total Raise Status:</Label>
             <ParLg>{campaignStatus}</ParLg>
           </DetailItem>
-          {yeeter.isActive && (<DetailItemWarning>
-            <Label>Presale Ends</Label>
-            <ParLg>{formatTimeRemainingShort(yeeter)}</ParLg>
-          </DetailItemWarning>)}
+          {yeeter.isActive && (
+            <DetailItemWarning>
+              <Label>Presale Ends</Label>
+              <ParLg>{formatTimeRemainingShort(yeeter)}</ParLg>
+            </DetailItemWarning>
+          )}
 
-          {yeeter.isComingSoon && (<DetailItemWarning>
-            <Label>Presale Starts</Label>
-            <ParLg>{formatTimeUntilPresale(yeeter)}</ParLg>
-          </DetailItemWarning>)}
+          {yeeter.isComingSoon && (
+            <DetailItemWarning>
+              <Label>Presale Starts</Label>
+              <ParLg>{formatTimeUntilPresale(yeeter)}</ParLg>
+            </DetailItemWarning>
+          )}
           {yeeter.isEnded && (
             <>
-              {executed ? (<ParMd>Reached Goal</ParMd>) : (<ParMd>
-                {`${formatValueTo({
-                  value: fromWei(yeeter.safeBalance.toString()),
-                  decimals: 5,
-                  format: "number",
-                })} ETH Raised`}
-              </ParMd>)}
+              {executed ? (
+                <ParMd>Reached Goal</ParMd>
+              ) : (
+                <ParMd>
+                  {`${formatValueTo({
+                    value: fromWei(yeeter.safeBalance.toString()),
+                    decimals: 5,
+                    format: "number",
+                  })} ETH Raised`}
+                </ParMd>
+              )}
               <ParLg>Status: {campaignStatus}</ParLg>
             </>
           )}
-          {!executed && (<YeetGoalProgress
-            yeeter={yeeter}
-            dao={dao}
-            chainId={daoChain}
-          />)}
+          {!executed && (
+            <YeetGoalProgress yeeter={yeeter} dao={dao} chainId={daoChain} />
+          )}
         </DetailsContainer>
       </Container>
     </Card>
   );
 };
-

@@ -8,8 +8,9 @@ import ExecuteLPButton from "./ExecuteLPButton";
 import ExitButton from "./ExitButton";
 import SwapButton from "./SwapButton";
 import { useDHConnect } from "@daohaus/connect";
-import { useDaoData, useDaoMember } from "@daohaus/moloch-v3-hooks";
+import { useDaoMember } from "@daohaus/moloch-v3-hooks";
 import { useMarketMaker } from "../hooks/useMarketMaker";
+import { useDaoData } from "../hooks/useDaoData";
 
 const Container = styled.div`
   display: flex;
@@ -80,7 +81,7 @@ export const YeeterActions = ({
         <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">
           <a
             href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-              `Check out the ${metadata.name} / ${yeeter.dao.lootTokenSymbol} meme at here: ${window.location.href}`
+              `Check out the ${metadata.name} / ${yeeter.dao.lootTokenSymbol} token here: ${window.location.href}`
             )}`}
             target="_blank"
             rel="noopener noreferrer"

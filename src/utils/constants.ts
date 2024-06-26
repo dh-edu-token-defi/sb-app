@@ -9,7 +9,7 @@ import {
   ValidNetwork,
 } from "@daohaus/keychain-utils";
 
-export const APP_NAME = "PRESALER";
+export const APP_NAME = "SPEEDBALL";
 
 export const MEME_YEETER_SUMMONER_REFERRER = "DHYeet24ShamanSummoner.3";
 export const YEET24_REFERRER = "DHYeet24ShamanSummoner.3";
