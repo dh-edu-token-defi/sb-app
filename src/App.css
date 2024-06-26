@@ -3,3 +3,11 @@
 #root {
   margin: 0 auto;
 }
+
+.react-multi-carousel-track {
+  margin: 5rem;
+}
+
+.react-multi-carousel-list {
+  position: static;
+}

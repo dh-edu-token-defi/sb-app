@@ -120,6 +120,7 @@ export const YeeterList = ({
             draggable={true}
             arrows={true}
             pauseOnHover={true}
+            renderButtonGroupOutside={true}
           >
             {yeeters.map((yeeter) => (
               <YeeterListCard yeeterData={yeeter} key={yeeter.id} />
