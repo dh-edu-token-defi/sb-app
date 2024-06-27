@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useYeeter } from "../hooks/useYeeter";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { Avatar, Label, ParLg, ParMd } from "@daohaus/ui";
+import { Avatar, Button, Label, ParLg, ParMd } from "@daohaus/ui";
 import { BigH1 } from "./Layout";
 import { formatMinContribution } from "../utils/yeetDataHelpers";
 import { formatShortDateTimeFromSeconds } from "@daohaus/utils";
@@ -75,6 +75,18 @@ export const TokenOverview = ({
           <Label>{`Presale Price (for 1000 ${yeeter.dao.lootTokenSymbol})`}</Label>
           <ParMd>{formatMinContribution(yeeter)} (ETH)</ParMd>
         </DetailItem>
+        <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">
+          <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+              `Check out the ${metadata.name} / ${yeeter.dao.lootTokenSymbol} token here: ${window.location.href}`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            SHARE
+          </a>
+        </Button>
       </DetailsContainer>
     </div>
   );

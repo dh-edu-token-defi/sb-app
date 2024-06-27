@@ -58,12 +58,14 @@ export function Yeet() {
                 daoId={daoId}
                 daoChain={daoChain}
               />
-              {/* <H4>Actions</H4>
+              <hr />
+              <H4>Actions- redoing this </H4>
               <YeeterActions
                 yeeterId={shamanAddress}
                 daoId={daoId}
                 daoChain={daoChain}
               />
+              {/* 
               <H4>Yeets</H4>
               {shamanAddress && daoChain && (
                 <YeetList yeeterId={shamanAddress} daoChain={daoChain} />

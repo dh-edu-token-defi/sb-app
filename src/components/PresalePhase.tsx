@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useYeeter } from "../hooks/useYeeter";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { ValidNetwork } from "@daohaus/keychain-utils";
+import Countdown from "react-countdown";
 import { useMarketMaker } from "../hooks/useMarketMaker";
 import {
   Avatar,
@@ -23,51 +24,11 @@ import {
 import { YeetGoalProgress } from "./YeetGoalProgress";
 import { formatValueTo, fromWei } from "@daohaus/utils";
 import { useDaoData } from "../hooks/useDaoData";
-import { BigH1 } from "./Layout";
 import SwapButton from "./SwapButton";
 import ExecuteLPButton from "./ExecuteLPButton";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding: 10px;
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const ImageContainer = styled.div`
-  flex: 1;
-  background-color: ${({ theme }) => theme.card.bgColor};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-
-  @media (max-width: 768px) {
-    flex: 1 0 100%;
-  }
-`;
-
-const DetailsContainer = styled.div`
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 10px;
-
-  @media (max-width: 768px) {
-    flex: 1 0 100%;
-  }
-`;
-
-const DetailItem = styled.div`
-  padding: 10px;
-  margin-bottom: 10px;
-`;
-
 const DetailItemWarning = styled.div`
-  padding: 10px;
+  padding: 1rem 2rem;
   margin-bottom: 10px;
   background-color: ${({ theme }) => theme.warning.step10};
 `;
@@ -107,7 +68,7 @@ export const PresalePhase = ({
     chainId: daoChain,
   });
 
-  const { marketMakerShaman, canExecute, executed, uniswapUrl } =
+  const { marketMakerShaman, canExecute, executed, goalAchieved } =
     useMarketMaker({
       daoId,
       yeeterShamanAddress: yeeterId,
@@ -122,7 +83,8 @@ export const PresalePhase = ({
   const campaignStatus = getCampaignStatus(
     yeeter,
     executed || false,
-    canExecute || false
+    canExecute || false,
+    goalAchieved || false
   );
 
   const success =
@@ -135,8 +97,9 @@ export const PresalePhase = ({
         <>
           <BigH3>TO PRESALE START</BigH3>
           <DetailItemWarning>
-            <Label>Presale Starts</Label>
-            <ParLg>{formatTimeUntilPresale(yeeter)}</ParLg>
+            <BigH2>
+              <Countdown date={new Date(Number(yeeter.startTime) * 1000)} />
+            </BigH2>
           </DetailItemWarning>
         </>
       )}
@@ -144,8 +107,9 @@ export const PresalePhase = ({
         <>
           <BigH3>TO PRESALE END</BigH3>
           <DetailItemWarning>
-            <Label>Presale Ends</Label>
-            <ParLg>{formatTimeRemainingShort(yeeter)}</ParLg>
+            <BigH2>
+              <Countdown date={new Date(Number(yeeter.endTime) * 1000)} />
+            </BigH2>
           </DetailItemWarning>
         </>
       )}

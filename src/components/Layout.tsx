@@ -26,4 +26,5 @@ export const SimpleCol = styled.div`
 export const BigH1 = styled(H1)`
   font-size: 20rem;
   line-height: 12rem;
+  color: ${({ theme }) => theme.secondary.step9};
 `;
