@@ -26,6 +26,11 @@ import { formatValueTo, fromWei } from "@daohaus/utils";
 import { useDaoData } from "../hooks/useDaoData";
 import SwapButton from "./SwapButton";
 import ExecuteLPButton from "./ExecuteLPButton";
+import BuyButton from "./BuyButton";
+import CloseCampaignButton from "./CloseCampaignButton";
+import { useDHConnect } from "@daohaus/connect";
+import { useDaoMember } from "@daohaus/moloch-v3-hooks";
+import ExitButton from "./ExitButton";
 
 const DetailItemWarning = styled.div`
   padding: 1rem 2rem;
@@ -52,6 +57,12 @@ export const BigH3 = styled(H3)`
   }
 `;
 
+const ButtonRow = styled.div`
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+`;
+
 export const PresalePhase = ({
   yeeterId,
   daoId,
@@ -75,6 +86,9 @@ export const PresalePhase = ({
       chainId: daoChain,
       daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
     });
+
+  const { address } = useDHConnect();
+  const { member } = useDaoMember({ daoId, daoChain, memberAddress: address });
 
   if (!metadata || !yeeter || !dao || !marketMakerShaman) {
     return;
@@ -101,6 +115,11 @@ export const PresalePhase = ({
               <Countdown date={new Date(Number(yeeter.startTime) * 1000)} />
             </BigH2>
           </DetailItemWarning>
+          <ParLg>
+            Get ready to BUY. Minimum of {formatMinContribution(yeeter)} ETH for
+            1000 ${yeeter.dao.shareTokenSymbol}{" "}
+          </ParLg>
+          <YeetGoalProgress yeeter={yeeter} dao={dao} chainId={daoChain} />
         </>
       )}
       {yeeter.isActive && (
@@ -111,6 +130,28 @@ export const PresalePhase = ({
               <Countdown date={new Date(Number(yeeter.endTime) * 1000)} />
             </BigH2>
           </DetailItemWarning>
+          <ParLg>
+            TIME IS RUNNING OUT! You can spend a minimum of{" "}
+            {formatMinContribution(yeeter)} ETH for 1000 $
+            {yeeter.dao.shareTokenSymbol}{" "}
+          </ParLg>
+          <ButtonRow>
+            <BuyButton
+              daoChain={daoChain}
+              daoId={daoId}
+              yeeterId={yeeterId}
+              context="details"
+              tokenSymbol={yeeter.dao.shareTokenSymbol}
+            />
+            {Number(member?.shares) > 0 && (
+              <ExitButton
+                daoChain={daoChain}
+                yeeterId={yeeterId}
+                daoId={daoId}
+              />
+            )}
+          </ButtonRow>
+          <YeetGoalProgress yeeter={yeeter} dao={dao} chainId={daoChain} />
         </>
       )}
       {success && (
@@ -133,12 +174,21 @@ export const PresalePhase = ({
               <ParSm>
                 The Presale was a success. The Uniswap Pool can be created.
               </ParSm>
+
               <ExecuteLPButton
                 daoChain={daoChain}
                 yeeterId={yeeterId}
                 daoId={daoId}
               />
             </>
+          )}
+
+          {!goalAchieved && canExecute && (
+            <CloseCampaignButton
+              daoChain={daoChain}
+              yeeterId={yeeterId}
+              daoId={daoId}
+            />
           )}
         </>
       )}
@@ -152,6 +202,9 @@ export const PresalePhase = ({
               format: "number",
             })} ETH Raised, but it wasn't enough`}
           </ParLg>
+          {Number(member?.shares) > 0 && (
+            <ExitButton daoChain={daoChain} yeeterId={yeeterId} daoId={daoId} />
+          )}
         </>
       )}
     </div>

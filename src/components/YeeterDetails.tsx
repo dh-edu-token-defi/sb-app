@@ -102,7 +102,7 @@ export const YeeterDetails = ({
         <ImageContainer>
           <Avatar
             alt={metadata.name}
-            fallback="meme avatar"
+            fallback="token avatar"
             size="20rem"
             src={metadata.avatarImg}
           />

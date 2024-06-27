@@ -181,6 +181,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
             yeeterId={yeeter.id}
             metadata={metadata}
             context="dashboard"
+            tokenSymbol={yeeter.dao.shareTokenSymbol}
           />
         )}
 

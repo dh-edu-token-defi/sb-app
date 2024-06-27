@@ -6,6 +6,7 @@ import { YeeterItem } from "../utils/types";
 import { calcProgressPerc } from "../utils/yeetDataHelpers";
 import { HAUS_NETWORK_DATA, ValidNetwork } from "@daohaus/keychain-utils";
 import { MolochV3Dao } from "@daohaus/moloch-v3-data";
+import { BigH3 } from "./PresalePhase";
 
 const ProgressRow = styled.div`
   display: flex;
@@ -14,6 +15,7 @@ const ProgressRow = styled.div`
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-top: 3rem;
   .bar {
     width: 100%;
   }
@@ -35,67 +37,43 @@ export const YeetGoalProgress = ({
   dao: MolochV3Dao;
   chainId: string;
 }) => {
-  if (!yeeter || yeeter.balance === undefined || yeeter.goal === undefined) {
+  if (
+    !yeeter ||
+    yeeter.safeBalance === undefined ||
+    yeeter.goal === undefined
+  ) {
     return null;
   }
 
-
-const treasuryVault = dao.vaults.find(vault => vault.name === "Treasury");
-
-if (!treasuryVault?.tokenBalances) {
-  return (
-    <>
-    <ParLg>Error in fetching balance</ParLg>
-    <DataIndicator
-    label="Raised"
-    data={`??? of ${formatValueTo({
-      value: fromWei(yeeter.goal),
-      decimals: 3,
-      format: "numberShort",
-    })} ${HAUS_NETWORK_DATA[chainId as ValidNetwork]?.symbol}`}
-  />
-  </>
-  
-  );
-}
-
-// Find the first balance where tokenAddress is null
-const tokenBalance = treasuryVault?.tokenBalances.find(balance => balance.tokenAddress === null);
-
-if (!tokenBalance) {
-  return null;
-}
-
   const percentageComplete = yeeter
-    ? `${calcProgressPerc(tokenBalance.balance , yeeter.goal)}%`
+    ? `${calcProgressPerc(yeeter.safeBalance, yeeter.goal)}%`
     : "0%";
 
   return (
-    <> 
-      {!yeeter.isComingSoon && (
-        <ProgressRow>
-          <DataIndicator
-            label="Raised"
-            data={`${formatValueTo({
-              value: fromWei(tokenBalance.balance),
-              decimals: 3,
-              format: "numberShort",
-            })} of ${formatValueTo({
-              value: fromWei(yeeter.goal),
-              decimals: 3,
-              format: "numberShort",
-            })} ${HAUS_NETWORK_DATA[chainId as ValidNetwork]?.symbol}`}
+    <>
+      <ProgressRow>
+        <BigH3>RAISED</BigH3>
+        <DataIndicator
+          // label="Raised"
+          data={`${formatValueTo({
+            value: fromWei(yeeter.safeBalance),
+            decimals: 3,
+            format: "numberShort",
+          })} of ${formatValueTo({
+            value: fromWei(yeeter.goal),
+            decimals: 3,
+            format: "numberShort",
+          })} ${HAUS_NETWORK_DATA[chainId as ValidNetwork]?.symbol}`}
+        />
+        <div className="bar">
+          <ProgressBar
+            progressSection={[
+              { percentage: percentageComplete, color: "green" },
+            ]}
+            backgroundColor="black"
           />
-          <div className="bar">
-            <ProgressBar
-              progressSection={[
-                { percentage: percentageComplete, color: "green" },
-              ]}
-              backgroundColor="black"
-            />
-          </div>
-        </ProgressRow>
-      )}
+        </div>
+      </ProgressRow>
     </>
   );
 };

@@ -19,8 +19,6 @@ export const DaoContainer = () => {
     yeeterId: string;
   }>();
 
-  console.log("");
-
   if (!daoId || !daoChain || !yeeterId) return null;
 
   return (

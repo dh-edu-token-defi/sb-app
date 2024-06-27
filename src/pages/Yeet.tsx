@@ -45,12 +45,6 @@ export function Yeet() {
                 daoId={daoId}
                 daoChain={daoChain}
               />
-
-              {/* <YeeterDetails
-                yeeterId={shamanAddress}
-                daoId={daoId}
-                daoChain={daoChain}
-              /> */}
             </div>
             <div>
               <PresalePhase
@@ -58,18 +52,16 @@ export function Yeet() {
                 daoId={daoId}
                 daoChain={daoChain}
               />
-              <hr />
-              <H4>Actions- redoing this </H4>
+              {/* <hr /> */}
+              {/* <H4>Actions- redoing this </H4>
               <YeeterActions
                 yeeterId={shamanAddress}
                 daoId={daoId}
                 daoChain={daoChain}
-              />
-              {/* 
-              <H4>Yeets</H4>
+              /> */}
               {shamanAddress && daoChain && (
                 <YeetList yeeterId={shamanAddress} daoChain={daoChain} />
-              )} */}
+              )}
             </div>
           </div>
         </ColumnContainer>
