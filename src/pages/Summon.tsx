@@ -6,14 +6,22 @@ import { AppFieldLookup } from "../legos/fieldConfig";
 import { useDHConnect } from "@daohaus/connect";
 import { useState } from "react";
 import styled from "styled-components";
-import { Button, Dialog, DialogContent, DialogTrigger, Link, ParLg, ParMd, SingleColumnLayout, Spinner } from "@daohaus/ui";
-import { ADMIN_URL } from "../utils/constants";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  Link,
+  ParLg,
+  ParMd,
+  SingleColumnLayout,
+  Spinner,
+} from "@daohaus/ui";
 import { set } from "date-fns";
 import { ButtonRouterLink } from "../components/ButtonRouterLink";
 import { truncateAddress } from "@daohaus/utils";
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from "react-router-dom";
 import { ValidNetwork, generateExplorerLink } from "@daohaus/keychain-utils";
-
 
 const StyledRouterLink = styled(RouterLink)`
   text-decoration: none;
@@ -65,8 +73,6 @@ const ShamanItem = styled.div`
   align-items: center;
 `;
 
-
-
 const Summon = () => {
   const navigate = useNavigate();
   const { chainId } = useDHConnect();
@@ -75,14 +81,16 @@ const Summon = () => {
   const [pollSuccess, setPollSuccess] = useState(false);
   const [pollResult, setPollResult] = useState<null | any>(null);
 
-
   const handleModalChange = () => {
     setModalOpen(!modalOpen);
     if (pollSuccess && pollResult?.data?.dao?.name) {
       // console.log("navigating to details");
-      const yeeter = pollResult?.data?.dao?.shamen.find((shaman: any) => shaman.permissions === "2");
-      navigate(`/molochv3/${chainId}/${pollResult?.data?.dao?.id}/${yeeter.shamanAddress}`);
-      // navigate(ADMIN_URL);
+      const yeeter = pollResult?.data?.dao?.shamen.find(
+        (shaman: any) => shaman.permissions === "2"
+      );
+      navigate(
+        `/molochv3/${chainId}/${pollResult?.data?.dao?.id}/${yeeter.shamanAddress}`
+      );
     } else {
       //  console.log("navigating to dashboard");
       navigate("/");
@@ -106,64 +114,88 @@ const Summon = () => {
             onTxSuccess: (result) => {
               setTxSuccess(true);
               setModalOpen(true);
-            }
+            },
           }}
         />
       )}
       {txSuccess && (
-        <Dialog open={modalOpen} onOpenChange={handleModalChange} >
-
+        <Dialog open={modalOpen} onOpenChange={handleModalChange}>
           <DialogContent title="Summon Details">
             {!pollSuccess ? (
               <>
-                <ParMd>Your meme has been summoned please wait for the indexors to update </ParMd>
+                <ParMd>
+                  Your meme has been summoned please wait for the indexors to
+                  update{" "}
+                </ParMd>
                 <Spinner />
               </>
             ) : (
               <>
-                <ParLg>
-                  It has been summoned!</ParLg>
+                <ParLg>It has been summoned!</ParLg>
                 {pollResult?.data?.dao?.name ? (
                   <>
-                    <ParMd>New Meme: {pollResult?.data?.dao?.name}{" "} </ParMd>
+                    <ParMd>New Meme: {pollResult?.data?.dao?.name} </ParMd>
                     {pollResult?.data?.dao?.shamen?.length ? (
-
                       <ContractInfoWrapper>
-                        {pollResult?.data?.dao?.shamen.map((shaman: any, idx: number) => (
-                          <ContractInfoItem key={idx}>
-
-                            {shaman.permissions === "2" ?
-                              (<YeeterItem>
-                                <ParLg>Meme Presale</ParLg>
-                                <ParMd>Participate in raid here. Share this link to others interested </ParMd>
-                                <ParMd>{truncateAddress(shaman.shamanAddress)}</ParMd>
-                                <StyledRouterLink to={`/molochv3/${chainId}/${pollResult?.data?.dao?.id}/${shaman.shamanAddress}`}>
-                                  <Button variant="solid">Yeet</Button></StyledRouterLink>
-                              </YeeterItem>)
-                              : (<ShamanItem>
-                                <ParLg>Market Maker </ParLg>
-                                <ParMd>THis contract extention creates the LP.</ParMd>
-                                <ParMd>{truncateAddress(shaman.shamanAddress)}</ParMd>
-                                <StyledExternalLink href={generateExplorerLink({ chainId: chainId as ValidNetwork, address: shaman.shamanAddress })} target="_blank">
-                                  <Button variant="solid">View on Etherscan</Button></StyledExternalLink>
-                              </ShamanItem>)}
-
-
-                          </ContractInfoItem>
-                        ))}
+                        {pollResult?.data?.dao?.shamen.map(
+                          (shaman: any, idx: number) => (
+                            <ContractInfoItem key={idx}>
+                              {shaman.permissions === "2" ? (
+                                <YeeterItem>
+                                  <ParLg>Meme Presale</ParLg>
+                                  <ParMd>
+                                    Participate in raid here. Share this link to
+                                    others interested{" "}
+                                  </ParMd>
+                                  <ParMd>
+                                    {truncateAddress(shaman.shamanAddress)}
+                                  </ParMd>
+                                  <StyledRouterLink
+                                    to={`/molochv3/${chainId}/${pollResult?.data?.dao?.id}/${shaman.shamanAddress}`}
+                                  >
+                                    <Button variant="solid">Yeet</Button>
+                                  </StyledRouterLink>
+                                </YeeterItem>
+                              ) : (
+                                <ShamanItem>
+                                  <ParLg>Market Maker </ParLg>
+                                  <ParMd>
+                                    THis contract extention creates the LP.
+                                  </ParMd>
+                                  <ParMd>
+                                    {truncateAddress(shaman.shamanAddress)}
+                                  </ParMd>
+                                  <StyledExternalLink
+                                    href={generateExplorerLink({
+                                      chainId: chainId as ValidNetwork,
+                                      address: shaman.shamanAddress,
+                                    })}
+                                    target="_blank"
+                                  >
+                                    <Button variant="solid">
+                                      View on Etherscan
+                                    </Button>
+                                  </StyledExternalLink>
+                                </ShamanItem>
+                              )}
+                            </ContractInfoItem>
+                          )
+                        )}
                       </ContractInfoWrapper>
-
                     ) : (
                       <ParMd>No Shamens found</ParMd>
                     )}
                   </>
                 ) : (
-                  <ParMd>Continue to the dashboard <StyledRouterLink to="/"><Button variant="solid">Dashboard</Button></StyledRouterLink></ParMd>
+                  <ParMd>
+                    Continue to the dashboard{" "}
+                    <StyledRouterLink to="/">
+                      <Button variant="solid">Dashboard</Button>
+                    </StyledRouterLink>
+                  </ParMd>
                 )}
               </>
-
-            )
-            }
+            )}
           </DialogContent>
         </Dialog>
       )}

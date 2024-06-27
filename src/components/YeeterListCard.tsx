@@ -1,20 +1,7 @@
 import styled, { useTheme, keyframes } from "styled-components";
-import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-
 import { useYeeter } from "../hooks/useYeeter";
-import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { YeeterItem } from "../utils/types";
-import {
-  Badge,
-  Button,
-  Card,
-  DataLg,
-  DataXs,
-  ParLg,
-  ParMd,
-  ParXl,
-} from "@daohaus/ui";
-
+import { Button, Card, DataLg, DataXs, ParLg, ParMd, ParXl } from "@daohaus/ui";
 import CoinPile from "../assets/coin-pile-trans.png";
 import { formatValueTo, fromWei } from "@daohaus/utils";
 import {
@@ -23,8 +10,6 @@ import {
   formatTimeUntilPresale,
   getCampaignStatus,
 } from "../utils/yeetDataHelpers";
-
-import { ButtonRouterLink } from "./ButtonRouterLink";
 import BuyButton from "./BuyButton";
 import { StatusFlag } from "./StatusFlag";
 import { useDaoMember } from "@daohaus/moloch-v3-hooks";
@@ -34,13 +19,14 @@ import { useMarketMaker } from "../hooks/useMarketMaker";
 import ExitButton from "./ExitButton";
 import SwapButton from "./SwapButton";
 import { useDaoData } from "../hooks/useDaoData";
+import { Link } from "react-router-dom";
 
 const tiltShaking = keyframes`
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(5deg); }
-  50% { transform: rotate(0deg); }
-  75% { transform: rotate(-5deg); }
-  100% { transform: rotate(0deg); }
+  0% { transform: translateY(0) }
+  25% { transform: translateY(5px) }
+  50% { transform: translateY(-5px) }
+  75% { transform: translateY(5px) }
+  100% { transform: translateY(0) }
 `;
 
 const SpacedCard = styled(Card)`
@@ -83,6 +69,13 @@ const TimeDataLg = styled(DataLg)`
   background-color: ${(props) => props.theme.warning.step10};
   color: black;
   padding: 1rem;
+`;
+
+const LinkButton = styled(Link)`
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
 `;
 
 export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
@@ -134,7 +127,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
         )}
       </TopSectionContainer>
       <DataCol>
-        <TokenNameParXl>{yeeter.dao.lootTokenSymbol}</TokenNameParXl>
+        <TokenNameParXl>{yeeter.dao.shareTokenSymbol}</TokenNameParXl>
         <DataXs>{metadata.name}</DataXs>
 
         {yeeter.isActive && (
@@ -207,11 +200,11 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
         )}
 
         <div className="detailsLink">
-          <ButtonRouterLink
-            to={`molochv3/${chainId}/${yeeter.dao.id}/${yeeter.id}`}
-          >
-            DYOR <HiOutlineArrowNarrowRight />
-          </ButtonRouterLink>
+          <LinkButton to={`molochv3/${chainId}/${yeeter.dao.id}/${yeeter.id}`}>
+            <Button size="sm" style={{ marginTop: "2rem" }} variant="outline">
+              What is this?
+            </Button>
+          </LinkButton>
         </div>
       </DataCol>
     </SpacedCard>

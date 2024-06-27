@@ -33,6 +33,7 @@
     "graphql": "16.6.0",
     "graphql-request": "6.0.0",
     "react": "^18.2.0",
+    "react-countdown": "^2.3.5",
     "react-dom": "^18.2.0",
     "react-fast-marquee": "^1.6.4",
     "react-multi-carousel": "^2.8.5",

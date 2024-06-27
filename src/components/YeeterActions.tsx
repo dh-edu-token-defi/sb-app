@@ -40,12 +40,13 @@ export const YeeterActions = ({
     shamanAddress: yeeterId,
     chainId: daoChain,
   });
-  const { marketMakerShaman, canExecute, executed, goalAchieved } = useMarketMaker({
-    daoId,
-    yeeterShamanAddress: yeeterId,
-    chainId: daoChain,
-    daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
-  });
+  const { marketMakerShaman, canExecute, executed, goalAchieved } =
+    useMarketMaker({
+      daoId,
+      yeeterShamanAddress: yeeterId,
+      chainId: daoChain,
+      daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
+    });
 
   if (!metadata || !yeeter || !dao || !marketMakerShaman) {
     return null;
@@ -91,7 +92,7 @@ export const YeeterActions = ({
         <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">
           <a
             href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-              `Check out the ${metadata.name} / ${yeeter.dao.lootTokenSymbol} token here: ${window.location.href}`
+              `Check out the ${metadata.name} / ${yeeter.dao.shareTokenSymbol} token here: ${window.location.href}`
             )}`}
             target="_blank"
             rel="noopener noreferrer"
