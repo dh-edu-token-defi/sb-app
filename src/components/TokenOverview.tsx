@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useYeeter } from "../hooks/useYeeter";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { Avatar, Button, Label, ParLg, ParMd } from "@daohaus/ui";
-import { BigH1 } from "./Layout";
+import { BigH1 } from "./Layout/Layout";
 import { formatMinContribution } from "../utils/yeetDataHelpers";
 import { formatShortDateTimeFromSeconds } from "@daohaus/utils";
 

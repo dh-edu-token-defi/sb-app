@@ -15,7 +15,12 @@ import { supportedNetorks } from "../main";
 import { APP_NAME, DEFAULT_CHAIN_ID } from "../utils/constants";
 import { useYeeters } from "../hooks/useYeeters";
 import { YeeterList } from "../components/YeeterList";
-import { BigH1, SimpleCol, SimpleRow, Spacer } from "../components/Layout";
+import {
+  BigH1,
+  SimpleCol,
+  SimpleRow,
+  Spacer,
+} from "../components/Layout/Layout";
 import { useLatestYeets } from "../hooks/useLatestYeets";
 import { YeetMarquee } from "../components/YeetMarquee";
 import { useMyYeeters } from "../hooks/useMyYeeters";

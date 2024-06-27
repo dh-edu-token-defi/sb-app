@@ -13,7 +13,7 @@ import {
 import { YeetGoalProgress } from "./YeetGoalProgress";
 import { formatValueTo, fromWei } from "@daohaus/utils";
 import { useDaoData } from "../hooks/useDaoData";
-import { BigH1 } from "./Layout";
+import { BigH1 } from "./Layout/Layout";
 
 const Container = styled.div`
   display: flex;

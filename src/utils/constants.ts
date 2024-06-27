@@ -155,7 +155,7 @@ export const DEFAULT_SUMMON_VALUES = {
 export const DEFAULT_YEETER_VALUES = {
   isShares: true,
   feeRecipients: [
-    "0xd0f8720846890a7961945261fe5012e4ca39918e",
+    "0xD0f8720846890a7961945261FE5012E4cA39918e",
     "0x4a9a27d614a74ee5524909ca27bdbcbb7ed3b315",
   ], // yeeter team, daohaus eco fund
   feeAmounts: ["5000", "5000"], // .5% fees
