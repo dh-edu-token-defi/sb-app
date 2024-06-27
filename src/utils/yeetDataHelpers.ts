@@ -2,6 +2,7 @@ import { formatValueTo, fromWei, charLimit } from "@daohaus/utils";
 import { YeeterItem } from "./types";
 import { format, formatDistanceToNow } from "date-fns";
 import { MarqueeItem } from "../components/YeetMarquee";
+import { STATUS_WINDOW_LENGTH } from "./constants";
 
 export const calcProgressPerc = (a: string, b: string) => {
   let div = Number(a) / Number(b);
@@ -36,7 +37,7 @@ export const calcYeetIsEnded = (yeeter: YeeterItem) => {
 
   return Number(yeeter.endTime) < now;
 };
-const STATUS_WINDOW_LENGTH = 2 * 60 * 60; // 2 hrs
+
 export const calcYeetIsComingSoon = (yeeter: YeeterItem) => {
   const now = new Date().getTime() / 1000;
   return (

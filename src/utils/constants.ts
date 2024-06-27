@@ -141,24 +141,13 @@ export const getValidChainId = (chainId?: string) => {
   return targetNetworks[chainId as ValidNetwork]?.chainId || DEFAULT_CHAIN_ID;
 };
 const POINT_O_ONE_ETH = "10000000000000000";
+const POINT_OO_ONE_ETH = "1000000000000000";
 export const SPONSOR_THRESHOLD = POINT_O_ONE_ETH;
 export const YEETER_SHAMAN_PERMISSIONS = "2";
 export const MEME_SHAMAN_PERMISSIONS = "3";
 export const LOOT_NAME_POSTFIX = " Community Power";
 export const LOOT_SYMBOL_PREFIX = "LOOT-";
-export const DEFAULT_SUMMON_VALUES = {
-  //votingPeriodInSeconds: 259200,
-  votingPeriodInSeconds: 200,
-  // gracePeriodInSeconds: 172800,
-  gracePeriodInSeconds: 6,
-  newOffering: POINT_O_ONE_ETH,
-  //   quorum: "25",
-  quorum: "25",
-  sponsorThreshold: SPONSOR_THRESHOLD,
-  minRetention: "66",
-  votingTransferable: false,
-  nvTransferable: true,
-};
+
 
 export const DEFAULT_YEETER_VALUES = {
   isShares: true,
@@ -176,10 +165,42 @@ export const DEFAULT_YEETER_VALUES = {
 
 export const DEFAULT_DURATION_PROD = 48 * 60 * 60; // 48 hours
 export const DEFAULT_DURATION_DEV = 10 * 60; // 10 minutes
+export const DEFAULT_DURATION = import.meta.env.DEV
+  ? DEFAULT_DURATION_DEV
+  : DEFAULT_DURATION_PROD;
+const STATUS_WINDOW_LENGTH_DEV = 3 * 60; // 3 mins
+const STATUS_WINDOW_LENGTH_PROD = 2 * 60 * 60; // 2 hrs
+export const STATUS_WINDOW_LENGTH = import.meta.env.DEV
+  ? STATUS_WINDOW_LENGTH_DEV
+  : STATUS_WINDOW_LENGTH_PROD;
 
 export const DEFAULT_MEME_YEETER_VALUES = {
   poolFee: "10000", // 1%
   boostRewardFees: "90000", // 9%
 };
 
-// dao config on summon
+//
+
+export const DEFAULT_SUMMON_VALUES_DEV = {
+  votingPeriodInSeconds: 200,
+  gracePeriodInSeconds: 6,
+  newOffering: POINT_OO_ONE_ETH,
+  quorum: "25",
+  sponsorThreshold: SPONSOR_THRESHOLD,
+  minRetention: "66",
+  votingTransferable: false,
+  nvTransferable: true,
+};
+export const DEFAULT_SUMMON_VALUES_PROD = {
+  votingPeriodInSeconds: 259200,
+  gracePeriodInSeconds: 172800,
+  newOffering: POINT_O_ONE_ETH,
+  quorum: "25",
+  sponsorThreshold: SPONSOR_THRESHOLD,
+  minRetention: "66",
+  votingTransferable: false,
+  nvTransferable: true,
+};
+export const DEFAULT_SUMMON_VALUES = import.meta.env.DEV
+  ? DEFAULT_SUMMON_VALUES_DEV
+  : DEFAULT_SUMMON_VALUES_PROD;
