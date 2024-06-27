@@ -54,7 +54,7 @@ export const TokenOverview = ({
         <BigH1Blue>{yeeter.dao.shareTokenSymbol}</BigH1Blue>
         <Avatar
           alt={metadata.name}
-          fallback="meme avatar"
+          fallback="token avatar"
           size="35rem"
           src={metadata.avatarImg}
         />

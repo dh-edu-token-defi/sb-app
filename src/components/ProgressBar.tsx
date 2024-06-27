@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export const ProgressVisualFull = styled.div<{ $backgroundColor: string }>`
-  background-color: ${({ theme }) => theme.warning.step8};
+  background-color: ${({ theme }) => theme.primary.step11};
   display: flex;
   height: 5rem;
   border-radius: 20px;
-  box-shadow: 3px 3px ${({ theme }) => theme.warning.step1};
+  /* box-shadow: 3px 3px ${({ theme }) => theme.warning.step1}; */
 `;
 
 export const ProgressVisualPart = styled.div<{
@@ -14,7 +14,7 @@ export const ProgressVisualPart = styled.div<{
   $backgroundColor: string;
 }>`
   width: ${(props) => props.width};
-  background-color: ${({ theme }) => theme.warning.step5};
+  background-color: ${({ theme }) => theme.warning.step10};
   /* Number of the seconds for complete animation */
   transition: width 2s;
   border-radius: 19px;
