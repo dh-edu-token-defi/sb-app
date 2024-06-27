@@ -11,6 +11,7 @@ import {
   Label,
   ParLg,
   ParMd,
+  ParSm,
   widthQuery,
 } from "@daohaus/ui";
 import {
@@ -23,6 +24,8 @@ import { YeetGoalProgress } from "./YeetGoalProgress";
 import { formatValueTo, fromWei } from "@daohaus/utils";
 import { useDaoData } from "../hooks/useDaoData";
 import { BigH1 } from "./Layout";
+import SwapButton from "./SwapButton";
+import ExecuteLPButton from "./ExecuteLPButton";
 
 const Container = styled.div`
   display: flex;
@@ -128,45 +131,65 @@ export const PresalePhase = ({
   return (
     <div>
       <BigH2>SPEEDBALLING</BigH2>
-      {yeeter.isComingSoon && <BigH3>TO PRESALE START</BigH3>}
-      {yeeter.isActive && <BigH3>TO PRESALE END</BigH3>}
-      {success && <BigH3>TO LIQUIDITY</BigH3>}
-      {campaignStatus === "FAIL" && <BigH3>TO NOWHERE</BigH3>}
-
-      <Container>
-        {yeeter.isActive && (
-          <DetailItemWarning>
-            <Label>Presale Ends</Label>
-            <ParLg>{formatTimeRemainingShort(yeeter)}</ParLg>
-          </DetailItemWarning>
-        )}
-
-        {yeeter.isComingSoon && (
+      {yeeter.isComingSoon && (
+        <>
+          <BigH3>TO PRESALE START</BigH3>
           <DetailItemWarning>
             <Label>Presale Starts</Label>
             <ParLg>{formatTimeUntilPresale(yeeter)}</ParLg>
           </DetailItemWarning>
-        )}
-        {yeeter.isEnded && (
-          <>
-            {executed ? (
-              <ParMd>Reached Goal</ParMd>
-            ) : (
-              <ParMd>
-                {`${formatValueTo({
-                  value: fromWei(yeeter.safeBalance.toString()),
-                  decimals: 5,
-                  format: "number",
-                })} ETH Raised`}
-              </ParMd>
-            )}
-            <ParLg>Status: {campaignStatus}</ParLg>
-          </>
-        )}
-        {!executed && (
-          <YeetGoalProgress yeeter={yeeter} dao={dao} chainId={daoChain} />
-        )}
-      </Container>
+        </>
+      )}
+      {yeeter.isActive && (
+        <>
+          <BigH3>TO PRESALE END</BigH3>
+          <DetailItemWarning>
+            <Label>Presale Ends</Label>
+            <ParLg>{formatTimeRemainingShort(yeeter)}</ParLg>
+          </DetailItemWarning>
+        </>
+      )}
+      {success && (
+        <>
+          <BigH3>TO LIQUIDITY</BigH3>
+          {executed && (
+            <>
+              <ParSm>
+                The Presale was a success and the Uniwap Pool was created.
+              </ParSm>
+              <SwapButton
+                daoChain={daoChain}
+                daoId={daoId}
+                yeeterId={yeeterId}
+              />
+            </>
+          )}
+          {!executed && (
+            <>
+              <ParSm>
+                The Presale was a success. The Uniswap Pool can be created.
+              </ParSm>
+              <ExecuteLPButton
+                daoChain={daoChain}
+                yeeterId={yeeterId}
+                daoId={daoId}
+              />
+            </>
+          )}
+        </>
+      )}
+      {campaignStatus === "FAIL" && (
+        <>
+          <BigH3>TO NOWHERE</BigH3>
+          <ParLg>
+            {`${formatValueTo({
+              value: fromWei(yeeter.safeBalance.toString()),
+              decimals: 5,
+              format: "number",
+            })} ETH Raised, but it wasn't enough`}
+          </ParLg>
+        </>
+      )}
     </div>
   );
 };

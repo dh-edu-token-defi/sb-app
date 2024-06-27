@@ -19,6 +19,10 @@ const ColumnContainer = styled.div`
     @media ${widthQuery.md} {
       flex-direction: column;
     }
+    .div {
+      display: flex;
+      flex-direction: column;
+    }
   }
   @media ${widthQuery.sm} {
     padding: 2rem 0;

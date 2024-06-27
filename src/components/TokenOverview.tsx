@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { useYeeter } from "../hooks/useYeeter";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { Avatar, Label, ParLg } from "@daohaus/ui";
+import { Avatar, Label, ParLg, ParMd } from "@daohaus/ui";
 import { BigH1 } from "./Layout";
+import { formatMinContribution } from "../utils/yeetDataHelpers";
+import { formatShortDateTimeFromSeconds } from "@daohaus/utils";
 
 const Container = styled.div`
   flex: 1;
@@ -19,6 +21,7 @@ const DetailsContainer = styled.div`
   flex-direction: column;
   justify-content: space-around;
   padding: 1rem;
+  max-width: 500px;
 `;
 
 const DetailItem = styled.div`
@@ -52,18 +55,25 @@ export const TokenOverview = ({
         <Avatar
           alt={metadata.name}
           fallback="meme avatar"
-          size="40rem"
+          size="35rem"
           src={metadata.avatarImg}
         />
       </Container>
       <DetailsContainer>
         <DetailItem>
-          <Label>Token Name</Label>
           <ParLg>{metadata.name}</ParLg>
+          <ParMd>{metadata.description}</ParMd>
         </DetailItem>
         <DetailItem>
-          <Label>About</Label>
-          <ParLg>{metadata.description}</ParLg>
+          <Label>Presale Duration</Label>
+          <ParMd>
+            {formatShortDateTimeFromSeconds(yeeter.startTime)} -{" "}
+            {formatShortDateTimeFromSeconds(yeeter.endTime)}
+          </ParMd>
+        </DetailItem>
+        <DetailItem>
+          <Label>{`Presale Price (for 1000 ${yeeter.dao.lootTokenSymbol})`}</Label>
+          <ParMd>{formatMinContribution(yeeter)} (ETH)</ParMd>
         </DetailItem>
       </DetailsContainer>
     </div>
