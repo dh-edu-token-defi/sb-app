@@ -11,8 +11,7 @@ import {
 
 export const APP_NAME = "SPEEDBALL";
 
-export const MEME_YEETER_SUMMONER_REFERRER = "DHYeet24ShamanSummoner.3";
-export const YEET24_REFERRER = "DHYeet24ShamanSummoner.3";
+export const YEET24_REFERRER = "DHYeet24ShamanSummoner.4";
 export const YEET24_NAME = "Yeet24ShamanModule";
 
 export const CURATOR_CONTRACTS: KeychainList = {
@@ -40,7 +39,6 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xaa36a7": "0x8a4a9e36106ee290811b89e06e2fafe913507965",
     "0x2105": "0x59a7C71221d05e30b9d7981AB83f0A1700e51Af8",
   },
-
   GNOSIS_SAFE_PROXY_FACTORY: {
     // "0x1": "0xa6b71e26c5e0845f74c812102ca7114b6a896ab2",
     // "0x5": "0xa6b71e26c5e0845f74c812102ca7114b6a896ab2",
