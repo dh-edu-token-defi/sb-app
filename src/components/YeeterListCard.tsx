@@ -119,14 +119,13 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
     yeeter,
     executed || false,
     canExecute || false,
-    goalAchieved || false,
+    goalAchieved || false
   );
 
   const hasRumble = yeeter.isComingSoon || yeeter.isEndingSoon || yeeter.isNew;
 
   return (
     <SpacedCard>
-      <StatusFlag yeeter={yeeter} />
       <TopSectionContainer className={hasRumble ? "tilt-shake" : ""}>
         {metadata.avatarImg && metadata.avatarImg !== "" ? (
           <img src={metadata.avatarImg} height="100px" />
@@ -137,6 +136,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
       <DataCol>
         <TokenNameParXl>{yeeter.dao.lootTokenSymbol}</TokenNameParXl>
         <DataXs>{metadata.name}</DataXs>
+
         {yeeter.isActive && (
           <TimeDataLg color={theme.warning.step10}>
             Presale Ends {formatTimeRemainingShort(yeeter)}
@@ -148,6 +148,9 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
             Presale Starts {formatTimeUntilPresale(yeeter)}
           </TimeDataLg>
         )}
+
+        <StatusFlag yeeter={yeeter} />
+
         {yeeter.isActive && (
           <>
             <ParMd>
@@ -177,6 +180,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
             <ParLg>{campaignStatus}</ParLg>
           </>
         )}
+
         {yeeter.isActive && (
           <BuyButton
             daoChain={chainId as ValidNetwork}

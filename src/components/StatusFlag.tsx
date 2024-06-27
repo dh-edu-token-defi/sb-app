@@ -3,36 +3,49 @@ import { YeeterItem } from "../utils/types";
 import { Badge } from "@daohaus/ui";
 
 const BadgeContainer = styled.div`
-  position: absolute;
+  /* position: absolute;
   top: 10px;
-  left: 10px;
+  left: 10px; */
 `;
 
 const StyledBadge = styled(Badge)`
- p {
+  margin: 1rem;
+  p {
     font-family: "Syne Mono", monospace;
-    }
+  }
 
   &.comingSoon {
     background-color: ${({ theme }) => theme.success.step5};
   }
   &.endingSoon {
-      background-color: ${({ theme }) => theme.danger.step5};
+    background-color: ${({ theme }) => theme.danger.step5};
   }
   &.new {
-      background-color: ${({ theme }) => theme.info.step5};
+    background-color: ${({ theme }) => theme.info.step5};
   }
 `;
 
-
-
 export const StatusFlag = ({ yeeter }: { yeeter?: YeeterItem }) => {
+  return (
+    <BadgeContainer>
+      {yeeter?.isComingSoon && (
+        <StyledBadge
+          className="comingSoon"
+          badgeLabel="coming soon"
+          badgeSize="sm"
+        />
+      )}
+      {yeeter?.isEndingSoon && (
+        <StyledBadge
+          className="endingSoon"
+          badgeLabel="ending soon"
+          badgeSize="sm"
+        />
+      )}
 
-    return (
-        <BadgeContainer>
-            {yeeter?.isComingSoon && <StyledBadge className="comingSoon" badgeLabel="⏰ coming soon" badgeSize="lg" />}
-            {yeeter?.isEndingSoon && <StyledBadge className="endingSoon" badgeLabel="🚩 ending soon" badgeSize="lg" />}
-            {yeeter?.isNew && <StyledBadge className="new" badgeLabel="⭐ new" badgeSize="lg" />}
-        </BadgeContainer>
-    );
+      {yeeter?.isNew && (
+        <StyledBadge className="new" badgeLabel="new" badgeSize="sm" />
+      )}
+    </BadgeContainer>
+  );
 };
