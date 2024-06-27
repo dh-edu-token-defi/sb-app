@@ -46,6 +46,7 @@ jobs:
           VITE_GOERLI_RPC: ${{ secrets.VITE_GOERLI_RPC }}
           VITE_OPTIMISM_RPC: ${{ secrets.VITE_OPTIMISM_RPC }}
           VITE_SEPOLIA_RPC: ${{ secrets.VITE_SEPOLIA_RPC }}
+          VITE_BASE_RPC: ${{ secrets.VITE_BASE_RPC }}
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
