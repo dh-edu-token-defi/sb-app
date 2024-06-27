@@ -2,16 +2,11 @@ import "react-multi-carousel/lib/styles.css";
 
 import { useRecords } from "../hooks/useComments";
 import { useDHConnect } from "@daohaus/connect";
-import { useDaoData } from "../hooks/useDaoData";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { Avatar, Card, Link, ParLg, SingleColumnLayout } from "@daohaus/ui";
+import { Card, Link, ParLg, SingleColumnLayout } from "@daohaus/ui";
 import styled from "styled-components";
-import { ZERO_ADDRESS } from "@daohaus/utils";
 import { MemberProfileAvatar } from "@daohaus/moloch-v3-macro-ui";
-import { FormBuilder } from "@daohaus/form-builder";
 import { useDaoMember } from "@daohaus/moloch-v3-hooks";
-import { APP_FORM } from "../legos/forms";
-import { AppFieldLookup } from "../legos/fieldConfig";
 import ReactMarkdown from "react-markdown";
 import CommentButton from "./CommentButton";
 
