@@ -51,17 +51,13 @@ const fetchRecords = async ({
     let data;
     // get all comments if daoid is null
 
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>daoId", daoId);
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>chainId", chainId);
-
-
       data = await listRecords({
         networkId: chainId,
         graphApiKeys: graphApiKeys,
         filter: { dao: daoId, table: "COMMENT" },
         paging: { pageSize, offset },
       });
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>data", data);
+    console.log(">>>>> comment data", data);
 
     return data.items;
   } catch (error) {

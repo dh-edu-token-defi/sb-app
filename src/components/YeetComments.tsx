@@ -71,7 +71,7 @@ export const YeetComments = ({
         chainId: daoChain,
     });
 
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>comments", comments);
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> comments", comments);
 
     if (!parent || !comments) {
         return <div>Loading...</div>;

@@ -48,13 +48,9 @@ const CommentButton = ({
     yeeterId: string;
     refetch?: () => void;
 }) => {
-    const navigate = useNavigate();
-    const { chainId } = useDHConnect();
 
     const [txSuccess, setTxSuccess] = useState(false);
-    const [open, setOpen] = useState(false);
     const [pollSuccess, setPollSuccess] = useState<boolean>(false);
-    const [pollResult, setPollResult] = useState<YeeterItem | null>(null);
 
     const onFormComplete = (
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,7 +58,7 @@ const CommentButton = ({
     ) => {
         console.log("result on success handle yeets", result);
         setPollSuccess(true);
-        setPollResult(result);
+
         refetch && refetch();
     };
 
