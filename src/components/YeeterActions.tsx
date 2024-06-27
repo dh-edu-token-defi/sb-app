@@ -54,7 +54,7 @@ export const YeeterActions = ({
     <>
       <Container>
         {yeeter.isActive && (
-          <BuyButton daoChain={daoChain} daoId={daoId} yeeterId={yeeterId} />
+          <BuyButton daoChain={daoChain} daoId={daoId} yeeterId={yeeterId} context="details" />
         )}
         {/* only durring presale if member */}
         {(yeeter.isActive && Number(member?.shares) > 0) ||
