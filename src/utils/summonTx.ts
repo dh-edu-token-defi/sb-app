@@ -89,6 +89,11 @@ export const assembleMemeSummonerArgs = (args: ArbitraryState) => {
     );
   }
 
+  // form value date is in the past throw an error
+  if (formValues["startDate"] && (formValues["startDate"] as number) < Math.floor(+(new Date()) / 1000)) {
+    throw new Error("Please select a future date.");
+  }
+
   if (!isString(formValues["saltNonce"])) {
     throw new Error("Invalid nonce");
   }
