@@ -64,12 +64,12 @@ export const APP_FORM: Record<string, CustomFormLego> = {
           },
         ],
       },
-      // {
-      //   id: "message",
-      //   type: "mdxEditor",
-      //   label: "MESSAGE",
-      //   placeholder: "yeet yeet yeet",
-      // },
+      {
+        id: "message",
+        type: "mdxEditor",
+        label: "MESSAGE",
+        placeholder: "yeet yeet yeet",
+      },
     ],
   },
   SUMMON_MEME: {
