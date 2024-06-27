@@ -122,7 +122,7 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       },
       {
         id: "startDate",
-        type: "epochDatePicker",
+        type: "dateWrapper",
         label: "Start Date",
       },
       {
