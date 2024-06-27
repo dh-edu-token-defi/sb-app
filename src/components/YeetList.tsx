@@ -1,6 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
-import { DataXl, DataXs, H4, H5, ParXl } from "@daohaus/ui";
+import { DataXl, DataXs, H4, H5, ParLg, ParXl } from "@daohaus/ui";
 import { YeetsItem } from "../utils/types";
 import {
   formatShortDateTimeFromSeconds,
@@ -11,6 +11,7 @@ import { ContributorProfile } from "./ContributorProfile";
 import { HAUS_NETWORK_DATA, ValidNetwork } from "@daohaus/keychain-utils";
 import { useYeets } from "../hooks/useYeets";
 import { BigH3 } from "./PresalePhase";
+import { Tabs } from "./tabs/Tabs";
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -62,7 +63,6 @@ export const YeetListItem = styled.div`
 
 const TitleContainer = styled.div`
   width: 100%;
-  background-color: ${(props) => props.theme.secondary.step12};
   padding: 5px 15px;
   display: flex;
   flex-direction: row;
@@ -85,38 +85,76 @@ export const YeetList = ({
       {yeets && yeets.length > 0 && (
         <>
           <TitleContainer>
-            <H4 color="#000000">PRESALE BUYS</H4>
+            <Tabs tabList={[{
+              label: "PRESALE BUYS",
+              Component: () => (
+                <YeetListContainer>
+                  {yeets.map((yeet: YeetsItem) => {
+                    return (
+                      <YeetListItem key={yeet.id}>
+                        <div className="profile">
+                          <ContributorProfile address={yeet.contributor} />
+                          <DataXl>
+                            {`${formatValueTo({
+                              value: fromWei(yeet.amount),
+                              decimals: 3,
+                              format: "numberShort",
+                            })} ${HAUS_NETWORK_DATA[daoChain as ValidNetwork]?.symbol
+                              }`}
+                          </DataXl>
+                        </div>
+                        <div className="message">
+                          <ReactMarkdown className="projectDetails">
+                            {yeet.message}
+                          </ReactMarkdown>
+                          <div className="date">
+                            <DataXs>
+                              {formatShortDateTimeFromSeconds(yeet.createdAt)}
+                            </DataXs>
+                          </div>
+                        </div>
+                      </YeetListItem>
+                    );
+                  })}
+                </YeetListContainer>
+              ),
+            },
+            {
+              label: "COMMENTS",
+              Component: () => (
+                <YeetListContainer>
+                  {yeets.reverse().map((yeet: YeetsItem) => {
+                    return (
+                      <YeetListItem key={yeet.id}>
+                        <div className="profile">
+                          <ContributorProfile address={yeet.contributor} />
+                          <DataXl>
+                            {`${formatValueTo({
+                              value: fromWei(yeet.amount),
+                              decimals: 3,
+                              format: "numberShort",
+                            })} ${HAUS_NETWORK_DATA[daoChain as ValidNetwork]?.symbol
+                              }`}
+                          </DataXl>
+                        </div>
+                        <div className="message">
+                          <ReactMarkdown className="projectDetails">
+                            {yeet.message}
+                          </ReactMarkdown>
+                          <div className="date">
+                            <DataXs>
+                              {formatShortDateTimeFromSeconds(yeet.createdAt)}
+                            </DataXs>
+                          </div>
+                        </div>
+                      </YeetListItem>
+                    );
+                  })}
+                </YeetListContainer>
+              ),
+            }]}></Tabs>
           </TitleContainer>
-          <YeetListContainer>
-            {yeets.map((yeet: YeetsItem) => {
-              return (
-                <YeetListItem key={yeet.id}>
-                  <div className="profile">
-                    <ContributorProfile address={yeet.contributor} />
-                    <DataXl>
-                      {`${formatValueTo({
-                        value: fromWei(yeet.amount),
-                        decimals: 3,
-                        format: "numberShort",
-                      })} ${
-                        HAUS_NETWORK_DATA[daoChain as ValidNetwork]?.symbol
-                      }`}
-                    </DataXl>
-                  </div>
-                  <div className="message">
-                    <ReactMarkdown className="projectDetails">
-                      {yeet.message}
-                    </ReactMarkdown>
-                    <div className="date">
-                      <DataXs>
-                        {formatShortDateTimeFromSeconds(yeet.createdAt)}
-                      </DataXs>
-                    </div>
-                  </div>
-                </YeetListItem>
-              );
-            })}
-          </YeetListContainer>
+
         </>
       )}
     </Container>
