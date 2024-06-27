@@ -6,22 +6,17 @@ const BadgeContainer = styled.div`
   /* position: absolute;
   top: 10px;
   left: 10px; */
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledBadge = styled(Badge)`
-  margin: 1rem;
+  border-radius: 0px;
+  border-color: black;
+  padding: 0.5rem 0.75rem;
+  background-color: ${({ theme }) => theme.secondary.step10};
   p {
     font-family: "Syne Mono", monospace;
-  }
-
-  &.comingSoon {
-    background-color: ${({ theme }) => theme.success.step5};
-  }
-  &.endingSoon {
-    background-color: ${({ theme }) => theme.danger.step5};
-  }
-  &.new {
-    background-color: ${({ theme }) => theme.info.step5};
   }
 `;
 

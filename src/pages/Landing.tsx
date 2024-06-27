@@ -69,7 +69,7 @@ const Landing = () => {
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="outline" size="lg">
-                    What is this?
+                    WHAT IS THIS?
                   </Button>
                 </DialogTrigger>
                 <StyledDialogContent
@@ -96,7 +96,7 @@ const Landing = () => {
 
               <LinkButton to="/summon/token">
                 <Button variant="outline" size="lg">
-                  Create a Token Presale
+                  CREATE A TOKEN PRESALE
                 </Button>
               </LinkButton>
             </SimpleRow>

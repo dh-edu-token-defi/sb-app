@@ -43,7 +43,7 @@ const StyledExternalLink = styled(Link)`
 
 const ContractInfoWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -124,7 +124,7 @@ const Summon = () => {
             {!pollSuccess ? (
               <>
                 <ParMd>
-                  Your meme has been summoned please wait for the indexors to
+                  Your token has been summoned please wait for the indexers to
                   update{" "}
                 </ParMd>
                 <Spinner />
@@ -134,7 +134,7 @@ const Summon = () => {
                 <ParLg>It has been summoned!</ParLg>
                 {pollResult?.data?.dao?.name ? (
                   <>
-                    <ParMd>New Meme: {pollResult?.data?.dao?.name} </ParMd>
+                    <ParMd>New Token: {pollResult?.data?.dao?.name} </ParMd>
                     {pollResult?.data?.dao?.shamen?.length ? (
                       <ContractInfoWrapper>
                         {pollResult?.data?.dao?.shamen.map(
@@ -142,7 +142,7 @@ const Summon = () => {
                             <ContractInfoItem key={idx}>
                               {shaman.permissions === "2" ? (
                                 <YeeterItem>
-                                  <ParLg>Meme Presale</ParLg>
+                                  <ParLg>Token Presale</ParLg>
                                   <ParMd>
                                     Participate in raid here. Share this link to
                                     others interested{" "}
@@ -153,7 +153,7 @@ const Summon = () => {
                                   <StyledRouterLink
                                     to={`/molochv3/${chainId}/${pollResult?.data?.dao?.id}/${shaman.shamanAddress}`}
                                   >
-                                    <Button variant="solid">Yeet</Button>
+                                    <Button variant="solid">Token Page</Button>
                                   </StyledRouterLink>
                                 </YeeterItem>
                               ) : (

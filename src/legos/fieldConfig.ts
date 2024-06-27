@@ -26,7 +26,7 @@ export const AppFieldLookup = {
   saltNonce: SaltNonce,
   paramTag: ParamTag,
   // multiSelect: MultiSelect,
-  // mdxEditor: MDXEditorField,
+  mdxEditor: MDXEditorField,
   yeetAmount: YeetAmount,
   yeetReturn: YeetReturn,
   yeetHelper: YeetHelper,
