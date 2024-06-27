@@ -131,7 +131,7 @@ const BuyButton = ({
                                 {/* width 100% */}
                                 <Button
                                     onClick={handleClose}
-                                    style={{ marginTop: "2rem", width: "93%" }}
+                                    style={{ marginTop: "2rem", width: "33%" }}
                                     variant="outline"
                                 >
                                     <ParMd>
