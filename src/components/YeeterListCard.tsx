@@ -106,7 +106,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
     memberAddress: address,
   });
 
-  const { canExecute, executed } = useMarketMaker({
+  const { canExecute, executed, goalAchieved } = useMarketMaker({
     daoId: yeeterData.dao.id,
     yeeterShamanAddress: yeeterData.id,
     chainId: chainId,
@@ -118,7 +118,8 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
   const campaignStatus = getCampaignStatus(
     yeeter,
     executed || false,
-    canExecute || false
+    canExecute || false,
+    goalAchieved || false,
   );
 
   const hasRumble = yeeter.isComingSoon || yeeter.isEndingSoon || yeeter.isNew;
@@ -162,7 +163,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
 
         {yeeter.isEnded && (
           <>
-            {executed ? (
+            {campaignStatus == "SUCCESS" ? (
               <ParMd>Reached Goal</ParMd>
             ) : (
               <ParMd>
@@ -185,14 +186,14 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
           />
         )}
 
-        {campaignStatus == "EXECUTED" && (
+        {campaignStatus == "SUCCESS" && (
           <SwapButton
             daoChain={chainId as ValidNetwork}
             daoId={yeeter.dao.id}
             yeeterId={yeeter.id}
           />
         )}
-        {campaignStatus == "EXECUTED" && Number(member?.shares) > 0 && (
+        {campaignStatus == "SUCCESS" && Number(member?.shares) > 0 && (
           <ExitButton
             daoChain={chainId as ValidNetwork}
             yeeterId={yeeter.id}

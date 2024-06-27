@@ -1,15 +1,35 @@
 [
-  { "inputs": [], "name": "AdminShaman__NoAdminRole", "type": "error" },
-  { "inputs": [], "name": "ManagerShaman__NoManagerRole", "type": "error" },
+  {
+    "inputs": [],
+    "name": "AdminShaman__NoAdminRole",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ManagerShaman__NoManagerRole",
+    "type": "error"
+  },
   {
     "inputs": [
-      { "internalType": "address", "name": "guard_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "guard_",
+        "type": "address"
+      }
     ],
     "name": "NotIERC165Compliant",
     "type": "error"
   },
-  { "inputs": [], "name": "ShamanBase__InvalidAddress", "type": "error" },
-  { "inputs": [], "name": "ShamanBase__InvalidName", "type": "error" },
+  {
+    "inputs": [],
+    "name": "ShamanBase__InvalidAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ShamanBase__InvalidName",
+    "type": "error"
+  },
   {
     "inputs": [],
     "name": "Yeet24ShamanModule__AlreadyExecuted",
@@ -22,7 +42,11 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes", "name": "returnData", "type": "bytes" }
+      {
+        "internalType": "bytes",
+        "name": "returnData",
+        "type": "bytes"
+      }
     ],
     "name": "Yeet24ShamanModule__ExecutionFailed",
     "type": "error"
@@ -38,8 +62,14 @@
     "type": "error"
   },
   {
-    "inputs": [],
-    "name": "Yeet24ShamanModule__ThresholdNotMet",
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "returnData",
+        "type": "bytes"
+      }
+    ],
+    "name": "Yeet24ShamanModule__TransferFailed",
     "type": "error"
   },
   {
@@ -75,6 +105,25 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "BoostRewardsDeposited",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": false,
         "internalType": "address",
         "name": "guard",
@@ -104,9 +153,40 @@
         "internalType": "uint256",
         "name": "ethSupply",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "boostRewards",
+        "type": "uint256"
       }
     ],
     "name": "Executed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "yeethBalance",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "boostRewards",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "forwardedToRewardsPool",
+        "type": "bool"
+      }
+    ],
+    "name": "ExecutionFailed",
     "type": "event"
   },
   {
@@ -173,9 +253,28 @@
         "internalType": "uint256",
         "name": "poolFee",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "boostRewardsPool",
+        "type": "address"
       }
     ],
     "name": "Setup",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "ShamanBalanceWithdrawn",
     "type": "event"
   },
   {
@@ -243,21 +342,67 @@
   {
     "inputs": [],
     "name": "avatar",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "baal",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "balance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "boostRewardsPool",
+    "outputs": [
+      {
+        "internalType": "address payable",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address[]", "name": "from", "type": "address[]" },
-      { "internalType": "uint256[]", "name": "amount", "type": "uint256[]" }
+      {
+        "internalType": "address[]",
+        "name": "from",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "amount",
+        "type": "uint256[]"
+      }
     ],
     "name": "burnLoot",
     "outputs": [],
@@ -266,8 +411,16 @@
   },
   {
     "inputs": [
-      { "internalType": "address[]", "name": "from", "type": "address[]" },
-      { "internalType": "uint256[]", "name": "amount", "type": "uint256[]" }
+      {
+        "internalType": "address[]",
+        "name": "from",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "amount",
+        "type": "uint256[]"
+      }
     ],
     "name": "burnShares",
     "outputs": [],
@@ -276,8 +429,16 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "token0", "type": "address" },
-      { "internalType": "address", "name": "token1", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "token0",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "token1",
+        "type": "address"
+      },
       {
         "internalType": "uint256",
         "name": "liquidityAmount0",
@@ -301,19 +462,43 @@
         "name": "_operation",
         "type": "uint8"
       },
-      { "internalType": "address", "name": "_to", "type": "address" },
-      { "internalType": "uint256", "name": "_value", "type": "uint256" },
-      { "internalType": "bytes", "name": "_callData", "type": "bytes" }
+      {
+        "internalType": "address",
+        "name": "_to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_callData",
+        "type": "bytes"
+      }
     ],
     "name": "encodeMultiSendAction",
-    "outputs": [{ "internalType": "bytes", "name": "", "type": "bytes" }],
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
     "stateMutability": "pure",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "endTime",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -327,7 +512,13 @@
   {
     "inputs": [],
     "name": "executed",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -335,7 +526,11 @@
     "inputs": [],
     "name": "getGuard",
     "outputs": [
-      { "internalType": "address", "name": "_guard", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_guard",
+        "type": "address"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -343,42 +538,80 @@
   {
     "inputs": [],
     "name": "goal",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "goalAchieved",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "guard",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "isAdmin",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "isManager",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address[]", "name": "to", "type": "address[]" },
-      { "internalType": "uint256[]", "name": "amount", "type": "uint256[]" }
+      {
+        "internalType": "address[]",
+        "name": "to",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "amount",
+        "type": "uint256[]"
+      }
     ],
     "name": "mintLoot",
     "outputs": [],
@@ -387,8 +620,16 @@
   },
   {
     "inputs": [
-      { "internalType": "address[]", "name": "to", "type": "address[]" },
-      { "internalType": "uint256[]", "name": "amount", "type": "uint256[]" }
+      {
+        "internalType": "address[]",
+        "name": "to",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "amount",
+        "type": "uint256[]"
+      }
     ],
     "name": "mintShares",
     "outputs": [],
@@ -398,14 +639,26 @@
   {
     "inputs": [],
     "name": "moduleEnabled",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "name",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -425,28 +678,52 @@
   {
     "inputs": [],
     "name": "owner",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "pool",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "poolFee",
-    "outputs": [{ "internalType": "uint24", "name": "", "type": "uint24" }],
+    "outputs": [
+      {
+        "internalType": "uint24",
+        "name": "",
+        "type": "uint24"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "positionId",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -459,8 +736,16 @@
   },
   {
     "inputs": [
-      { "internalType": "bool", "name": "pauseShares", "type": "bool" },
-      { "internalType": "bool", "name": "pauseLoot", "type": "bool" }
+      {
+        "internalType": "bool",
+        "name": "pauseShares",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "pauseLoot",
+        "type": "bool"
+      }
     ],
     "name": "setAdminConfig",
     "outputs": [],
@@ -469,7 +754,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_avatar", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_avatar",
+        "type": "address"
+      }
     ],
     "name": "setAvatar",
     "outputs": [],
@@ -478,7 +767,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_guard", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_guard",
+        "type": "address"
+      }
     ],
     "name": "setGuard",
     "outputs": [],
@@ -487,7 +780,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_target", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_target",
+        "type": "address"
+      }
     ],
     "name": "setTarget",
     "outputs": [],
@@ -496,7 +793,11 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes", "name": "_initializeParams", "type": "bytes" }
+      {
+        "internalType": "bytes",
+        "name": "_initializeParams",
+        "type": "bytes"
+      }
     ],
     "name": "setUp",
     "outputs": [],
@@ -505,9 +806,21 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_baal", "type": "address" },
-      { "internalType": "address", "name": "_vault", "type": "address" },
-      { "internalType": "bytes", "name": "_initializeParams", "type": "bytes" }
+      {
+        "internalType": "address",
+        "name": "_baal",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_vault",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_initializeParams",
+        "type": "bytes"
+      }
     ],
     "name": "setup",
     "outputs": [],
@@ -516,23 +829,43 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" }
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
     ],
     "name": "supportsInterface",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "target",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newOwner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
     "name": "transferOwnership",
     "outputs": [],
@@ -542,7 +875,13 @@
   {
     "inputs": [],
     "name": "vault",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -550,9 +889,24 @@
     "inputs": [],
     "name": "weth",
     "outputs": [
-      { "internalType": "contract IWETH9", "name": "", "type": "address" }
+      {
+        "internalType": "contract IWETH9",
+        "name": "",
+        "type": "address"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdrawShamanBalance",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "stateMutability": "payable",
+    "type": "receive"
   }
 ]

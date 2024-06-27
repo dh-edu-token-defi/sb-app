@@ -12,6 +12,7 @@ import { set } from "date-fns";
 import { ButtonRouterLink } from "../components/ButtonRouterLink";
 import { truncateAddress } from "@daohaus/utils";
 import { Link as RouterLink } from 'react-router-dom';
+import { ValidNetwork, generateExplorerLink } from "@daohaus/keychain-utils";
 
 
 const StyledRouterLink = styled(RouterLink)`
@@ -143,7 +144,7 @@ const Summon = () => {
                                 <ParLg>Market Maker </ParLg>
                                 <ParMd>THis contract extention creates the LP.</ParMd>
                                 <ParMd>{truncateAddress(shaman.shamanAddress)}</ParMd>
-                                <StyledExternalLink href={`https://etherscan.io/address/${shaman.shamanAddress}`} target="_blank">
+                                <StyledExternalLink href={generateExplorerLink({ chainId: chainId as ValidNetwork, address: shaman.shamanAddress })} target="_blank">
                                   <Button variant="solid">View on Etherscan</Button></StyledExternalLink>
                               </ShamanItem>)}
 

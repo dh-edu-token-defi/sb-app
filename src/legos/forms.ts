@@ -23,6 +23,13 @@ export const APP_FORM: Record<string, CustomFormLego> = {
     tx: APP_TX.EXECUTE_LP as TXLego,
     fields: [],
   },
+  CLOSE_YEET_FORM: {
+    id: "CLOSE_YEET_FORM",
+    title: "Close Yeet Campaiign",
+    log: true,
+    tx: APP_TX.EXECUTE_LP as TXLego,
+    fields: [],
+  },
   YEET_FORM: {
     id: "YEET",
     title: "Buy",
