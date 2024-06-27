@@ -12,6 +12,7 @@ import { HAUS_NETWORK_DATA, ValidNetwork } from "@daohaus/keychain-utils";
 import { useYeets } from "../hooks/useYeets";
 import { BigH3 } from "./PresalePhase";
 import { Tabs } from "./tabs/Tabs";
+import { YeetComments } from "./YeetComments";
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -122,35 +123,11 @@ export const YeetList = ({
             {
               label: "COMMENTS",
               Component: () => (
-                <YeetListContainer>
-                  {yeets.reverse().map((yeet: YeetsItem) => {
-                    return (
-                      <YeetListItem key={yeet.id}>
-                        <div className="profile">
-                          <ContributorProfile address={yeet.contributor} />
-                          <DataXl>
-                            {`${formatValueTo({
-                              value: fromWei(yeet.amount),
-                              decimals: 3,
-                              format: "numberShort",
-                            })} ${HAUS_NETWORK_DATA[daoChain as ValidNetwork]?.symbol
-                              }`}
-                          </DataXl>
-                        </div>
-                        <div className="message">
-                          <ReactMarkdown className="projectDetails">
-                            {yeet.message}
-                          </ReactMarkdown>
-                          <div className="date">
-                            <DataXs>
-                              {formatShortDateTimeFromSeconds(yeet.createdAt)}
-                            </DataXs>
-                          </div>
-                        </div>
-                      </YeetListItem>
-                    );
-                  })}
-                </YeetListContainer>
+                <YeetComments
+                  daoId={yeeterId}
+                  daoChain={daoChain}
+                  yeeterId={yeeterId}
+                />
               ),
             }]}></Tabs>
           </TitleContainer>

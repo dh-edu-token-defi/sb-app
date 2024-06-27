@@ -65,4 +65,24 @@ export const APP_TX = {
     //   test: testYeet,
     // },
   },
+  YEET_COMMENT: {
+      id: "YEET_COMMENT",
+      contract: APP_CONTRACT.POSTER,
+      method: 'post',
+      args: [
+        {
+          type: 'JSONDetails',
+          jsonSchema: {
+            daoId: ".daoId",
+            table: { type: 'static', value: 'COMMENT' },
+            queryType: { type: 'static', value: 'list' },
+            content: '.formValues.content',
+            authorAddress: '.memberAddress',
+            createdAt: '.formValues.createdAt',
+            chainId: ".chainId",
+          },
+        },
+        { type: 'static', value: POSTER_TAGS.daoDatabaseSharesOrLoot },
+      ],
+    },
 };

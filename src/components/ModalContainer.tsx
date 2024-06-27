@@ -73,6 +73,7 @@ const Yeetz = ({
         safeId={dao?.safeAddress}
         appState={{
           dao,
+          daoId: daoId,
           memberAddress: address,
           shamanAddress: yeeterId,
           marketMakerShaman,

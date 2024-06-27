@@ -32,4 +32,17 @@ export const APP_CONTRACT: Record<string, ContractLego> = {
     abi: LOCAL_ABI.BAAL,
     targetAddress: ".dao.id",
   },
+  POSTER: {
+    type: "static",
+    contractName: "Poster",
+    abi: LOCAL_ABI.POSTER,
+    targetAddress: {
+      "0x1": "0x000000000000cd17345801aa8147b8d3950260ff",
+      "0x5": "0x000000000000cd17345801aa8147b8d3950260ff",
+      "0x64": "0x000000000000cd17345801aa8147b8d3950260ff",
+      "0xa": "0x000000000000cd17345801aa8147b8d3950260ff",
+      "0xaa36a7": "0x000000000000cd17345801aa8147b8d3950260ff",
+      "0x2105": "0x000000000000cd17345801aa8147b8d3950260ff",
+    },
+  },
 };
