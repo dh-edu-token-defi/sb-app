@@ -14,6 +14,7 @@ import { YeetReturn } from "../components/customFields/YeetReturn";
 import { YeetHelper } from "../components/customFields/YeetHelper";
 import { ImagePreview } from "../components/customFields/ImagePreview";
 import { DisclaimerCheckbox } from "../components/customFields/DisclaimerCheckbox";
+import { DateWrapper } from "../components/customFields/DateWrapper";
 
 export const AppFieldLookup = {
   ...MolochFields,
@@ -31,6 +32,7 @@ export const AppFieldLookup = {
   yeetHelper: YeetHelper,
   imagePreview: ImagePreview,
   disclaimerCheckbox: DisclaimerCheckbox,
+  dateWrapper: DateWrapper,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof AppFieldLookup>;
