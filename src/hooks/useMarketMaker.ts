@@ -72,7 +72,7 @@ export const useMarketMaker = ({
             functionName: "endTime",
           })) as string;
 
-          canExecute = goalAchieved && !executed && calcMMIsOver(endTime);
+          canExecute = !executed && calcMMIsOver(endTime);
 
           if (executed && pool) {
             uniswapUrl = `${UNISWAP_URL[DEFAULT_CHAIN_ID]}/${pool}`;

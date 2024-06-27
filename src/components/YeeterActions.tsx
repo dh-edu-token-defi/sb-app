@@ -11,6 +11,7 @@ import { useDHConnect } from "@daohaus/connect";
 import { useDaoMember } from "@daohaus/moloch-v3-hooks";
 import { useMarketMaker } from "../hooks/useMarketMaker";
 import { useDaoData } from "../hooks/useDaoData";
+import CloseCampaignButton from "./CloseCampaignButton";
 
 const Container = styled.div`
   display: flex;
@@ -39,7 +40,7 @@ export const YeeterActions = ({
     shamanAddress: yeeterId,
     chainId: daoChain,
   });
-  const { marketMakerShaman, canExecute, executed } = useMarketMaker({
+  const { marketMakerShaman, canExecute, executed, goalAchieved } = useMarketMaker({
     daoId,
     yeeterShamanAddress: yeeterId,
     chainId: daoChain,
@@ -74,8 +75,17 @@ export const YeeterActions = ({
             daoId={daoId}
           />
         )}
+        {!goalAchieved && canExecute && (
+          <CloseCampaignButton
+            daoChain={daoChain}
+            yeeterId={yeeterId}
+            daoId={daoId}
+          />
+        )}
         {/* show/hide logic in buton */}
-        <SwapButton daoChain={daoChain} daoId={daoId} yeeterId={yeeterId} />
+        {goalAchieved && executed && (
+          <SwapButton daoChain={daoChain} daoId={daoId} yeeterId={yeeterId} />
+        )}
         {/* always */}
         {Number(member?.shares) > 0 && executed && <Button>DAO</Button>}
         <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">

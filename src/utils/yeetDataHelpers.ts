@@ -156,7 +156,8 @@ export const calcPercToGoal = (yeeter: YeeterItem) => {
 export const getCampaignStatus = (
   yeeter: YeeterItem,
   executed: boolean,
-  canExecute: boolean
+  canExecute: boolean,
+  goalAchieved: boolean,
 ) => {
   // campaign over and executed success
   // campaign over and can be executed
@@ -173,9 +174,9 @@ export const getCampaignStatus = (
   };
 
   if (yeeter.isEnded) {
-    if (executed) {
+    if (executed && goalAchieved) {
       return statusEnum.SUCCESS;
-    } else if (canExecute) {
+    } else if (goalAchieved && canExecute) {
       return statusEnum.CAN_EXECUTE;
     } else {
       return statusEnum.FAIL;
