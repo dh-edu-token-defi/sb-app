@@ -45,5 +45,5 @@ export const YeetReturn = (props: Buildable<Field>) => {
 
   if (!yeeter) return null;
 
-  return <SpacedPar>GET {returned} MEME TOKENS</SpacedPar>;
+  return <SpacedPar>GET {returned} {yeeter.dao.shareTokenSymbol || "MEME"} TOKENS</SpacedPar>;
 };

@@ -180,6 +180,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
             daoId={yeeter.dao.id}
             yeeterId={yeeter.id}
             metadata={metadata}
+            context="dashboard"
           />
         )}
 

@@ -32,8 +32,8 @@ export const APP_FORM: Record<string, CustomFormLego> = {
   },
   YEET_FORM: {
     id: "YEET",
-    title: "Buy",
-    description: "Buy into presale",
+    // title: "Buy",
+    // description: "Buy into presale",
     requiredFields: {
       amount: true,
     },

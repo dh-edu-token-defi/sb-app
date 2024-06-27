@@ -23,7 +23,7 @@ export const YeetHelper = (props: Buildable<Field>) => {
 
   return (
     <DataXs>
-      Receive {formatLootForMin(yeeter)} loot tokens per{" "}
+      Receive {formatLootForMin(yeeter)} tokens per{" "}
       {formatMinContribution(yeeter)}{" "}
       {HAUS_NETWORK_DATA[daoChain as ValidNetwork]?.symbol} contributed
     </DataXs>
