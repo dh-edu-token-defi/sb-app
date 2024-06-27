@@ -64,12 +64,12 @@ export const APP_FORM: Record<string, CustomFormLego> = {
           },
         ],
       },
-      {
-        id: "message",
-        type: "mdxEditor",
-        label: "MESSAGE",
-        placeholder: "yeet yeet yeet",
-      },
+      // {
+      //   id: "message",
+      //   type: "mdxEditor",
+      //   label: "MESSAGE",
+      //   placeholder: "yeet yeet yeet",
+      // },
     ],
   },
   SUMMON_MEME: {
@@ -133,14 +133,14 @@ export const APP_FORM: Record<string, CustomFormLego> = {
         expectType: "url",
         info: "icon, gif, pfp or avatar.",
       },
-      {
-        id: "body",
-        type: "mdxEditor",
-        label: "Introduction",
-        placeholder:
-          "# We Meme....\n## We are the future.\nThis is a markdown editor.",
-        info: "Type something to kick it off.",
-      },
+      // {
+      //   id: "body",
+      //   type: "mdxEditor",
+      //   label: "Introduction",
+      //   placeholder:
+      //     "# We Meme....\n## We are the future.\nThis is a markdown editor.",
+      //   info: "Type something to kick it off.",
+      // },
 
       APP_FIELD.DISCLAIMER_CHECKBOX_FIELD,
       APP_FIELD.SALT_NONCE_FIELD,
@@ -148,7 +148,7 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       APP_FIELD.SHAMAN_ADDRESS_FIELD,
       APP_FIELD.MANAGER_ACCOUNT,
       APP_FIELD.PARAM_TAG_FIELD,
-      APP_FIELD.TAGS_MULTISELECT_FIELD,
+      // APP_FIELD.TAGS_MULTISELECT_FIELD,
     ],
   },
 };
