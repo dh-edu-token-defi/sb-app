@@ -72,9 +72,11 @@ const TitleContainer = styled.div`
 
 export const YeetList = ({
   yeeterId,
+  daoId,
   daoChain,
 }: {
   yeeterId: string;
+  daoId: string;
   daoChain: ValidNetwork;
 }) => {
   const { yeets } = useYeets({
@@ -124,7 +126,7 @@ export const YeetList = ({
               label: "COMMENTS",
               Component: () => (
                 <YeetComments
-                  daoId={yeeterId}
+                  daoId={daoId}
                   daoChain={daoChain}
                   yeeterId={yeeterId}
                 />

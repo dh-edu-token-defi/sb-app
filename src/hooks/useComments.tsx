@@ -57,7 +57,6 @@ const fetchRecords = async ({
         filter: { dao: daoId, table: "COMMENT" },
         paging: { pageSize, offset },
       });
-    console.log(">>>>> comment data", data);
 
     return data.items;
   } catch (error) {

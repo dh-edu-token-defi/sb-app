@@ -41,12 +41,10 @@ const CommentButton = ({
     daoChain,
     daoId,
     yeeterId,
-    refetch
 }: {
     daoChain: ValidNetwork;
     daoId: string;
     yeeterId: string;
-    refetch?: () => void;
 }) => {
 
     const [txSuccess, setTxSuccess] = useState(false);
@@ -59,7 +57,6 @@ const CommentButton = ({
         console.log("result on success handle yeets", result);
         setPollSuccess(true);
 
-        refetch && refetch();
     };
 
 

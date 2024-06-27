@@ -59,7 +59,7 @@ export function Yeet() {
                 daoChain={daoChain}
               /> */}
               {shamanAddress && daoChain && (
-                <YeetList yeeterId={shamanAddress} daoChain={daoChain} />
+                <YeetList daoId={daoId} yeeterId={shamanAddress} daoChain={daoChain} />
               )}
             </div>
           </div>

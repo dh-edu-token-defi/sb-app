@@ -13,16 +13,15 @@ import CommentButton from "./CommentButton";
 export function formatDate(createdAt: number) {
     const date = new Date(createdAt * 1000);
     const formattedDate = `${date.getFullYear()} ${date.toLocaleString(
-      "default",
-      { month: "short" }
-    )} ${date.getDate()} ${date.getHours()}:${
-      date.getMinutes() < 10 ? "0" : ""
-    }${date.getMinutes()}`;
-  
-    return formattedDate;
-  }
+        "default",
+        { month: "short" }
+    )} ${date.getDate()} ${date.getHours()}:${date.getMinutes() < 10 ? "0" : ""
+        }${date.getMinutes()}`;
 
-  export type YeetComment = {
+    return formattedDate;
+}
+
+export type YeetComment = {
     daoId: string;
     title: string;
     content: string;
@@ -30,7 +29,7 @@ export function formatDate(createdAt: number) {
     imageURI: string;
     authorAddress: string;
     createdAt: string;
-  }
+}
 
 
 const CardWrapper = styled.div`
@@ -42,6 +41,14 @@ const CardWrapper = styled.div`
 const CommentLinks = styled.div`
     display: flex;
     justify-content: space-between;
+    `;
+
+const ReactMarkdownWrapper = styled(ReactMarkdown)`
+    font-size: 3rem;
+    `;
+
+const CommentCard = styled(Card)`
+    width: 800px;
     `;
 
 export const YeetComments = ({
@@ -59,23 +66,16 @@ export const YeetComments = ({
         daoChain: daoChain,
         daoId: daoId,
         memberAddress: address,
-      });
+    });
 
     const { records: comments, refetch: refetchComments } = useRecords({
         daoId: daoId,
         chainId: daoChain,
     });
 
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> comments", comments);
-
     if (!parent || !comments) {
         return <div>Loading...</div>;
     }
-
-    const refetchYeetComments = () => {
-        refetchComments();
-    } 
-
 
     return (<SingleColumnLayout
         subtitle={"Collectors can post comments here."}
@@ -88,10 +88,19 @@ export const YeetComments = ({
                     <ParLg>No comments yet. You can be the first.</ParLg>
                 </Card>
             )}
+            {true || member && Number(member?.shares) > 0 ? (
+                <CommentButton
+                    daoChain={daoChain}
+                    daoId={daoId}
+                    yeeterId={yeeterId}
+                />
+            ) : (
+                <ParLg>Only Collectors can comment</ParLg>
+            )}
             {comments.map((comment, key) => {
                 const parsedComment: YeetComment = comment.parsedContent as YeetComment;
                 return (
-                    <Card key={key}>
+                    <CommentCard key={key} width="100%">
                         {parsedComment?.authorAddress || parsedComment?.authorAddress ? (
                             <MemberProfileAvatar
                                 daoChain={daoChain}
@@ -104,28 +113,18 @@ export const YeetComments = ({
                                 parsedComment?.authorAddress || parsedComment?.authorAddress
                             } />
                         )}
-                        <ReactMarkdown components={{
+                        <ReactMarkdownWrapper components={{
                             a: ({ node, ...props }) => <a style={{ color: '#00dd65' }} {...props} />
-                        }}>{parsedComment.content}</ReactMarkdown>
+                        }}>{parsedComment.content}</ReactMarkdownWrapper>
                         <CommentLinks>
                             <Link href="#" >
                                 Created At: {formatDate(Number(parsedComment.createdAt))}
                             </Link>
                         </CommentLinks>
-                    </Card>
+                    </CommentCard>
                 );
             })}
         </CardWrapper>
-        {true || member && Number(member?.shares) > 0 ? (
-            <CommentButton
-                daoChain={daoChain}
-                daoId={daoId}
-                yeeterId={yeeterId}
-                refetch={refetchYeetComments}
-             />
-        ) : (
-            <ParLg>Only Collectors can comment</ParLg>
-        )}
     </SingleColumnLayout>
     );;
 };
