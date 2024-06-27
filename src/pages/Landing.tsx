@@ -15,7 +15,12 @@ import { supportedNetorks } from "../main";
 import { APP_NAME, DEFAULT_CHAIN_ID } from "../utils/constants";
 import { useYeeters } from "../hooks/useYeeters";
 import { YeeterList } from "../components/YeeterList";
-import { SimpleCol, SimpleRow, Spacer } from "../components/Layout";
+import {
+  BigH1,
+  SimpleCol,
+  SimpleRow,
+  Spacer,
+} from "../components/Layout/Layout";
 import { useLatestYeets } from "../hooks/useLatestYeets";
 import { YeetMarquee } from "../components/YeetMarquee";
 import { useMyYeeters } from "../hooks/useMyYeeters";
@@ -24,10 +29,6 @@ import { WideColumnLayout } from "../components/Layout/WideColumnLayout";
 
 const LinkButton = styled(RouterLink)`
   text-decoration: none;
-`;
-const BigH1 = styled(H1)`
-  font-size: 20rem;
-  line-height: 12rem;
 `;
 
 const StyledDialogContent = styled(DialogContent)`
@@ -59,7 +60,7 @@ const Landing = () => {
     <>
       {chainId && chainId in supportedNetorks ? (
         <WideColumnLayout
-          subtitle={"Decentralized Fair Token Launcher".toUpperCase()}
+          subtitle={"Decentralized Fair Token Presales".toUpperCase()}
         >
           <div>
             <BigH1>{APP_NAME}</BigH1>

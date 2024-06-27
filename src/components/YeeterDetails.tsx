@@ -13,6 +13,7 @@ import {
 import { YeetGoalProgress } from "./YeetGoalProgress";
 import { formatValueTo, fromWei } from "@daohaus/utils";
 import { useDaoData } from "../hooks/useDaoData";
+import { BigH1 } from "./Layout/Layout";
 
 const Container = styled.div`
   display: flex;
@@ -91,11 +92,12 @@ export const YeeterDetails = ({
     yeeter,
     executed || false,
     canExecute || false,
-    goalAchieved || false,
+    goalAchieved || false
   );
 
   return (
-    <Card width={"800px"}>
+    <div>
+      <BigH1>{yeeter.dao.shareTokenSymbol}</BigH1>
       <Container>
         <ImageContainer>
           <Avatar
@@ -109,7 +111,7 @@ export const YeeterDetails = ({
           <DetailItem>
             <Label>Token Name / Symbol:</Label>
             <ParLg>
-              {metadata.name} / {yeeter.dao.lootTokenSymbol}
+              {metadata.name} / {yeeter.dao.shareTokenSymbol}
             </ParLg>
           </DetailItem>
           <DetailItem>
@@ -166,6 +168,6 @@ export const YeeterDetails = ({
           )}
         </DetailsContainer>
       </Container>
-    </Card>
+    </div>
   );
 };

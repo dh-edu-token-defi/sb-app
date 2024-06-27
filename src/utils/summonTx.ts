@@ -352,7 +352,7 @@ const assembleShamanParams = ({
         ...DEFAULT_YEETER_VALUES.feeAmounts,
         DEFAULT_MEME_YEETER_VALUES.boostRewardFees,
       ],
-    ],
+    ]
   );
 
   const shamanSingletons = [memeYeeterShamanSingleton, yeeterShamanSingleton];

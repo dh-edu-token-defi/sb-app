@@ -1,4 +1,4 @@
-import { Chain, sepolia } from "viem/chains";
+import { Chain, base, sepolia } from "viem/chains";
 
 import {
   HAUS_NETWORK_DATA,
@@ -123,10 +123,12 @@ export const CHAIN_OBJ: {
   [key: string]: Chain;
 } = {
   "0xaa36a7": sepolia,
+  "0x2105": base,
 };
 
 export const RPC_URLS: KEYCHAIN = {
   "0xaa36a7": HAUS_RPC["0xaa36a7"],
+  "0x2105": HAUS_RPC["0x2105"],
 };
 
 export const getValidChainId = (chainId?: string) => {
@@ -136,8 +138,6 @@ const POINT_O_ONE_ETH = "10000000000000000";
 export const SPONSOR_THRESHOLD = POINT_O_ONE_ETH;
 export const YEETER_SHAMAN_PERMISSIONS = "2";
 export const MEME_SHAMAN_PERMISSIONS = "3";
-export const SHARE_NAME = "";
-export const SHARE_SYMBOL = "";
 export const LOOT_NAME_POSTFIX = " Community Power";
 export const LOOT_SYMBOL_PREFIX = "LOOT-";
 export const DEFAULT_SUMMON_VALUES = {
@@ -146,32 +146,34 @@ export const DEFAULT_SUMMON_VALUES = {
   // gracePeriodInSeconds: 172800,
   gracePeriodInSeconds: 6,
   newOffering: POINT_O_ONE_ETH,
-  //   quorum: "20",
-  quorum: "20",
+  //   quorum: "25",
+  quorum: "25",
   sponsorThreshold: SPONSOR_THRESHOLD,
   minRetention: "66",
   votingTransferable: false,
   nvTransferable: true,
 };
 
-export const ADMIN_URL = "";
-
 export const DEFAULT_YEETER_VALUES = {
   isShares: true,
   feeRecipients: [
-    "0xd0f8720846890a7961945261fe5012e4ca39918e",
+    "0xD0f8720846890a7961945261FE5012E4cA39918e",
     "0x4a9a27d614a74ee5524909ca27bdbcbb7ed3b315",
   ], // yeeter team, daohaus eco fund
   feeAmounts: ["5000", "5000"], // .5% fees
   lootPerYeet: "100",
   multiplier: "10000",
+  // prod 3 eth
+  // minThresholdGoal: 3000000000000000000,
   minThresholdGoal: POINT_O_ONE_ETH,
 };
 
-export const DEFAULT_DURATION_PROD = 24 * 60 * 60; // 24 hours
+export const DEFAULT_DURATION_PROD = 48 * 60 * 60; // 48 hours
 export const DEFAULT_DURATION_DEV = 10 * 60; // 10 minutes
 
 export const DEFAULT_MEME_YEETER_VALUES = {
   poolFee: "10000", // 1%
   boostRewardFees: "90000", // 9%
 };
+
+// dao config on summon

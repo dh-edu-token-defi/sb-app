@@ -8,6 +8,7 @@ import { useYeeter } from "../hooks/useYeeter";
 import { useEffect } from "react";
 import { CurrentYeeterProvider } from "../contexts/CurrentYeeterContext";
 import { useDaoData } from "../hooks/useDaoData";
+import { Brand } from "./Brand";
 
 export const DaoContainer = () => {
   const { proposalId, memberAddress, daoChain, daoId, yeeterId } = useParams<{
@@ -66,8 +67,8 @@ const Dao = ({
   return (
     <DHLayout
       pathname={location.pathname}
-      navLinks={[{ label: "ALL TOKENS", href: `/` }]}
-      leftNav={dao?.name && dao?.id && <p>{dao.name}</p>}
+      navLinks={[{ label: "← ALL TOKENS", href: `/` }]}
+      leftNav={<Brand />}
     >
       <CurrentDaoProvider
         userAddress={address}

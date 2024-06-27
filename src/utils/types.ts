@@ -3,7 +3,7 @@ export type YeeterItem = {
   createdAt: string;
   dao: {
     id: string;
-    lootTokenSymbol: string;
+    shareTokenSymbol: string;
   };
   balance: string;
   safeBalance: string;
@@ -41,7 +41,7 @@ export type YeetsItem = {
   shares: string;
   dao: {
     id: string;
-    lootTokenSymbol: string;
+    shareTokenSymbol: string;
   };
 };
 
@@ -51,7 +51,7 @@ export type RagequitItem = {
   shares: string;
   dao: {
     id: string;
-    lootTokenSymbol: string;
+    shareTokenSymbol: string;
   };
   member: {
     memberAddress: string;
