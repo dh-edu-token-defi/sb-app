@@ -7,7 +7,7 @@ createdAt
 dao {
   id
   referrer
-  lootTokenSymbol
+  shareTokenSymbol
 }
 endTime
 startTime
@@ -62,7 +62,7 @@ export const LIST_YEETS = gql`
       message
       dao {
         id
-        lootTokenSymbol
+        shareTokenSymbol
       }
     }
   }
@@ -90,7 +90,7 @@ export const LATEST_YEETS = gql`
       }
       dao {
         id
-        lootTokenSymbol
+        shareTokenSymbol
       }
     }
   }
@@ -152,7 +152,7 @@ export const GET_RAGEQUITS = gql`
       dao {
         id
         referrer
-        lootTokenSymbol
+        shareTokenSymbol
       }
     }
   }

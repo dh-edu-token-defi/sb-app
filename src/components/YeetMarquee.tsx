@@ -50,7 +50,7 @@ export const YeetMarquee = ({
       return {
         amount: yeet.amount,
         description: yeet.message,
-        symbol: yeet?.dao?.lootTokenSymbol,
+        symbol: yeet?.dao?.shareTokenSymbol,
         verb: "yeeted into",
         createdAt: yeet.createdAt,
       };
@@ -58,7 +58,7 @@ export const YeetMarquee = ({
 
     const normalizedYeeters = yeeters.map((yeeter) => {
       return {
-        symbol: yeeter?.dao?.lootTokenSymbol,
+        symbol: yeeter?.dao?.shareTokenSymbol,
         verb: "token launched: ",
         createdAt: yeeter.createdAt,
       };
@@ -69,7 +69,7 @@ export const YeetMarquee = ({
       normalizedExits = ragequits.map((rq) => {
         return {
           amount: rq.shares,
-          symbol: rq.dao.lootTokenSymbol,
+          symbol: rq.dao.shareTokenSymbol,
           verb: "exited from",
           createdAt: rq.createdAt,
         };

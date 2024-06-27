@@ -51,7 +51,7 @@ export const TokenOverview = ({
   return (
     <div>
       <Container>
-        <BigH1>{yeeter.dao.lootTokenSymbol}</BigH1>
+        <BigH1>{yeeter.dao.shareTokenSymbol}</BigH1>
         <Avatar
           alt={metadata.name}
           fallback="meme avatar"
@@ -72,13 +72,13 @@ export const TokenOverview = ({
           </ParMd>
         </DetailItem>
         <DetailItem>
-          <Label>{`Presale Price (for 1000 ${yeeter.dao.lootTokenSymbol})`}</Label>
+          <Label>{`Presale Price (for 1000 ${yeeter.dao.shareTokenSymbol})`}</Label>
           <ParMd>{formatMinContribution(yeeter)} (ETH)</ParMd>
         </DetailItem>
         <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">
           <a
             href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-              `Check out the ${metadata.name} / ${yeeter.dao.lootTokenSymbol} token here: ${window.location.href}`
+              `Check out the ${metadata.name} / ${yeeter.dao.shareTokenSymbol} token here: ${window.location.href}`
             )}`}
             target="_blank"
             rel="noopener noreferrer"

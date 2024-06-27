@@ -92,12 +92,12 @@ export const YeeterDetails = ({
     yeeter,
     executed || false,
     canExecute || false,
-    goalAchieved || false,
+    goalAchieved || false
   );
 
   return (
     <div>
-      <BigH1>{yeeter.dao.lootTokenSymbol}</BigH1>
+      <BigH1>{yeeter.dao.shareTokenSymbol}</BigH1>
       <Container>
         <ImageContainer>
           <Avatar
@@ -111,7 +111,7 @@ export const YeeterDetails = ({
           <DetailItem>
             <Label>Token Name / Symbol:</Label>
             <ParLg>
-              {metadata.name} / {yeeter.dao.lootTokenSymbol}
+              {metadata.name} / {yeeter.dao.shareTokenSymbol}
             </ParLg>
           </DetailItem>
           <DetailItem>

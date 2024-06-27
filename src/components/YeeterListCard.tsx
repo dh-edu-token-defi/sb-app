@@ -134,7 +134,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
         )}
       </TopSectionContainer>
       <DataCol>
-        <TokenNameParXl>{yeeter.dao.lootTokenSymbol}</TokenNameParXl>
+        <TokenNameParXl>{yeeter.dao.shareTokenSymbol}</TokenNameParXl>
         <DataXs>{metadata.name}</DataXs>
 
         {yeeter.isActive && (
@@ -209,7 +209,8 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
           <ButtonRouterLink
             to={`molochv3/${chainId}/${yeeter.dao.id}/${yeeter.id}`}
           >
-            DYOR <HiOutlineArrowNarrowRight />
+            <ParMd>What is this?</ParMd>
+            <HiOutlineArrowNarrowRight />
           </ButtonRouterLink>
         </div>
       </DataCol>
