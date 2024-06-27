@@ -210,7 +210,10 @@ export const assembleMemeYeeterShamanParams = ({
   const nonFungiblePositionManager =
     CURATOR_CONTRACTS["UNISWAP_V3_NF_POSITION_MANAGER"][chainId];
   const weth9 = CURATOR_CONTRACTS["WETH"][chainId];
-  const startDateTime = formValues["startDate"] as string;
+
+  const { startDate } = formValues;
+
+  const startDateTime = startDate as string;
   const endDateTime = import.meta.env.DEV
     ? ((startDateTime + DEFAULT_DURATION_DEV) as string)
     : ((startDateTime + DEFAULT_DURATION_PROD) as string);
@@ -239,10 +242,11 @@ export const assembleMemeYeeterShamanParams = ({
   // uint256 _expiration,
   // uint24 _poolFee
   const memeYeeterShamanParams = encodeValues(
-    ["address", "address", "uint256", "uint256", "uint24"],
+    ["address", "address", "address", "uint256", "uint256", "uint24"],
     [
       nonFungiblePositionManager,
       weth9,
+      DEFAULT_YEETER_VALUES.feeRecipients[0], // NOTICE: boostRewardsPool address is set to the "Yeeter team"
       DEFAULT_YEETER_VALUES.minThresholdGoal, // align with yeeter
       Number(endDateTime), // align with yeeter
       DEFAULT_MEME_YEETER_VALUES.poolFee,
@@ -292,11 +296,13 @@ const assembleShamanParams = ({
     console.log("ERROR: Form Values", formValues);
 
     throw new Error(
-      "assembleShamanParams recieved arguments in the wrong shape or type"
+      "assembleShamanParams received arguments in the wrong shape or type"
     );
   }
 
-  const startDateTime = formValues["startDate"] as string;
+  const { calculatedShamanAddress, startDate } = formValues;
+
+  const startDateTime = startDate as string;
   const endDateTime = import.meta.env.DEV
     ? ((startDateTime + DEFAULT_DURATION_DEV) as string)
     : ((startDateTime + DEFAULT_DURATION_PROD) as string);
@@ -331,9 +337,15 @@ const assembleShamanParams = ({
       price,
       DEFAULT_YEETER_VALUES.multiplier,
       DEFAULT_YEETER_VALUES.minThresholdGoal, // goal?
-      DEFAULT_YEETER_VALUES.feeRecipients,
-      DEFAULT_YEETER_VALUES.feeAmounts,
-    ]
+      [
+        ...DEFAULT_YEETER_VALUES.feeRecipients,
+        calculatedShamanAddress as string, // NOTICE: memeYeeterShaman address
+      ],
+      [
+        ...DEFAULT_YEETER_VALUES.feeAmounts,
+        DEFAULT_MEME_YEETER_VALUES.boostRewardFees,
+      ],
+    ],
   );
 
   const shamanSingletons = [memeYeeterShamanSingleton, yeeterShamanSingleton];

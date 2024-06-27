@@ -23,7 +23,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xaa36a7": "0x62ff4ca410e9e58f5ce8b2ad03695ef0ad990381",
   },
   YEET24_SINGLETON: {
-    "0xaa36a7": "0x10a74cbe134295BC7148d3F0c8C7BFBc644D6C33",
+    "0xaa36a7": "0x69eEA5adD040311C0aABb41C772423b87fadF32A",
   },
   FIXED_LOOT_SINGLETON: {
     // "0x1": "0x9d42696a9c3c54952b8918dcbcb82dd710347c77",
@@ -173,4 +173,5 @@ export const DEFAULT_DURATION_DEV = 10 * 60; // 10 minutes
 
 export const DEFAULT_MEME_YEETER_VALUES = {
   poolFee: "10000", // 1%
+  boostRewardFees: "90000", // 9%
 };

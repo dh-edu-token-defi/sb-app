@@ -75,7 +75,7 @@ export const YeeterDetails = ({
     chainId: daoChain,
   });
 
-  const { marketMakerShaman, canExecute, executed, uniswapUrl } =
+  const { marketMakerShaman, canExecute, executed, goalAchieved, uniswapUrl } =
     useMarketMaker({
       daoId,
       yeeterShamanAddress: yeeterId,
@@ -90,7 +90,8 @@ export const YeeterDetails = ({
   const campaignStatus = getCampaignStatus(
     yeeter,
     executed || false,
-    canExecute || false
+    canExecute || false,
+    goalAchieved || false,
   );
 
   return (
