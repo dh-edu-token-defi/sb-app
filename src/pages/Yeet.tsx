@@ -1,7 +1,6 @@
 import { useCurrentDao } from "@daohaus/moloch-v3-hooks";
 import { H4, widthQuery } from "@daohaus/ui";
 import { useCurrentYeeter } from "../contexts/CurrentYeeterContext";
-import { Spacer } from "../components/Layout";
 import { YeeterDetails } from "../components/YeeterDetails";
 import { YeeterActions } from "../components/YeeterActions";
 import { YeetList } from "../components/YeetList";
