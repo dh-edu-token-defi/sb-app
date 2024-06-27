@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 
 import { DaoHausNav, useDHConnect } from "@daohaus/connect";
 import { TXBuilder } from "@daohaus/tx-builder";
-import { Footer, MainLayout, OuterLayout, widthQuery } from "@daohaus/ui";
+import { MainLayout, OuterLayout, widthQuery } from "@daohaus/ui";
 import { Brand } from "./Brand";
 import { assembleMemeSummonerArgs } from "../utils/summonTx";
 

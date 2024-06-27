@@ -12,6 +12,7 @@ import { ValidNetwork } from "@daohaus/keychain-utils";
 import { DaoProfile, listRecords } from "@daohaus/moloch-v3-data";
 import {
   calcYeetIsActive,
+  calcYeetIsComing,
   calcYeetIsComingSoon,
   calcYeetIsEnded,
   calcYeetIsEndingSoon,
@@ -69,6 +70,7 @@ export const useYeeter = ({
         safeBalance = bal.toString();
       }
 
+      const isComing = res.yeeter && calcYeetIsComing(res.yeeter);
       const isComingSoon = res.yeeter && calcYeetIsComingSoon(res.yeeter);
       const isEndingSoon = res.yeeter && calcYeetIsEndingSoon(res.yeeter);
       const isNew = res.yeeter && calcYeetIsNew(res.yeeter);
@@ -77,6 +79,7 @@ export const useYeeter = ({
         safeBalance,
         isActive: res.yeeter && calcYeetIsActive(res.yeeter),
         isEnded: res.yeeter && calcYeetIsEnded(res.yeeter),
+        isComing,
         isComingSoon: isComingSoon,
         isEndingSoon: isEndingSoon,
         isNew: isNew,

@@ -141,7 +141,7 @@ export const YeeterDetails = ({
             </DetailItemWarning>
           )}
 
-          {yeeter.isComingSoon && (
+          {yeeter.isComing && (
             <DetailItemWarning>
               <Label>Presale Starts</Label>
               <ParLg>{formatTimeUntilPresale(yeeter)}</ParLg>

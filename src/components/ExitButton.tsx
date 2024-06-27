@@ -28,6 +28,7 @@ import { sortTokensForRageQuit } from "@daohaus/moloch-v3-fields";
 import { NETWORK_TOKEN_ETH_ADDRESS, TokenBalance } from "@daohaus/utils";
 import { formatMemberBalance } from "../utils/yeetDataHelpers";
 import { useDaoData } from "../hooks/useDaoData";
+import { DEFAULT_CHAIN_ID } from "../utils/constants";
 
 const LinkButton = styled(Link)`
   text-decoration: none;
@@ -103,7 +104,7 @@ const ExitButton = ({
               defaultValues={defaultFields}
               form={APP_FORM.EXIT_PRESALE_FORM}
               customFields={AppFieldLookup}
-              targetNetwork={chainId}
+              targetNetwork={DEFAULT_CHAIN_ID}
               submitButtonText="JEET"
               lifeCycleFns={{
                 onPollSuccess: (result) => {
