@@ -78,7 +78,7 @@ export const assembleMemeSummonerArgs = (args: ArbitraryState) => {
   console.log(">>>>> args", args);
 
   const memberAddress = args.appState.memberAddress as EthAddress;
-  const formValues = args.appState.formValues as FormValuesWithTags;
+  const formValues = args.appState.formValues as Record<string, unknown>;
   const chainId = args.chainId as ValidNetwork;
   let txArgs: [string, string, string, string[], string];
   console.log(">>>>> start", formValues, memberAddress, chainId);
@@ -367,17 +367,13 @@ const assembleShamanParams = ({
   );
 };
 
-interface FormValuesWithTags extends Record<string, unknown> {
-  tags: string[];
-}
-
 const assembleInitActions = ({
   formValues,
   memberAddress,
   chainId,
   saltNonce,
 }: {
-  formValues: FormValuesWithTags;
+  formValues: Record<string, unknown>;
   memberAddress: EthAddress;
   chainId: ValidNetwork;
   saltNonce: string;
@@ -473,18 +469,15 @@ const tokenDistroTX = (formValues: SummonParams, memberAddress: EthAddress) => {
 };
 
 const metadataConfigTX = (
-  formValues: FormValuesWithTags,
+  formValues: Record<string, unknown>,
   memberAddress: EthAddress,
   posterAddress: string
 ) => {
   const {
     daoName,
     calculatedDAOAddress,
-    body,
     image,
     description,
-    paramTag,
-    tags,
   } = formValues;
 
   if (!isString(daoName)) {
@@ -499,10 +492,9 @@ const metadataConfigTX = (
     table: "daoProfile",
     queryType: "list",
     description: description || "",
-    longDescription: body || "",
     avatarImg: image || "",
     title: `${daoName} tst`,
-    tags: ["YEET24", "Incarnation", paramTag || "topic", ...tags],
+    tags: ["YEET24", "Incarnation"],
     authorAddress: memberAddress,
     // parentId: 0
   };
