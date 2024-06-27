@@ -138,8 +138,8 @@ export const YEETER_SHAMAN_PERMISSIONS = "2";
 export const MEME_SHAMAN_PERMISSIONS = "3";
 export const SHARE_NAME = "";
 export const SHARE_SYMBOL = "";
-export const LOOT_NAME = "Community Power";
-export const LOOT_SYMBOL = "LOOT";
+export const LOOT_NAME_POSTFIX = " Community Power";
+export const LOOT_SYMBOL_PREFIX = "LOOT-";
 export const DEFAULT_SUMMON_VALUES = {
   //votingPeriodInSeconds: 259200,
   votingPeriodInSeconds: 200,
