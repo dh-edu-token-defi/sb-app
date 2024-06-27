@@ -6,12 +6,13 @@ import { YEETER_GRAPH_URL, getValidChainId } from "../utils/constants";
 import { YeeterItem } from "../utils/types";
 import {
   calcYeetIsActive,
+  calcYeetIsComing,
   calcYeetIsComingSoon,
   calcYeetIsEnded,
 } from "../utils/yeetDataHelpers";
 
 type SortedYeeters = {
-  activeYeetrs: YeeterItem[];
+  activeYeeters: YeeterItem[];
   upcomingYeeters: YeeterItem[];
   finishedYeeters: YeeterItem[];
 };
@@ -31,35 +32,35 @@ export const useYeeters = ({ chainId }: { chainId?: string }) => {
     { enabled: !!chainId }
   );
 
-  const { activeYeetrs, upcomingYeeters, finishedYeeters } = data
+  const { activeYeeters, upcomingYeeters, finishedYeeters } = data
     ? data.reduce(
         (acc: SortedYeeters, yeeter: YeeterItem) => {
           if (calcYeetIsActive(yeeter)) {
-            acc.activeYeetrs.push(yeeter);
+            acc.activeYeeters.push(yeeter);
           }
           if (calcYeetIsEnded(yeeter)) {
             acc.finishedYeeters.push(yeeter);
           }
-          if (calcYeetIsComingSoon(yeeter)) {
+          if (calcYeetIsComing(yeeter)) {
             acc.upcomingYeeters.push(yeeter);
           }
           return acc;
         },
         {
-          activeYeetrs: [],
+          activeYeeters: [],
           upcomingYeeters: [],
           finishedYeeters: [],
         }
       )
     : {
-        activeYeetrs: [],
+        activeYeeters: [],
         upcomingYeeters: [],
         finishedYeeters: [],
       };
 
   return {
     allYeeters: data,
-    activeYeetrs,
+    activeYeeters,
     upcomingYeeters,
     finishedYeeters,
     ...rest,

@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { H2, H3, H5 } from "@daohaus/ui";
+import { H2, H3, H5, widthQuery } from "@daohaus/ui";
 import { Link } from "react-router-dom";
 
 import BallGif from "../assets/ball-gif.gif";
@@ -26,12 +26,18 @@ const BrandLink = styled(Link)`
   }
 `;
 
+const BrandH2 = styled(H2)`
+  @media ${widthQuery.sm} {
+    font-size: 3rem;
+  }
+`;
+
 export const Brand = () => {
   return (
     <Container>
       <BrandLink to="/">
         <img src={BallGif} height="100px" />
-        <H2>{APP_NAME}</H2>
+        <BrandH2>{APP_NAME}</BrandH2>
       </BrandLink>
     </Container>
   );

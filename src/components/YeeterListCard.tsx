@@ -20,6 +20,7 @@ import ExitButton from "./ExitButton";
 import SwapButton from "./SwapButton";
 import { useDaoData } from "../hooks/useDaoData";
 import { Link } from "react-router-dom";
+import { DEFAULT_CHAIN_ID } from "../utils/constants";
 
 const tiltShaking = keyframes`
   0% { transform: translateY(0) }
@@ -79,7 +80,8 @@ const LinkButton = styled(Link)`
 `;
 
 export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
-  const { address, chainId } = useDHConnect();
+  const { address } = useDHConnect();
+  const chainId = DEFAULT_CHAIN_ID;
 
   const { metadata, yeeter } = useYeeter({
     daoId: yeeterData.dao.id,
@@ -136,7 +138,7 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
           </TimeDataLg>
         )}
 
-        {yeeter.isComingSoon && (
+        {yeeter.isComing && (
           <TimeDataLg color={theme.success.step10}>
             Presale Starts {formatTimeUntilPresale(yeeter)}
           </TimeDataLg>

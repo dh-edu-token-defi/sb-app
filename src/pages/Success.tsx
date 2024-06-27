@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
-
 import { Button, H3, Link, SingleColumnLayout } from "@daohaus/ui";
-import { useDHConnect } from "@daohaus/connect";
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -20,9 +17,6 @@ const LinkButton = styled(Link)`
 `;
 
 const Success = () => {
-  const { daoId } = useParams();
-  const { chainId } = useDHConnect();
-
   return (
     <SingleColumnLayout>
       <ButtonContainer>

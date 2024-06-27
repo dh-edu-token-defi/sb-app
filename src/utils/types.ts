@@ -16,6 +16,7 @@ export type YeeterItem = {
   yeetCount: string;
   isActive: boolean;
   isEnded: boolean;
+  isComing: boolean;
   isComingSoon: boolean;
   isEndingSoon: boolean;
   isNew: boolean;

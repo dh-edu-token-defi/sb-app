@@ -16,13 +16,6 @@ import "./App.css";
 // // Related open issue: https://github.com/WalletConnect/walletconnect-monorepo/issues/748
 // window.Buffer = window.Buffer || Buffer;
 
-export const supportedNetorks = {
-  // "0x5": HAUS_NETWORK_DATA["0x5"],
-  // "0x1": HAUS_NETWORK_DATA["0x1"],
-  // "0xa": HAUS_NETWORK_DATA["0xa"],
-  "0xaa36a7": HAUS_NETWORK_DATA["0xaa36a7"],
-};
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -35,11 +28,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <HashRouter>
       <QueryClientProvider client={queryClient}>
-        <DHConnectProvider networks={supportedNetorks}>
-          <HausThemeProvider defaultDark={dinDarkTheme}>
-            <App />
-          </HausThemeProvider>
-        </DHConnectProvider>
+        <HausThemeProvider defaultDark={dinDarkTheme}>
+          <App />
+        </HausThemeProvider>
       </QueryClientProvider>
     </HashRouter>
   </React.StrictMode>

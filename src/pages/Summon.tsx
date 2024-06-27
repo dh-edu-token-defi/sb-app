@@ -22,6 +22,7 @@ import { ButtonRouterLink } from "../components/ButtonRouterLink";
 import { truncateAddress } from "@daohaus/utils";
 import { Link as RouterLink } from "react-router-dom";
 import { ValidNetwork, generateExplorerLink } from "@daohaus/keychain-utils";
+import { DEFAULT_CHAIN_ID } from "../utils/constants";
 
 const StyledRouterLink = styled(RouterLink)`
   text-decoration: none;
@@ -103,7 +104,7 @@ const Summon = () => {
         <FormBuilder
           form={APP_FORM.SUMMON_MEME}
           customFields={AppFieldLookup}
-          targetNetwork={chainId}
+          targetNetwork={DEFAULT_CHAIN_ID}
           submitButtonText="Summon Meme Token"
           lifeCycleFns={{
             onPollSuccess: (result) => {
