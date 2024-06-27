@@ -138,6 +138,8 @@ const POINT_O_ONE_ETH = "10000000000000000";
 export const SPONSOR_THRESHOLD = POINT_O_ONE_ETH;
 export const YEETER_SHAMAN_PERMISSIONS = "2";
 export const MEME_SHAMAN_PERMISSIONS = "3";
+export const LOOT_NAME_POSTFIX = " Community Power";
+export const LOOT_SYMBOL_PREFIX = "LOOT-";
 export const DEFAULT_SUMMON_VALUES = {
   //votingPeriodInSeconds: 259200,
   votingPeriodInSeconds: 200,

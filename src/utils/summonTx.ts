@@ -36,6 +36,8 @@ import {
   DEFAULT_MEME_YEETER_VALUES,
   DEFAULT_DURATION_DEV,
   DEFAULT_DURATION_PROD,
+  LOOT_SYMBOL_PREFIX,
+  LOOT_NAME_POSTFIX,
 } from "./constants";
 import { createEthersContract } from "@daohaus/tx-builder";
 import { BigNumber, ethers } from "ethers";
@@ -87,6 +89,11 @@ export const assembleMemeSummonerArgs = (args: ArbitraryState) => {
     throw new Error(
       "Please confirm your understanding that this is for educational purposes only by checking the disclaimer checkbox."
     );
+  }
+
+  // form value date is in the past throw an error
+  if (formValues["startDate"] && (formValues["startDate"] as number) < Math.floor(+(new Date()) / 1000)) {
+    throw new Error("Please select a future date.");
   }
 
   if (!isString(formValues["saltNonce"])) {
@@ -159,9 +166,9 @@ const assembleLootTokenParams = ({
       "assembleLootTokenParams recieved arguments in the wrong shape or type"
     );
   }
-  console.log(">>>>> assembleLootTokenParams", daoName, tokenSymbol);
+  console.log(">>>>> assembleLootTokenParams", daoName + LOOT_NAME_POSTFIX, LOOT_SYMBOL_PREFIX + tokenSymbol);
 
-  const lootParams = encodeValues(["string", "string"], [daoName, tokenSymbol]);
+  const lootParams = encodeValues(["string", "string"], [daoName + LOOT_NAME_POSTFIX, LOOT_SYMBOL_PREFIX + tokenSymbol]);
 
   return encodeValues(["address", "bytes"], [lootSingleton, lootParams]);
 };

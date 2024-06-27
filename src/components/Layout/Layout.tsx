@@ -19,8 +19,13 @@ export const SimpleCol = styled.div`
   gap: 2rem;
 `;
 
-export const BigH1 = styled(H1)`
+export const BigH1Blue = styled(H1)`
   font-size: 20rem;
   line-height: 12rem;
   color: ${({ theme }) => theme.secondary.step11};
+`;
+
+export const BigH1 = styled(H1)`
+  font-size: 20rem;
+  line-height: 12rem;
 `;
