@@ -165,13 +165,15 @@ export const getValidChainId = (chainId?: string) => {
 };
 const POINT_O_ONE_ETH = "10000000000000000";
 const POINT_OO_ONE_ETH = "1000000000000000";
+const GOAL_ETH = "3000000000000000000";
+
 export const SPONSOR_THRESHOLD = POINT_O_ONE_ETH;
 export const YEETER_SHAMAN_PERMISSIONS = "2";
 export const MEME_SHAMAN_PERMISSIONS = "3";
 export const LOOT_NAME_POSTFIX = " Community Power";
 export const LOOT_SYMBOL_PREFIX = "LOOT-";
 
-export const DEFAULT_YEETER_VALUES = {
+export const DEFAULT_YEETER_VALUES_DEV = {
   isShares: true,
   feeRecipients: [
     "0xD0f8720846890a7961945261FE5012E4cA39918e",
@@ -184,6 +186,20 @@ export const DEFAULT_YEETER_VALUES = {
   // minThresholdGoal: 3000000000000000000,
   minThresholdGoal: POINT_O_ONE_ETH,
 };
+export const DEFAULT_YEETER_VALUES_PROD = {
+  isShares: true,
+  feeRecipients: [
+    "0xD0f8720846890a7961945261FE5012E4cA39918e",
+    "0x4a9a27d614a74ee5524909ca27bdbcbb7ed3b315",
+  ], // yeeter team, daohaus eco fund
+  feeAmounts: ["5000", "5000"], // .5% fees
+  lootPerYeet: "100",
+  multiplier: "10000",
+  minThresholdGoal: GOAL_ETH,
+};
+export const DEFAULT_YEETER_VALUES = import.meta.env.DEV
+  ? DEFAULT_YEETER_VALUES_DEV
+  : DEFAULT_YEETER_VALUES_PROD;
 
 export const DEFAULT_DURATION_PROD = 48 * 60 * 60; // 48 hours
 export const DEFAULT_DURATION_DEV = 10 * 60; // 10 minutes
