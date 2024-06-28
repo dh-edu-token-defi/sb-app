@@ -31,6 +31,7 @@ import CloseCampaignButton from "./CloseCampaignButton";
 import { useDHConnect } from "@daohaus/connect";
 import { useDaoMember } from "@daohaus/moloch-v3-hooks";
 import ExitButton from "./ExitButton";
+import CommentButton from "./CommentButton";
 
 const DetailItemWarning = styled.div`
   padding: 1rem 2rem;
@@ -197,7 +198,7 @@ export const PresalePhase = ({
           <BigH3>TO NOWHERE</BigH3>
           <ParLg>
             {`${formatValueTo({
-              value: fromWei(yeeter.safeBalance.toString() || "0"),
+              value: fromWei(yeeter.safeBalance.toString()),
               decimals: 5,
               format: "number",
             })} ETH Raised, but it wasn't enough`}
@@ -207,6 +208,14 @@ export const PresalePhase = ({
           )}
         </>
       )}
+      {member && Number(member?.shares) > 0 && (
+              <CommentButton
+                daoChain={daoChain}
+                daoId={yeeter.dao.id}
+                yeeterId={yeeter.id}
+                icon
+              />
+            )}
     </div>
   );
 };

@@ -10,19 +10,16 @@ import {
     DialogContent,
     DialogTrigger,
     FormLayout,
-    Link,
+
     ParMd,
-    ParSm,
-    SingleColumnLayout,
+
 } from "@daohaus/ui";
 import { useState } from "react";
 import { AppFieldLookup } from "../legos/fieldConfig";
-import { useDHConnect } from "@daohaus/connect";
-import { YeeterItem } from "../utils/types";
+
 import { ModalContainer } from "./ModalContainer";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { ButtonRouterLink } from "./ButtonRouterLink";
-import { DaoProfileYeeter } from "../hooks/useYeeter";
+import { MdAddComment } from "react-icons/md";
 
 const SuccessWrapper = styled.div`
   display: flex;
@@ -41,10 +38,12 @@ const CommentButton = ({
     daoChain,
     daoId,
     yeeterId,
+    icon
 }: {
     daoChain: ValidNetwork;
     daoId: string;
     yeeterId: string;
+    icon?: boolean
 }) => {
 
     const [txSuccess, setTxSuccess] = useState(false);
@@ -64,9 +63,11 @@ const CommentButton = ({
         <>
             <Dialog >
                 <DialogTrigger asChild>
-                    <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">
+                    {icon ? (<Button size="lg" style={{ marginTop: "2rem" }} variant="ghost">
+                        <MdAddComment />
+                    </Button>) : (<Button size="lg" style={{ marginTop: "2rem" }} variant="outline">
                         COMMENT
-                    </Button>
+                    </Button>)}
                 </DialogTrigger>
                 <DialogContent title={``}>
                     <StyledFormLayout>
@@ -82,7 +83,6 @@ const CommentButton = ({
                                         customFields={AppFieldLookup}
                                         lifeCycleFns={{
                                             onPollSuccess: (result) => {
-                                                console.log("poll success", result);
                                                 onFormComplete(result);
                                             },
                                             onTxSuccess: (result) => {
@@ -91,6 +91,11 @@ const CommentButton = ({
                                         }}
                                     />
                                 </>
+                            )}
+                            {pollSuccess && (
+                                <SuccessWrapper>
+                                    <ParMd>Comment Submitted!</ParMd>
+                                </SuccessWrapper>
                             )}
 
                         </ModalContainer>

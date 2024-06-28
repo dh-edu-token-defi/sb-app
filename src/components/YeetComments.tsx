@@ -79,52 +79,48 @@ export const YeetComments = ({
 
     return (<SingleColumnLayout
         subtitle={"Holders can post comments here."}
-        description={`Comments (${comments.length})`}
+        description={`Comments (${comments.length}) `}
     >
+        <>
+        {member && Number(member?.shares) > 0 && (
+              <CommentButton
+                daoChain={daoChain}
+                daoId={daoId}
+                yeeterId={yeeterId}
+                icon
+              />
+            )}
+            <CardWrapper>
 
-        <CardWrapper>
-            {comments.length === 0 && (
-                <Card>
-                    <ParLg>No comments yet. You can be the first.</ParLg>
-                </Card>
-            )}
-            {member && Number(member?.shares) > 0 ? (
-                <CommentButton
-                    daoChain={daoChain}
-                    daoId={daoId}
-                    yeeterId={yeeterId}
-                />
-            ) : (
-                <ParLg>Only Holders can comment</ParLg>
-            )}
-            {comments.map((comment, key) => {
-                const parsedComment: YeetComment = comment.parsedContent as YeetComment;
-                return (
-                    <CommentCard key={key} width="100%">
-                        {parsedComment?.authorAddress || parsedComment?.authorAddress ? (
-                            <MemberProfileAvatar
-                                daoChain={daoChain}
-                                memberAddress={
+                {comments.map((comment, key) => {
+                    const parsedComment: YeetComment = comment.parsedContent as YeetComment;
+                    return (
+                        <CommentCard key={key} width="100%">
+                            {parsedComment?.authorAddress || parsedComment?.authorAddress ? (
+                                <MemberProfileAvatar
+                                    daoChain={daoChain}
+                                    memberAddress={
+                                        parsedComment?.authorAddress || parsedComment?.authorAddress
+                                    }
+                                />
+                            ) : (
+                                <MemberProfileAvatar daoChain={daoChain} memberAddress={
                                     parsedComment?.authorAddress || parsedComment?.authorAddress
-                                }
-                            />
-                        ) : (
-                            <MemberProfileAvatar daoChain={daoChain} memberAddress={
-                                parsedComment?.authorAddress || parsedComment?.authorAddress
-                            } />
-                        )}
-                        <ReactMarkdownWrapper components={{
-                            a: ({ node, ...props }) => <a style={{ color: '#00dd65' }} {...props} />
-                        }}>{parsedComment.content}</ReactMarkdownWrapper>
-                        <CommentLinks>
-                            <Link href="#" >
-                                Created At: {formatDate(Number(parsedComment.createdAt))}
-                            </Link>
-                        </CommentLinks>
-                    </CommentCard>
-                );
-            })}
-        </CardWrapper>
+                                } />
+                            )}
+                            <ReactMarkdownWrapper components={{
+                                a: ({ node, ...props }) => <a style={{ color: '#00dd65' }} {...props} />
+                            }}>{parsedComment.content}</ReactMarkdownWrapper>
+                            <CommentLinks>
+                                <Link href="#" >
+                                    Created At: {formatDate(Number(parsedComment.createdAt))}
+                                </Link>
+                            </CommentLinks>
+                        </CommentCard>
+                    );
+                })}
+            </CardWrapper>
+        </>
     </SingleColumnLayout>
     );;
 };
