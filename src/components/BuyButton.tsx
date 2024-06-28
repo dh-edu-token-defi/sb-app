@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { FormBuilder } from "@daohaus/form-builder";
 import { APP_FORM } from "../legos/forms";
@@ -10,10 +10,7 @@ import {
   DialogContent,
   DialogTrigger,
   FormLayout,
-  Link,
   ParMd,
-  ParSm,
-  SingleColumnLayout,
 } from "@daohaus/ui";
 import { useState } from "react";
 import { AppFieldLookup } from "../legos/fieldConfig";
@@ -23,6 +20,7 @@ import { ModalContainer } from "./ModalContainer";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { ButtonRouterLink } from "./ButtonRouterLink";
 import { DaoProfileYeeter } from "../hooks/useYeeter";
+import { DEFAULT_CHAIN_ID } from "../utils/constants";
 
 const SuccessWrapper = styled.div`
   display: flex;
@@ -35,6 +33,10 @@ const SuccessWrapper = styled.div`
 
 const StyledFormLayout = styled(FormLayout)`
   margin-top: unset;
+`;
+
+const StyledDialogContent = styled(DialogContent)`
+  z-index: 10;
 `;
 
 const BuyButton = ({
@@ -101,7 +103,7 @@ const BuyButton = ({
             BUY
           </Button>
         </DialogTrigger>
-        <DialogContent title={`BUY ${tokenSymbol}`}>
+        <StyledDialogContent title={`BUY ${tokenSymbol}`}>
           <StyledFormLayout>
             <ModalContainer
               daoChain={daoChain}
@@ -113,7 +115,7 @@ const BuyButton = ({
                   <FormBuilder
                     form={APP_FORM.YEET_FORM}
                     customFields={AppFieldLookup}
-                    targetNetwork={chainId}
+                    targetNetwork={DEFAULT_CHAIN_ID}
                     submitButtonText="BUY"
                     lifeCycleFns={{
                       onPollSuccess: (result) => {
@@ -157,7 +159,7 @@ const BuyButton = ({
               )}
             </ModalContainer>
           </StyledFormLayout>
-        </DialogContent>
+        </StyledDialogContent>
       </Dialog>
     </>
   );

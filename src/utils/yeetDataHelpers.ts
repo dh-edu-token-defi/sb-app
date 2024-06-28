@@ -38,8 +38,15 @@ export const calcYeetIsEnded = (yeeter: YeeterItem) => {
   return Number(yeeter.endTime) < now;
 };
 
+export const calcYeetIsComing = (yeeter: YeeterItem) => {
+  const now = new Date().getTime() / 1000;
+
+  return Number(yeeter.startTime) > now;
+};
+
 export const calcYeetIsComingSoon = (yeeter: YeeterItem) => {
   const now = new Date().getTime() / 1000;
+
   return (
     Number(yeeter.startTime) > now &&
     Number(yeeter.startTime) - now <= STATUS_WINDOW_LENGTH
@@ -158,7 +165,7 @@ export const getCampaignStatus = (
   yeeter: YeeterItem,
   executed: boolean,
   canExecute: boolean,
-  goalAchieved: boolean,
+  goalAchieved: boolean
 ) => {
   // campaign over and executed success
   // campaign over and can be executed
@@ -188,7 +195,7 @@ export const getCampaignStatus = (
     return statusEnum.ACTIVE;
   }
 
-  if (yeeter.isComingSoon) {
+  if (yeeter.isComing) {
     return statusEnum.COMING_SOON;
   }
 

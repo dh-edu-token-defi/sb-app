@@ -24,8 +24,6 @@ export const ModalContainer = ({
   daoId: string;
   yeeterId: string;
 }) => {
-  console.log("");
-
   if (!daoId || !daoChain || !yeeterId) return null;
 
   return (
@@ -73,6 +71,7 @@ const Yeetz = ({
         safeId={dao?.safeAddress}
         appState={{
           dao,
+          daoId: daoId,
           memberAddress: address,
           shamanAddress: yeeterId,
           marketMakerShaman,

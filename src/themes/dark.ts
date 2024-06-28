@@ -572,6 +572,7 @@ export const dinDarkTheme: DefaultTheme = {
   tabs: {
     links: {
       color: secondaryDark.step2,
+      bg: secondaryDark.step3,
     },
     link: {
       color: secondaryDark.step9,

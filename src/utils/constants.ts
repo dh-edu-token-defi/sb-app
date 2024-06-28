@@ -116,6 +116,14 @@ export const UNISWAP_URL: Keychain<string> = {
   "0xa": "https://app.uniswap.org/explore/pools/optimism",
 };
 
+export const supportedNetworks = import.meta.env.DEV
+  ? {
+      "0xaa36a7": HAUS_NETWORK_DATA["0xaa36a7"],
+    }
+  : {
+      "0x2105": HAUS_NETWORK_DATA["0x2105"],
+    };
+
 export const targetNetworks: Keychain<NetworkConfig> = {
   "0xaa36a7": HAUS_NETWORK_DATA["0xaa36a7"],
   "0x64": HAUS_NETWORK_DATA["0x64"],
@@ -123,7 +131,11 @@ export const targetNetworks: Keychain<NetworkConfig> = {
   "0xa4b1": HAUS_NETWORK_DATA["0xa4b1"],
   "0x2105": HAUS_NETWORK_DATA["0x2105"],
 };
-export const DEFAULT_CHAIN_ID = "0xaa36a7";
+export const DEFAULT_CHAIN_ID_DEV = "0xaa36a7";
+export const DEFAULT_CHAIN_ID_PROD = "0x2105";
+export const DEFAULT_CHAIN_ID = import.meta.env.DEV
+  ? DEFAULT_CHAIN_ID_DEV
+  : DEFAULT_CHAIN_ID_PROD;
 
 export const CHAIN_OBJ: {
   [key: string]: Chain;
@@ -147,7 +159,6 @@ export const YEETER_SHAMAN_PERMISSIONS = "2";
 export const MEME_SHAMAN_PERMISSIONS = "3";
 export const LOOT_NAME_POSTFIX = " Community Power";
 export const LOOT_SYMBOL_PREFIX = "LOOT-";
-
 
 export const DEFAULT_YEETER_VALUES = {
   isShares: true,
