@@ -29,6 +29,7 @@ import { NETWORK_TOKEN_ETH_ADDRESS, TokenBalance } from "@daohaus/utils";
 import { formatMemberBalance } from "../utils/yeetDataHelpers";
 import { useDaoData } from "../hooks/useDaoData";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
+import { useQueryClient } from "react-query";
 
 const LinkButton = styled(Link)`
   text-decoration: none;
@@ -56,6 +57,8 @@ const ExitButton = ({
   const { dao } = useDaoData({ daoId, daoChain });
   const { member } = useDaoMember({ daoId, daoChain, memberAddress: address });
 
+  const queryClient = useQueryClient();
+
   const defaultFields = useMemo(() => {
     if (address && dao) {
       const treasury = dao.vaults.find(
@@ -78,6 +81,14 @@ const ExitButton = ({
     console.log("result on success handle yeets", result);
     setPollSuccess(true);
     setPollResult(result);
+
+    queryClient.invalidateQueries({
+      queryKey: ["get-yeeter"],
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: ["list-ragequits"],
+    });
   };
 
   const handleClose = () => {

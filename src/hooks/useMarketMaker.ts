@@ -33,7 +33,13 @@ export const useMarketMaker = ({
         transport: http(RPC_URLS[chain]),
       });
 
-      let marketMakerShaman, goalAchieved, executed, pool, uniswapUrl, endTime, finalEthBalance;
+      let marketMakerShaman,
+        goalAchieved,
+        executed,
+        pool,
+        uniswapUrl,
+        endTime,
+        finalEthBalance;
       let canExecute = false;
       for (let i = 0; i < shamanAddresses.length; i++) {
         if (yeeterShamanAddress && shamanAddresses[i] === yeeterShamanAddress) {
@@ -81,7 +87,7 @@ export const useMarketMaker = ({
           canExecute = !executed && calcMMIsOver(endTime);
 
           if (executed && pool) {
-            uniswapUrl = `${UNISWAP_URL[DEFAULT_CHAIN_ID]}/${pool}`;
+            uniswapUrl = `${UNISWAP_URL[DEFAULT_CHAIN_ID]}${pool}`;
           }
 
           break;
