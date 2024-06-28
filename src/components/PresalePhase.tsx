@@ -79,7 +79,7 @@ export const PresalePhase = ({
     chainId: daoChain,
   });
 
-  const { marketMakerShaman, canExecute, executed, goalAchieved } =
+  const { marketMakerShaman, canExecute, executed, goalAchieved, finalEthBalance } =
     useMarketMaker({
       daoId,
       yeeterShamanAddress: yeeterId,
@@ -197,7 +197,7 @@ export const PresalePhase = ({
           <BigH3>TO NOWHERE</BigH3>
           <ParLg>
             {`${formatValueTo({
-              value: fromWei(yeeter.safeBalance.toString()),
+              value: fromWei(yeeter.safeBalance.toString() || "0"),
               decimals: 5,
               format: "number",
             })} ETH Raised, but it wasn't enough`}
