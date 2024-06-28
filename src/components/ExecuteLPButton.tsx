@@ -24,6 +24,7 @@ import { DaoProfileYeeter } from "../hooks/useYeeter";
 import { useMarketMaker } from "../hooks/useMarketMaker";
 import { useDaoData } from "../hooks/useDaoData";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
+import { useQueryClient } from "react-query";
 
 const LinkButton = styled(Link)`
   text-decoration: none;
@@ -51,6 +52,8 @@ const ExecuteLPButton = ({
 
   const { dao } = useDaoData({ daoId, daoChain });
 
+  const queryClient = useQueryClient();
+
   const { marketMakerShaman, canExecute, uniswapUrl } = useMarketMaker({
     daoId,
     yeeterShamanAddress: yeeterId,
@@ -65,6 +68,9 @@ const ExecuteLPButton = ({
     console.log("result on success handle yeets", result);
     setPollSuccess(true);
     setPollResult(result);
+    queryClient.invalidateQueries({
+      queryKey: ["market-maker"],
+    });
   };
 
   const handleClose = () => {

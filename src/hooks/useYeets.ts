@@ -15,7 +15,7 @@ export const useYeets = ({
   const graphQLClient = new GraphQLClient(YEETER_GRAPH_URL[chain]);
 
   const { data, ...rest } = useQuery(
-    ["list-yeetes", { shamanAddress }],
+    ["list-yeets", { shamanAddress }],
     async () => {
       const res = await graphQLClient.request(LIST_YEETS, {
         shamanAddress: shamanAddress?.toLowerCase(),

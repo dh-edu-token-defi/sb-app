@@ -21,6 +21,7 @@ import { ValidNetwork } from "@daohaus/keychain-utils";
 import { ButtonRouterLink } from "./ButtonRouterLink";
 import { DaoProfileYeeter } from "../hooks/useYeeter";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
+import { useQueryClient } from "react-query";
 
 const SuccessWrapper = styled.div`
   display: flex;
@@ -62,6 +63,8 @@ const BuyButton = ({
   const [pollSuccess, setPollSuccess] = useState<boolean>(false);
   const [pollResult, setPollResult] = useState<YeeterItem | null>(null);
 
+  const queryClient = useQueryClient();
+
   const onFormComplete = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     result: any
@@ -69,6 +72,14 @@ const BuyButton = ({
     console.log("result on success handle yeets", result);
     setPollSuccess(true);
     setPollResult(result);
+
+    queryClient.invalidateQueries({
+      queryKey: ["list-yeets"],
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: ["get-yeeter"],
+    });
   };
 
   const handleOpen = () => {
