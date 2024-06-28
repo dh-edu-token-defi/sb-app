@@ -30,6 +30,27 @@ export const APP_FORM: Record<string, CustomFormLego> = {
     tx: APP_TX.EXECUTE_LP as TXLego,
     fields: [],
   },
+  YEET_COMMENT: {
+    id: "YEET_COMMENT",
+    submitButtonText: "Comment",
+    requiredFields: {
+      content: true,
+    },
+    log: true,
+    tx: APP_TX.YEET_COMMENT as TXLego,
+    fields: [
+      {
+        id: "createdAt",
+        type: "createdAt",
+      },
+      {
+        id: "content",
+        type: "mdxEditor",
+        label: "Comment",
+        placeholder: "Type your comment here",
+      },
+    ],
+  },
   YEET_FORM: {
     id: "YEET",
     // title: "Buy",
