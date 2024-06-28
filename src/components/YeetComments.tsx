@@ -11,116 +11,127 @@ import ReactMarkdown from "react-markdown";
 import CommentButton from "./CommentButton";
 
 export function formatDate(createdAt: number) {
-    const date = new Date(createdAt * 1000);
-    const formattedDate = `${date.getFullYear()} ${date.toLocaleString(
-        "default",
-        { month: "short" }
-    )} ${date.getDate()} ${date.getHours()}:${date.getMinutes() < 10 ? "0" : ""
-        }${date.getMinutes()}`;
+  const date = new Date(createdAt * 1000);
+  const formattedDate = `${date.getFullYear()} ${date.toLocaleString(
+    "default",
+    { month: "short" }
+  )} ${date.getDate()} ${date.getHours()}:${
+    date.getMinutes() < 10 ? "0" : ""
+  }${date.getMinutes()}`;
 
-    return formattedDate;
+  return formattedDate;
 }
 
 export type YeetComment = {
-    daoId: string;
-    title: string;
-    content: string;
-    contentURI: string;
-    imageURI: string;
-    authorAddress: string;
-    createdAt: string;
-}
-
+  daoId: string;
+  title: string;
+  content: string;
+  contentURI: string;
+  imageURI: string;
+  authorAddress: string;
+  createdAt: string;
+};
 
 const CardWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    `;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
 
 const CommentLinks = styled.div`
-    display: flex;
-    justify-content: space-between;
-    `;
+  display: flex;
+  justify-content: space-between;
+`;
 
 const ReactMarkdownWrapper = styled(ReactMarkdown)`
-    font-size: 3rem;
-    `;
+  font-size: 3rem;
+`;
 
 const CommentCard = styled(Card)`
-    width: 800px;
-    `;
+  width: 800px;
+`;
+
+const StyledSingleColumnLayout = styled(SingleColumnLayout)`
+  &:first-child {
+    margin-top: 0rem;
+  }
+`;
 
 export const YeetComments = ({
-    daoId,
-    yeeterId,
-    daoChain,
+  daoId,
+  yeeterId,
+  daoChain,
 }: {
-    daoId: string;
-    yeeterId: string;
-    daoChain: ValidNetwork;
+  daoId: string;
+  yeeterId: string;
+  daoChain: ValidNetwork;
 }) => {
-    const { address } = useDHConnect();
+  const { address } = useDHConnect();
 
-    const { member } = useDaoMember({
-        daoChain: daoChain,
-        daoId: daoId,
-        memberAddress: address,
-    });
+  const { member } = useDaoMember({
+    daoChain: daoChain,
+    daoId: daoId,
+    memberAddress: address,
+  });
 
-    const { records: comments, refetch: refetchComments } = useRecords({
-        daoId: daoId,
-        chainId: daoChain,
-    });
+  const { records: comments, refetch: refetchComments } = useRecords({
+    daoId: daoId,
+    chainId: daoChain,
+  });
 
-    if (!parent || !comments) {
-        return <div>Loading...</div>;
-    }
+  if (!parent || !comments) {
+    return <div>Loading...</div>;
+  }
 
-    return (<SingleColumnLayout
-        subtitle={"Holders can post comments here."}
-        description={`Comments (${comments.length}) `}
+  return (
+    <StyledSingleColumnLayout
+      subtitle={"Holders can post comments here."}
+      description={`Comments (${comments.length}) `}
     >
-        <>
-        {member && Number(member?.shares) > 0 && (
-              <CommentButton
-                daoChain={daoChain}
-                daoId={daoId}
-                yeeterId={yeeterId}
-                icon
-              />
-            )}
-            <CardWrapper>
-
-                {comments.map((comment, key) => {
-                    const parsedComment: YeetComment = comment.parsedContent as YeetComment;
-                    return (
-                        <CommentCard key={key} width="100%">
-                            {parsedComment?.authorAddress || parsedComment?.authorAddress ? (
-                                <MemberProfileAvatar
-                                    daoChain={daoChain}
-                                    memberAddress={
-                                        parsedComment?.authorAddress || parsedComment?.authorAddress
-                                    }
-                                />
-                            ) : (
-                                <MemberProfileAvatar daoChain={daoChain} memberAddress={
-                                    parsedComment?.authorAddress || parsedComment?.authorAddress
-                                } />
-                            )}
-                            <ReactMarkdownWrapper components={{
-                                a: ({ node, ...props }) => <a style={{ color: '#00dd65' }} {...props} />
-                            }}>{parsedComment.content}</ReactMarkdownWrapper>
-                            <CommentLinks>
-                                <Link href="#" >
-                                    Created At: {formatDate(Number(parsedComment.createdAt))}
-                                </Link>
-                            </CommentLinks>
-                        </CommentCard>
-                    );
-                })}
-            </CardWrapper>
-        </>
-    </SingleColumnLayout>
-    );;
+      <>
+        <CardWrapper>
+          {comments.map((comment, key) => {
+            const parsedComment: YeetComment =
+              comment.parsedContent as YeetComment;
+            return (
+              <CommentCard key={key} width="100%">
+                {parsedComment?.authorAddress ||
+                parsedComment?.authorAddress ? (
+                  <MemberProfileAvatar
+                    daoChain={daoChain}
+                    memberAddress={
+                      parsedComment?.authorAddress ||
+                      parsedComment?.authorAddress
+                    }
+                  />
+                ) : (
+                  <MemberProfileAvatar
+                    daoChain={daoChain}
+                    memberAddress={
+                      parsedComment?.authorAddress ||
+                      parsedComment?.authorAddress
+                    }
+                  />
+                )}
+                <ReactMarkdownWrapper
+                  components={{
+                    a: ({ node, ...props }) => (
+                      <a style={{ color: "#00dd65" }} {...props} />
+                    ),
+                  }}
+                >
+                  {parsedComment.content}
+                </ReactMarkdownWrapper>
+                <CommentLinks>
+                  <Link href="#">
+                    Created At: {formatDate(Number(parsedComment.createdAt))}
+                  </Link>
+                </CommentLinks>
+              </CommentCard>
+            );
+          })}
+        </CardWrapper>
+      </>
+    </StyledSingleColumnLayout>
+  );
 };
