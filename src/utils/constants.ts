@@ -11,7 +11,7 @@ import {
 
 export const APP_NAME = "SPEEDBALL";
 
-export const YEET24_REFERRER = "DHYeet24ShamanSummoner.4";
+export const YEET24_REFERRER = "DHYeet24ShamanSummoner.5";
 export const YEET24_NAME = "Yeet24ShamanModule";
 
 export const CURATOR_CONTRACTS: KeychainList = {
@@ -24,8 +24,8 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0x2105": "0x8D60971eFf778966356c1cADD76d525E7B25cc6b",
   },
   YEET24_SINGLETON: {
-    "0xaa36a7": "0x69eEA5adD040311C0aABb41C772423b87fadF32A",
-    "0x2105": "0x885F45A8F5227FC11f17a007cb058Bd8f4c858bE",
+    "0xaa36a7": "0xdfDbf3639497a4B3598B51F852d0c94E6d8D8934",
+    "0x2105": "0xA4622192a896bf559191005b23eB13d367E494ce",
   },
   FIXED_LOOT_SINGLETON: {
     // "0x1": "0x9d42696a9c3c54952b8918dcbcb82dd710347c77",
