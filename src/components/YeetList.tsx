@@ -105,7 +105,7 @@ export const YeetList = ({
                               <DataXl>
                                 {`${formatValueTo({
                                   value: fromWei(yeet.amount),
-                                  decimals: 3,
+                                  decimals: 5,
                                   format: "numberShort",
                                 })} ${
                                   HAUS_NETWORK_DATA[daoChain as ValidNetwork]

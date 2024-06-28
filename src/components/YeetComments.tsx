@@ -36,6 +36,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-top: -5rem;
 `;
 
 const CommentLinks = styled.div`
@@ -49,12 +50,6 @@ const ReactMarkdownWrapper = styled(ReactMarkdown)`
 
 const CommentCard = styled(Card)`
   width: 800px;
-`;
-
-const StyledSingleColumnLayout = styled(SingleColumnLayout)`
-  &:first-child {
-    margin-top: 0rem;
-  }
 `;
 
 export const YeetComments = ({
@@ -84,54 +79,49 @@ export const YeetComments = ({
   }
 
   return (
-    <StyledSingleColumnLayout
+    <SingleColumnLayout
       subtitle={"Holders can post comments here."}
       description={`Comments (${comments.length}) `}
     >
-      <>
-        <CardWrapper>
-          {comments.map((comment, key) => {
-            const parsedComment: YeetComment =
-              comment.parsedContent as YeetComment;
-            return (
-              <CommentCard key={key} width="100%">
-                {parsedComment?.authorAddress ||
-                parsedComment?.authorAddress ? (
-                  <MemberProfileAvatar
-                    daoChain={daoChain}
-                    memberAddress={
-                      parsedComment?.authorAddress ||
-                      parsedComment?.authorAddress
-                    }
-                  />
-                ) : (
-                  <MemberProfileAvatar
-                    daoChain={daoChain}
-                    memberAddress={
-                      parsedComment?.authorAddress ||
-                      parsedComment?.authorAddress
-                    }
-                  />
-                )}
-                <ReactMarkdownWrapper
-                  components={{
-                    a: ({ node, ...props }) => (
-                      <a style={{ color: "#00dd65" }} {...props} />
-                    ),
-                  }}
-                >
-                  {parsedComment.content}
-                </ReactMarkdownWrapper>
-                <CommentLinks>
-                  <Link href="#">
-                    Created At: {formatDate(Number(parsedComment.createdAt))}
-                  </Link>
-                </CommentLinks>
-              </CommentCard>
-            );
-          })}
-        </CardWrapper>
-      </>
-    </StyledSingleColumnLayout>
+      <CardWrapper>
+        {comments.map((comment, key) => {
+          const parsedComment: YeetComment =
+            comment.parsedContent as YeetComment;
+          return (
+            <CommentCard key={key} width="100%">
+              {parsedComment?.authorAddress || parsedComment?.authorAddress ? (
+                <MemberProfileAvatar
+                  daoChain={daoChain}
+                  memberAddress={
+                    parsedComment?.authorAddress || parsedComment?.authorAddress
+                  }
+                />
+              ) : (
+                <MemberProfileAvatar
+                  daoChain={daoChain}
+                  memberAddress={
+                    parsedComment?.authorAddress || parsedComment?.authorAddress
+                  }
+                />
+              )}
+              <ReactMarkdownWrapper
+                components={{
+                  a: ({ node, ...props }) => (
+                    <a style={{ color: "#00dd65" }} {...props} />
+                  ),
+                }}
+              >
+                {parsedComment.content}
+              </ReactMarkdownWrapper>
+              <CommentLinks>
+                <Link href="#">
+                  Created At: {formatDate(Number(parsedComment.createdAt))}
+                </Link>
+              </CommentLinks>
+            </CommentCard>
+          );
+        })}
+      </CardWrapper>
+    </SingleColumnLayout>
   );
 };

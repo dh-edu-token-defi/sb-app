@@ -57,11 +57,11 @@ export const YeetGoalProgress = ({
           // label="Raised"
           data={`${formatValueTo({
             value: fromWei(yeeter.safeBalance),
-            decimals: 3,
+            decimals: 5,
             format: "numberShort",
           })} of ${formatValueTo({
             value: fromWei(yeeter.goal),
-            decimals: 3,
+            decimals: 5,
             format: "numberShort",
           })} ${HAUS_NETWORK_DATA[chainId as ValidNetwork]?.symbol}`}
         />
