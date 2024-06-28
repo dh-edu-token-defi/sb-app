@@ -21,6 +21,7 @@ import SwapButton from "./SwapButton";
 import { useDaoData } from "../hooks/useDaoData";
 import { Link } from "react-router-dom";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
+import CommentButton from "./CommentButton";
 
 const tiltShaking = keyframes`
   0% { transform: translateY(0) }
