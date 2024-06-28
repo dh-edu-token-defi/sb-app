@@ -12,6 +12,7 @@ import { useDaoMember } from "@daohaus/moloch-v3-hooks";
 import { useMarketMaker } from "../hooks/useMarketMaker";
 import { useDaoData } from "../hooks/useDaoData";
 import CloseCampaignButton from "./CloseCampaignButton";
+import CommentButton from "./CommentButton";
 
 const Container = styled.div`
   display: flex;
@@ -89,6 +90,15 @@ export const YeeterActions = ({
             daoId={daoId}
           />
         )}
+        {/* only if a token holder */}
+
+        {member && Number(member?.shares) > 0 && (
+          <CommentButton
+            daoChain={daoChain}
+            daoId={daoId}
+            yeeterId={yeeterId}
+          />
+        ) }
         {/* show/hide logic in buton */}
         {goalAchieved && executed && (
           <SwapButton daoChain={daoChain} daoId={daoId} yeeterId={yeeterId} />
@@ -107,6 +117,7 @@ export const YeeterActions = ({
             share
           </a>
         </Button>{" "}
+
       </Container>
     </>
   );
