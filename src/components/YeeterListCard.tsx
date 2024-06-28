@@ -21,7 +21,6 @@ import SwapButton from "./SwapButton";
 import { useDaoData } from "../hooks/useDaoData";
 import { Link } from "react-router-dom";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
-import CommentButton from "./CommentButton";
 
 const tiltShaking = keyframes`
   0% { transform: translateY(0) }
@@ -31,12 +30,38 @@ const tiltShaking = keyframes`
   100% { transform: translateY(0) }
 `;
 
+const jumpShake = keyframes`
+  0% { transform: skewY(-15deg); }
+  5% { transform: skewY(15deg); }
+  10% { transform: skewY(-15deg); }
+  15% { transform: skewY(15deg); }
+  20% { transform: skewY(0deg); }
+  100% { transform: skewY(0deg); }  
+`;
+
+const jumpShakeRev = keyframes`
+  0% { transform: skewY(15deg); }
+  5% { transform: skewY(-15deg); }
+  10% { transform: skewY(15deg); }
+  15% { transform: skewY(-15deg); }
+  20% { transform: skewY(0deg); }
+  100% { transform: skewY(0deg); }  
+`;
+
 const SpacedCard = styled(Card)`
   margin-right: 1rem;
   width: 35rem;
 
   .tilt-shake {
     animation: ${tiltShaking} 0.3s infinite;
+  }
+
+  .jump-shake {
+    animation: ${jumpShake} 0.3s infinite;
+  }
+
+  .jump-shake-rev {
+    animation: ${jumpShake} 0.3s infinite;
   }
 `;
 
@@ -118,7 +143,11 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
     goalAchieved || false
   );
 
-  const hasRumble = yeeter.isComingSoon || yeeter.isEndingSoon || yeeter.isNew;
+  // const hasRumble = yeeter.isComingSoon || yeeter.isEndingSoon || yeeter.isNew;
+  // const hasJump = yeeter.isComingSoon || yeeter.isEndingSoon;
+
+  const hasRumble = true;
+  const hasJump = true;
 
   return (
     <SpacedCard>
@@ -130,17 +159,25 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
         )}
       </TopSectionContainer>
       <DataCol>
-        <TokenNameParXl>{yeeter.dao.shareTokenSymbol}</TokenNameParXl>
+        <TokenNameParXl className={hasJump ? "jump-shake" : ""}>
+          {yeeter.dao.shareTokenSymbol}
+        </TokenNameParXl>
         <DataXs>{metadata.name}</DataXs>
 
         {yeeter.isActive && (
-          <TimeDataLg color={theme.warning.step10}>
+          <TimeDataLg
+            color={theme.warning.step10}
+            className={hasJump ? "jump-shake-rev" : ""}
+          >
             Presale Ends {formatTimeRemainingShort(yeeter)}
           </TimeDataLg>
         )}
 
         {yeeter.isComing && (
-          <TimeDataLg color={theme.success.step10}>
+          <TimeDataLg
+            color={theme.success.step10}
+            className={hasJump ? "jump-shake-rev" : ""}
+          >
             Presale Starts {formatTimeUntilPresale(yeeter)}
           </TimeDataLg>
         )}
