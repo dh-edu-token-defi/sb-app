@@ -5,7 +5,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { YeeterItem } from "../utils/types";
 import { YeeterListCard } from "./YeeterListCard";
-import { Button, Checkbox, DataSm, H4 } from "@daohaus/ui";
+import { Checkbox, DataSm, H4 } from "@daohaus/ui";
 
 import { Dispatch, SetStateAction } from "react";
 
@@ -78,12 +78,14 @@ export const YeeterList = ({
   canToggle,
   toggle,
   setToggle,
+  rtl = false,
 }: {
   yeeters: YeeterItem[];
   title: string;
   canToggle?: boolean;
   toggle?: boolean;
   setToggle?: Dispatch<SetStateAction<boolean>>;
+  rtl?: boolean;
 }) => {
   const handleToggle = (checked: boolean) => {
     if (!setToggle) return;
@@ -110,13 +112,15 @@ export const YeeterList = ({
             responsive={responsive}
             infinite={true}
             autoPlay={true}
-            autoPlaySpeed={2000}
+            autoPlaySpeed={1250}
             showDots={false}
             swipeable={true}
             draggable={true}
             arrows={true}
             pauseOnHover={true}
             renderButtonGroupOutside={true}
+            rtl={rtl}
+            customTransition="400ms ease-in-out"
           >
             {yeeters.map((yeeter) => (
               <YeeterListCard yeeterData={yeeter} key={yeeter.id} />

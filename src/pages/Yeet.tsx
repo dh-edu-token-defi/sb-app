@@ -1,8 +1,6 @@
 import { useCurrentDao } from "@daohaus/moloch-v3-hooks";
 import { H4, widthQuery } from "@daohaus/ui";
 import { useCurrentYeeter } from "../contexts/CurrentYeeterContext";
-import { YeeterDetails } from "../components/YeeterDetails";
-import { YeeterActions } from "../components/YeeterActions";
 import { YeetList } from "../components/YeetList";
 import { WideColumnLayout } from "../components/Layout/WideColumnLayout";
 import styled from "styled-components";

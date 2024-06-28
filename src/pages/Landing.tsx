@@ -55,8 +55,6 @@ const Landing = () => {
 
   const hasMyYeeters = myYeeters.length > 0;
 
-  console.log("activeYeetrs", activeYeeters);
-
   return (
     <>
       <WideColumnLayout
@@ -130,6 +128,7 @@ const Landing = () => {
               canToggle={hasMyYeeters}
               toggle={mine}
               setToggle={setMine}
+              rtl={true}
             />
           )}
 

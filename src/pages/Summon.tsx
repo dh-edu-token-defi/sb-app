@@ -106,7 +106,7 @@ const Summon = () => {
           form={APP_FORM.SUMMON_MEME}
           customFields={AppFieldLookup}
           targetNetwork={DEFAULT_CHAIN_ID}
-          submitButtonText="Summon Meme Token"
+          submitButtonText="Summon Token"
           lifeCycleFns={{
             onPollSuccess: (result) => {
               console.log("poll success", result);

@@ -48,6 +48,8 @@ export const TokenOverview = ({
     return;
   }
 
+  console.log("yeeter", yeeter);
+
   return (
     <div>
       <Container>

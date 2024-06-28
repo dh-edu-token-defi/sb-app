@@ -92,7 +92,10 @@ export const assembleMemeSummonerArgs = (args: ArbitraryState) => {
   }
 
   // form value date is in the past throw an error
-  if (formValues["startDate"] && (formValues["startDate"] as number) < Math.floor(+(new Date()) / 1000)) {
+  if (
+    formValues["startDate"] &&
+    (formValues["startDate"] as number) < Math.floor(+new Date() / 1000)
+  ) {
     throw new Error("Please select a future date.");
   }
 
@@ -102,7 +105,6 @@ export const assembleMemeSummonerArgs = (args: ArbitraryState) => {
 
   const saltNonce = formValues["saltNonce"].toString() || "8441";
 
-  console.log(">>>>> yo");
   const initializationLootTokenParams = assembleLootTokenParams({
     formValues,
     chainId,
@@ -166,9 +168,16 @@ const assembleLootTokenParams = ({
       "assembleLootTokenParams recieved arguments in the wrong shape or type"
     );
   }
-  console.log(">>>>> assembleLootTokenParams", daoName + LOOT_NAME_POSTFIX, LOOT_SYMBOL_PREFIX + tokenSymbol);
+  console.log(
+    ">>>>> assembleLootTokenParams",
+    daoName + LOOT_NAME_POSTFIX,
+    LOOT_SYMBOL_PREFIX + tokenSymbol
+  );
 
-  const lootParams = encodeValues(["string", "string"], [daoName + LOOT_NAME_POSTFIX, LOOT_SYMBOL_PREFIX + tokenSymbol]);
+  const lootParams = encodeValues(
+    ["string", "string"],
+    [daoName + LOOT_NAME_POSTFIX, LOOT_SYMBOL_PREFIX + tokenSymbol]
+  );
 
   return encodeValues(["address", "bytes"], [lootSingleton, lootParams]);
 };
@@ -480,12 +489,7 @@ const metadataConfigTX = (
   memberAddress: EthAddress,
   posterAddress: string
 ) => {
-  const {
-    daoName,
-    calculatedDAOAddress,
-    image,
-    description,
-  } = formValues;
+  const { daoName, calculatedDAOAddress, image, description } = formValues;
 
   if (!isString(daoName)) {
     console.log("ERROR: Form Values", formValues);
