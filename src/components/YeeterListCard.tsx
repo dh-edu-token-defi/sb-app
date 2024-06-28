@@ -143,11 +143,8 @@ export const YeeterListCard = ({ yeeterData }: { yeeterData: YeeterItem }) => {
     goalAchieved || false
   );
 
-  // const hasRumble = yeeter.isComingSoon || yeeter.isEndingSoon || yeeter.isNew;
-  // const hasJump = yeeter.isComingSoon || yeeter.isEndingSoon;
-
-  const hasRumble = true;
-  const hasJump = true;
+  const hasRumble = yeeter.isComingSoon || yeeter.isEndingSoon || yeeter.isNew;
+  const hasJump = yeeter.isComingSoon || yeeter.isEndingSoon;
 
   return (
     <SpacedCard>

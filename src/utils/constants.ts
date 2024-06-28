@@ -68,11 +68,8 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xa": "0x000000000000cd17345801aa8147b8d3950260ff",
     "0xaa36a7": "0x000000000000cd17345801aa8147b8d3950260ff",
     "0x2105": "0x000000000000cd17345801aa8147b8d3950260ff",
-  }
+  },
 };
-
-
-
 
 /// https://docs.tokenbound.org/contracts/deployments
 
@@ -180,10 +177,7 @@ export const DEFAULT_YEETER_VALUES_DEV = {
     "0x4a9a27d614a74ee5524909ca27bdbcbb7ed3b315",
   ], // yeeter team, daohaus eco fund
   feeAmounts: ["5000", "5000"], // .5% fees
-  lootPerYeet: "100",
   multiplier: "10000",
-  // prod 3 eth
-  // minThresholdGoal: 3000000000000000000,
   minThresholdGoal: POINT_O_ONE_ETH,
 };
 export const DEFAULT_YEETER_VALUES_PROD = {
@@ -193,7 +187,6 @@ export const DEFAULT_YEETER_VALUES_PROD = {
     "0x4a9a27d614a74ee5524909ca27bdbcbb7ed3b315",
   ], // yeeter team, daohaus eco fund
   feeAmounts: ["5000", "5000"], // .5% fees
-  lootPerYeet: "100",
   multiplier: "10000",
   minThresholdGoal: GOAL_ETH,
 };
@@ -203,7 +196,6 @@ export const DEFAULT_DURATION_DEV = 10 * 60; // 10 minutes
 
 const STATUS_WINDOW_LENGTH_DEV = 3 * 60; // 3 mins
 const STATUS_WINDOW_LENGTH_PROD = 2 * 60 * 60; // 2 hrs
-
 
 export const DEFAULT_MEME_YEETER_VALUES = {
   poolFee: "10000", // 1%
