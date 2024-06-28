@@ -11,7 +11,7 @@ import {
 
 export const APP_NAME = "SPEEDBALL";
 
-export const YEET24_REFERRER = "DHYeet24ShamanSummoner.4";
+export const YEET24_REFERRER = "DHYeet24ShamanSummoner.5";
 export const YEET24_NAME = "Yeet24ShamanModule";
 
 export const CURATOR_CONTRACTS: KeychainList = {
@@ -24,8 +24,8 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0x2105": "0x8D60971eFf778966356c1cADD76d525E7B25cc6b",
   },
   YEET24_SINGLETON: {
-    "0xaa36a7": "0x69eEA5adD040311C0aABb41C772423b87fadF32A",
-    "0x2105": "0x885F45A8F5227FC11f17a007cb058Bd8f4c858bE",
+    "0xaa36a7": "0xdfDbf3639497a4B3598B51F852d0c94E6d8D8934",
+    "0x2105": "0xA4622192a896bf559191005b23eB13d367E494ce",
   },
   FIXED_LOOT_SINGLETON: {
     // "0x1": "0x9d42696a9c3c54952b8918dcbcb82dd710347c77",
@@ -68,11 +68,8 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0xa": "0x000000000000cd17345801aa8147b8d3950260ff",
     "0xaa36a7": "0x000000000000cd17345801aa8147b8d3950260ff",
     "0x2105": "0x000000000000cd17345801aa8147b8d3950260ff",
-  }
+  },
 };
-
-
-
 
 /// https://docs.tokenbound.org/contracts/deployments
 
@@ -180,10 +177,7 @@ export const DEFAULT_YEETER_VALUES_DEV = {
     "0x4a9a27d614a74ee5524909ca27bdbcbb7ed3b315",
   ], // yeeter team, daohaus eco fund
   feeAmounts: ["5000", "5000"], // .5% fees
-  lootPerYeet: "100",
   multiplier: "10000",
-  // prod 3 eth
-  // minThresholdGoal: 3000000000000000000,
   minThresholdGoal: POINT_O_ONE_ETH,
 };
 export const DEFAULT_YEETER_VALUES_PROD = {
@@ -193,7 +187,6 @@ export const DEFAULT_YEETER_VALUES_PROD = {
     "0x4a9a27d614a74ee5524909ca27bdbcbb7ed3b315",
   ], // yeeter team, daohaus eco fund
   feeAmounts: ["5000", "5000"], // .5% fees
-  lootPerYeet: "100",
   multiplier: "10000",
   minThresholdGoal: GOAL_ETH,
 };
@@ -203,7 +196,6 @@ export const DEFAULT_DURATION_DEV = 10 * 60; // 10 minutes
 
 const STATUS_WINDOW_LENGTH_DEV = 3 * 60; // 3 mins
 const STATUS_WINDOW_LENGTH_PROD = 2 * 60 * 60; // 2 hrs
-
 
 export const DEFAULT_MEME_YEETER_VALUES = {
   poolFee: "10000", // 1%
