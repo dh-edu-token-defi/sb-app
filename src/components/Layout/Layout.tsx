@@ -23,9 +23,11 @@ export const BigH1Blue = styled(H1)`
   font-size: 20rem;
   line-height: 12rem;
   color: ${({ theme }) => theme.secondary.step11};
+  word-break: break-all;
 `;
 
 export const BigH1 = styled(H1)`
   font-size: 20rem;
   line-height: 12rem;
+  word-break: break-all;
 `;
