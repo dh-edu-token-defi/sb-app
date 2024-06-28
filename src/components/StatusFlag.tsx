@@ -1,13 +1,19 @@
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
 import { YeeterItem } from "../utils/types";
 import { Badge } from "@daohaus/ui";
 
+const tiltShake = keyframes`
+  0% { transform: translateX(0) }
+  25% { transform: translateX(5px) }
+  50% { transform: translateX(-5px) }
+  75% { transform: translateX(5px) }
+  100% { transform: translateX(0) }
+`;
+
 const BadgeContainer = styled.div`
-  /* position: absolute;
-  top: 10px;
-  left: 10px; */
   display: flex;
   flex-direction: column;
+  animation: ${tiltShake} 0.3s infinite;
 `;
 
 const StyledBadge = styled(Badge)`
