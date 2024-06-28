@@ -33,7 +33,7 @@ export const useMarketMaker = ({
         transport: http(RPC_URLS[chain]),
       });
 
-      let marketMakerShaman, goalAchieved, executed, pool, uniswapUrl, endTime;
+      let marketMakerShaman, goalAchieved, executed, pool, uniswapUrl, endTime, finalEthBalance;
       let canExecute = false;
       for (let i = 0; i < shamanAddresses.length; i++) {
         if (yeeterShamanAddress && shamanAddresses[i] === yeeterShamanAddress) {
@@ -72,6 +72,12 @@ export const useMarketMaker = ({
             functionName: "endTime",
           })) as string;
 
+          finalEthBalance = (await publicClient.readContract({
+            address: shamanAddresses[i] as `0x${string}`,
+            abi: marketMakerShamanAbi,
+            functionName: "balance",
+          })) as string;
+
           canExecute = !executed && calcMMIsOver(endTime);
 
           if (executed && pool) {
@@ -90,6 +96,7 @@ export const useMarketMaker = ({
         canExecute,
         uniswapUrl,
         endTime,
+        finalEthBalance,
       };
     },
     { enabled: !!chainId && !!daoId && !!daoShamans }

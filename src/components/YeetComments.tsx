@@ -78,7 +78,7 @@ export const YeetComments = ({
     }
 
     return (<SingleColumnLayout
-        subtitle={"Collectors can post comments here."}
+        subtitle={"Holders can post comments here."}
         description={`Comments (${comments.length})`}
     >
 
@@ -88,14 +88,14 @@ export const YeetComments = ({
                     <ParLg>No comments yet. You can be the first.</ParLg>
                 </Card>
             )}
-            {true || member && Number(member?.shares) > 0 ? (
+            {member && Number(member?.shares) > 0 ? (
                 <CommentButton
                     daoChain={daoChain}
                     daoId={daoId}
                     yeeterId={yeeterId}
                 />
             ) : (
-                <ParLg>Only Collectors can comment</ParLg>
+                <ParLg>Only Holders can comment</ParLg>
             )}
             {comments.map((comment, key) => {
                 const parsedComment: YeetComment = comment.parsedContent as YeetComment;

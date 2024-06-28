@@ -13,6 +13,8 @@ import { useYeets } from "../hooks/useYeets";
 import { BigH3 } from "./PresalePhase";
 import { Tabs } from "./tabs/Tabs";
 import { YeetComments } from "./YeetComments";
+import { Contract } from "ethers";
+import { ContractDetails } from "./ContractDetails";
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -131,7 +133,18 @@ export const YeetList = ({
                   yeeterId={yeeterId}
                 />
               ),
-            }]}></Tabs>
+            },
+            {
+              label: "CAMPAIGN DETAILS",
+              Component: () => (
+                <ContractDetails
+                  daoId={daoId}
+                  daoChain={daoChain}
+                  yeeterId={yeeterId}
+                />
+              ),
+            }
+            ]}></Tabs>
           </TitleContainer>
 
         </>
