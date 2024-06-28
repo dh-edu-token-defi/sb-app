@@ -197,20 +197,13 @@ export const DEFAULT_YEETER_VALUES_PROD = {
   multiplier: "10000",
   minThresholdGoal: GOAL_ETH,
 };
-export const DEFAULT_YEETER_VALUES = import.meta.env.DEV
-  ? DEFAULT_YEETER_VALUES_DEV
-  : DEFAULT_YEETER_VALUES_PROD;
 
 export const DEFAULT_DURATION_PROD = 48 * 60 * 60; // 48 hours
 export const DEFAULT_DURATION_DEV = 10 * 60; // 10 minutes
-export const DEFAULT_DURATION = import.meta.env.DEV
-  ? DEFAULT_DURATION_DEV
-  : DEFAULT_DURATION_PROD;
+
 const STATUS_WINDOW_LENGTH_DEV = 3 * 60; // 3 mins
 const STATUS_WINDOW_LENGTH_PROD = 2 * 60 * 60; // 2 hrs
-export const STATUS_WINDOW_LENGTH = import.meta.env.DEV
-  ? STATUS_WINDOW_LENGTH_DEV
-  : STATUS_WINDOW_LENGTH_PROD;
+
 
 export const DEFAULT_MEME_YEETER_VALUES = {
   poolFee: "10000", // 1%
@@ -239,6 +232,19 @@ export const DEFAULT_SUMMON_VALUES_PROD = {
   votingTransferable: false,
   nvTransferable: true,
 };
+
+export const DEFAULT_YEETER_VALUES = import.meta.env.DEV
+  ? DEFAULT_YEETER_VALUES_DEV
+  : DEFAULT_YEETER_VALUES_DEV;
+
+export const DEFAULT_DURATION = import.meta.env.DEV
+  ? DEFAULT_DURATION_DEV
+  : DEFAULT_DURATION_DEV;
+
+export const STATUS_WINDOW_LENGTH = import.meta.env.DEV
+  ? STATUS_WINDOW_LENGTH_DEV
+  : STATUS_WINDOW_LENGTH_DEV;
+
 export const DEFAULT_SUMMON_VALUES = import.meta.env.DEV
   ? DEFAULT_SUMMON_VALUES_DEV
-  : DEFAULT_SUMMON_VALUES_PROD;
+  : DEFAULT_SUMMON_VALUES_DEV;
