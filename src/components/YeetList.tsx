@@ -87,68 +87,74 @@ export const YeetList = ({
   });
   return (
     <Container>
-      {yeets && yeets.length > 0 && (
-        <>
-          <TitleContainer>
-            <Tabs tabList={[{
-              label: "PRESALE BUYS",
-              Component: () => (
-                <YeetListContainer>
-                  {yeets.map((yeet: YeetsItem) => {
-                    return (
-                      <YeetListItem key={yeet.id}>
-                        <div className="profile">
-                          <ContributorProfile address={yeet.contributor} />
-                          <DataXl>
-                            {`${formatValueTo({
-                              value: fromWei(yeet.amount),
-                              decimals: 3,
-                              format: "numberShort",
-                            })} ${HAUS_NETWORK_DATA[daoChain as ValidNetwork]?.symbol
-                              }`}
-                          </DataXl>
-                        </div>
-                        <div className="message">
-                          <ReactMarkdown className="projectDetails">
-                            {yeet.message}
-                          </ReactMarkdown>
-                          <div className="date">
-                            <DataXs>
-                              {formatShortDateTimeFromSeconds(yeet.createdAt)}
-                            </DataXs>
-                          </div>
-                        </div>
-                      </YeetListItem>
-                    );
-                  })}
-                </YeetListContainer>
-              ),
-            },
-            {
-              label: "COMMENTS",
-              Component: () => (
-                <YeetComments
-                  daoId={daoId}
-                  daoChain={daoChain}
-                  yeeterId={yeeterId}
-                />
-              ),
-            },
-            {
-              label: "CAMPAIGN DETAILS",
-              Component: () => (
-                <ContractDetails
-                  daoId={daoId}
-                  daoChain={daoChain}
-                  yeeterId={yeeterId}
-                />
-              ),
-            }
-            ]}></Tabs>
-          </TitleContainer>
-
-        </>
-      )}
+      <>
+        <TitleContainer>
+          <Tabs
+            tabList={[
+              {
+                label: "PRESALE BUYS",
+                Component: () => (
+                  <YeetListContainer>
+                    {yeets &&
+                      yeets.length > 0 &&
+                      yeets.map((yeet: YeetsItem) => {
+                        return (
+                          <YeetListItem key={yeet.id}>
+                            <div className="profile">
+                              <ContributorProfile address={yeet.contributor} />
+                              <DataXl>
+                                {`${formatValueTo({
+                                  value: fromWei(yeet.amount),
+                                  decimals: 3,
+                                  format: "numberShort",
+                                })} ${
+                                  HAUS_NETWORK_DATA[daoChain as ValidNetwork]
+                                    ?.symbol
+                                }`}
+                              </DataXl>
+                            </div>
+                            <div className="message">
+                              <ReactMarkdown className="projectDetails">
+                                {yeet.message}
+                              </ReactMarkdown>
+                              <div className="date">
+                                <DataXs>
+                                  {formatShortDateTimeFromSeconds(
+                                    yeet.createdAt
+                                  )}
+                                </DataXs>
+                              </div>
+                            </div>
+                          </YeetListItem>
+                        );
+                      })}
+                  </YeetListContainer>
+                ),
+              },
+              {
+                label: "COMMENTS",
+                Component: () => (
+                  <YeetComments
+                    daoId={daoId}
+                    daoChain={daoChain}
+                    yeeterId={yeeterId}
+                  />
+                ),
+              },
+              {
+                label: "CAMPAIGN DETAILS",
+                Component: () => (
+                  <ContractDetails
+                    daoId={daoId}
+                    daoChain={daoChain}
+                    yeeterId={yeeterId}
+                  />
+                ),
+              },
+            ]}
+          ></Tabs>
+        </TitleContainer>
+      </>
     </Container>
   );
 };

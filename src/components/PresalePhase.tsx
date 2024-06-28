@@ -80,13 +80,18 @@ export const PresalePhase = ({
     chainId: daoChain,
   });
 
-  const { marketMakerShaman, canExecute, executed, goalAchieved, finalEthBalance } =
-    useMarketMaker({
-      daoId,
-      yeeterShamanAddress: yeeterId,
-      chainId: daoChain,
-      daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
-    });
+  const {
+    marketMakerShaman,
+    canExecute,
+    executed,
+    goalAchieved,
+    finalEthBalance,
+  } = useMarketMaker({
+    daoId,
+    yeeterShamanAddress: yeeterId,
+    chainId: daoChain,
+    daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
+  });
 
   const { address } = useDHConnect();
   const { member } = useDaoMember({ daoId, daoChain, memberAddress: address });
@@ -209,13 +214,13 @@ export const PresalePhase = ({
         </>
       )}
       {member && Number(member?.shares) > 0 && (
-              <CommentButton
-                daoChain={daoChain}
-                daoId={yeeter.dao.id}
-                yeeterId={yeeter.id}
-                icon
-              />
-            )}
+        <CommentButton
+          daoChain={daoChain}
+          daoId={yeeter.dao.id}
+          yeeterId={yeeter.id}
+          icon
+        />
+      )}
     </div>
   );
 };

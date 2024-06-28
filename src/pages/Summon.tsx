@@ -14,6 +14,7 @@ import {
   Link,
   ParLg,
   ParMd,
+  ParSm,
   SingleColumnLayout,
   Spinner,
 } from "@daohaus/ui";
@@ -154,7 +155,7 @@ const Summon = () => {
                                   <StyledRouterLink
                                     to={`/molochv3/${chainId}/${pollResult?.data?.dao?.id}/${shaman.shamanAddress}`}
                                   >
-                                    <Button variant="solid">Token Page</Button>
+                                    <ParSm>Token Page</ParSm>
                                   </StyledRouterLink>
                                 </YeeterItem>
                               ) : (
@@ -166,17 +167,15 @@ const Summon = () => {
                                   <ParMd>
                                     {truncateAddress(shaman.shamanAddress)}
                                   </ParMd>
-                                  <StyledExternalLink
+                                  <Link
                                     href={generateExplorerLink({
                                       chainId: chainId as ValidNetwork,
                                       address: shaman.shamanAddress,
                                     })}
                                     target="_blank"
                                   >
-                                    <Button variant="solid">
-                                      View on Etherscan
-                                    </Button>
-                                  </StyledExternalLink>
+                                    <ParSm>View on Etherscan</ParSm>
+                                  </Link>
                                 </ShamanItem>
                               )}
                             </ContractInfoItem>
