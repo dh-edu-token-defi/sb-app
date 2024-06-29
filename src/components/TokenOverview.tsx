@@ -129,8 +129,8 @@ export const TokenOverview = ({
                   𝕏
                 </a>
               </Button>
-              <Button size="md" variant="outline">
-                Farcaster
+              <Button size="md" variant="outline" disabled={true}>
+                Warpcast Frame (Coming Soon)
               </Button>
               <CopyToClipboardButton
                 textToCopy={`Check out the ${metadata.name} / ${yeeter.dao.shareTokenSymbol} token here: ${window.location.href}`}
