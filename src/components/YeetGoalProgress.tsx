@@ -45,6 +45,7 @@ const GoalRow = styled.div`
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+  align-content: center;
   width: 100%;
   gap: 1rem;
   margin-top: 2rem;
@@ -78,8 +79,6 @@ export const YeetGoalProgress = ({
     : "0%";
 
   const reachedGoal = calcProgressPerc(yeeter.safeBalance, yeeter.goal) > 100;
-
-  console.log("reachedGoal", reachedGoal);
 
   return (
     <>
