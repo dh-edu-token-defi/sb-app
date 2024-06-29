@@ -38,7 +38,7 @@ export default ({ mode }) => {
         },
       },
     },
-    base: "/sb-app/",
+    // base: "/sb-app/",
     build: {
       target: ["es2020"],
     },
