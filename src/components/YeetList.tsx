@@ -1,7 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
-import { DataXl, DataXs, H4, H5, ParLg, ParXl } from "@daohaus/ui";
-import { YeetsItem } from "../utils/types";
+import { DataLg, DataXl, DataXs } from "@daohaus/ui";
+import { RagequitItem, YeetsItem } from "../utils/types";
 import {
   formatShortDateTimeFromSeconds,
   formatValueTo,
@@ -10,11 +10,12 @@ import {
 import { ContributorProfile } from "./ContributorProfile";
 import { HAUS_NETWORK_DATA, ValidNetwork } from "@daohaus/keychain-utils";
 import { useYeets } from "../hooks/useYeets";
-import { BigH3 } from "./PresalePhase";
 import { Tabs } from "./tabs/Tabs";
 import { YeetComments } from "./YeetComments";
-import { Contract } from "ethers";
 import { ContractDetails } from "./ContractDetails";
+import { useRagequits } from "../hooks/useRagequits";
+import { DEFAULT_CHAIN_ID } from "../utils/constants";
+import { useYeeter } from "../hooks/useYeeter";
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -85,6 +86,14 @@ export const YeetList = ({
     shamanAddress: yeeterId,
     chainId: daoChain,
   });
+
+  const { ragequits } = useRagequits({ chainId: DEFAULT_CHAIN_ID, daoId });
+  const { yeeter } = useYeeter({
+    daoId,
+    shamanAddress: yeeterId,
+    chainId: daoChain,
+  });
+
   return (
     <Container>
       <>
@@ -95,14 +104,15 @@ export const YeetList = ({
                 label: "PRESALE BUYS",
                 Component: () => (
                   <YeetListContainer>
-                    {yeets &&
+                    {yeeter &&
+                      yeets &&
                       yeets.length > 0 &&
                       yeets.map((yeet: YeetsItem) => {
                         return (
                           <YeetListItem key={yeet.id}>
                             <div className="profile">
                               <ContributorProfile address={yeet.contributor} />
-                              <DataXl>
+                              <DataLg>
                                 {`${formatValueTo({
                                   value: fromWei(yeet.amount),
                                   decimals: 5,
@@ -110,8 +120,12 @@ export const YeetList = ({
                                 })} ${
                                   HAUS_NETWORK_DATA[daoChain as ValidNetwork]
                                     ?.symbol
-                                }`}
-                              </DataXl>
+                                } for ${formatValueTo({
+                                  value: fromWei(yeet.shares),
+                                  decimals: 5,
+                                  format: "numberShort",
+                                })} ${yeeter.dao.shareTokenSymbol}`}
+                              </DataLg>
                             </div>
                             <div className="message">
                               <ReactMarkdown className="projectDetails">
@@ -124,6 +138,39 @@ export const YeetList = ({
                                   )}
                                 </DataXs>
                               </div>
+                            </div>
+                          </YeetListItem>
+                        );
+                      })}
+                  </YeetListContainer>
+                ),
+              },
+              {
+                label: "EXITS",
+                Component: () => (
+                  <YeetListContainer>
+                    {yeeter &&
+                      ragequits &&
+                      ragequits.length > 0 &&
+                      ragequits.map((rq: RagequitItem) => {
+                        return (
+                          <YeetListItem key={rq.id}>
+                            <div className="profile">
+                              <ContributorProfile
+                                address={rq.member.memberAddress}
+                              />
+                              <DataLg>
+                                {`${formatValueTo({
+                                  value: fromWei(rq.shares),
+                                  decimals: 5,
+                                  format: "numberShort",
+                                })} ${yeeter.dao.shareTokenSymbol}`}
+                              </DataLg>
+                            </div>
+                            <div className="date">
+                              <DataXs>
+                                {formatShortDateTimeFromSeconds(rq.createdAt)}
+                              </DataXs>
                             </div>
                           </YeetListItem>
                         );

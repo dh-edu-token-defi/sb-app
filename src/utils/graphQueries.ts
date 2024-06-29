@@ -157,3 +157,26 @@ export const GET_RAGEQUITS = gql`
     }
   }
 `;
+
+export const GET_RAGEQUITS_DAO = gql`
+  query rageQuits($daoId: String!) {
+    rageQuits(
+      where: { dao: $daoId }
+      orderBy: createdAt
+      orderDirection: desc
+      first: 1000
+    ) {
+      id
+      createdAt
+      shares
+      member {
+        memberAddress
+      }
+      dao {
+        id
+        referrer
+        shareTokenSymbol
+      }
+    }
+  }
+`;
