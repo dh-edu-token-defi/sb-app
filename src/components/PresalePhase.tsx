@@ -16,6 +16,7 @@ import {
   widthQuery,
 } from "@daohaus/ui";
 import {
+  formatLootForMin,
   formatMinContribution,
   formatTimeRemainingShort,
   formatTimeUntilPresale,
@@ -122,8 +123,8 @@ export const PresalePhase = ({
             </BigH2>
           </DetailItemWarning>
           <ParLg>
-            Get ready to BUY. Minimum of {formatMinContribution(yeeter)} ETH for
-            1000 ${yeeter.dao.shareTokenSymbol}{" "}
+            Get ready to BUY. Minimum of {formatMinContribution(yeeter)} ETH for{" "}
+            {formatLootForMin(yeeter)} {yeeter.dao.shareTokenSymbol}{" "}
           </ParLg>
           <YeetGoalProgress yeeter={yeeter} dao={dao} chainId={daoChain} />
         </>
@@ -138,7 +139,7 @@ export const PresalePhase = ({
           </DetailItemWarning>
           <ParLg>
             TIME IS RUNNING OUT! You can spend a minimum of{" "}
-            {formatMinContribution(yeeter)} ETH for 1000 $
+            {formatMinContribution(yeeter)} ETH for {formatLootForMin(yeeter)}
             {yeeter.dao.shareTokenSymbol}{" "}
           </ParLg>
           <ButtonRow>

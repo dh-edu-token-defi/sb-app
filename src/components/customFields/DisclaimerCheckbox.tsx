@@ -12,7 +12,7 @@ export const DisclaimerCheckbox = (props: Buildable<Field>) => {
           title: "I understand that this is for educational purposes only",
         },
       ]}
-      label="Disclaimer"
+      // label="Disclaimer"
       {...props}
     />
   );

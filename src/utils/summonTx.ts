@@ -289,13 +289,15 @@ const assembleShamanParams = ({
 
   const price = formValues["collectorPrice"] as string;
   const content = formValues["article"] as string;
+  const multiplier = formValues["multiplier"] as string;
 
   console.log(
     "??????????",
     price,
     memberAddress,
     yeeterShamanSingleton,
-    content
+    content,
+    multiplier
   );
 
   const {
@@ -351,7 +353,7 @@ const assembleShamanParams = ({
       Number(endDateTime),
       DEFAULT_YEETER_VALUES.isShares,
       price,
-      DEFAULT_YEETER_VALUES.multiplier,
+      multiplier,
       DEFAULT_YEETER_VALUES.minThresholdGoal, // goal?
       [
         ...DEFAULT_YEETER_VALUES.feeRecipients,

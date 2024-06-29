@@ -36,6 +36,6 @@ export const APP_FIELD: Record<string, CustomFieldLego> = {
   DISCLAIMER_CHECKBOX_FIELD: {
     id: "disclaimerCheckbox",
     type: "disclaimerCheckbox",
-    label: "Disclaimer",
+    // label: "Disclaimer",
   },
 };

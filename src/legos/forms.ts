@@ -95,7 +95,7 @@ export const APP_FORM: Record<string, CustomFormLego> = {
   },
   SUMMON_MEME: {
     id: "SUMMON_MEME",
-    title: "Token Summoner",
+    title: "Create a Token Presale",
     description:
       "Give your token a name, description, and initial price. You can also add an image and a longer introduction.",
     submitButtonText: "Summon Token",
@@ -133,13 +133,47 @@ export const APP_FORM: Record<string, CustomFormLego> = {
           },
         ],
       },
+      // {
+      //   id: "collectorPrice",
+      //   type: "toWeiInput",
+      //   label: "Initial Price",
+      //   placeholder: ".0069,420",
+      //   expectType: "number",
+      //   info: "The initial price (in chain native token ex. ETH) per 1000 tokens.",
+      // },
       {
-        id: "collectorPrice",
-        type: "toWeiInput",
-        label: "Initial Price",
-        placeholder: ".0069,420",
-        expectType: "number",
-        info: "The initial price (in chain native token ex. ETH) per 1000 tokens.",
+        id: "tribute",
+        type: "splitColumn",
+        rows: [
+          {
+            rowId: "row1",
+            left: {
+              id: "collectorPrice",
+              type: "labeledToWei",
+              label: "MINIMUM PRICE",
+              placeholder: "0.01",
+              expectType: "number",
+              rules: {
+                min: {
+                  value: 10000000000000,
+                  message: "Must be .00001 or more",
+                },
+              },
+            },
+            right: {
+              id: "lootPerYeet",
+              type: "lootPerYeetMod",
+              label: "LOOT PER MINIMUM YEET",
+              expectType: "number",
+              rules: {
+                min: {
+                  value: 1,
+                  message: "Must be 1 or more",
+                },
+              },
+            },
+          },
+        ],
       },
       {
         id: "startDate",

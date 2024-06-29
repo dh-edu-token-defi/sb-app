@@ -3,7 +3,10 @@ import { useYeeter } from "../hooks/useYeeter";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { Avatar, Button, Label, ParLg, ParMd } from "@daohaus/ui";
 import { BigH1Blue } from "./Layout/Layout";
-import { formatMinContribution } from "../utils/yeetDataHelpers";
+import {
+  formatLootForMin,
+  formatMinContribution,
+} from "../utils/yeetDataHelpers";
 import { formatShortDateTimeFromSeconds } from "@daohaus/utils";
 
 const Container = styled.div`
@@ -74,7 +77,9 @@ export const TokenOverview = ({
           </ParMd>
         </DetailItem>
         <DetailItem>
-          <Label>{`Presale Price (for 1000 ${yeeter.dao.shareTokenSymbol})`}</Label>
+          <Label>{`Presale Price (for ${formatLootForMin(yeeter)} ${
+            yeeter.dao.shareTokenSymbol
+          })`}</Label>
           <ParMd>{formatMinContribution(yeeter)} (ETH)</ParMd>
         </DetailItem>
         <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">
