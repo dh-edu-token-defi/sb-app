@@ -1,10 +1,20 @@
 import styled from "styled-components";
 import { useYeeter } from "../hooks/useYeeter";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { Avatar, Button, Label, ParLg, ParMd } from "@daohaus/ui";
+import {
+  Avatar,
+  Button,
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  Label,
+  ParLg,
+  ParMd,
+} from "@daohaus/ui";
 import { BigH1Blue } from "./Layout/Layout";
 import { formatMinContribution } from "../utils/yeetDataHelpers";
 import { formatShortDateTimeFromSeconds } from "@daohaus/utils";
+import { CopyToClipboardButton } from "./CopyToClipboardButton";
 
 const Container = styled.div`
   flex: 1;
@@ -27,6 +37,23 @@ const DetailsContainer = styled.div`
 const DetailItem = styled.div`
   padding: 0.5rem;
   margin-bottom: 0.5rem;
+`;
+
+const StyledDialogContent = styled(DialogContent)`
+  z-index: 10;
+`;
+
+export const SimpleRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 3rem;
+`;
+
+export const SimpleCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 `;
 
 export const TokenOverview = ({
@@ -77,18 +104,35 @@ export const TokenOverview = ({
           <Label>{`Presale Price (for 1000 ${yeeter.dao.shareTokenSymbol})`}</Label>
           <ParMd>{formatMinContribution(yeeter)} (ETH)</ParMd>
         </DetailItem>
-        <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">
-          <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-              `Check out the ${metadata.name} / ${yeeter.dao.shareTokenSymbol} token here: ${window.location.href}`
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            SHARE
-          </a>
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">
+              SHARE
+            </Button>
+          </DialogTrigger>
+          <StyledDialogContent title="Share this token">
+            <SimpleRow>
+              <Button size="md" variant="outline">
+                <a
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                    `Check out the ${metadata.name} / ${yeeter.dao.shareTokenSymbol} token here: ${window.location.href}`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  𝕏
+                </a>
+              </Button>
+              <Button size="md" variant="outline">
+                frames
+              </Button>
+              <CopyToClipboardButton
+                textToCopy={`Check out the ${metadata.name} / ${yeeter.dao.shareTokenSymbol} token here: ${window.location.href}`}
+              />
+            </SimpleRow>
+          </StyledDialogContent>
+        </Dialog>
       </DetailsContainer>
     </div>
   );
