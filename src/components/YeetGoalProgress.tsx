@@ -1,5 +1,5 @@
-import { DataIndicator, ParLg, widthQuery } from "@daohaus/ui";
-import styled from "styled-components";
+import { DataIndicator, DataXl, ParLg, widthQuery } from "@daohaus/ui";
+import styled, { keyframes } from "styled-components";
 import { ProgressBar } from "./ProgressBar";
 import { formatValueTo, fromWei } from "@daohaus/utils";
 import { YeeterItem } from "../utils/types";
@@ -7,6 +7,15 @@ import { calcProgressPerc } from "../utils/yeetDataHelpers";
 import { HAUS_NETWORK_DATA, ValidNetwork } from "@daohaus/keychain-utils";
 import { MolochV3Dao } from "@daohaus/moloch-v3-data";
 import { BigH3 } from "./PresalePhase";
+import { TbCoins } from "react-icons/tb";
+
+const jumpShake = keyframes`
+  0% { transform: translateY(0) }
+  25% { transform: translateY(5px) }
+  50% { transform: translateY(-5px) }
+  75% { transform: translateY(5px) }
+  100% { transform: translateY(0) }
+`;
 
 const ProgressRow = styled.div`
   display: flex;
@@ -19,12 +28,31 @@ const ProgressRow = styled.div`
   .bar {
     width: 100%;
   }
+  .jump-shake {
+    animation: ${jumpShake} 0.3s infinite;
+  }
 
   @media ${widthQuery.xs} {
     flex-direction: column;
     .bar {
       width: 100%;
     }
+  }
+`;
+
+const GoalRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 1rem;
+  margin-top: 2rem;
+  p {
+    color: ${({ theme }) => theme.warning.step10};
+  }
+  .jump-shake {
+    animation: ${jumpShake} 0.3s infinite;
   }
 `;
 
@@ -49,6 +77,10 @@ export const YeetGoalProgress = ({
     ? `${calcProgressPerc(yeeter.safeBalance, yeeter.goal)}%`
     : "0%";
 
+  const reachedGoal = calcProgressPerc(yeeter.safeBalance, yeeter.goal) > 100;
+
+  console.log("reachedGoal", reachedGoal);
+
   return (
     <>
       <ProgressRow>
@@ -65,7 +97,7 @@ export const YeetGoalProgress = ({
             format: "numberShort",
           })} ${HAUS_NETWORK_DATA[chainId as ValidNetwork]?.symbol}`}
         />
-        <div className="bar">
+        <div className={reachedGoal ? "bar jump-shake" : "bar"}>
           <ProgressBar
             progressSection={[
               { percentage: percentageComplete, color: "green" },
@@ -74,6 +106,18 @@ export const YeetGoalProgress = ({
           />
         </div>
       </ProgressRow>
+
+      {reachedGoal && (
+        <GoalRow>
+          <DataXl className="jump-shake">
+            <TbCoins /> <TbCoins /> <TbCoins />
+          </DataXl>
+          <DataXl className="jump-shake">We Did It!</DataXl>
+          <DataXl className="jump-shake">
+            <TbCoins /> <TbCoins /> <TbCoins />
+          </DataXl>
+        </GoalRow>
+      )}
     </>
   );
 };
