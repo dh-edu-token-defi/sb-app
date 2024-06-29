@@ -1,11 +1,24 @@
 import React, { forwardRef, useEffect, useState } from "react";
-import { Buildable, Button, ErrorText, Field, ParLg, ParSm } from "@daohaus/ui";
+import {
+  Buildable,
+  Button,
+  ErrorText,
+  Field,
+  Label,
+  ParLg,
+  ParSm,
+} from "@daohaus/ui";
 
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 import { formatDate } from "../YeetComments";
 import DatePicker from "react-datepicker";
 import { RiArrowDropDownFill, RiCalendar2Fill } from "react-icons/ri";
+
+const LabelWrapper = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
 
 export const DateWrapper = (props: Buildable<Field>) => {
   const { setValue, watch } = useFormContext();
@@ -60,6 +73,10 @@ export const DateWrapper = (props: Buildable<Field>) => {
 
   return (
     <>
+      <LabelWrapper>
+        <span style={{ color: "#f76808", fontSize: "2rem" }}>*</span>
+        <Label>Start Date</Label>
+      </LabelWrapper>
       <DateWrapperStyle>
         <DatePicker
           id={props.id}

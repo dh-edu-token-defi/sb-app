@@ -12,7 +12,10 @@ import {
   ParMd,
 } from "@daohaus/ui";
 import { BigH1Blue } from "./Layout/Layout";
-import { formatMinContribution } from "../utils/yeetDataHelpers";
+import {
+  formatLootForMin,
+  formatMinContribution,
+} from "../utils/yeetDataHelpers";
 import { formatShortDateTimeFromSeconds } from "@daohaus/utils";
 import { CopyToClipboardButton } from "./CopyToClipboardButton";
 
@@ -101,7 +104,9 @@ export const TokenOverview = ({
           </ParMd>
         </DetailItem>
         <DetailItem>
-          <Label>{`Presale Price (for 1000 ${yeeter.dao.shareTokenSymbol})`}</Label>
+          <Label>{`Presale Price (for ${formatLootForMin(yeeter)} ${
+            yeeter.dao.shareTokenSymbol
+          })`}</Label>
           <ParMd>{formatMinContribution(yeeter)} (ETH)</ParMd>
         </DetailItem>
         <Dialog>
@@ -124,8 +129,8 @@ export const TokenOverview = ({
                   𝕏
                 </a>
               </Button>
-              <Button size="md" variant="outline">
-                Farcaster
+              <Button size="md" variant="outline" disabled={true}>
+                Warpcast Frame (Coming Soon)
               </Button>
               <CopyToClipboardButton
                 textToCopy={`Check out the ${metadata.name} / ${yeeter.dao.shareTokenSymbol} token here: ${window.location.href}`}
