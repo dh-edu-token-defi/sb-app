@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DataLg, DataXl, H3, H4, ParLg, ParMd } from "@daohaus/ui";
+import { DataLg, DataXl, H3, H4, ParLg, ParMd, widthQuery } from "@daohaus/ui";
 import { APP_NAME } from "../utils/constants";
 import {
   BigH1,
@@ -13,6 +13,7 @@ import BallGif from "../assets/ball-gif.gif";
 
 const SectionContainer = styled.div`
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -20,11 +21,20 @@ const SectionContainer = styled.div`
   margin-top: 4rem;
   width: 100%;
   padding: 2rem 0;
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+  }
   .image {
     width: 20%;
+    @media ${widthQuery.sm} {
+      width: 100%;
+    }
   }
   .text {
     width: 60%;
+    @media ${widthQuery.sm} {
+      width: 100%;
+    }
     p {
       margin-bottom: 1rem;
     }
@@ -55,21 +65,15 @@ const About = () => {
               <Bullet>
                 <img src={BallGif} height="50px" />
                 <ParLg>
-                  It eliminates insider manipulation by ensuring fair and open
-                  participation
+                  Speedball eliminates insider manipulation by ensuring fair and
+                  open participation
                 </ParLg>
               </Bullet>
               <Bullet>
                 <img src={BallGif} height="50px" />
                 <ParLg>
-                  It redistributes liquidity provider (LP) fees a DAO controlled
-                  by all token holders
-                </ParLg>
-              </Bullet>
-              <Bullet>
-                <img src={BallGif} height="50px" />
-                <ParLg>
-                  It leverages market volatility for collective benefit
+                  Speedball redistributes liquidity provider (LP) fees to a DAO
+                  controlled by all token holders
                 </ParLg>
               </Bullet>
               <Bullet>
@@ -88,7 +92,8 @@ const About = () => {
                 Launch the token presale and LP formation contracts in a single
                 transaction. A 48 presale window will be set up with a minimum
                 goal of 3 ETH. Contributors receive non-transferable tokens
-                during the presale, but can exit at any time.
+                during the presale, but can exit at any time by ragequtting
+                tokens in return for contributed ETH minus fees.
               </ParMd>
               <ParMd>
                 Less than 1% fee on presales contributes to the protocol's
