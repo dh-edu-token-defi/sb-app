@@ -140,6 +140,13 @@ export const formatLootForAmount = (yeeter: YeeterItem, amount: string) => {
 };
 
 export const formatMarqueeData = (item: MarqueeItem) => {
+  if (item.amount && item.verb === "exited") {
+    return `${formatValueTo({
+      value: fromWei(item.amount),
+      decimals: 3,
+      format: "numberShort",
+    })} ${item.symbol} ${item.verb}`;
+  }
   if (item.amount) {
     return `${formatValueTo({
       value: fromWei(item.amount),
