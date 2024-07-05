@@ -16,6 +16,7 @@ import { MULTI_DAO_ROUTER } from "@daohaus/moloch-v3-hooks";
 import { DaoContainer } from "./components/DaoContainer";
 import { Yeet } from "./pages/Yeet";
 import About from "./pages/About";
+import Temp from "./pages/temp";
 
 export const Routes = ({
   setDaoChainId,
@@ -44,6 +45,7 @@ export const Routes = ({
         <Route path={`summon/:tag`} element={<Summon />} />
         <Route path={`success/:daoId`} element={<Success />} />
         <Route path={`about`} element={<About />} />
+        <Route path={`temp`} element={<Temp />} />
       </Route>
       <Route path={MULTI_DAO_ROUTER} element={<DaoContainer />}>
         <Route path={`:yeeterId`} element={<Yeet />} />
