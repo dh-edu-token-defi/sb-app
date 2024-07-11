@@ -24,8 +24,8 @@ export const CURATOR_CONTRACTS: KeychainList = {
     "0x2105": "0x8D60971eFf778966356c1cADD76d525E7B25cc6b",
   },
   YEET24_SINGLETON: {
-    "0xaa36a7": "0xdfDbf3639497a4B3598B51F852d0c94E6d8D8934",
-    "0x2105": "0xA4622192a896bf559191005b23eB13d367E494ce",
+    "0xaa36a7": "0x59a7C71221d05e30b9d7981AB83f0A1700e51Af8",
+    "0x2105": "0x2f3637757875414c938EF80A5aD197aAaCDaA924",
   },
   GOV_LOOT_SINGLETON: {
     "0xaa36a7": "0x8a4a9e36106ee290811b89e06e2fafe913507965",
@@ -76,7 +76,7 @@ export const DH_GRAPH_URL: KEYCHAIN = {
 };
 
 export const UNISWAP_URL: Keychain<string> = {
-  "0xaa36a7": "https://app.uniswap.org/explore/pools/base/",
+  "0xaa36a7": "https://app.uniswap.org/explore/pools/sepolia/",
   "0x2105": "https://app.uniswap.org/explore/pools/base/",
   "0xa": "https://app.uniswap.org/explore/pools/optimism",
 };
@@ -84,6 +84,7 @@ export const UNISWAP_URL: Keychain<string> = {
 export const supportedNetworks = import.meta.env.DEV
   ? {
       "0xaa36a7": HAUS_NETWORK_DATA["0xaa36a7"],
+      "0x2105": HAUS_NETWORK_DATA["0x2105"],
     }
   : {
       "0x2105": HAUS_NETWORK_DATA["0x2105"],
