@@ -70,7 +70,7 @@ export const YeetMarquee = ({
         return {
           amount: rq.shares,
           symbol: rq.dao.shareTokenSymbol,
-          verb: "exited from",
+          verb: "exited",
           createdAt: rq.createdAt,
         };
       });

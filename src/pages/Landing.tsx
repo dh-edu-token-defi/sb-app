@@ -64,7 +64,7 @@ const Landing = () => {
           <BigH1>{APP_NAME}</BigH1>
           <Spacer />
           <SimpleRow>
-            <Dialog>
+            {/* <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline" size="lg">
                   WHAT IS THIS?
@@ -90,7 +90,13 @@ const Landing = () => {
                   </ParMd>
                 </SimpleCol>
               </StyledDialogContent>
-            </Dialog>
+            </Dialog> */}
+
+            <LinkButton to="/about">
+              <Button variant="outline" size="lg">
+                WHAT IS THIS?
+              </Button>
+            </LinkButton>
 
             <LinkButton to="/summon/token">
               <Button variant="outline" size="lg">
