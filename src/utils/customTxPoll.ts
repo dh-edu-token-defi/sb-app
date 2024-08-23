@@ -61,27 +61,27 @@ export const testLastTX = (
   return false;
 };
 
-export const testYeet = (result: any | undefined) => {
-  if (result?.yeets[0]) {
-    console.log("yeet found", result.yeets[0]);
-    return true;
-  }
-  return false;
-};
+// export const testYeet = (result: any | undefined) => {
+//   if (result?.yeets[0]) {
+//     console.log("yeet found", result.yeets[0]);
+//     return true;
+//   }
+//   return false;
+// };
 
-export const pollYeet = async ({
-  chainId,
-  txHash,
-}: {
-  chainId: ValidNetwork;
-  txHash: string;
-}) => {
-  const chain = getValidChainId(chainId);
-  const graphQLClient = new GraphQLClient(YEETER_GRAPH_URL[chain]);
-  const res = await graphQLClient.request(GET_YEETS_BY_TX, {
-    txHash: txHash?.toLowerCase(),
-  });
-  console.log("pollYeet res", res);
+// export const pollYeet = async ({
+//   chainId,
+//   txHash,
+// }: {
+//   chainId: ValidNetwork;
+//   txHash: string;
+// }) => {
+//   const chain = getValidChainId(chainId);
+//   const graphQLClient = new GraphQLClient(YEETER_GRAPH_URL[chain]);
+//   const res = await graphQLClient.request(GET_YEETS_BY_TX, {
+//     txHash: txHash?.toLowerCase(),
+//   });
+//   console.log("pollYeet res", res);
 
-  return res;
-};
+//   return res;
+// };

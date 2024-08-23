@@ -31,7 +31,7 @@ import {
   DEFAULT_SUMMON_VALUES,
   CURATOR_CONTRACTS,
   YEETER_SHAMAN_PERMISSIONS,
-  MEME_SHAMAN_PERMISSIONS,
+  AUCTIONHAUS_SHAMAN_PERMISSIONS,
   DEFAULT_YEETER_VALUES,
   DEFAULT_MEME_YEETER_VALUES,
   DEFAULT_DURATION_DEV,
@@ -103,7 +103,7 @@ export const assembleMemeSummonerArgs = (args: ArbitraryState) => {
     throw new Error("Invalid nonce");
   }
 
-  const saltNonce = formValues["saltNonce"].toString() || "8441";
+  const saltNonce = formValues["saltNonce"].toString();
 
   const initializationLootTokenParams = assembleLootTokenParams({
     formValues,
@@ -157,7 +157,8 @@ const assembleLootTokenParams = ({
   chainId: ValidNetwork;
   formValues: Record<string, unknown>;
 }) => {
-  const lootSingleton = CURATOR_CONTRACTS["GOV_LOOT_SINGLETON"][chainId];
+  // use shares token singleton for loot
+  const lootSingleton = CONTRACT_KEYCHAINS["SHARES_SINGLETON"][chainId]; // CURATOR_CONTRACTS["GOV_LOOT_SINGLETON"][chainId];
   const daoName = formValues["daoName"] as string;
   const tokenSymbol = formValues["tokenSymbol"] as string;
 
@@ -212,7 +213,7 @@ const assembleShareTokenParams = ({
   return encodeValues(["address", "bytes"], [shareSingleton, shareParams]);
 };
 
-export const assembleMemeYeeterShamanParams = ({
+export const assembleAuctionHausShamanParams = ({
   formValues,
   memberAddress,
   chainId,
@@ -221,58 +222,52 @@ export const assembleMemeYeeterShamanParams = ({
   memberAddress: EthAddress;
   chainId: ValidNetwork;
 }) => {
-  const memeYeeterShamanSingleton =
-    CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId];
-  const nonFungiblePositionManager =
-    CURATOR_CONTRACTS["UNISWAP_V3_NF_POSITION_MANAGER"][chainId];
-  const weth9 = CURATOR_CONTRACTS["WETH"][chainId];
+  const auctionHausShamanSingleton =
+    CURATOR_CONTRACTS["AUCTION_HAUS_SINGLETON"][chainId];
 
-  const { startDate } = formValues;
+  const { startDate, captain, captainReward } = formValues;
 
   const startDateTime = startDate as string;
   const endDateTime = import.meta.env.DEV
-    ? ((startDateTime + DEFAULT_DURATION_DEV) as string)
-    : ((startDateTime + DEFAULT_DURATION_PROD) as string);
+    ? ((startDateTime + DEFAULT_DURATION_DEV * 1000) as string)
+    : ((startDateTime + DEFAULT_DURATION_PROD ) as string);
 
-  if (
-    !memeYeeterShamanSingleton ||
-    !nonFungiblePositionManager ||
-    !weth9 ||
-    !endDateTime
-  ) {
+  if (!endDateTime || !captain || !captainReward) {
+    return {
+      shamanSingleton: ZERO_ADDRESS,
+      shamanPermission: ZERO_ADDRESS,
+      shamanInitParams: ZERO_ADDRESS,
+    }
+  }
+  if (!auctionHausShamanSingleton) {
     console.log(
-      "assembleMemeYeeterShamanParams ERROR:",
-      memeYeeterShamanSingleton,
-      nonFungiblePositionManager,
-      weth9
+      "assembleAuctionHausShamanParams ERROR:",
+      auctionHausShamanSingleton
     );
 
     throw new Error(
-      "assembleMemeYeeterShamanParams: config contracts not found"
+      "assembleAuctionHausShamanParams: config contracts not found"
     );
   }
 
-  // address _nftPositionManager,
-  // address _weth9Address,
-  // uint256 _threshold,
-  // uint256 _expiration,
-  // uint24 _poolFee
-  const memeYeeterShamanParams = encodeValues(
-    ["address", "address", "address", "uint256", "uint256", "uint24"],
+  // uint256 _endTime,
+  // address _captain,
+  // uint256 _captainsReward,
+  // address _auctionHouse
+  const auctionHausShamanParams = encodeValues(
+    ["uint256", "address", "uint256", "address"],
     [
-      nonFungiblePositionManager,
-      weth9,
-      DEFAULT_YEETER_VALUES.feeRecipients[0], // NOTICE: boostRewardsPool address is set to the "Yeeter team"
-      DEFAULT_YEETER_VALUES.minThresholdGoal, // align with yeeter
-      Number(endDateTime), // align with yeeter
-      DEFAULT_MEME_YEETER_VALUES.poolFee,
+      Number(endDateTime),
+      captain as string,
+      captainReward as string,
+      CURATOR_CONTRACTS["NOUNS_AUCTION_HOUSE"][chainId] as string,
     ]
   );
   //
   return {
-    shamanSingleton: memeYeeterShamanSingleton,
-    shamanPermission: MEME_SHAMAN_PERMISSIONS,
-    shamanInitParams: memeYeeterShamanParams,
+    shamanSingleton: auctionHausShamanSingleton,
+    shamanPermission: AUCTIONHAUS_SHAMAN_PERMISSIONS,
+    shamanInitParams: auctionHausShamanParams,
   };
 };
 
@@ -301,15 +296,15 @@ const assembleShamanParams = ({
   );
 
   const {
-    shamanSingleton: memeYeeterShamanSingleton,
-    shamanPermission: memeYeeterShamanPermission,
-    shamanInitParams: memeYeeterShamanParams,
-  } = assembleMemeYeeterShamanParams({ chainId, formValues, memberAddress });
+    shamanSingleton: auctionHausShamanSingleton,
+    shamanPermission: auctionHausShamanPermission,
+    shamanInitParams: auctionHausShamanParams,
+  } = assembleAuctionHausShamanParams({ chainId, formValues, memberAddress });
 
   if (
     !isEthAddress(memberAddress) ||
     !yeeterShamanSingleton ||
-    !memeYeeterShamanSingleton
+    !auctionHausShamanSingleton
   ) {
     console.log("ERROR: Form Values", formValues);
 
@@ -357,7 +352,7 @@ const assembleShamanParams = ({
       DEFAULT_YEETER_VALUES.minThresholdGoal, // goal?
       [
         ...DEFAULT_YEETER_VALUES.feeRecipients,
-        calculatedShamanAddress as string, // NOTICE: memeYeeterShaman address
+        calculatedShamanAddress as string, // NOTICE: auctionHausShaman address
       ],
       [
         ...DEFAULT_YEETER_VALUES.feeAmounts,
@@ -366,12 +361,12 @@ const assembleShamanParams = ({
     ]
   );
 
-  const shamanSingletons = [memeYeeterShamanSingleton, yeeterShamanSingleton];
+  const shamanSingletons = [auctionHausShamanSingleton, yeeterShamanSingleton];
   const shamanPermissions = [
-    memeYeeterShamanPermission,
+    auctionHausShamanPermission,
     YEETER_SHAMAN_PERMISSIONS,
   ];
-  const shamanInitParams = [memeYeeterShamanParams, yeeterShamanParams];
+  const shamanInitParams = [auctionHausShamanParams, yeeterShamanParams];
 
   console.log("shaman vals", [
     shamanSingletons,
@@ -638,12 +633,12 @@ export const generateShamanSaltNonce = ({
   );
 };
 
-export const calculateMemeShamanAddress = async (
+export const calculateAuctionHausShamanAddress = async (
   saltNonce: string,
   chainId: ValidNetwork
 ) => {
   const yeet24Singleton =
-    CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId] || ZERO_ADDRESS;
+    CURATOR_CONTRACTS["AUCTION_HAUS_SINGLETON"][chainId] || ZERO_ADDRESS;
   const yeet24ShamanSummoner =
     CURATOR_CONTRACTS["YEET24_SUMMONER"][chainId] || ZERO_ADDRESS;
   console.log("yeet24 Shaman", yeet24Singleton, yeet24ShamanSummoner, chainId);

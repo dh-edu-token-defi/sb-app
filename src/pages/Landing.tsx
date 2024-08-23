@@ -12,17 +12,15 @@ import {
 } from "@daohaus/ui";
 import { Link as RouterLink } from "react-router-dom";
 import { APP_NAME, DEFAULT_CHAIN_ID } from "../utils/constants";
-import { useYeeters } from "../hooks/useYeeters";
-import { YeeterList } from "../components/YeeterList";
 import {
   BigH1,
   SimpleCol,
   SimpleRow,
   Spacer,
 } from "../components/Layout/Layout";
-import { useLatestYeets } from "../hooks/useLatestYeets";
-import { YeetMarquee } from "../components/YeetMarquee";
-import { useMyYeeters } from "../hooks/useMyYeeters";
+
+// import { YeetMarquee } from "../components/YeetMarquee";
+
 import { useRagequits } from "../hooks/useRagequits";
 import { WideColumnLayout } from "../components/Layout/WideColumnLayout";
 
@@ -37,15 +35,6 @@ const StyledDialogContent = styled(DialogContent)`
 const Landing = () => {
   const { address } = useDHConnect();
 
-  const { allYeeters, activeYeeters, upcomingYeeters, finishedYeeters } =
-    useYeeters({ chainId: DEFAULT_CHAIN_ID });
-
-  const { myYeeters } = useMyYeeters({
-    chainId: DEFAULT_CHAIN_ID,
-    account: address,
-  });
-
-  const { yeets } = useLatestYeets({ chainId: DEFAULT_CHAIN_ID });
 
   const { ragequits } = useRagequits({
     chainId: DEFAULT_CHAIN_ID,
@@ -53,12 +42,12 @@ const Landing = () => {
 
   const [mine, setMine] = useState(false);
 
-  const hasMyYeeters = myYeeters.length > 0;
+
 
   return (
     <>
       <WideColumnLayout
-        subtitle={"Decentralized Fair Token Presales".toUpperCase()}
+        subtitle={"DECENTRALIZED COLLECTIVE NOUNS AUCTIONS".toUpperCase()}
       >
         <div>
           <BigH1>{APP_NAME}</BigH1>
@@ -98,45 +87,35 @@ const Landing = () => {
               </Button>
             </LinkButton>
 
-            <LinkButton to="/summon/token">
+            <LinkButton to="/">
               <Button variant="outline" size="lg">
-                CREATE A TOKEN PRESALE
+                YEET TO JOIN
+              </Button>
+            </LinkButton>
+
+            <LinkButton to="/">
+              <Button variant="outline" size="lg">
+                AYE AYE CAPTAIN
               </Button>
             </LinkButton>
           </SimpleRow>
 
           <Spacer />
 
-          {yeets && allYeeters && (
+          {/* {yeets && allYeeters && (
             <YeetMarquee
               yeets={yeets}
               yeeters={allYeeters.slice(0, 5)}
               ragequits={ragequits}
               chainId={DEFAULT_CHAIN_ID}
             />
-          )}
+          )} */}
 
           <Spacer />
           <Spacer />
           <Spacer />
 
-          {activeYeeters && (
-            <YeeterList title="Active Presale" yeeters={activeYeeters} />
-          )}
-
-          {upcomingYeeters && (
-            <YeeterList title="Upcoming Presale" yeeters={upcomingYeeters} />
-          )}
-          {finishedYeeters && (
-            <YeeterList
-              title="Completed Presale"
-              yeeters={hasMyYeeters && mine ? myYeeters : finishedYeeters}
-              canToggle={hasMyYeeters}
-              toggle={mine}
-              setToggle={setMine}
-              rtl={true}
-            />
-          )}
+         
 
           {/* <H6>My Yeeters</H6>
 

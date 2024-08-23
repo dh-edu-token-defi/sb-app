@@ -1,11 +1,9 @@
 import { useCurrentDao } from "@daohaus/moloch-v3-hooks";
 import { H4, widthQuery } from "@daohaus/ui";
 import { useCurrentYeeter } from "../contexts/CurrentYeeterContext";
-import { YeetList } from "../components/YeetList";
 import { WideColumnLayout } from "../components/Layout/WideColumnLayout";
 import styled from "styled-components";
 import { TokenOverview } from "../components/TokenOverview";
-import { PresalePhase } from "../components/PresalePhase";
 
 const ColumnContainer = styled.div`
   width: 100%;
@@ -43,21 +41,7 @@ export function Yeet() {
                 daoChain={daoChain}
               />
             </div>
-            <div>
-              <PresalePhase
-                yeeterId={shamanAddress}
-                daoId={daoId}
-                daoChain={daoChain}
-              />
 
-              {shamanAddress && daoChain && (
-                <YeetList
-                  daoId={daoId}
-                  yeeterId={shamanAddress}
-                  daoChain={daoChain}
-                />
-              )}
-            </div>
           </div>
         </ColumnContainer>
       )}

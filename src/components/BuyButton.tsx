@@ -19,7 +19,6 @@ import { YeeterItem } from "../utils/types";
 import { ModalContainer } from "./ModalContainer";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { ButtonRouterLink } from "./ButtonRouterLink";
-import { DaoProfileYeeter } from "../hooks/useYeeter";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { useQueryClient } from "react-query";
 
@@ -44,14 +43,12 @@ const BuyButton = ({
   daoChain,
   daoId,
   yeeterId,
-  metadata,
   context,
   tokenSymbol,
 }: {
   daoChain: ValidNetwork;
   daoId: string;
   yeeterId: string;
-  metadata?: DaoProfileYeeter;
   context?: "details" | "dashboard";
   tokenSymbol: string;
 }) => {

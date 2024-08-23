@@ -3,7 +3,6 @@ import { Button } from "@daohaus/ui";
 import { YeeterItem } from "../utils/types";
 import BuyButton from "./BuyButton";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { DaoProfileYeeter, useYeeter } from "../hooks/useYeeter";
 import ExecuteLPButton from "./ExecuteLPButton";
 import ExitButton from "./ExitButton";
 import SwapButton from "./SwapButton";
@@ -36,11 +35,18 @@ export const YeeterActions = ({
   });
   const { member } = useDaoMember({ daoId, daoChain, memberAddress: address });
 
-  const { metadata, yeeter } = useYeeter({
-    daoId: daoId,
-    shamanAddress: yeeterId,
-    chainId: daoChain,
-  });
+// mock metadata and yeeter
+
+  const metadata = {
+    name: "yeeter",
+  };
+  const yeeter = {
+    dao: {
+      shareTokenSymbol: "YTR",
+    },
+    isActive: true,
+    reachedGoal: true
+  };
   const { marketMakerShaman, canExecute, executed, goalAchieved } =
     useMarketMaker({
       daoId,

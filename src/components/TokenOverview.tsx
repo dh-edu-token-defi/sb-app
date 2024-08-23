@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useYeeter } from "../hooks/useYeeter";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import {
   Avatar,
@@ -68,11 +67,22 @@ export const TokenOverview = ({
   daoId: string;
   daoChain: ValidNetwork;
 }) => {
-  const { metadata, yeeter } = useYeeter({
-    daoId,
-    shamanAddress: yeeterId,
-    chainId: daoChain,
-  });
+
+  // mock metadata and yeeter
+
+  const metadata = {
+    name: "Test Token",
+    description: "This is a test token",
+    avatarImg: "https://via.placeholder.com/150",
+  };
+
+  const yeeter = {
+    dao: {
+      shareTokenSymbol: "TEST",
+    },
+    startTime: "1631222400",
+    endTime: "1631222400",
+  };
 
   if (!metadata || !yeeter) {
     return;
@@ -101,12 +111,7 @@ export const TokenOverview = ({
             {formatShortDateTimeFromSeconds(yeeter.endTime)}
           </ParMd>
         </DetailItem>
-        <DetailItem>
-          <Label>{`Presale Price (for ${formatLootForMin(yeeter)} ${
-            yeeter.dao.shareTokenSymbol
-          })`}</Label>
-          <ParMd>{formatMinContribution(yeeter)} (ETH)</ParMd>
-        </DetailItem>
+
         <Dialog>
           <DialogTrigger asChild>
             <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">

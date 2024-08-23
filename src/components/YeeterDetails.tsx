@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useYeeter } from "../hooks/useYeeter";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useMarketMaker } from "../hooks/useMarketMaker";
@@ -70,11 +69,24 @@ export const YeeterDetails = ({
   daoChain: ValidNetwork;
 }) => {
   const { dao } = useDaoData({ daoId, daoChain });
-  const { metadata, yeeter } = useYeeter({
-    daoId,
-    shamanAddress: yeeterId,
-    chainId: daoChain,
-  });
+
+  const metadata = {
+    name: "yeeter",
+    avatarImg: "https://avatars.githubusercontent.com/u/110000?v=4",
+  };
+
+  const yeeter = {
+    dao: {
+      shareTokenSymbol: "YTR",
+    },
+    isActive: true,
+    reachedGoal: true,
+    startTime: "1630406400",
+    endTime: "1630406400",
+    isComing: false,
+    isEnded: false,
+    safeBalance: "0",
+  };
 
   const { marketMakerShaman, canExecute, executed, goalAchieved, uniswapUrl } =
     useMarketMaker({
@@ -88,12 +100,6 @@ export const YeeterDetails = ({
     return;
   }
 
-  const campaignStatus = getCampaignStatus(
-    yeeter,
-    executed || false,
-    canExecute || false,
-    goalAchieved || false
-  );
 
   return (
     <div>
@@ -126,46 +132,10 @@ export const YeeterDetails = ({
               {new Date(parseInt(yeeter.endTime) * 1000).toLocaleString()}
             </ParLg>
           </DetailItem>
-          <DetailItem>
-            <Label>Presale Minimum Contrbution:</Label>
-            <ParLg>{formatMinContribution(yeeter)} (ETH)</ParLg>
-          </DetailItem>
-          <DetailItem>
-            <Label>Total Raise Status:</Label>
-            <ParLg>{campaignStatus}</ParLg>
-          </DetailItem>
-          {yeeter.isActive && (
-            <DetailItemWarning>
-              <Label>Presale Ends</Label>
-              <ParLg>{formatTimeRemainingShort(yeeter)}</ParLg>
-            </DetailItemWarning>
-          )}
 
-          {yeeter.isComing && (
-            <DetailItemWarning>
-              <Label>Presale Starts</Label>
-              <ParLg>{formatTimeUntilPresale(yeeter)}</ParLg>
-            </DetailItemWarning>
-          )}
-          {yeeter.isEnded && (
-            <>
-              {executed ? (
-                <ParMd>Reached Goal</ParMd>
-              ) : (
-                <ParMd>
-                  {`${formatValueTo({
-                    value: fromWei(yeeter.safeBalance.toString()),
-                    decimals: 5,
-                    format: "number",
-                  })} ETH Raised`}
-                </ParMd>
-              )}
-              <ParLg>Status: {campaignStatus}</ParLg>
-            </>
-          )}
-          {!executed && (
-            <YeetGoalProgress yeeter={yeeter} dao={dao} chainId={daoChain} />
-          )}
+
+
+
         </DetailsContainer>
       </Container>
     </div>

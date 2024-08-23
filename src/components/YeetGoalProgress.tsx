@@ -1,4 +1,4 @@
-import { DataIndicator, DataXl, ParLg, widthQuery } from "@daohaus/ui";
+import { DataIndicator, DataXl, H1, ParLg, widthQuery } from "@daohaus/ui";
 import styled, { keyframes } from "styled-components";
 import { ProgressBar } from "./ProgressBar";
 import { formatValueTo, fromWei } from "@daohaus/utils";
@@ -6,7 +6,6 @@ import { YeeterItem } from "../utils/types";
 import { calcProgressPerc } from "../utils/yeetDataHelpers";
 import { HAUS_NETWORK_DATA, ValidNetwork } from "@daohaus/keychain-utils";
 import { MolochV3Dao } from "@daohaus/moloch-v3-data";
-import { BigH3 } from "./PresalePhase";
 import { TbCoins } from "react-icons/tb";
 
 const jumpShake = keyframes`
@@ -83,7 +82,7 @@ export const YeetGoalProgress = ({
   return (
     <>
       <ProgressRow>
-        <BigH3>RAISED</BigH3>
+        <H1>RAISED</H1>
         <DataIndicator
           // label="Raised"
           data={`${formatValueTo({

@@ -14,7 +14,6 @@ import {
 } from "@daohaus/ui";
 import { useDaoData } from "@daohaus/moloch-v3-hooks";
 import { useMarketMaker } from "../hooks/useMarketMaker";
-import { useYeeter } from "../hooks/useYeeter";
 import { CURATOR_CONTRACTS } from "../utils/constants";
 import { truncateAddress } from "@daohaus/utils";
 import styled from "styled-components";
@@ -56,11 +55,7 @@ export const ContractDetails = ({
     daoId: daoId as string,
     daoChain: daoChain as string,
   });
-  const { metadata, yeeter } = useYeeter({
-    daoId,
-    shamanAddress: yeeterId,
-    chainId: daoChain,
-  });
+
   const { marketMakerShaman } = useMarketMaker({
     daoId,
     yeeterShamanAddress: yeeterId,
@@ -71,10 +66,10 @@ export const ContractDetails = ({
   const summoner = CURATOR_CONTRACTS.YEET24_SUMMONER[daoChain as ValidNetwork];
   const safeFactory =
     CURATOR_CONTRACTS.GNOSIS_SAFE_PROXY_FACTORY[daoChain as ValidNetwork];
-  const yeeterSingleton =
-    CURATOR_CONTRACTS.YEET24_SINGLETON[daoChain as ValidNetwork];
-  const marketMakerSingleton =
-    CURATOR_CONTRACTS.YEET24_SINGLETON[daoChain as ValidNetwork];
+  // const yeeterSingleton =
+  //   CURATOR_CONTRACTS.YEET24_SINGLETON[daoChain as ValidNetwork];
+  // const marketMakerSingleton =
+  //   CURATOR_CONTRACTS.YEET24_SINGLETON[daoChain as ValidNetwork];
   const tokenSingleTon =
     CURATOR_CONTRACTS.GOV_LOOT_SINGLETON[daoChain as ValidNetwork];
   const weth = CURATOR_CONTRACTS.WETH[daoChain as ValidNetwork];
@@ -108,8 +103,8 @@ export const ContractDetails = ({
         )}
         {marketMakerShaman && (
           <ContractItem>
-            <ParLg>Market Maker </ParLg>
-            <ParSm>This contract extention creates the LP.</ParSm>
+            <ParLg>Auction HAUS Contract</ParLg>
+            <ParSm>This contract gives power to the captain</ParSm>
             <ParSm>{truncateAddress(marketMakerShaman)}</ParSm>
 
             <Link
@@ -172,7 +167,7 @@ export const ContractDetails = ({
             </Link>
           </ContractItem>
         )}
-        {yeeterSingleton && (
+        {/* {yeeterSingleton && (
           <ContractItem>
             <ParLg>Yeeter Singleton</ParLg>
             <ParSm>This contract is used to deploy new yeeters.</ParSm>
@@ -203,7 +198,7 @@ export const ContractDetails = ({
               <ParSm>View on Etherscan</ParSm>
             </Link>
           </ContractItem>
-        )}
+        )} */}
         {tokenSingleTon && (
           <ContractItem>
             <ParLg>Token Singleton</ParLg>

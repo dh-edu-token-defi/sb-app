@@ -103,7 +103,7 @@ const Summon = () => {
     <SingleColumnLayout>
       {!txSuccess && (
         <FormBuilder
-          form={APP_FORM.SUMMON_MEME}
+          form={APP_FORM.SUMMON_AUCTIONHAUS}
           customFields={AppFieldLookup}
           targetNetwork={DEFAULT_CHAIN_ID}
           submitButtonText="Summon Token"
@@ -160,9 +160,9 @@ const Summon = () => {
                                 </YeeterItem>
                               ) : (
                                 <ShamanItem>
-                                  <ParLg>Market Maker </ParLg>
+                                  <ParLg>Auction HAUS Contract </ParLg>
                                   <ParMd>
-                                    THis contract extention creates the LP.
+                                    Captain of the ship. This contract gives power
                                   </ParMd>
                                   <ParMd>
                                     {truncateAddress(shaman.shamanAddress)}

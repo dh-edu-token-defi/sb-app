@@ -1,4 +1,4 @@
-import { Chain, base, sepolia } from "viem/chains";
+import { Chain, base, mainnet, sepolia } from "viem/chains";
 
 import {
   HAUS_NETWORK_DATA,
@@ -9,7 +9,7 @@ import {
   ValidNetwork,
 } from "@daohaus/keychain-utils";
 
-export const APP_NAME = "SPEEDBALL";
+export const APP_NAME = "AUKTION HAUS";
 
 export const YEET24_REFERRER = "DHYeet24ShamanSummoner.5";
 export const YEET24_NAME = "Yeet24ShamanModule";
@@ -18,15 +18,21 @@ export const CURATOR_CONTRACTS: KeychainList = {
   YEET24_SUMMONER: {
     "0xaa36a7": "0x78cf150b2E684562C0510C0b699edE1DCD69b983",
     "0x2105": "0x788C55D87a416F391E93a986AbB1e2b2960d0079",
+    "0x1": "0x183185a95174c0499d6dd4266676664de55fb9ba",
   },
   YEETER_SINGLETON: {
     "0xaa36a7": "0x62ff4ca410e9e58f5ce8b2ad03695ef0ad990381",
     "0x2105": "0x8D60971eFf778966356c1cADD76d525E7B25cc6b",
+    "0x1": "0x232Cdb4895Cc894beD2fb5300Fb542F3CffA980b",
   },
   YEET24_SINGLETON: {
     "0xaa36a7": "0x59a7C71221d05e30b9d7981AB83f0A1700e51Af8",
     "0x2105": "0x2f3637757875414c938EF80A5aD197aAaCDaA924",
   },
+  AUCTION_HAUS_SINGLETON: {
+    "0xaa36a7": "0xd75435f030f93ee0f4773c2acfbae37b1d211531",
+    "0x1": "",
+  }, // todo
   GOV_LOOT_SINGLETON: {
     "0xaa36a7": "0x8a4a9e36106ee290811b89e06e2fafe913507965",
     "0x2105": "0x59a7C71221d05e30b9d7981AB83f0A1700e51Af8",
@@ -38,6 +44,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
   GNOSIS_SAFE_MASTER_COPY: {
     "0xaa36a7": "0x69f4d1788e39c87893c980c06edf4b7f686e2938",
     "0x2105": "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",
+    "0x1": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552" // verify
   },
   UNISWAP_V3_NF_POSITION_MANAGER: {
     "0xaa36a7": "0x1238536071E1c677A632429e3655c799b22cDA52",
@@ -50,6 +57,17 @@ export const CURATOR_CONTRACTS: KeychainList = {
   POSTER: {
     "0xaa36a7": "0x000000000000cd17345801aa8147b8d3950260ff",
     "0x2105": "0x000000000000cd17345801aa8147b8d3950260ff",
+    "0x1": "0x000000000000cd17345801aa8147b8d3950260ff"
+  },
+  NOUNS_AUCTION_HOUSE: {
+    "0xaa36a7": "0xc0af40e8932ad93ed3237dd0c3fe1efd698c1efe",
+    "0x2105": "",
+    "0x1": ""
+  },
+  NOUNS_TOKEN: {
+    "0xaa36a7": "0x54BC3fC3977785922336084315318FA3387EEC17",
+    "0x2105": "",
+    "0x1": ""
   },
 };
 
@@ -73,6 +91,9 @@ export const DH_GRAPH_URL: KEYCHAIN = {
   "0x2105": `https://gateway-arbitrum.network.thegraph.com/api/${
     import.meta.env.VITE_YEETER_GRAPH_API_KEY
   }/subgraphs/id/7yh4eHJ4qpHEiLPAk9BXhL5YgYrTrRE6gWy8x4oHyAqW`,
+  "0x1": `https://gateway-arbitrum.network.thegraph.com/api/${
+    import.meta.env.VITE_YEETER_GRAPH_API_KEY
+  }/subgraphs/id/<subgraph_id>`,
 };
 
 export const UNISWAP_URL: Keychain<string> = {
@@ -85,9 +106,10 @@ export const supportedNetworks = import.meta.env.DEV
   ? {
       "0xaa36a7": HAUS_NETWORK_DATA["0xaa36a7"],
       "0x2105": HAUS_NETWORK_DATA["0x2105"],
+      "0x1": HAUS_NETWORK_DATA["0x1"],
     }
   : {
-      "0x2105": HAUS_NETWORK_DATA["0x2105"],
+      "0x2105": HAUS_NETWORK_DATA["0x1"],
     };
 
 export const targetNetworks: Keychain<NetworkConfig> = {
@@ -96,9 +118,10 @@ export const targetNetworks: Keychain<NetworkConfig> = {
   "0xa": HAUS_NETWORK_DATA["0xa"],
   "0xa4b1": HAUS_NETWORK_DATA["0xa4b1"],
   "0x2105": HAUS_NETWORK_DATA["0x2105"],
+  "0x1": HAUS_NETWORK_DATA["0x1"],
 };
 export const DEFAULT_CHAIN_ID_DEV = "0xaa36a7";
-export const DEFAULT_CHAIN_ID_PROD = "0x2105";
+export const DEFAULT_CHAIN_ID_PROD = "0x1";
 export const DEFAULT_CHAIN_ID = import.meta.env.DEV
   ? DEFAULT_CHAIN_ID_DEV
   : DEFAULT_CHAIN_ID_PROD;
@@ -108,11 +131,13 @@ export const CHAIN_OBJ: {
 } = {
   "0xaa36a7": sepolia,
   "0x2105": base,
+  "0x1": mainnet,
 };
 
 export const RPC_URLS: KEYCHAIN = {
   "0xaa36a7": HAUS_RPC["0xaa36a7"],
   "0x2105": HAUS_RPC["0x2105"],
+  "0x1": HAUS_RPC["0x1"],
 };
 
 export const getValidChainId = (chainId?: string) => {
@@ -124,7 +149,7 @@ const GOAL_ETH = "3000000000000000000";
 
 export const SPONSOR_THRESHOLD = POINT_O_ONE_ETH;
 export const YEETER_SHAMAN_PERMISSIONS = "2";
-export const MEME_SHAMAN_PERMISSIONS = "3";
+export const AUCTIONHAUS_SHAMAN_PERMISSIONS = "3";
 export const LOOT_NAME_POSTFIX = " Community Power";
 export const LOOT_SYMBOL_PREFIX = "LOOT-";
 
@@ -182,6 +207,13 @@ export const DEFAULT_SUMMON_VALUES_PROD = {
   votingTransferable: false,
   nvTransferable: true,
 };
+
+export const DEFAULT_TARGET_DAO_DEV = {}
+export const DEFAULT_TARGET_DAO_PROD = {}
+
+export const DEFAULT_TARGET_DAO = import.meta.env.DEV
+  ? DEFAULT_TARGET_DAO_DEV
+  : DEFAULT_TARGET_DAO_PROD;
 
 export const DEFAULT_YEETER_VALUES = import.meta.env.DEV
   ? DEFAULT_YEETER_VALUES_DEV

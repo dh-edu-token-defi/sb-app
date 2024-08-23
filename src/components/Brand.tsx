@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import { H2, H3, H5, widthQuery } from "@daohaus/ui";
 import { Link } from "react-router-dom";
 
-import BallGif from "../assets/ball-gif.gif";
+import Glasses from "../assets/orange160px.png";
 import { APP_NAME } from "../utils/constants";
 
 const Container = styled.div`
@@ -36,7 +36,7 @@ export const Brand = () => {
   return (
     <Container>
       <BrandLink to="/">
-        <img src={BallGif} height="100px" />
+        <img src={Glasses} height="100px" />
         <BrandH2>{APP_NAME}</BrandH2>
       </BrandLink>
     </Container>

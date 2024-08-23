@@ -1,7 +1,7 @@
 import { POSTER_TAGS } from "@daohaus/utils";
 import { buildMultiCallTX } from "@daohaus/tx-builder";
 import { APP_CONTRACT } from "./contract";
-import { pollLastTX, pollYeet, testLastTX, testYeet } from "../utils/customTxPoll";
+import { pollLastTX, testLastTX} from "../utils/customTxPoll";
 
 export enum ProposalTypeIds {
   Signal = "SIGNAL",
@@ -17,8 +17,8 @@ export enum ProposalTypeIds {
 }
 
 export const APP_TX = {
-  SUMMON_MEME: {
-    id: "SUMMON_MEME",
+  SUMMON_AUCTIONHAUS: {
+    id: "SUMMON_AUCTIONHAUS",
     contract: APP_CONTRACT.YEET24_SUMMONER,
     method: "summonBaalFromReferrer",
     argCallback: "assembleMemeSummonerArgs",
@@ -35,10 +35,10 @@ export const APP_TX = {
     overrides: {
       value: ".formValues.amount",
     },
-    customPoll: {
-      fetch: pollYeet,
-      test: testYeet,
-    },
+    // customPoll: {
+    //   fetch: pollYeet,
+    //   test: testYeet,
+    // },
   },
   EXECUTE_LP: {
     id: "EXECUTE_LP",

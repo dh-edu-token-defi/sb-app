@@ -4,7 +4,6 @@ import { DHLayout, useDHConnect } from "@daohaus/connect";
 import { TXBuilder } from "@daohaus/tx-builder";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { CurrentDaoProvider } from "@daohaus/moloch-v3-hooks";
-import { useYeeter } from "../hooks/useYeeter";
 import { Children, ReactNode, useEffect } from "react";
 import {
   CurrentYeeterProvider,

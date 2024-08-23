@@ -54,12 +54,10 @@ const About = () => {
           <BigH1>{APP_NAME}</BigH1>
           <Spacer />
           <SimpleRow>
-            <H3>DECENTRALIZED FAIR TOKEN PRESALES</H3>
+            <H3>DECENTRALIZED COLLECTIVE NOUNS AUCTIONS</H3>
             <ParLg>
               A permissionless and transparent platform designed to democratize
-              the token presale process. Speedball transforms traditional token
-              launches, providing a secure and equitable way for all
-              participants to engage in and benefit from the DeFi space.
+              the auction process. 
             </ParLg>
             <SimpleCol>
               <Bullet>

@@ -6,8 +6,8 @@ import { Buildable, Field } from "@daohaus/ui";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useDHConnect } from "@daohaus/connect";
 import {
-  assembleMemeYeeterShamanParams,
-  calculateMemeShamanAddress,
+  assembleAuctionHausShamanParams,
+  calculateAuctionHausShamanAddress,
   generateShamanSaltNonce,
 } from "../../utils/summonTx";
 
@@ -30,7 +30,7 @@ export const ShamanAddress = (props: Buildable<Field>) => {
         shamanInitParams: initializeParams,
         shamanPermission: shamanPermissions,
         shamanSingleton: shamanTemplate,
-      } = assembleMemeYeeterShamanParams({
+      } = assembleAuctionHausShamanParams({
         chainId: chainId as ValidNetwork,
         formValues,
         memberAddress: "0x",
@@ -46,7 +46,7 @@ export const ShamanAddress = (props: Buildable<Field>) => {
         shamanTemplate,
       });
 
-      const shamanAddress = await calculateMemeShamanAddress(
+      const shamanAddress = await calculateAuctionHausShamanAddress(
         generatedSalt,
         chainId as ValidNetwork
       );

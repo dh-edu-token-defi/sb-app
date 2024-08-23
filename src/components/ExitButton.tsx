@@ -20,9 +20,7 @@ import { useDHConnect } from "@daohaus/connect";
 import { YeeterItem } from "../utils/types";
 import { ModalContainer } from "./ModalContainer";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { ButtonRouterLink } from "./ButtonRouterLink";
-import { DaoProfileYeeter } from "../hooks/useYeeter";
-import { useMarketMaker } from "../hooks/useMarketMaker";
+
 import { useDaoMember } from "@daohaus/moloch-v3-hooks";
 import { sortTokensForRageQuit } from "@daohaus/moloch-v3-fields";
 import { NETWORK_TOKEN_ETH_ADDRESS, TokenBalance } from "@daohaus/utils";

@@ -20,7 +20,6 @@ import { YeeterItem } from "../utils/types";
 import { ModalContainer } from "./ModalContainer";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { ButtonRouterLink } from "./ButtonRouterLink";
-import { DaoProfileYeeter } from "../hooks/useYeeter";
 import { useMarketMaker } from "../hooks/useMarketMaker";
 import { useDaoData } from "../hooks/useDaoData";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";

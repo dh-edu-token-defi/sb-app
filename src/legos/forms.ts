@@ -93,11 +93,11 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       },
     ],
   },
-  SUMMON_MEME: {
-    id: "SUMMON_MEME",
-    title: "Create a Token Presale",
+  SUMMON_AUCTIONHAUS: {
+    id: "SUMMON_AUCTIONHAUS",
+    title: "Create a Auktion HAUS",
     description:
-      "Give your token a name, description, and initial price. You can also add an image and a longer introduction.",
+      "Give your haus a name, symbol, and description. Set the initial price and start date.",
     submitButtonText: "Summon Token",
     requiredFields: {
       daoName: true,
@@ -107,7 +107,7 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       startDate: true,
     },
     log: true,
-    tx: APP_TX.SUMMON_MEME,
+    tx: APP_TX.SUMMON_AUCTIONHAUS,
     fields: [
       {
         id: "nameSegment",
@@ -183,19 +183,25 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       {
         id: "image",
         type: "imagePreview",
-        label: "NFT Image Avatar",
+        label: "Group Avatar",
         placeholder: "jpg, jpeg, gif or png imag",
         expectType: "url",
         info: "icon, gif, pfp or avatar.",
       },
-      // {
-      //   id: "body",
-      //   type: "mdxEditor",
-      //   label: "Introduction",
-      //   placeholder:
-      //     "# We Meme....\n## We are the future.\nThis is a markdown editor.",
-      //   info: "Type something to kick it off.",
-      // },
+      {
+        id: "captain",
+        type: "input",
+        label: "Captains Address",
+        placeholder: "0x1234...5678",
+      },
+      {
+        id: "captainReward",
+        type: "toWeiInput",
+        label: "Captain Reward",
+        placeholder: "69,420",
+        expectType: "number",
+        info: "The reward in shares a captain gets for participation in auctions.",
+      },
 
       APP_FIELD.DISCLAIMER_CHECKBOX_FIELD,
       APP_FIELD.SALT_NONCE_FIELD,
