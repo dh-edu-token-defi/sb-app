@@ -10,13 +10,13 @@ import {
   ParLg,
   ParMd,
 } from "@daohaus/ui";
-import { BigH1Blue } from "./Layout/Layout";
+import { BigH1Blue } from "../Layout/Layout";
 import {
   formatLootForMin,
   formatMinContribution,
-} from "../utils/yeetDataHelpers";
+} from "../../utils/yeetDataHelpers";
 import { formatShortDateTimeFromSeconds } from "@daohaus/utils";
-import { CopyToClipboardButton } from "./CopyToClipboardButton";
+import { CopyToClipboardButton } from "../CopyToClipboardButton";
 
 const Container = styled.div`
   flex: 1;
@@ -58,7 +58,26 @@ export const SimpleCol = styled.div`
   gap: 2rem;
 `;
 
-export const TokenOverview = ({
+export const Actions = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+  
+  position: absolute;
+  bottom: 0;
+  right: 0;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 3rem;
+  margin-top: 3rem;
+`;
+
+export const OldTokenOverview = ({
   yeeterId,
   daoId,
   daoChain,
@@ -89,17 +108,10 @@ export const TokenOverview = ({
   }
 
   return (
-    <div>
-      <Container>
-        <BigH1Blue>{yeeter.dao.shareTokenSymbol}</BigH1Blue>
-        <Avatar
-          alt={metadata.name}
-          fallback="token avatar"
-          size="35rem"
-          src={metadata.avatarImg}
-        />
-      </Container>
+    <Wrapper>
       <DetailsContainer>
+      <BigH1Blue>{yeeter.dao.shareTokenSymbol}</BigH1Blue>
+
         <DetailItem>
           <ParLg>{metadata.name}</ParLg>
           <ParMd>{metadata.description}</ParMd>
@@ -110,38 +122,43 @@ export const TokenOverview = ({
             {formatShortDateTimeFromSeconds(yeeter.startTime)} -{" "}
             {formatShortDateTimeFromSeconds(yeeter.endTime)}
           </ParMd>
-        </DetailItem>
-
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">
-              SHARE
-            </Button>
-          </DialogTrigger>
-          <StyledDialogContent title="Share this token">
-            <SimpleRow>
-              <Button size="md" variant="outline">
-                <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                    `Check out the ${metadata.name} / ${yeeter.dao.shareTokenSymbol} token here: ${window.location.href}`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  𝕏
-                </a>
+        </DetailItem> 
+        <Actions>
+          <Button size="lg" variant="ghost">Thing 1</Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button size="lg" variant="ghost">
+                SHARE
               </Button>
-              <Button size="md" variant="outline" disabled={true}>
-                Warpcast Frame (Coming Soon)
-              </Button>
-              <CopyToClipboardButton
-                textToCopy={`Check out the ${metadata.name} / ${yeeter.dao.shareTokenSymbol} token here: ${window.location.href}`}
-              />
-            </SimpleRow>
-          </StyledDialogContent>
-        </Dialog>
+            </DialogTrigger>
+            <StyledDialogContent title="Share this token">
+              <SimpleRow>
+                <Button size="md" variant="ghost">
+                  <a
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                      `Check out the ${metadata.name} / ${yeeter.dao.shareTokenSymbol} token here: ${window.location.href}`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    𝕏
+                  </a>
+                </Button>
+                <Button size="md" variant="outline" disabled={true}>
+                  Warpcast Frame (Coming Soon)
+                </Button>
+                <CopyToClipboardButton
+                  textToCopy={`Check out the ${metadata.name} / ${yeeter.dao.shareTokenSymbol} token here: ${window.location.href}`}
+                />
+              </SimpleRow>
+            </StyledDialogContent>
+          </Dialog>
+        </Actions>
       </DetailsContainer>
-    </div>
+
+      
+
+    </Wrapper>
   );
 };

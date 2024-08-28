@@ -36,7 +36,7 @@ export const Brand = () => {
   return (
     <Container>
       <BrandLink to="/">
-        <img src={Glasses} height="100px" />
+        <img src={Glasses} height="50px" />
         <BrandH2>{APP_NAME}</BrandH2>
       </BrandLink>
     </Container>

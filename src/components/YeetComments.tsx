@@ -3,21 +3,21 @@ import "react-multi-carousel/lib/styles.css";
 import { useRecords } from "../hooks/useComments";
 import { useDHConnect } from "@daohaus/connect";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { Card, Link, ParLg, SingleColumnLayout } from "@daohaus/ui";
+import { Card, Link, ParLg, ParSm, SingleColumnLayout } from "@daohaus/ui";
 import styled from "styled-components";
 import { MemberProfileAvatar } from "@daohaus/moloch-v3-macro-ui";
 import { useDaoMember } from "@daohaus/moloch-v3-hooks";
 import ReactMarkdown from "react-markdown";
 import CommentButton from "./CommentButton";
+import { ButtonRouterLink } from "./ButtonRouterLink";
 
 export function formatDate(createdAt: number) {
   const date = new Date(createdAt * 1000);
   const formattedDate = `${date.getFullYear()} ${date.toLocaleString(
     "default",
     { month: "short" }
-  )} ${date.getDate()} ${date.getHours()}:${
-    date.getMinutes() < 10 ? "0" : ""
-  }${date.getMinutes()}`;
+  )} ${date.getDate()} ${date.getHours()}:${date.getMinutes() < 10 ? "0" : ""
+    }${date.getMinutes()}`;
 
   return formattedDate;
 }
@@ -36,7 +36,6 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: -5rem;
 `;
 
 const CommentLinks = styled.div`
@@ -45,11 +44,11 @@ const CommentLinks = styled.div`
 `;
 
 const ReactMarkdownWrapper = styled(ReactMarkdown)`
-  font-size: 3rem;
+  font-size: 2rem;
 `;
 
 const CommentCard = styled(Card)`
-  width: 800px;
+  width: 450px;
 `;
 
 export const YeetComments = ({
@@ -88,7 +87,7 @@ export const YeetComments = ({
           const parsedComment: YeetComment =
             comment.parsedContent as YeetComment;
           return (
-            <CommentCard key={key} width="100%">
+            <CommentCard key={key}>
               {parsedComment?.authorAddress || parsedComment?.authorAddress ? (
                 <MemberProfileAvatar
                   daoChain={daoChain}
@@ -114,9 +113,8 @@ export const YeetComments = ({
                 {parsedComment.content}
               </ReactMarkdownWrapper>
               <CommentLinks>
-                <Link href="#">
-                  Created At: {formatDate(Number(parsedComment.createdAt))}
-                </Link>
+
+                <ParSm>Created At: {formatDate(Number(parsedComment.createdAt))}</ParSm>
               </CommentLinks>
             </CommentCard>
           );

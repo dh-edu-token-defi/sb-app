@@ -12,7 +12,7 @@ import {
 export const APP_NAME = "AUKTION HAUS";
 
 export const YEET24_REFERRER = "DHYeet24ShamanSummoner.5";
-export const YEET24_NAME = "Yeet24ShamanModule";
+export const SHAMAN_MODULE_NAME = "AuctionHausShamanModule";
 
 export const CURATOR_CONTRACTS: KeychainList = {
   YEET24_SUMMONER: {
@@ -40,6 +40,7 @@ export const CURATOR_CONTRACTS: KeychainList = {
   GNOSIS_SAFE_PROXY_FACTORY: {
     "0xaa36a7": "0xc22834581ebc8527d974f8a1c97e1bea4ef910bc",
     "0x2105": "0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC",
+    "0x1": ""
   },
   GNOSIS_SAFE_MASTER_COPY: {
     "0xaa36a7": "0x69f4d1788e39c87893c980c06edf4b7f686e2938",
@@ -175,7 +176,7 @@ export const DEFAULT_YEETER_VALUES_PROD = {
 };
 
 export const DEFAULT_DURATION_PROD = 48 * 60 * 60; // 48 hours
-export const DEFAULT_DURATION_DEV = 10 * 60; // 10 minutes
+export const DEFAULT_DURATION_DEV = 48 * 60 * 60; // 48 hours // 10 * 60; // 10 minutes
 
 const STATUS_WINDOW_LENGTH_DEV = 3 * 60; // 3 mins
 const STATUS_WINDOW_LENGTH_PROD = 2 * 60 * 60; // 2 hrs

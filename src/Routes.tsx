@@ -17,6 +17,11 @@ import { DaoContainer } from "./components/DaoContainer";
 import { Yeet } from "./pages/Yeet";
 import About from "./pages/About";
 import Temp from "./pages/temp";
+import { JoinForm } from "./components/forms/JoinForm";
+import { ShareForm } from "./components/forms/ShareForm";
+import { CommentForm } from "./components/forms/CommentForm";
+import { CaptainNewBidForm } from "./components/forms/CaptainNewBid";
+import { CaptainDelegateForm } from "./components/forms/CaptainDelegate";
 
 export const Routes = ({
   setDaoChainId,
@@ -27,6 +32,7 @@ export const Routes = ({
   const pathMatch = matchPath("molochv3/:daochain/:daoid/*", location.pathname);
 
   useEffect(() => {
+    console.log("pathMatch", pathMatch);
     if (TARGET_DAO[import.meta.env.VITE_TARGET_KEY]?.CHAIN_ID) {
       setDaoChainId(TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID);
     }
@@ -49,6 +55,16 @@ export const Routes = ({
       </Route>
       <Route path={MULTI_DAO_ROUTER} element={<DaoContainer />}>
         <Route path={`:yeeterId`} element={<Yeet />} />
+        <Route path={`:yeeterId/join`} element={<JoinForm />} />
+        <Route path={`:yeeterId/share`} element={<ShareForm />} />
+        <Route path={`:yeeterId/comment`} element={<CommentForm />} />
+        <Route path={`:yeeterId/bid`} element={<CaptainNewBidForm />} />
+        <Route path={`:yeeterId/delegate`} element={<CaptainDelegateForm />} />
+
+
+
+
+
       </Route>
     </Router>
   );

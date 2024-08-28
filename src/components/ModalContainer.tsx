@@ -3,14 +3,15 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 import { DHLayout, useDHConnect } from "@daohaus/connect";
 import { TXBuilder } from "@daohaus/tx-builder";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { CurrentDaoProvider } from "@daohaus/moloch-v3-hooks";
+import { CurrentDaoProvider, useDaoData } from "@daohaus/moloch-v3-hooks";
 import { Children, ReactNode, useEffect } from "react";
 import {
   CurrentYeeterProvider,
   useCurrentYeeter,
 } from "../contexts/CurrentYeeterContext";
-import { useMarketMaker } from "../hooks/useMarketMaker";
-import { useDaoData } from "../hooks/useDaoData";
+
+
+import { useAuctionHaus } from "../hooks/useAuctionHaus";
 
 export const ModalContainer = ({
   children,
@@ -48,12 +49,14 @@ const Yeetz = ({
     daoId: daoId as string,
     daoChain: daoChain as string,
   });
-  const { marketMakerShaman } = useMarketMaker({
+  const { auctionHausShaman } = useAuctionHaus({
     daoId,
     yeeterShamanAddress: yeeterId,
     chainId: daoChain,
     daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
   });
+
+  // console.log("auction haus shaman", auctionHausShaman);
 
   return (
     <CurrentDaoProvider
@@ -73,7 +76,7 @@ const Yeetz = ({
           daoId: daoId,
           memberAddress: address,
           shamanAddress: yeeterId,
-          marketMakerShaman,
+          auctionHausShaman,
         }}
       >
         <CurrentYeeterProvider shamanAddress={yeeterId}>

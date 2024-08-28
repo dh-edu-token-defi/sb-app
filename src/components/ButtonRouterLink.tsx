@@ -34,7 +34,7 @@ export const ButtonRouterLink = ({
 }: ProfileLinkProps) => {
   return (
     <StyledRouterLink to={to} target={target} className="button-link" rel={rel}>
-      <Button size="sm" variant='link' disabled={disabled} {...buttonProps}>
+      <Button size="lg" variant='link' disabled={disabled} {...buttonProps}>
         {children}
       </Button>
     </StyledRouterLink>

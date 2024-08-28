@@ -25,6 +25,8 @@ export default ({ mode }) => {
         NX_BASE_RPC: process.env.VITE_BASE_RPC,
         NX_ARBITRUM_ALCHEMY_KEY: process.env.VITE_ARBITRUM_ALCHEMY_KEY,
         NX_POLYGONPOS_ALCHEMY_KEY: process.env.VITE_POLYGONPOS_ALCHEMY_KEY,
+        NX_ETHEREUM_ALCHEMY_KEY: process.env.VITE_ETHEREUM_ALCHEMY_KEY,
+
       },
     },
     optimizeDeps: {

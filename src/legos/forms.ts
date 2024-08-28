@@ -4,6 +4,46 @@ import { APP_FIELD } from "./fields";
 import { APP_TX } from "./tx";
 
 export const APP_FORM: Record<string, CustomFormLego> = {
+  CAPTAIN_NEW_BID_FORM: {
+    id: "CAPTAIN_NEW_BID",
+    title: "New Bid",
+    description: "Create a new bid for the auction",
+    submitButtonText: "BID",
+    requiredFields: {
+      maxBid: true,
+    },
+    log: true,
+    tx: APP_TX.CAPTAIN_NEW_BID as TXLego,
+    fields: [
+      {
+        id: "maxBid",
+        type: "toWeiInput",
+        label: "Max Bid Amount",
+        placeholder: "0.01",
+        expectType: "number",
+        info: "The max amount you want to bid.",
+      },
+    ],
+  },
+  CAPTAIN_DELEGATE_FORM: {
+    id: "CAPTAIN_DELEGATE",
+    title: "Delegate",
+    description: "Delegate the DAOs power to another address",
+    submitButtonText: "DELEGATE",
+    requiredFields: {
+      delegate: true,
+    },
+    log: true,
+    tx: APP_TX.CAPTAIN_DELEGATE as TXLego,
+    fields: [
+      {
+        id: "delegate",
+        type: "input",
+        label: "Delegate Address",
+        placeholder: "0x1234...5678",
+      },
+    ],
+  },
   EXIT_PRESALE_FORM: {
     id: "EXIT_PRESALE",
     title: "Exit Presale",

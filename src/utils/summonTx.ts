@@ -38,6 +38,7 @@ import {
   DEFAULT_DURATION_PROD,
   LOOT_SYMBOL_PREFIX,
   LOOT_NAME_POSTFIX,
+  DEFAULT_DURATION,
 } from "./constants";
 import { createEthersContract } from "@daohaus/tx-builder";
 import { BigNumber, ethers } from "ethers";
@@ -227,16 +228,22 @@ export const assembleAuctionHausShamanParams = ({
 
   const { startDate, captain, captainReward } = formValues;
 
-  const startDateTime = startDate as string;
-  const endDateTime = import.meta.env.DEV
-    ? ((startDateTime + DEFAULT_DURATION_DEV * 1000) as string)
-    : ((startDateTime + DEFAULT_DURATION_PROD ) as string);
+  const startDateTime = startDate as number;
+  const endDateTime = (startDateTime + DEFAULT_DURATION)
+  const nounsAuctionHouse = CURATOR_CONTRACTS["NOUNS_AUCTION_HOUSE"][chainId];
 
-  if (!endDateTime || !captain || !captainReward) {
+  if (!endDateTime || !captain || !captainReward || !nounsAuctionHouse) {
+    console.log("assembleAuctionHausShamanParams ERROR:", {
+      endDateTime,
+      captain,
+      captainReward,
+      nounsAuctionHouse
+    });
     return {
       shamanSingleton: ZERO_ADDRESS,
       shamanPermission: ZERO_ADDRESS,
       shamanInitParams: ZERO_ADDRESS,
+      nounsAuctionHouse: ZERO_ADDRESS,
     }
   }
   if (!auctionHausShamanSingleton) {
@@ -260,7 +267,7 @@ export const assembleAuctionHausShamanParams = ({
       Number(endDateTime),
       captain as string,
       captainReward as string,
-      CURATOR_CONTRACTS["NOUNS_AUCTION_HOUSE"][chainId] as string,
+      nounsAuctionHouse as string,
     ]
   );
   //
@@ -315,10 +322,8 @@ const assembleShamanParams = ({
 
   const { calculatedShamanAddress, startDate } = formValues;
 
-  const startDateTime = startDate as string;
-  const endDateTime = import.meta.env.DEV
-    ? ((startDateTime + DEFAULT_DURATION_DEV) as string)
-    : ((startDateTime + DEFAULT_DURATION_PROD) as string);
+  const startDateTime = startDate as number;
+  const endDateTime = ((startDateTime + DEFAULT_DURATION))
 
   // var today = new Date();
   // var tomorrow = new Date();
@@ -350,14 +355,8 @@ const assembleShamanParams = ({
       price,
       multiplier,
       DEFAULT_YEETER_VALUES.minThresholdGoal, // goal?
-      [
-        ...DEFAULT_YEETER_VALUES.feeRecipients,
-        calculatedShamanAddress as string, // NOTICE: auctionHausShaman address
-      ],
-      [
-        ...DEFAULT_YEETER_VALUES.feeAmounts,
-        DEFAULT_MEME_YEETER_VALUES.boostRewardFees,
-      ],
+      DEFAULT_YEETER_VALUES.feeRecipients,
+      DEFAULT_YEETER_VALUES.feeAmounts,
     ]
   );
 
@@ -637,11 +636,11 @@ export const calculateAuctionHausShamanAddress = async (
   saltNonce: string,
   chainId: ValidNetwork
 ) => {
-  const yeet24Singleton =
+  const auctionHausSingleton =
     CURATOR_CONTRACTS["AUCTION_HAUS_SINGLETON"][chainId] || ZERO_ADDRESS;
   const yeet24ShamanSummoner =
     CURATOR_CONTRACTS["YEET24_SUMMONER"][chainId] || ZERO_ADDRESS;
-  console.log("yeet24 Shaman", yeet24Singleton, yeet24ShamanSummoner, chainId);
+  console.log("AuctionHaus Shaman", auctionHausSingleton, yeet24ShamanSummoner, chainId);
   const hos = createEthersContract({
     address: yeet24ShamanSummoner,
     abi: yeet24HosSummoner,
@@ -650,12 +649,12 @@ export const calculateAuctionHausShamanAddress = async (
   });
   let expectedShamanAddress = ZERO_ADDRESS;
 
-  console.log("yeet24 Shaman", yeet24Singleton, yeet24ShamanSummoner, chainId);
+  console.log("auctionHaus Shaman", auctionHausSingleton, yeet24ShamanSummoner, chainId);
 
   try {
     expectedShamanAddress =
       await hos.callStatic.predictDeterministicShamanAddress(
-        yeet24Singleton,
+        auctionHausSingleton,
         saltNonce
       );
     console.log(

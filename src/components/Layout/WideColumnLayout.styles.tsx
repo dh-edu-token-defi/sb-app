@@ -14,20 +14,20 @@ export const ColumnHeader = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-top: 5rem;
+  margin-top: 1rem;
   width: 100%;
   .subtitle {
     margin-bottom: 1.2rem;
     opacity: 0.6;
   }
   .title {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
   }
   .description {
-    margin-bottom: 5rem;
+    margin-bottom: 1rem;
   }
   @media ${widthQuery.sm} {
-    margin-top: 3rem;
+    margin-top: 1rem;
   }
 `;
 

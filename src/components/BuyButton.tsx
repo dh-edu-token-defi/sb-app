@@ -12,7 +12,7 @@ import {
   FormLayout,
   ParMd,
 } from "@daohaus/ui";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { AppFieldLookup } from "../legos/fieldConfig";
 import { useDHConnect } from "@daohaus/connect";
 import { YeeterItem } from "../utils/types";
@@ -60,41 +60,30 @@ const BuyButton = ({
   const [pollSuccess, setPollSuccess] = useState<boolean>(false);
   const [pollResult, setPollResult] = useState<YeeterItem | null>(null);
 
-  const queryClient = useQueryClient();
-
-  const onFormComplete = (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    result: any
-  ) => {
+  const onFormComplete = useCallback((result: any) => {
     console.log("result on success handle yeets", result);
     setPollSuccess(true);
     setPollResult(result);
+  }, []);
 
-    queryClient.invalidateQueries({
-      queryKey: ["list-yeets"],
-    });
-
-    queryClient.invalidateQueries({
-      queryKey: ["get-yeeter"],
-    });
-  };
-
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
+    console.log("open");
     setPollSuccess(false);
     setPollResult(null);
     setOpen(true);
-  };
+  }, []);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
+    console.log("close");
     setPollSuccess(false);
     setPollResult(null);
     setOpen(false);
-  };
+  }, []);
 
-  const yeetAgain = () => {
+  const yeetAgain = useCallback(() => {
     setPollSuccess(false);
     setPollResult(null);
-  };
+  }, []);
 
   return (
     <>
@@ -107,24 +96,25 @@ const BuyButton = ({
       </style>
       <Dialog onOpenChange={handleOpen} open={open}>
         <DialogTrigger asChild>
-          <Button size="lg" style={{ marginTop: "2rem" }} variant="outline">
-            BUY
+          <Button size="lg" 
+           variant="ghost">
+            JOIN
           </Button>
         </DialogTrigger>
         <StyledDialogContent title={`BUY ${tokenSymbol}`}>
           <StyledFormLayout>
-            <ModalContainer
+            {/* <ModalContainer
               daoChain={daoChain}
               daoId={daoId}
               yeeterId={yeeterId}
-            >
+            > */}
               {!pollSuccess && (
                 <>
                   <FormBuilder
                     form={APP_FORM.YEET_FORM}
                     customFields={AppFieldLookup}
                     targetNetwork={DEFAULT_CHAIN_ID}
-                    submitButtonText="BUY"
+                    submitButtonText="JOIN"
                     lifeCycleFns={{
                       onPollSuccess: (result) => {
                         console.log("poll success", result);
@@ -165,7 +155,7 @@ const BuyButton = ({
                   </Button>
                 </SuccessWrapper>
               )}
-            </ModalContainer>
+            {/* </ModalContainer> */}
           </StyledFormLayout>
         </StyledDialogContent>
       </Dialog>

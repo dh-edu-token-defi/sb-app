@@ -3,9 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Link, ParMd } from "@daohaus/ui";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { useMarketMaker } from "../hooks/useMarketMaker";
+import { useMarketMaker } from "../hooks/useAuctionHaus";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-import { useDaoData } from "../hooks/useDaoData";
+import { useDaoData } from "@daohaus/moloch-v3-hooks";
 
 const LinkButton = styled(Link)`
   text-decoration: none;

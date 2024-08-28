@@ -17,6 +17,25 @@ export enum ProposalTypeIds {
 }
 
 export const APP_TX = {
+  CAPTAIN_NEW_BID: {
+    id: "CAPTAIN_NEW_BID",
+    contract: APP_CONTRACT.AUCTION_HAUS_SHAMAN,
+    method: "execute",
+    args: [
+      ".formValues.maxBid"
+    ],
+    overrides: {
+      value: ".formValues.maxBid",
+    },
+  },
+  CAPTAIN_DELEGATE: {
+    id: "CAPTAIN_DELEGATE",
+    contract: APP_CONTRACT.AUCTION_HAUS_SHAMAN,
+    method: "delegateVotes",
+    args: [
+      ".formValues.delegate",
+    ],
+  },
   SUMMON_AUCTIONHAUS: {
     id: "SUMMON_AUCTIONHAUS",
     contract: APP_CONTRACT.YEET24_SUMMONER,

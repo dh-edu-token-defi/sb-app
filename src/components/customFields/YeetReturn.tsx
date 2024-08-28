@@ -9,6 +9,8 @@ import { formatLootForAmount } from "../../utils/yeetDataHelpers";
 import styled from "styled-components";
 import { isNumberString } from "@daohaus/utils";
 import { YeeterItem } from "../../utils/types";
+import { useYeeter } from "../../hooks/useYeeter";
+import { useDaoData } from "@daohaus/moloch-v3-hooks";
 
 const SpacedPar = styled(DataMd)`
   margin-top: 3.5rem;
@@ -25,47 +27,31 @@ export const YeetReturn = (props: Buildable<Field>) => {
 
   const { daoId, daoChain } = useParams();
   const { shamanAddress } = useCurrentYeeter();
-  console.log("shamanAddress", shamanAddress);
 
-  // mock yeeter
-  const yeeter: YeeterItem = {
-    id: "0",
-    createdAt: "0",
-    dao: {
-      id: "0",
-      shareTokenSymbol: "YTR",
-    },
-    balance: "0",
-    safeBalance: "0",
-    endTime: "0",
-    startTime: "0",
-    isShares: false,
-    multiplier: "0",
-    minTribute: "0.1",
-    goal: "0",
-    yeetCount: "0",
-    isActive: true,
-    isEnded: false,
-    isComing: false,
-    isComingSoon: false,
-    isEndingSoon: false,
-    isNew: false,
-    reachedGoal: true,
-    vault: "0",
-    timeRemaining: "0",
-  };
+  const memoizedShamanAddress = useMemo(() => shamanAddress, [shamanAddress]);
+  if (!daoId || !daoChain) return null;
+
+  // console.log("shamanAddress", shamanAddress);
+  const { multiplier, minTribute } = useYeeter({ chainId: daoChain as ValidNetwork, daoId: daoId, shamanAddress: memoizedShamanAddress });
+
+  const memoizedMinTribute = useMemo(() => minTribute, [minTribute]);
+  const memoizedMultiplier = useMemo(() => multiplier, [multiplier]);
+
+  const { dao } = useDaoData({ daoId, daoChain });
+
 
   const amount = watch("amount");
 
   const returned = useMemo(() => {
-    if (!amount || !yeeter || !isNumberString(amount)) return "0";
+    if (!amount || !memoizedMinTribute || !memoizedMultiplier || !isNumberString(amount)) return "0";
 
-    if (Number(yeeter.minTribute) > Number(amount)) return "0";
+    if (Number(memoizedMinTribute) > Number(amount)) return "0";
 
-    return formatLootForAmount(yeeter, amount);
+
+    return formatLootForAmount(memoizedMultiplier, amount);
   }, [amount]);
 
-  if (!yeeter) return null;
+  if (!multiplier || !memoizedMinTribute) return null;
 
-  return <SpacedPar>GET {returned} {yeeter.dao.shareTokenSymbol || "MEME"} TOKENS</SpacedPar>;
+  return <SpacedPar>GET {returned} {dao?.shareTokenSymbol} TOKENS</SpacedPar>;
 };

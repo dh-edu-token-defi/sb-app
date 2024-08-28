@@ -21,11 +21,10 @@ import { YeeterItem } from "../utils/types";
 import { ModalContainer } from "./ModalContainer";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 
-import { useDaoMember } from "@daohaus/moloch-v3-hooks";
+import { useDaoMember, useDaoData } from "@daohaus/moloch-v3-hooks";
 import { sortTokensForRageQuit } from "@daohaus/moloch-v3-fields";
 import { NETWORK_TOKEN_ETH_ADDRESS, TokenBalance } from "@daohaus/utils";
 import { formatMemberBalance } from "../utils/yeetDataHelpers";
-import { useDaoData } from "../hooks/useDaoData";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { useQueryClient } from "react-query";
 

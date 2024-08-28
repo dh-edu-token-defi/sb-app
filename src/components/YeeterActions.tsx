@@ -7,9 +7,8 @@ import ExecuteLPButton from "./ExecuteLPButton";
 import ExitButton from "./ExitButton";
 import SwapButton from "./SwapButton";
 import { useDHConnect } from "@daohaus/connect";
-import { useDaoMember } from "@daohaus/moloch-v3-hooks";
-import { useMarketMaker } from "../hooks/useMarketMaker";
-import { useDaoData } from "../hooks/useDaoData";
+import { useDaoData, useDaoMember } from "@daohaus/moloch-v3-hooks";
+import { useMarketMaker } from "../hooks/useAuctionHaus";
 import CloseCampaignButton from "./CloseCampaignButton";
 import CommentButton from "./CommentButton";
 

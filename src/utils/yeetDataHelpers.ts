@@ -93,9 +93,9 @@ export const formatTimeUntilPresale = (yeeter: YeeterItem) => {
   });
 };
 
-export const formatMinContribution = (yeeter: YeeterItem) => {
+export const formatMinContribution = (minTribute: string) => {
   return formatValueTo({
-    value: fromWei(yeeter.minTribute),
+    value: fromWei(minTribute),
     decimals: 5,
     format: "number",
   });
@@ -109,8 +109,8 @@ export const formatMemberBalance = (balance: string) => {
   });
 };
 
-export const formatLootForMin = (yeeter: YeeterItem) => {
-  const loot = BigInt(yeeter.minTribute) * BigInt(yeeter.multiplier);
+export const formatLootForMin = (multiplier: string, minTribute: string) => {
+  const loot = BigInt(minTribute) * BigInt(multiplier);
   return formatValueTo({
     value: fromWei(loot.toString()),
     decimals: 5,
@@ -130,8 +130,8 @@ export const formatLootForMinSimple = (
   });
 };
 
-export const formatLootForAmount = (yeeter: YeeterItem, amount: string) => {
-  const loot = BigInt(amount) * BigInt(yeeter.multiplier);
+export const formatLootForAmount = (multiplier: string, amount: string) => {
+  const loot = BigInt(amount) * BigInt(multiplier);
   return formatValueTo({
     value: fromWei(loot.toString()),
     decimals: 5,

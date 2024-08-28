@@ -12,11 +12,12 @@ import {
   ParSm,
   SingleColumnLayout,
 } from "@daohaus/ui";
-import { useDaoData } from "@daohaus/moloch-v3-hooks";
-import { useMarketMaker } from "../hooks/useMarketMaker";
+
+import { useAuctionHaus} from "../hooks/useAuctionHaus";
 import { CURATOR_CONTRACTS } from "../utils/constants";
 import { truncateAddress } from "@daohaus/utils";
 import styled from "styled-components";
+import { useDaoData } from "@daohaus/moloch-v3-hooks";
 
 const CardWrapper = styled.div`
   display: flex;
@@ -56,7 +57,7 @@ export const ContractDetails = ({
     daoChain: daoChain as string,
   });
 
-  const { marketMakerShaman } = useMarketMaker({
+  const { auctionHausShaman } = useAuctionHaus({
     daoId,
     yeeterShamanAddress: yeeterId,
     chainId: daoChain,
@@ -101,16 +102,16 @@ export const ContractDetails = ({
             </Link>
           </ContractItem>
         )}
-        {marketMakerShaman && (
+        {auctionHausShaman && (
           <ContractItem>
             <ParLg>Auction HAUS Contract</ParLg>
             <ParSm>This contract gives power to the captain</ParSm>
-            <ParSm>{truncateAddress(marketMakerShaman)}</ParSm>
+            <ParSm>{truncateAddress(auctionHausShaman)}</ParSm>
 
             <Link
               href={generateExplorerLink({
                 chainId: daoChain as ValidNetwork,
-                address: marketMakerShaman,
+                address: auctionHausShaman,
               })}
               target="_blank"
             >

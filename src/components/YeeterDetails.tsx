@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { DEFAULT_CHAIN_ID } from "../utils/constants";
 import { ValidNetwork } from "@daohaus/keychain-utils";
-import { useMarketMaker } from "../hooks/useMarketMaker";
 import { Avatar, Card, Label, ParLg, ParMd } from "@daohaus/ui";
 import {
   formatMinContribution,
@@ -11,8 +10,9 @@ import {
 } from "../utils/yeetDataHelpers";
 import { YeetGoalProgress } from "./YeetGoalProgress";
 import { formatValueTo, fromWei } from "@daohaus/utils";
-import { useDaoData } from "../hooks/useDaoData";
 import { BigH1 } from "./Layout/Layout";
+import { useAuctionHaus } from "../hooks/useAuctionHaus";
+import { useDaoData } from "@daohaus/moloch-v3-hooks";
 
 const Container = styled.div`
   display: flex;
@@ -88,15 +88,15 @@ export const YeeterDetails = ({
     safeBalance: "0",
   };
 
-  const { marketMakerShaman, canExecute, executed, goalAchieved, uniswapUrl } =
-    useMarketMaker({
+  const { auctionHausShaman } =
+    useAuctionHaus({
       daoId,
       yeeterShamanAddress: yeeterId,
       chainId: daoChain,
       daoShamans: dao?.shamen?.map((s) => s.shamanAddress),
     });
 
-  if (!metadata || !yeeter || !dao || !marketMakerShaman) {
+  if (!metadata || !yeeter || !dao || !auctionHausShaman) {
     return;
   }
 
