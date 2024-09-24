@@ -101,6 +101,10 @@ export const formatMinContribution = (yeeter: YeeterItem) => {
   });
 };
 
+export const formatRewardPoolBalance = (balance: BigInt) => {
+  return Number(fromWei(balance.toString()));
+};
+
 export const formatMemberBalance = (balance: string) => {
   return formatValueTo({
     value: fromWei(balance),

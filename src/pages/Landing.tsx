@@ -78,7 +78,7 @@ const Landing = () => {
               </Button>
             </LinkButton>
 
-            <RewardPoolInfo max={4.20}/>
+            <RewardPoolInfo />
           </SimpleRow>
 
           <Spacer />

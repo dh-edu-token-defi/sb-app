@@ -20,9 +20,23 @@ const LabelWrapper = styled.div`
   gap: 0.5rem;
 `;
 
+const DateWrapperStyle = styled.div<{
+  errorText?: boolean;
+}>`
+display: flex;
+flex-direction: row;
+gap: 8px;
+border: 2px solid
+  ${({ errorText, theme }) => (errorText ? theme.warning.step5 : "transparent")};
+padding: 8px;
+`;
+
 export const DateWrapper = (props: Buildable<Field>) => {
   const { setValue, watch } = useFormContext();
   const [errorText, setErrorText] = useState<string>("");
+
+
+
   const [startDate, setStartDate] = useState<Date>(new Date());
 
   const selectedDate = watch(props.id);
@@ -62,22 +76,13 @@ export const DateWrapper = (props: Buildable<Field>) => {
     }
   }, [selectedDate]);
 
-  const DateWrapperStyle = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    border: 2px solid
-      ${errorText ? ({ theme }) => theme.warning.step5 : "transparent"};
-    padding: 8px;
-  `;
-
   return (
     <>
       <LabelWrapper>
         <span style={{ color: "#f76808", fontSize: "2rem" }}>*</span>
         <Label>Start Date</Label>
       </LabelWrapper>
-      <DateWrapperStyle>
+      <DateWrapperStyle errorText={!!errorText}>
         <DatePicker
           id={props.id}
           selected={startDate}
