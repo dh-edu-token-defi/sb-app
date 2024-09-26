@@ -33,8 +33,9 @@ export const ShamanAddress = (props: Buildable<Field>) => {
       } = assembleMemeYeeterShamanParams({
         chainId: chainId as ValidNetwork,
         formValues,
-        memberAddress: "0x",
       });
+
+      console.log("???????????????????????", shamanTemplate)
 
       const index = "0";
       const generatedSalt = generateShamanSaltNonce({

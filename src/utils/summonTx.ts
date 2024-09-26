@@ -214,31 +214,39 @@ const assembleShareTokenParams = ({
 
 export const assembleMemeYeeterShamanParams = ({
   formValues,
-  memberAddress,
   chainId,
 }: {
   formValues: Record<string, unknown>;
-  memberAddress: EthAddress;
   chainId: ValidNetwork;
 }) => {
   const memeYeeterShamanSingleton =
     CURATOR_CONTRACTS["YEET24_SINGLETON"][chainId];
+  console.log(">>>>>>????",memeYeeterShamanSingleton)
   const nonFungiblePositionManager =
     CURATOR_CONTRACTS["UNISWAP_V3_NF_POSITION_MANAGER"][chainId];
   const weth9 = CURATOR_CONTRACTS["WETH"][chainId];
+  const yeet24ClaimModule = CURATOR_CONTRACTS["YEET24_CLAIM_MODULE"][chainId];
+
+  console.log(">>>>>>????",nonFungiblePositionManager, weth9)
+
 
   const { startDate } = formValues;
+
 
   const startDateTime = startDate as string;
   const endDateTime = import.meta.env.DEV
     ? ((startDateTime + DEFAULT_DURATION_DEV) as string)
     : ((startDateTime + DEFAULT_DURATION_PROD) as string);
 
+    console.log(">>>>>>????",startDateTime, endDateTime)
+  
+
   if (
     !memeYeeterShamanSingleton ||
     !nonFungiblePositionManager ||
     !weth9 ||
-    !endDateTime
+    !endDateTime ||
+    !yeet24ClaimModule
   ) {
     console.log(
       "assembleMemeYeeterShamanParams ERROR:",
@@ -262,7 +270,8 @@ export const assembleMemeYeeterShamanParams = ({
     [
       nonFungiblePositionManager,
       weth9,
-      DEFAULT_YEETER_VALUES.feeRecipients[0], // NOTICE: boostRewardsPool address is set to the "Yeeter team"
+      yeet24ClaimModule, // NOTICE: boostRewardsPool claim module
+      // DEFAULT_YEETER_VALUES.feeRecipients[0], // NOTICE: boostRewardsPool address is set to the "Yeeter team"
       DEFAULT_YEETER_VALUES.minThresholdGoal, // align with yeeter
       Number(endDateTime), // align with yeeter
       DEFAULT_MEME_YEETER_VALUES.poolFee,
@@ -288,7 +297,6 @@ const assembleShamanParams = ({
   const yeeterShamanSingleton = CURATOR_CONTRACTS["YEETER_SINGLETON"][chainId];
 
   const price = formValues["collectorPrice"] as string;
-  const content = formValues["article"] as string;
   const multiplier = formValues["multiplier"] as string;
 
   console.log(
@@ -296,7 +304,6 @@ const assembleShamanParams = ({
     price,
     memberAddress,
     yeeterShamanSingleton,
-    content,
     multiplier
   );
 
@@ -304,10 +311,9 @@ const assembleShamanParams = ({
     shamanSingleton: memeYeeterShamanSingleton,
     shamanPermission: memeYeeterShamanPermission,
     shamanInitParams: memeYeeterShamanParams,
-  } = assembleMemeYeeterShamanParams({ chainId, formValues, memberAddress });
+  } = assembleMemeYeeterShamanParams({ chainId, formValues });
 
   if (
-    !isEthAddress(memberAddress) ||
     !yeeterShamanSingleton ||
     !memeYeeterShamanSingleton
   ) {
