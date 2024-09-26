@@ -25,6 +25,7 @@ import { YeetMarquee } from "../components/YeetMarquee";
 import { useMyYeeters } from "../hooks/useMyYeeters";
 import { useRagequits } from "../hooks/useRagequits";
 import { WideColumnLayout } from "../components/Layout/WideColumnLayout";
+import RewardPoolInfo from "../components/RewardsPoolInfo";
 
 const LinkButton = styled(RouterLink)`
   text-decoration: none;
@@ -64,33 +65,6 @@ const Landing = () => {
           <BigH1>{APP_NAME}</BigH1>
           <Spacer />
           <SimpleRow>
-            {/* <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="outline" size="lg">
-                  WHAT IS THIS?
-                </Button>
-              </DialogTrigger>
-              <StyledDialogContent
-                title=" Welcome to fully dilluted, unruggable, fair launch
-                    tokens"
-              >
-                <SimpleCol>
-                  <ParMd>
-                    * Create your token to kick off the 48-hour presale
-                  </ParMd>
-                  <ParMd>
-                    * If the threshold is met, the presale will close, and a
-                    Uniswap v3 liquidity pool will be initiated with the all ETH
-                    raised in the presale. Your token will become available for
-                    purchase on the marketplace.
-                  </ParMd>
-                  <ParMd>
-                    * If the threshold is not met, the presale will close, and
-                    contributors will be able to withdraw their contributions.
-                  </ParMd>
-                </SimpleCol>
-              </StyledDialogContent>
-            </Dialog> */}
 
             <LinkButton to="/about">
               <Button variant="outline" size="lg">
@@ -103,6 +77,8 @@ const Landing = () => {
                 CREATE A TOKEN PRESALE
               </Button>
             </LinkButton>
+
+            <RewardPoolInfo />
           </SimpleRow>
 
           <Spacer />

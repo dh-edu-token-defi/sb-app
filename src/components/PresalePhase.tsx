@@ -33,6 +33,7 @@ import { useDHConnect } from "@daohaus/connect";
 import { useDaoMember } from "@daohaus/moloch-v3-hooks";
 import ExitButton from "./ExitButton";
 import CommentButton from "./CommentButton";
+import RewardPoolInfo from "./RewardsPoolInfo";
 
 const DetailItemWarning = styled.div`
   padding: 1rem 2rem;
@@ -113,6 +114,7 @@ export const PresalePhase = ({
 
   return (
     <div>
+      <RewardPoolInfo />
       <BigH2>SPEEDBALLING</BigH2>
       {yeeter.isComing && (
         <>
