@@ -9,7 +9,7 @@ import {
   ValidNetwork,
 } from "@daohaus/keychain-utils";
 
-export const APP_NAME = "SPEEDBALL";
+export const APP_NAME = "SLOWBALL";
 
 export const YEET24_REFERRER = "DHYeet24ShamanSummoner.5";
 export const YEET24_NAME = "Yeet24ShamanModule";
@@ -124,7 +124,7 @@ export const getValidChainId = (chainId?: string) => {
 };
 const POINT_O_ONE_ETH = "10000000000000000";
 const POINT_OO_ONE_ETH = "1000000000000000";
-const GOAL_ETH = "3000000000000000000";
+const GOAL_ETH = "1000000000000000000";
 
 export const SPONSOR_THRESHOLD = POINT_O_ONE_ETH;
 export const YEETER_SHAMAN_PERMISSIONS = "2";
@@ -153,7 +153,7 @@ export const DEFAULT_YEETER_VALUES_PROD = {
   minThresholdGoal: GOAL_ETH,
 };
 
-export const DEFAULT_DURATION_PROD = 48 * 60 * 60; // 48 hours
+export const DEFAULT_DURATION_PROD = (4*24) * 60 * 60; // 4 days
 export const DEFAULT_DURATION_DEV = 10 * 60; // 10 minutes
 
 const STATUS_WINDOW_LENGTH_DEV = 3 * 60; // 3 mins

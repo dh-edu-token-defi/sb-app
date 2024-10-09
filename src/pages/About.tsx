@@ -57,7 +57,7 @@ const About = () => {
             <H3>DECENTRALIZED FAIR TOKEN PRESALES</H3>
             <ParLg>
               A permissionless and transparent platform designed to democratize
-              the token presale process. Speedball transforms traditional token
+              the token presale process. Slowball transforms traditional token
               launches, providing a secure and equitable way for all
               participants to engage in and benefit from the DeFi space.
             </ParLg>
@@ -65,14 +65,14 @@ const About = () => {
               <Bullet>
                 <img src={BallGif} height="50px" />
                 <ParLg>
-                  Speedball eliminates insider manipulation by ensuring fair and
+                  Slowball eliminates insider manipulation by ensuring fair and
                   open participation
                 </ParLg>
               </Bullet>
               <Bullet>
                 <img src={BallGif} height="50px" />
                 <ParLg>
-                  Speedball redistributes liquidity provider (LP) fees to a DAO
+                  Slowball redistributes liquidity provider (LP) fees to a DAO
                   controlled by all token holders
                 </ParLg>
               </Bullet>
