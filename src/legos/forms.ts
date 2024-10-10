@@ -183,7 +183,7 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       {
         id: "image",
         type: "imagePreview",
-        label: "NFT Image Avatar",
+        label: "Token Image Avatar",
         placeholder: "jpg, jpeg, gif or png imag",
         expectType: "url",
         info: "icon, gif, pfp or avatar.",

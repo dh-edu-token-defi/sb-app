@@ -75,6 +75,20 @@ const ShamanItem = styled.div`
   align-items: center;
 `;
 
+const FormContainer = styled.div`
+  width: 100%;
+  max-width: 100vw !important; /* Adjust as needed */
+  margin: 0 auto;
+  padding: 16px;
+
+  @media (max-width: 768px) {
+    > div {
+    width: 100% !important;
+    padding: 8px;
+    }
+  }
+`;
+
 const Summon = () => {
   const navigate = useNavigate();
   const { chainId } = useDHConnect();
@@ -102,11 +116,13 @@ const Summon = () => {
   return (
     <SingleColumnLayout>
       {!txSuccess && (
+        <FormContainer>
         <FormBuilder
           form={APP_FORM.SUMMON_MEME}
           customFields={AppFieldLookup}
           targetNetwork={DEFAULT_CHAIN_ID}
           submitButtonText="Summon Token"
+          
           lifeCycleFns={{
             onPollSuccess: (result) => {
               console.log("poll success", result);
@@ -119,6 +135,7 @@ const Summon = () => {
             },
           }}
         />
+        </FormContainer>
       )}
       {txSuccess && (
         <Dialog open={modalOpen} onOpenChange={handleModalChange}>
