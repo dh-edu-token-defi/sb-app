@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DataLg, DataXl, H3, H4, ParLg, ParMd, widthQuery } from "@daohaus/ui";
+import { Button, DataLg, DataXl, H3, H4, Link, ParLg, ParMd, Underline, widthQuery } from "@daohaus/ui";
 import { APP_NAME } from "../utils/constants";
 import {
   BigH1,
@@ -40,6 +40,7 @@ const SectionContainer = styled.div`
     }
   }
 `;
+
 
 const Bullet = styled(SimpleRow)`
   align-items: center;
@@ -90,8 +91,8 @@ const About = () => {
               <H4>LAUNCH TOKEN PRESALE</H4>
               <ParMd>
                 Launch the token presale and LP formation contracts in a single
-                transaction. A 48 presale window will be set up with a minimum
-                goal of 3 ETH. Contributors receive non-transferable tokens
+                transaction. <Underline>A 4 day presale window will be set up with a minimum
+                goal of 1 ETH.</Underline> Contributors receive non-transferable tokens
                 during the presale, but can exit at any time by ragequtting
                 tokens in return for contributed ETH minus fees.
               </ParMd>
@@ -101,6 +102,15 @@ const About = () => {
                 presale does not meet its goal or a participant exits early,
                 these fees are deposited into a rewards pool for future
                 presales.
+              </ParMd>
+              <ParMd>
+                * This is a fork of the much faster{" "}
+
+                <Link showExternalIcon={true} target="_blank" href={`https://speedball.daohaus.club/`}>
+                  Speedball
+                </Link>
+                {" "}app, which is
+                a 48 hr presale window with a minimum goal of 3 ETH.
               </ParMd>
             </div>
             <div className="image">
