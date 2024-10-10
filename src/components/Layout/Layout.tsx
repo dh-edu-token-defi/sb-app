@@ -21,13 +21,13 @@ export const SimpleCol = styled.div`
 
 export const BigH1Blue = styled(H1)`
   font-size: 20rem;
-  line-height: 12rem;
+  line-height: 20rem;
   color: ${({ theme }) => theme.secondary.step11};
   word-break: break-all;
 `;
 
 export const BigH1 = styled(H1)`
   font-size: 20rem;
-  line-height: 12rem;
+  line-height: 20rem;
   word-break: break-all;
 `;

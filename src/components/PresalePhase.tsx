@@ -43,11 +43,11 @@ const DetailItemWarning = styled.div`
 
 export const BigH2 = styled(H2)`
   font-size: 18rem;
-  line-height: 12rem;
+  line-height: 18rem;
   word-break: break-all;
   @media ${widthQuery.sm} {
     font-size: 10rem;
-    line-height: 6rem;
+    line-height: 10rem;
   }
 `;
 export const BigH3 = styled(H3)`
@@ -115,7 +115,7 @@ export const PresalePhase = ({
   return (
     <div>
       <RewardPoolInfo />
-      <BigH2>SPEEDBALLING</BigH2>
+      <BigH2>SLOWBALLING</BigH2>
       {yeeter.isComing && (
         <>
           <BigH3>TO PRESALE START</BigH3>
