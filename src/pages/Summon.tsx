@@ -118,7 +118,7 @@ const Summon = () => {
       {!txSuccess && (
         <FormContainer>
           {/* disabled form for updates */}
-        { true ? (<ParSm>Summoning currently disabled for contract upgrade</ParSm>) : (<FormBuilder
+        <FormBuilder
           form={APP_FORM.SUMMON_MEME}
           customFields={AppFieldLookup}
           targetNetwork={DEFAULT_CHAIN_ID}
@@ -135,7 +135,7 @@ const Summon = () => {
               setModalOpen(true);
             },
           }}
-        />)}
+        />)
         </FormContainer>
       )}
       {txSuccess && (
