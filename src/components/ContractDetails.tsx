@@ -76,7 +76,8 @@ export const ContractDetails = ({
   const marketMakerSingleton =
     CURATOR_CONTRACTS.YEET24_SINGLETON[daoChain as ValidNetwork];
   const tokenSingleTon =
-    CURATOR_CONTRACTS.GOV_LOOT_SINGLETON[daoChain as ValidNetwork];
+    CURATOR_CONTRACTS.DH_TOKEN_SINGLETON[daoChain as ValidNetwork]
+    // old token: CURATOR_CONTRACTS.GOV_LOOT_SINGLETON[daoChain as ValidNetwork];
   const weth = CURATOR_CONTRACTS.WETH[daoChain as ValidNetwork];
   const poster = CURATOR_CONTRACTS.POSTER[daoChain as ValidNetwork];
 
