@@ -23,7 +23,7 @@ const DexToolsWidget: React.FC<DexToolsWidgetProps> = ({ pool }) => {
           title="DEXTools Trading Chart"
           width="100%"
           height="100%"
-          src={`https://www.dextools.io/widget-chart/en/base/pe-dark/${pool}?theme=light&chartType=2&chartResolution=30&drawingToolbars=false`}
+          src={`https://www.dextools.io/widget-chart/en/base/pe-light/${pool}?theme=dark&chartType=2&chartResolution=3&drawingToolbars=false`}
           frameBorder="0"
           allowFullScreen
           onError={() => {
