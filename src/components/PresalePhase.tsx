@@ -34,6 +34,8 @@ import { useDaoMember } from "@daohaus/moloch-v3-hooks";
 import ExitButton from "./ExitButton";
 import CommentButton from "./CommentButton";
 import RewardPoolInfo from "./RewardsPoolInfo";
+import DexToolsWidget from "./DexToolsWidget";
+import AddToMetaMaskButton from "./AddToMetaMaskButton";
 
 const DetailItemWarning = styled.div`
   padding: 1rem 2rem;
@@ -66,6 +68,13 @@ const ButtonRow = styled.div`
   flex-wrap: wrap;
 `;
 
+const IframeContainer = styled.div`
+  width: 100%;
+  height: 500px; /* Adjust the height as needed */
+  margin-top: 16px; /* Adjust the margin as needed */
+  border: none;
+`;
+
 export const PresalePhase = ({
   yeeterId,
   daoId,
@@ -88,6 +97,7 @@ export const PresalePhase = ({
     executed,
     goalAchieved,
     finalEthBalance,
+    pool
   } = useMarketMaker({
     daoId,
     yeeterShamanAddress: yeeterId,
@@ -171,6 +181,13 @@ export const PresalePhase = ({
               <ParSm>
                 The Presale was a success and the Uniwap Pool was created.
               </ParSm>
+              {pool && <DexToolsWidget pool={pool} />}
+              <AddToMetaMaskButton 
+                tokenAddress={dao.sharesAddress}
+                tokenSymbol={dao.shareTokenSymbol || "SHARE"}
+                tokenDecimals={18}
+                tokenImage={dao.avatarImg || ""}
+              />
               <SwapButton
                 daoChain={daoChain}
                 daoId={daoId}

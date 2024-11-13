@@ -157,7 +157,7 @@ const assembleLootTokenParams = ({
   chainId: ValidNetwork;
   formValues: Record<string, unknown>;
 }) => {
-  const lootSingleton = CURATOR_CONTRACTS["GOV_LOOT_SINGLETON"][chainId];
+  const lootSingleton = CURATOR_CONTRACTS["DH_TOKEN_SINGLETON"][chainId] // old token: CURATOR_CONTRACTS["GOV_LOOT_SINGLETON"][chainId];
   const daoName = formValues["daoName"] as string;
   const tokenSymbol = formValues["tokenSymbol"] as string;
 
@@ -192,7 +192,7 @@ const assembleShareTokenParams = ({
   formValues: Record<string, unknown>;
   memberAddress: EthAddress;
 }) => {
-  const shareSingleton = CONTRACT_KEYCHAINS["SHARES_SINGLETON"][chainId];
+  const shareSingleton = CURATOR_CONTRACTS["DH_TOKEN_SINGLETON"][chainId] // old token: CONTRACT_KEYCHAINS["SHARES_SINGLETON"][chainId];
   const daoName = formValues["daoName"] as string;
   const tokenSymbol = formValues["tokenSymbol"] as string;
 

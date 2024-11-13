@@ -26,6 +26,7 @@ import { useMyYeeters } from "../hooks/useMyYeeters";
 import { useRagequits } from "../hooks/useRagequits";
 import { WideColumnLayout } from "../components/Layout/WideColumnLayout";
 import RewardPoolInfo from "../components/RewardsPoolInfo";
+import { YeeterGrid } from "../components/YeeterGrid";
 
 const LinkButton = styled(RouterLink)`
   text-decoration: none;
@@ -104,7 +105,7 @@ const Landing = () => {
             <YeeterList title="Upcoming Presale" yeeters={upcomingYeeters} />
           )}
           {finishedYeeters && (
-            <YeeterList
+            <YeeterGrid
               title="Completed Presale"
               yeeters={hasMyYeeters && mine ? myYeeters : finishedYeeters}
               canToggle={hasMyYeeters}
